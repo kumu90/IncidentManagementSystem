@@ -54,6 +54,11 @@ namespace IncidentManagementSystem.Models
         public string Email { get; set; }
 
         [Required]
+        [Display(Name = "Email")]
+        [EmailAddress]
+        public string Username { get; set; }
+
+        [Required]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }
@@ -68,6 +73,12 @@ namespace IncidentManagementSystem.Models
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
+        [Required]
+
+        public string Username { get; set; }
+        public string InstutionId { get; set; }
+        public string UserRole { get; set; }
+
 
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]

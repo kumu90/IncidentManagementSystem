@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using IncidentManagementSystem.Models;
+using System.Collections.Generic;
 
 namespace IncidentManagementSystem.Controllers
 {
@@ -22,7 +23,34 @@ namespace IncidentManagementSystem.Controllers
         {
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+        public void Initialize()
+        {
+            var list = new List<string>() { "SuperAdmin", "Admin", "User" };
+            ViewBag.Instution = new SelectList(list);
+
+            var user = new List<string>() { "xyz", "abc", "ijk" };
+            ViewBag.Userrole = new SelectList(user);
+        }
+
+        [HttpGet]
+        public ActionResult Instution()
+        {
+            var list = new List<string>() { "SuperAdmin", "Admin", "User" };
+            ViewBag.Instution = list;
+
+            return View();
+        }
+        [HttpGet]
+
+        public ActionResult UserRole()
+        {
+            var user = new List<string>() { "xyz", "abc", "ijk" };
+            ViewBag.Userrole = user;
+
+            return View();
+        }
+
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
@@ -34,9 +62,9 @@ namespace IncidentManagementSystem.Controllers
             {
                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
-            private set 
-            { 
-                _signInManager = value; 
+            private set
+            {
+                _signInManager = value;
             }
         }
 
@@ -120,7 +148,7 @@ namespace IncidentManagementSystem.Controllers
             // If a user enters incorrect codes for a specified amount of time then the user account 
             // will be locked out for a specified amount of time. 
             // You can configure the account lockout settings in IdentityConfig
-            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent:  model.RememberMe, rememberBrowser: model.RememberBrowser);
+            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent: model.RememberMe, rememberBrowser: model.RememberBrowser);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -139,6 +167,7 @@ namespace IncidentManagementSystem.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
+            Initialize();
             return View();
         }
 
@@ -155,8 +184,8 @@ namespace IncidentManagementSystem.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);

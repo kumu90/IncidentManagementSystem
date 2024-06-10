@@ -1,0 +1,491 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit&display=swap');
+
+
+
+:root {
+    --primary-color: #1EB386;
+    --text-color: #333333;
+}
+
+body {
+    margin:0;
+    padding:0;
+}
+
+.row.l {
+    height: 1080px;
+    justify-items: center;
+    align-items: center;
+}
+
+
+/*Test CSS*/
+.rightimg{
+    height:100%;
+    width:100%;
+    object-fit:cover;
+}
+
+.container-left-style {
+    width: 577px;
+    height: 510px;
+    /*  margin-top: 289px;
+    margin-right: 171px;
+    margin-bottom: 281px;
+    margin-left: 196px;*/
+    /*background-color: aqua;*/
+}
+
+.logo {
+    width: 189.09px;
+    height: 54px;
+    margin-bottom: 32px;
+}
+
+    .logo img {
+        width: 189.09px;
+        height: 54px;
+    }
+
+.log-form {
+    width: 577px;
+    height: 392px;
+}
+
+.form-header {
+    width: 577px;
+    height: 112px;
+    margin-bottom: 32px;
+}
+
+.header {
+    width: 577px;
+    height: 64px;
+    margin-bottom: 12px;
+}
+
+.text-header {
+    font-family: Outfit;
+    font-size: 44px;
+    font-weight: 600;
+    line-height: 64px;
+    text-align: left;
+}
+
+.subheader {
+    width: 577px;
+    height: 36px;
+    margin-bottom: 32px;
+}
+
+.text-subheader {
+    font-family: Outfit;
+    font-size: 24px;
+    font-weight: 300;
+    line-height: 36px;
+    text-align: left;
+}
+
+.log {
+    width: 550px;
+    height: 248px;
+}
+
+.uname {
+    width: 550px;
+    height: 76px;
+    margin-bottom: 24px;
+}
+
+.icon-user {
+    
+    background-image: url('../image/user.png');
+    background-repeat: no-repeat;
+    background-position: left center;
+    padding-right: 30px;
+}
+
+.l-uname {
+    width: 73px;
+    height: 24px;
+    font-family: Outfit;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 24px;
+    text-align: left;
+    margin-bottom: 8px; /*will-change COMENT*/
+}
+
+#Username.form-control.b-uname {
+    width: 550px;
+    height: 44px;
+    padding: 12px 12px 12px 12px;
+    gap: 10px;
+    border-radius: 8px 8px 8px 8px;
+    border: 1px 1px 1px 1px;
+    border: 1px solid #CCCCCC
+}
+
+.pass {
+    width: 550px;
+    height: 76px;
+    margin-bottom: 24px;
+}
+
+.l-pass {
+    width: 73px;
+    height: 24px;
+    font-family: Outfit;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 24px;
+    text-align: left;
+    margin-bottom: 8px
+}
+
+.icon-pass {
+    background-image: url('../image/password.png');
+    background-repeat: no-repeat;
+    background-position: left center;
+    padding-right: 30px;
+}
+
+#Password.form-control.b-pass {
+    width: 550px;
+    height: 44px;
+    padding: 12px 12px 12px 12px;
+    gap: 10px;
+    border-radius: 8px 8px 8px 8px;
+    border: 1px 1px 1px 1px;
+    border: 1px solid #CCCCCC
+}
+
+.b-btn {
+    width: 550px;
+    height: 48px;
+}
+
+.btn {
+    width: 100%;
+    height: 48px;
+    padding: 12px 24px 12px 24px;
+    gap: 10px;
+    border-radius: 8px 0px 0px 0px;
+    display: inline-block;
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    user-select: none;
+    border: 1px solid transparent;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: 0.25rem;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.btn-login {
+    color: #fff;
+    background-color: Var(--primary-color);
+    border-color: Var(--primary-color);
+}
+
+    .btn-login:hover {
+        color: #fff;
+        background-color: #1e7e34;
+        border-color: #1e7e34;
+    }
+
+    .btn-login:focus,
+    .btn-login.focus {
+        color: #fff;
+        background-color: #1e7e34;
+        border-color: #1e7e34;
+        box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.5);
+    }
+
+    .btn-login.disabled,
+    .btn-login:disabled {
+        color: #fff;
+        background-color: #1e7e34;
+        border-color: #1e7e34;
+    }
+
+    .btn-login:not(:disabled):not(.disabled):active,
+    .btn-login:not(:disabled):not(.disabled).active,
+    .show > .btn-login.dropdown-toggle {
+        color: #fff;
+        background-color: #1e7e34;
+        border-color: #1e7e34;
+    }
+
+.btn-success:not(:disabled):not(.disabled):active:focus,
+.btn-success:not(:disabled):not(.disabled).active:focus,
+.show > .btn-success.dropdown-toggle:focus {
+    box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.5), 0 0 0 0.4rem rgba(40, 167, 69, 0.3);
+}
+
+
+.container-right-style {
+    width: 976px;
+    height: 1080px;
+}
+
+
+/*register css*/
+.container.reg {
+    background-color: #f3f4f9;
+    height: 550px;
+}
+
+.reg .header {
+    width: 100%;
+    fixed width height: 88px;
+    hug height top: 112px;
+    position from top left: 332px;
+    position from left gap: 12px;
+}
+
+.header-text {
+    width: 183px;
+    height: 40px;
+    gap: 8px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.text {
+    width: 403px;
+    height: 36px;
+    padding: 4px 0 0 0;
+    gap: 4px;
+}
+
+    .text .page {
+        width: 50px;
+        height: 28px;
+        font-family: outfit;
+        font-size: 20px;
+        font-weight: 400;
+        line-height: 28px;
+        text-align: left;
+    }
+
+    .text .detail {
+        width: 151px;
+        height: 28px;
+        font-family: outfit;
+        font-weight: 600;
+        font-size: 20px;
+    }
+
+.input-icon {
+    background-image: url('../image/chevron-right-regular-24.png');
+    
+    background-repeat: no-repeat;
+    background-position: right center;
+    padding-right: 30px;
+}
+
+.reg-form {
+    background-color: #ffffff;
+    width: 100%;
+    height: 326px;
+    top: 232px;
+    left: 332px;
+    gap: 0;
+    border-radius: 12px 12px 12px 12px;
+}
+
+.name {
+    width: 481.33px;
+    height: 24px;
+    font-family: outfit;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    text-align: left;
+}
+
+.u-box {
+    width: 100%;
+    height: 44px;
+    padding: 10px 0 0 0;
+    gap: 10px;
+    margin-bottom: 10px;
+    border-radius: 4px 0 0 0;
+    border: 1px solid black;
+}
+
+.ins {
+    width: 481.33px;
+    height: 24px;
+    font-family: outfit;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    text-align: left;
+}
+
+.b-ins {
+    width: 100%;
+    height: 44px;
+    padding: 10px 0 0 0;
+    margin-bottom: 10px;
+    border-radius: 4px 0 0 0;
+    border: 1px solid black;
+}
+
+.role {
+    width: 481.33px;
+    height: 24px;
+    font-family: outfit;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    text-align: left;
+}
+
+.b-role {
+    width: 100%;
+    height: 44px;
+    padding: 10px 0 0 0;
+    gap: 10px;
+    border-radius: 4px 0 0 0;
+    border: 1px solid black;
+}
+
+.rpass {
+    width: 481.33px;
+    height: 24px;
+    font-family: outfit;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    text-align: left;
+}
+
+.b-rpass {
+    width: 100%;
+    height: 44px;
+    padding: 10px 0 0 0;
+    margin-bottom: 10px;
+    gap: 10px;
+    border-radius: 4px 0 0 0;
+    border: 1px solid black;
+}
+
+.rcpass {
+    width: 481.33px;
+    height: 24px;
+    font-family: outfit;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    text-align: left;
+}
+
+.b-rcpass {
+    width: 100%;
+    height: 44px;
+    padding: 10px 0 0 0;
+    margin-bottom: 10px;
+    border-radius: 4px 0 0 0;
+    border: 1px solid black;
+}
+
+.row .buotton{
+  
+}
+/*.button.btn-register {
+    position: fixed;
+    bottom: 30px;
+    right: 0;
+}
+
+.btn-cancle {
+    width: 100%;
+    color: #fff;
+    background-color: #cc3000;
+    border-color: #cc3000;
+    font-family: outfit;
+    right: 0;
+}
+
+.btn.btn-successs:hover {
+    color: #fff;
+    background-color: #cc3000;
+    border-color: #cc3000;
+}
+
+.btn.btn-successs:focus,
+.btn.btn-successs.focus {
+    box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.5);
+}
+
+.btn.btn-successs.disabled,
+.btn.btn-successs:disabled {
+    color: #fff;
+    background-color: #28a745;
+    border-color: #28a745;
+}
+
+.btn.btn-successs:not(:disabled):not(.disabled):active,
+.btn.btn-successs:not(:disabled):not(.disabled).active,
+.show > .btn.btn-successs.dropdown-toggle {
+    color: #fff;
+    background-color: #1e7e34;
+    border-color: #1c7430;
+}
+
+    .btn.btn-successs:not(:disabled):not(.disabled):active:focus,
+    .btn.btn-successs:not(:disabled):not(.disabled).active:focus,
+    .show > .btn.btn-success.dropdown-toggle:focus {
+        box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.5), 0 0 0 0.2rem rgba(40, 167, 69, 0.5);
+    }
+
+
+.btn-register {
+    width: 100%;
+    color: #fff;
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    font-family: outfit;
+}
+
+.btn.btn-successs:hover {
+    color: #fff;
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.btn.btn-successs:focus,
+.btn.btn-successs.focus {
+    box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.5);
+}
+
+.btn.btn-successs.disabled,
+.btn.btn-successs:disabled {
+    color: #fff;
+    background-color: #28a745;
+    border-color: #28a745;
+}
+
+.btn.btn-successs:not(:disabled):not(.disabled):active,
+.btn.btn-successs:not(:disabled):not(.disabled).active,
+.show > .btn.btn-successs.dropdown-toggle {
+    color: #fff;
+    background-color: #1e7e34;
+    border-color: #1c7430;
+}
+
+    .btn.btn-successs:not(:disabled):not(.disabled):active:focus,
+    .btn.btn-successs:not(:disabled):not(.disabled).active:focus,
+    .show > .btn.btn-success.dropdown-toggle:focus {
+        box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.5), 0 0 0 0.2rem rgba(40, 167, 69, 0.5);
+    }*/
