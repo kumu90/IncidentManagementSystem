@@ -162,12 +162,12 @@ body {
     border: 1px solid #CCCCCC
 }
 
-.b-btn {
+.l-btn {
     width: 550px;
     height: 48px;
 }
 
-.btn {
+/*.btn {
     width: 100%;
     height: 48px;
     padding: 12px 24px 12px 24px;
@@ -226,7 +226,7 @@ body {
 .btn-success:not(:disabled):not(.disabled).active:focus,
 .show > .btn-success.dropdown-toggle:focus {
     box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.5), 0 0 0 0.4rem rgba(40, 167, 69, 0.3);
-}
+}*/
 
 
 .container-right-style {
@@ -399,9 +399,7 @@ body {
     border: 1px solid black;
 }
 
-.row .buotton{
-  
-}
+
 /*.button.btn-register {
     position: fixed;
     bottom: 30px;
