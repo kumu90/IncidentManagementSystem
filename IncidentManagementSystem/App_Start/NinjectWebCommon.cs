@@ -5,7 +5,8 @@ namespace IncidentManagementSystem.App_Start
 {
     using System;
     using System.Web;
-
+    using IncidentManagementSystem.DataAccess;
+    using IncidentManagementSystem.Service;
     using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 
     using Ninject;
@@ -61,7 +62,13 @@ namespace IncidentManagementSystem.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
+            //service
+            kernel.Bind<iInstNameService>().To<InstNameService>();
+           
 
+            //DataAccess
+            kernel.Bind<iInstNameDataAccess>().To<InstNameDataAccess>();
+            
         }
     }
 }
