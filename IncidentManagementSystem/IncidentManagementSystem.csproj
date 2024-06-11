@@ -301,15 +301,15 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\IncidentManagementSystem.DataAccess\IncidentManagementSystem.DataAccess.csproj">
-      <Project>{446d8d4c-71b8-47a1-a4bd-42cc7f538ad5}</Project>
+      <Project>{87fc471b-e61b-42fb-a232-5cb94f9a37aa}</Project>
       <Name>IncidentManagementSystem.DataAccess</Name>
     </ProjectReference>
     <ProjectReference Include="..\IncidentManagementSystem.Model\IncidentManagementSystem.Model.csproj">
-      <Project>{f95c39de-3737-46d4-ad28-91f4da7782b2}</Project>
+      <Project>{92d42e8a-8388-469c-84b5-a312895d7e79}</Project>
       <Name>IncidentManagementSystem.Model</Name>
     </ProjectReference>
     <ProjectReference Include="..\IncidentManagementSystem.Service\IncidentManagementSystem.Service.csproj">
-      <Project>{892e768e-f0e4-42b2-a022-1115dba33479}</Project>
+      <Project>{f2e3cacc-7b72-4e23-b729-7d2f7366a7b7}</Project>
       <Name>IncidentManagementSystem.Service</Name>
     </ProjectReference>
   </ItemGroup>

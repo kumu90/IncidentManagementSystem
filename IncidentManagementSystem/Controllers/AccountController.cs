@@ -23,33 +23,6 @@ namespace IncidentManagementSystem.Controllers
         {
         }
 
-        public void Initialize()
-        {
-            var list = new List<string>() { "SuperAdmin", "Admin", "User" };
-            ViewBag.Instution = new SelectList(list);
-
-            var user = new List<string>() { "xyz", "abc", "ijk" };
-            ViewBag.Userrole = new SelectList(user);
-        }
-
-        [HttpGet]
-        public ActionResult Instution()
-        {
-            var list = new List<string>() { "SuperAdmin", "Admin", "User" };
-            ViewBag.Instution = list;
-
-            return View();
-        }
-        [HttpGet]
-
-        public ActionResult UserRole()
-        {
-            var user = new List<string>() { "xyz", "abc", "ijk" };
-            ViewBag.Userrole = user;
-
-            return View();
-        }
-
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
@@ -162,6 +135,35 @@ namespace IncidentManagementSystem.Controllers
             }
         }
 
+        /// <summary>
+        /// /initialization for institute and role
+        /// </summary>
+        public void Initialize()
+        {
+            var list = new List<string>() { "SuperAdmin", "Admin", "User" };
+            ViewBag.Instution = new SelectList(list);
+
+            var user = new List<string>() { "xyz", "abc", "ijk" };
+            ViewBag.Userrole = new SelectList(user);
+        }
+
+        [HttpGet]
+        public ActionResult Instution()
+        {
+            var list = new List<string>() { "SuperAdmin", "Admin", "User" };
+            ViewBag.Instution = list;
+
+            return View();
+        }
+        [HttpGet]
+
+        public ActionResult UserRole()
+        {
+            var user = new List<string>() { "xyz", "abc", "ijk" };
+            ViewBag.Userrole = user;
+
+            return View();
+        }
         //
         // GET: /Account/Register
         [AllowAnonymous]

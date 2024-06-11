@@ -53,10 +53,10 @@ namespace IncidentManagementSystem.Models
         [EmailAddress]
         public string Email { get; set; }
 
-        [Required]
-        [Display(Name = "Email")]
-        [EmailAddress]
-        public string Username { get; set; }
+        //[Required]
+        //[Display(Name = "Email")]
+        //[EmailAddress]
+        //public string Username { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
