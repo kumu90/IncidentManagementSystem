@@ -18,7 +18,7 @@ namespace IncidentManagementSystem.Controllers
         {
             _iInstNameService = iInstNameServices;
         }
-        public ActionResult Index()
+        public ActionResult InstitutionRegister()
         {
             return View();
         }
