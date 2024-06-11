@@ -10,7 +10,14 @@ namespace IncidentManagementSystem.Controllers
 {
     public class InstitutionController : Controller
     {
-        // GET: Institution
+        readonly iInstNameService _iInstNameService;
+        public InstitutionController() 
+        {  
+        }
+        public InstitutionController(iInstNameService iInstNameServices)
+        {
+            _iInstNameService = iInstNameServices;
+        }
         public ActionResult Index()
         {
             return View();

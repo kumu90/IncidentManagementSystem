@@ -10,7 +10,7 @@
         <div class="col-lg-12 header ">
             <div class="header-text">
                 Register Users
-            </div>
+            </div>  
             <div class="col text">
                 <span class="page input-icon">Users</span>
 
@@ -24,14 +24,6 @@
             {
                 <div class="row">
                     @Html.AntiForgeryToken()
-
-                    @*@Html.ValidationSummary("", new { @class = "text-danger" })
-        <div class="row">
-            @Html.LabelFor(m => m.Email, new { @class = "col-md-2 col-form-label" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-            </div>
-        </div>*@
                     <div class="row">
                         <div class="col-lg-4">
                             @Html.LabelFor(m => m.Username, new { @class = "col-md-2 col-form-label name" })
@@ -101,6 +93,6 @@
     </div>
 </main>
 
-@section Scripts {
+@section Scripts{
     @Scripts.Render("~/bundles/jqueryval")
 }
