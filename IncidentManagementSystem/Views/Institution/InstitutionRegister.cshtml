@@ -1,0 +1,158 @@
+﻿@model IncidentManagementSystem.Model.InstitutionRegisterDTO
+@*@{
+        ViewBag.Title = "InstitutionRegister";
+    }*@
+
+<main aria-labelledby="title">
+    <h2 id="title">@ViewBag.Title</h2>
+
+    <div class="row container-fluid reg-inst">
+        <div class="row header">
+
+            <div class="text">
+                <span class="page input-icon">Register</span>
+
+                <span class="detail">Institutions</span>
+            </div>
+        </div>
+
+        <div class="row ins-row">
+
+
+            <div class="container-fluid col-lg-8" style="background-color:aqua;">
+
+                <div class="container-fluid container-inst-style ">
+
+                    @using (Html.BeginForm("InstitutionRegister", "Account", FormMethod.Post, new { enctype = "multipart/form-data", role = "form", id = "ins-form" }))
+                    {
+                        @Html.AntiForgeryToken()
+
+                        @Html.ValidationSummary("", new { @class = "text-danger" })
+
+                        <div class="row">
+                            @Html.LabelFor(m => m.InstitutionName, new { @class = "col-md-2 col-form-label" })
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(m => m.InstitutionName, new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            @Html.LabelFor(m => m.Country, new { @class = "col-md-2 col-form-label" })
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(m => m.Country, new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            @Html.LabelFor(m => m.State, new { @class = "col-md-2 col-form-label" })
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(m => m.State, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="row">
+                            @Html.LabelFor(m => m.Address, new { @class = "col-md-2 col-form-label" })
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(m => m.Address, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="row">
+                            @Html.LabelFor(m => m.ZipCode, new { @class = "col-md-2 col-form-label" })
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(m => m.ZipCode, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="row">
+                            @Html.LabelFor(m => m.ContactPersonAdmin, new { @class = "col-md-2 col-form-label" })
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(m => m.ContactPersonAdmin, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="row">
+                            @Html.LabelFor(m => m.ContactPersonTechnical, new { @class = "col-md-2 col-form-label" })
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(m => m.ContactPersonTechnical, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="row">
+                            @Html.LabelFor(m => m.ContactNumber, new { @class = "col-md-2 col-form-label" })
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(m => m.ContactNumber, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="row">
+                            @Html.LabelFor(m => m.Email, new { @class = "col-md-2 col-form-label" })
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            @Html.LabelFor(m => m.CreatedBy, new { @class = "col-md-2 col-form-label" })
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(m => m.CreatedBy, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="row">
+                            @Html.LabelFor(m => m.UpdatedBy, new { @class = "col-md-2 col-form-label" })
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(m => m.UpdatedBy, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="row">
+                            @Html.LabelFor(m => m.CreatedDate, new { @class = "col-md-2 col-form-label" })
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(m => m.CreatedDate, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    }
+
+                </div>
+            </div>
+            <div class="container col-lg-4 file-upload" style=" background-color:red;">
+
+                <div>
+                    <label for="uploadReportFile">Select file to upload:</label><br />
+                    <input type="file" name="image" id="image" accept="image/*" onchange="previewImage(event)" class="form-control" />
+                </div>
+                <div class=" preview">
+                    <img id="preview" src="~/Image/photo-album-regular-24.png" alt="Preview" style="display: block; max-width: 200px; max-height: 200px;" />
+                </div>
+                <button type="submit">Upload</button>
+                <div class="row">
+                    @*<input type="button" value="Clear Form" onclick="window.location.reload();" />*@
+                    <input type="button" value="Clear Form" onclick="clearForm();" /> @*scrypt method*@
+                </div>
+            </div>
+           
+        </div>
+
+    </div>
+</main>
+
+
+<script>
+    function previewImage(event) {
+        var input = event.target;
+        var reader = new FileReader();
+        reader.onload = function () {
+            var imgElement = document.getElementById('preview');
+            imgElement.src = reader.result;
+            imgElement.style.display = 'block'; // Show the image preview
+        }
+        reader.readAsDataURL(input.files[0]);
+    }
+</script>
+
+<script>
+    function clearForm() {
+        // Reset the form
+        document.getElementById("ins-form").reset();
+
+        // Reset the file input
+        document.getElementById("image").value = "";
+
+        // Reset the image preview
+        document.getElementById("preview").src = "#";
+        document.getElementById("preview").style.display = "none";
+    }
+</script>

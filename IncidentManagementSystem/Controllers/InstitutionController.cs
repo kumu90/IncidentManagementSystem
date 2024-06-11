@@ -9,7 +9,7 @@ namespace IncidentManagementSystem.Controllers
     public class InstitutionController : Controller
     {
         // GET: Institution
-        public ActionResult Index()
+        public ActionResult InstitutionRegister()
         {
             return View();
         }

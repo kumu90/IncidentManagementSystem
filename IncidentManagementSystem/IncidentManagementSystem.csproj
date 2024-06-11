@@ -212,6 +212,9 @@
     <Content Include="Image\gwendal-bar-1cmUs5eXOtg-unsplash.jpg" />
     <Content Include="Image\Logo.png" />
     <Content Include="Image\Password.png" />
+    <Content Include="Image\photo-album-regular-24.png" />
+    <Content Include="Image\photo-album-solid-24.png" />
+    <Content Include="Image\upload-regular-24.png" />
     <Content Include="Image\user.png" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
@@ -264,10 +267,10 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Institution\InstitutionRegister.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Institution\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />
@@ -295,6 +298,20 @@
     <Content Include="Scripts\bootstrap.bundle.js.map" />
     <Content Include="Scripts\jquery-3.7.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.7.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\IncidentManagementSystem.DataAccess\IncidentManagementSystem.DataAccess.csproj">
+      <Project>{446d8d4c-71b8-47a1-a4bd-42cc7f538ad5}</Project>
+      <Name>IncidentManagementSystem.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\IncidentManagementSystem.Model\IncidentManagementSystem.Model.csproj">
+      <Project>{f95c39de-3737-46d4-ad28-91f4da7782b2}</Project>
+      <Name>IncidentManagementSystem.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\IncidentManagementSystem.Service\IncidentManagementSystem.Service.csproj">
+      <Project>{892e768e-f0e4-42b2-a022-1115dba33479}</Project>
+      <Name>IncidentManagementSystem.Service</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
