@@ -64,11 +64,11 @@ namespace IncidentManagementSystem.App_Start
         {
             //service
             kernel.Bind<IInstNameService>().To<InstNameService>();
-           
+            kernel.Bind<IGetInstNameService>().To<GetInstNameService>();
 
             //DataAccess
             kernel.Bind<IInstNameDataAccess>().To<InstNameDataAccess>();
-            
+            kernel.Bind<IGetInstNameDataAccess>().To<GetInstNameDataAccess>();
         }
     }
 }

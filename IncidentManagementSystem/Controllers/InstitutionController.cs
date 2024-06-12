@@ -11,12 +11,20 @@ namespace IncidentManagementSystem.Controllers
     public class InstitutionController : Controller
     {
         readonly IInstNameService _iInstNameService;
+        readonly IGetInstNameService _iGetInstNameService;
         public InstitutionController()
         {
         }
-        public InstitutionController(IInstNameService iInstNameServices)
+        public InstitutionController(IInstNameService iInstNameServices, IGetInstNameService iGetInstNameService)
         {
             _iInstNameService = iInstNameServices;
+            _iGetInstNameService = iGetInstNameService;
+        }
+        
+        public void initialize()
+        {
+            var InsId = _iGetInstNameService.GetInstName();
+            ViewBag.InsName = new SelectList(InsId, "Id", "InstitutionName");
         }
 
         [HttpGet]
