@@ -10,16 +10,20 @@ namespace IncidentManagementSystem.Controllers
 {
     public class InstitutionController : Controller
     {
-        readonly iInstNameService _iInstNameService;
-        public InstitutionController() 
-        {  
+        readonly IInstNameService _iInstNameService;
+        public InstitutionController()
+        {
         }
-        public InstitutionController(iInstNameService iInstNameServices)
+        public InstitutionController(IInstNameService iInstNameServices)
         {
             _iInstNameService = iInstNameServices;
         }
-        public ActionResult Index()
+
+        [HttpGet]
+        public ActionResult InstitutionRegister()
         {
+            ViewBag.TaskStatus = TempData["TaskStatus"];
+            ViewBag.TaskMessage = TempData["TaskMessage"];
             return View();
         }
     }

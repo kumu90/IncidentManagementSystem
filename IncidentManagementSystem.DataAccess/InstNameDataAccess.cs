@@ -11,11 +11,11 @@ using System.Net;
 
 namespace IncidentManagementSystem.DataAccess
 {
-    public class InstNameDataAccess : iInstNameDataAccess
+    public class InstNameDataAccess : IInstNameDataAccess
     {
-        public string InstNameRegister(InstNameDto _instNameDto)
+        public SQLStatusDto InstNameRegister(InstNameDto _instNameDto)
         {
-            String status = "99";
+            SQLStatusDto _SQLStatus = new SQLStatusDto();
             try
             {
                 string conStr = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
@@ -43,22 +43,30 @@ namespace IncidentManagementSystem.DataAccess
                         cmd.Parameters.AddWithValue("@userId", _instNameDto.CreatedBy);
 
                         conn.Open();
-                        status = cmd.ExecuteScalar().ToString();
-                        conn.Close();
+                        //status = cmd.ExecuteScalar().ToString();
+                        //conn.Close();
+                        using (var rdr = cmd.ExecuteReader())
+                        {
+                            while (rdr.Read())
+                            {
+                                _SQLStatus.Status = rdr["Status"].ToString();
+                                _SQLStatus.Message = rdr["Message"].ToString();
+                            }
+                        }
 
                     }
                 }
 
-                return status;
+                return _SQLStatus;
             }
             catch (Exception ex)
             {
-                return status;
+                return _SQLStatus;
             }
         }
     }
-    public interface iInstNameDataAccess
+    public interface IInstNameDataAccess
     {
-        string InstNameRegister(InstNameDto _instNameDto);
+        SQLStatusDto InstNameRegister(InstNameDto _instNameDto);
     }
 }
