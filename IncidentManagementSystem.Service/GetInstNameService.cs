@@ -15,13 +15,13 @@ namespace IncidentManagementSystem.Service
         {
             _getInstNameDataAccess = getInstNameDataAccess;
         }
-        public List<InstNameDto> GetInstName(InstNameDto _instNameDto)
+        public List<InstNameDto> GetInstName()
         {
-            return _getInstNameDataAccess.GetInstName(_instNameDto);
+            return _getInstNameDataAccess.GetInstName();
         }
     }
     public interface IGetInstNameService
     {
-        List<InstNameDto> GetInstName(InstNameDto instNameDto);
+        List<InstNameDto> GetInstName();
     }
 }

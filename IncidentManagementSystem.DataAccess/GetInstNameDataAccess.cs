@@ -36,7 +36,7 @@ namespace IncidentManagementSystem.DataAccess
                             {
                                 Instlist.Add(new InstNameDto()
                                 {
-                                    Id = sqlDataReader["Id"].ToString(),
+                                    InstId = sqlDataReader["InstId"].ToString(),
                                     InstitutionName = sqlDataReader["InstitutionName"].ToString()
                                 });
                             }
@@ -58,6 +58,6 @@ namespace IncidentManagementSystem.DataAccess
     }
     public interface IGetInstNameDataAccess
     {
-        List<InstNameDto> GetInstName(InstNameDto _instNameDto);
+        List<InstNameDto> GetInstName();
     }
 }

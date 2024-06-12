@@ -24,7 +24,7 @@ namespace IncidentManagementSystem.Controllers
         public void initialize()
         {
             var InsId = _iGetInstNameService.GetInstName();
-            ViewBag.InsName = new SelectList(InsId, "Id", "InstitutionName");
+            ViewBag.InsName = new SelectList(InsId, "InstId", "InstitutionName");
         }
 
         [HttpGet]
