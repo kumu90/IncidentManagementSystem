@@ -10,6 +10,8 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using IncidentManagementSystem.Models;
 using System.Collections.Generic;
+using IncidentManagementSystem.DataAccess;
+using IncidentManagementSystem.Service;
 
 namespace IncidentManagementSystem.Controllers
 {
@@ -18,15 +20,16 @@ namespace IncidentManagementSystem.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-
+        readonly IGetInstNameService _iGetInstNameService;
         public AccountController()
         {
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, IGetInstNameService getInstName)
         {
             UserManager = userManager;
             SignInManager = signInManager;
+            _iGetInstNameService = getInstName;
         }
 
         public ApplicationSignInManager SignInManager
@@ -147,12 +150,18 @@ namespace IncidentManagementSystem.Controllers
             ViewBag.Userrole = new SelectList(user);
         }
 
+        //public void initialize()
+        //{
+        //    var InsId = _iGetInstNameService.GetInstName();
+        //    ViewBag.InsName = new SelectList(InsId, "InstId", "InstitutionName");
+        //}
+
         [HttpGet]
         public ActionResult Instution()
         {
             var list = new List<string>() { "SuperAdmin", "Admin", "User" };
-            ViewBag.Instution = list;
-
+            ViewBag.InsName = list;
+            //initialize();
             return View();
         }
         [HttpGet]
