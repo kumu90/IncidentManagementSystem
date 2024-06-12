@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{92D42E8A-8388-469C-84B5-A312895D7E79}</ProjectGuid>
+    <ProjectGuid>{F95C39DE-3737-46D4-AD28-91F4DA7782B2}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>IncidentManagementSystem.Model</RootNamespace>
@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="InstNameDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SQLStatusDto.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

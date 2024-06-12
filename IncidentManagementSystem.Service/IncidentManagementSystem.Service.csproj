@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{F2E3CACC-7B72-4E23-B729-7D2F7366A7B7}</ProjectGuid>
+    <ProjectGuid>{892E768E-F0E4-42B2-A022-1115DBA33479}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>IncidentManagementSystem.Service</RootNamespace>
@@ -42,12 +42,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GetInstNameService.cs" />
     <Compile Include="InstNameService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\IncidentManagementSystem.DataAccess\IncidentManagementSystem.DataAccess.csproj">
-      <Project>{87fc471b-e61b-42fb-a232-5cb94f9a37aa}</Project>
+      <Project>{446d8d4c-71b8-47a1-a4bd-42cc7f538ad5}</Project>
       <Name>IncidentManagementSystem.DataAccess</Name>
     </ProjectReference>
     <ProjectReference Include="..\IncidentManagementSystem.Model\IncidentManagementSystem.Model.csproj">

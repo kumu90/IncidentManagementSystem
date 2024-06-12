@@ -8,22 +8,22 @@ using System.Threading.Tasks;
 
 namespace IncidentManagementSystem.Service
 {
-    public class InstNameService : iInstNameService
+    public class InstNameService : IInstNameService
     {
-        readonly iInstNameDataAccess _iInstNameDataAccess;
-        public InstNameService(iInstNameDataAccess iInstNameDataAccess)
+        readonly IInstNameDataAccess _iInstNameDataAccess;
+        public InstNameService(IInstNameDataAccess iInstNameDataAccess)
         {
             _iInstNameDataAccess = iInstNameDataAccess;
         }
 
-        public string InstNameRegister(InstNameDto _instNameDto)
+        public SQLStatusDto InstNameRegister(InstNameDto _instNameDto)
         {
             return _iInstNameDataAccess.InstNameRegister(_instNameDto);
         }
 
     }
-    public interface iInstNameService
+    public interface IInstNameService
     {
-        string InstNameRegister(InstNameDto _instNameDto);
+        SQLStatusDto InstNameRegister(InstNameDto _instNameDto);
     }
 }
