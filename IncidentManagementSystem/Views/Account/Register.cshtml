@@ -35,10 +35,6 @@
                         <div class="col-lg-4">
                             @Html.LabelFor(m => m.InstutionId, new { @class = "col-md-2 col-form-label ins" })
                             <div class="col-md-12">
-                                @{
-                                    var instutionList = ViewBag.Instution as List<string>;
-                                    var defaultText = "Select UserRole";
-                                }
                                 @Html.DropDownListFor(m => m.InstutionId, ViewBag.Instution as SelectList, "-Select Instution-", new { @class = "form-select b-ins" })
                                 @Html.ValidationMessageFor(m => m.InstutionId, "", new { @class = "text-danger" })
                             </div>
@@ -47,10 +43,6 @@
                         <div class="col-lg-4">
                             @Html.LabelFor(m => m.UserRole, new { @class = "col-md-2 col-form-label role" })
                             <div class="col-md-12">
-                                @{
-                                    var userList = ViewBag.UserRole as List<string>;
-                                    var defText = "Select UserRole";
-                                }
                                 @Html.DropDownListFor(m => m.UserRole, ViewBag.UserRole as SelectList, "-Select Instution-", new { @class = "form-select b-role" })
                                 @Html.ValidationMessageFor(m => m.UserRole, "", new { @class = "text-danger" })
                             </div>
