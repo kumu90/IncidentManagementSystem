@@ -74,6 +74,7 @@ namespace IncidentManagementSystem.Models
         [Display(Name = "Email")]
         public string Email { get; set; }
 
+        
         [Display(Name = "User Name")]
         public string Username { get; set; }
 
