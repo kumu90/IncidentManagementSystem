@@ -26,25 +26,28 @@
                     @Html.AntiForgeryToken()
                     <div class="row">
                         <div class="col-lg-4">
-                            @Html.LabelFor(m => m.Username, new { @class = "col-md-2 col-form-label name" })
+                            @Html.LabelFor(m => m.Email, new { @class = "col-md-2 col-form-label name" })
                             <div class="col-md-12">
-                                @Html.TextBoxFor(m => m.Username, new { @class = "form-control u-box " })
+                                @Html.TextBoxFor(m => m.Email, new { @class = "form-control u-box " })
+                                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
                             </div>
                         </div>
 
                         <div class="col-lg-4">
-                            @Html.LabelFor(m => m.InstutionId, new { @class = "col-md-2 col-form-label ins" })
+                            @Html.LabelFor(m => m.InsId, new { @class = "col-md-2 col-form-label ins" })
                             <div class="col-md-12">
-                                @Html.DropDownListFor(m => m.InstutionId, ViewBag.Instution as SelectList, "-Select Instution-", new { @class = "form-select b-ins" })
-                                @Html.ValidationMessageFor(m => m.InstutionId, "", new { @class = "text-danger" })
+                                @*@Html.DropDownListFor(m => m.InstutionId, ViewBag.Instution as SelectList, "-Select Instution-", new { @class = "form-select b-ins" })*@
+                                @Html.TextBoxFor(m => m.InsId, new { @class = "form-control u-box " })
+                                @Html.ValidationMessageFor(m => m.InsId, "", new { @class = "text-danger" })
                             </div>
                         </div>
 
                         <div class="col-lg-4">
-                            @Html.LabelFor(m => m.UserRole, new { @class = "col-md-2 col-form-label role" })
+                            @Html.LabelFor(m => m.UserRole_Id, new { @class = "col-md-2 col-form-label role" })
                             <div class="col-md-12">
-                                @Html.DropDownListFor(m => m.UserRole, ViewBag.UserRole as SelectList, "-Select Instution-", new { @class = "form-select b-role" })
-                                @Html.ValidationMessageFor(m => m.UserRole, "", new { @class = "text-danger" })
+                                @*@Html.DropDownListFor(m => m.UserRole, ViewBag.UserRole as SelectList, "-Select Instution-", new { @class = "form-select b-role" })*@
+                                @Html.TextBoxFor(m => m.UserRole_Id, new { @class = "form-control u-box " })
+                                @Html.ValidationMessageFor(m => m.UserRole_Id, "", new { @class = "text-danger" })
                             </div>
                         </div>
                     </div>
@@ -54,13 +57,15 @@
                         <div class="col-lg-4">
                             @Html.LabelFor(m => m.Password, new { @class = "col-md-2 col-form-label rpass" })
                             <div class="col-md-12">
-                                @Html.TextBoxFor(m => m.Password, new { @class = "form-control b-rpass " })
+                                @Html.PasswordFor(m => m.Password, new { @class = "form-control b-pass icon-pass" })
+                                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
                             </div>
                         </div>
                         <div class="col-lg-4 form-group" style="align-items:start;">
                             @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 col-form-label rcpass" })
                             <div class="col-md-12">
-                                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control b-rcpass" })
+                                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control b-pass icon-pass" })
+                                @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
                             </div>
                         </div>
                     </div>
@@ -68,7 +73,7 @@
                     <div class="row buotton" style="align-items:flex-end";">
                         <div class="col-lg-2 form-group">
                             <div class="offset-md-2 col-md-10">
-                                <input type="submit" value="Cancel" class="btn btn-danger" />
+                                <input type="reset" value="Cancel" class="btn btn-danger" />
                             </div>
                         </div>
 

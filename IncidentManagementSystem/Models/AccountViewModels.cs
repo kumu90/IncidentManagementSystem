@@ -76,13 +76,17 @@ namespace IncidentManagementSystem.Models
 
         [Display(Name = "User Name")]
         public string Username { get; set; }
-        public string InstutionId { get; set; }
-        public string UserRole { get; set; }
+
+        [Display(Name = "Instution Name")]
+        public string InsId { get; set; }
+
+        [Display(Name = "Roles")]
+        public string UserRole_Id { get; set; }
 
 
         [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
+        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [Display(Name = "Password")]
         public string Password { get; set; }
 
