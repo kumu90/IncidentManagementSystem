@@ -73,8 +73,8 @@ namespace IncidentManagementSystem.Models
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
-        [Required]
 
+        [Display(Name = "User Name")]
         public string Username { get; set; }
         public string InstutionId { get; set; }
         public string UserRole { get; set; }
