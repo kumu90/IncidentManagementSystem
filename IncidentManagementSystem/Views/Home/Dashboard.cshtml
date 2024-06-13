@@ -1,0 +1,18 @@
+﻿@model IncidentManagementSystem.Model.SearchByDateDto
+@{
+    ViewBag.Title = "Dashboard";
+}
+
+<h2>Dashboard</h2>
+
+@using (Html.BeginForm("Dashboard", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(model => model.startDate, "Select Date From:")
+                @Html.EditorFor(model => model.startDate, new { htmlAttributes = new { } })
+            </div>
+        </div>
+    </div>
+}
