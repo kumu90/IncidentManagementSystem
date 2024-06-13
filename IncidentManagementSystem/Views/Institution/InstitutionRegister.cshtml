@@ -29,82 +29,70 @@
 
                         @Html.ValidationSummary("", new { @class = "text-danger" })
 
-                        <div class="row inst-row-form">
-                            @Html.LabelFor(m => m.InstitutionName, new { @class = "col-md-4 col-form-label l-inst" })
-                            <div class="col-md-8">
-                                @Html.TextBoxFor(m => m.InstitutionName, new { @class = "form-control" })
+                        <div class="row">
+                            <div class="col-lg-4 inst-row-form">
+                                @Html.LabelFor(m => m.InstitutionName, new { @class = "col-md-4 col-form-label l-inst" })
+                                <div class="col-lg-8">
+                                    @Html.TextBoxFor(m => m.InstitutionName, new { @class = "form-control" })
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4 inst-row-form">
+                                @Html.LabelFor(m => m.Country, new { @class = "col-md-4 col-form-label l-inst" })
+                                <div class="col-lg-8">
+                                    @Html.TextBoxFor(m => m.Country, new { @class = "form-control" })
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4 inst-row-form">
+                                @Html.LabelFor(m => m.State, new { @class = "col-md-4 col-form-label l-inst" })
+                                <div class="col-lg-8">
+                                    @Html.TextBoxFor(m => m.State, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4  inst-row-form">
+                                @Html.LabelFor(m => m.Address, new { @class = "col-md-4 col-form-label l-inst" })
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(m => m.Address, new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="col-lg-4  inst-row-form">
+                                @Html.LabelFor(m => m.ZipCode, new { @class = "col-md-4 col-form-label l-inst" })
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(m => m.ZipCode, new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="col-lg-4  inst-row-form">
+                                @Html.LabelFor(m => m.Email, new { @class = "col-md-4 col-form-label l-inst" })
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4  inst-row-form">
+                                @Html.LabelFor(m => m.ContactNumber, new { @class = "col-md-4 col-form-label l-inst" })
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(m => m.ContactNumber, new { @class = "form-control" })
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4  inst-row-form">
+                                @Html.LabelFor(m => m.ContactPersonAdmin, new { @class = "col-md-4 col-form-label l-inst" })
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(m => m.ContactPersonAdmin, new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="col-lg-4  inst-row-form">
+                                @Html.LabelFor(m => m.ContactPersonTechnical, new { @class = "col-md-4 col-form-label l-inst" })
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(m => m.ContactPersonTechnical, new { @class = "form-control" })
+                                </div>
                             </div>
                         </div>
 
-                        <div class="row inst-row-form">
-                            @Html.LabelFor(m => m.Country, new { @class = "col-md-4 col-form-label l-inst" })
-                            <div class="col-md-8">
-                                @Html.TextBoxFor(m => m.Country, new { @class = "form-control" })
-                            </div>
-                        </div>
-
-                        <div class="row inst-row-form">
-                            @Html.LabelFor(m => m.State, new { @class = "col-md-4 col-form-label l-inst" })
-                            <div class="col-md-8">
-                                @Html.TextBoxFor(m => m.State, new { @class = "form-control" })
-                            </div>
-                        </div>
-                        <div class="row inst-row-form">
-                            @Html.LabelFor(m => m.Address, new { @class = "col-md-4 col-form-label l-inst" })
-                            <div class="col-md-8">
-                                @Html.TextBoxFor(m => m.Address, new { @class = "form-control" })
-                            </div>
-                        </div>
-                        <div class="row inst-row-form">
-                            @Html.LabelFor(m => m.ZipCode, new { @class = "col-md-4 col-form-label l-inst" })
-                            <div class="col-md-8">
-                                @Html.TextBoxFor(m => m.ZipCode, new { @class = "form-control" })
-                            </div>
-                        </div>
-                        <div class="row inst-row-form">
-                            @Html.LabelFor(m => m.Email, new { @class = "col-md-4 col-form-label l-inst" })
-                            <div class="col-md-8">
-                                @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-                            </div>
-                        </div>
-                        <div class="row inst-row-form">
-                            @Html.LabelFor(m => m.ContactNumber, new { @class = "col-md-4 col-form-label l-inst" })
-                            <div class="col-md-8">
-                                @Html.TextBoxFor(m => m.ContactNumber, new { @class = "form-control" })
-                            </div>
-                        </div>
-                        <div class="row inst-row-form">
-                            @Html.LabelFor(m => m.CreatedBy, new { @class = "col-md-4 col-form-label l-inst" })
-                            <div class="col-md-8">
-                                @Html.TextBoxFor(m => m.CreatedBy, new { @class = "form-control" })
-                            </div>
-                        </div>
-                        <div class="row inst-row-form">
-                            @Html.LabelFor(m => m.UpdatedBy, new { @class = "col-md-4 col-form-label l-inst" })
-                            <div class="col-md-8">
-                                @Html.TextBoxFor(m => m.UpdatedBy, new { @class = "form-control" })
-                            </div>
-                        </div>
-
-
-                        <div class="row inst-row-form">
-                            @Html.LabelFor(m => m.CreatedDate, new { @class = "col-md-4 col-form-label l-inst" })
-                            <div class="col-md-8">
-                                @Html.TextBoxFor(m => m.CreatedDate, new { @class = "form-control" })
-                            </div>
-                        </div>
-                        <div class="row inst-row-form">
-                            @Html.LabelFor(m => m.ContactPersonAdmin, new { @class = "col-md-4 col-form-label l-inst" })
-                            <div class="col-md-8">
-                                @Html.TextBoxFor(m => m.ContactPersonAdmin, new { @class = "form-control" })
-                            </div>
-                        </div>
-                        <div class="row inst-row-form">
-                            @Html.LabelFor(m => m.ContactPersonTechnical, new { @class = "col-md-4 col-form-label l-inst" })
-                            <div class="col-md-8">
-                                @Html.TextBoxFor(m => m.ContactPersonTechnical, new { @class = "form-control" })
-                            </div>
-                        </div>
                         <div class="col-lg-2 form-group">
                             <div class="offset-md-2 col-md-10">
                                 <input type="submit" value="Register" class="btn btn-success" />
@@ -129,13 +117,16 @@
                             <input type="file" name="image" id="imageUpload" accept="image/*" onchange="previewImage(event)" @*style="opacity:0;*@ />
                         </div>
 
+
                         <div class="row justify-content-start buttom-inst">
                             <div class="col-lg-4">
                                 <input type="submit" value="Upload" class="btn btn-primary" />
                             </div>
                             <div class="col-lg-4">
-                                @*<input type="button" value="Clear Form" onclick="window.location.reload();" />*@
-                                <input type="button" value="Clear" class="btn btn-secondary" onclick="clearForm();" /> @*scrypt method*@
+                                <div class="offset-md-11 col-md-10">
+                                    @*<input type="button" value="Clear Form" onclick="window.location.reload();" />*@
+                                    <input type="button" value="Clear" class="btn btn-secondary" onclick="clearForm();" /> @*scrypt method*@
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -148,7 +139,7 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
-        var imageAnchor = document.getElementById('imageAnchor');
+        var preview = document.getElementById('preview');
         var imageUpload = document.getElementById('imageUpload');
 
         imageAnchor.addEventListener('click', function () {
