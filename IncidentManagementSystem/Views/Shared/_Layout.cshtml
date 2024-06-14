@@ -11,9 +11,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
 
 </head>
-<body>
+<body stylw="overflow: hidden;">
     <nav class="sidebar">
-        <img src="~/Image/Logo.png" />
+        <img src="~/Image/Logo.png" id="logo" />
 
 
         <div class="menu-content">
@@ -21,7 +21,7 @@
                 @*<div class="menu-title">Your menu title</div>*@
 
                 <li class="item">
-                    <a href="#">Dashboard</a>
+                    @Html.ActionLink("Dashboard", "Dashboard", "Home", new { area = "Dashboard" }, new { @class = "nav-link" })
                 </li>
 
                 <li class="item">
@@ -42,14 +42,13 @@
                     <a href="#">Contact Us</a>
                 </li>
 
-
             </ul>
         </div>
     </nav>
     <nav class="navbar" style="position:relative">
         <i class="fa-solid fa-bars" id="sidebar-close"></i>
     </nav>
-    <div class="main" style="height:100%">
+    <div class="main" style="height:100%;">
 
         @*<div style="display:none">*@
         @RenderBody()

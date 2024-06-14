@@ -3,95 +3,97 @@
         ViewBag.Title = "Register";
     }*@
 
-<main aria-labelledby="title">
-    <h2 id="title">@ViewBag.Title</h2>
 
-    <div class="container reg">
-        <div class="col-lg-12 header ">
-            <div class="header-text">
-                Register Users
-            </div>
-            <div class="col text">
-                <span class="page input-icon">Users</span>
 
-                <span class="detail">Register Users</span>
-            </div>
+
+<div class="container-fluid reg">
+    <div class="col-lg-12 header ">
+        <div class="header-text">
+            Register Users
         </div>
+        <div class="col text">
+            <span class="page input-icon">Users</span>
 
-        <div class="container-fluid  reg-form ">
-
-            @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { role = "form" }))
-            {   <div class="col">
-
-                    <div class="row ">
-                        @Html.AntiForgeryToken()
-                        <div class="row">
-                            <div class="row ">
-                                @Html.LabelFor(m => m.Username, new { @class = "col-md-2 col-form-label name" })
-                                <div class="col">
-                                    @Html.TextBoxFor(m => m.Username, new { @class = "form-control u-box " })
-                                </div>
-                            </div>
-
-                            <div class="row ">
-                                @Html.LabelFor(m => m.InstutionId, new { @class = "col-md-2 col-form-label ins" })
-                                <div class="col">
-                                    @{
-                                        var instutionList = ViewBag.Instution as List<string>;
-                                        var defaultText = "Select UserRole";
-                                    }
-                                    @Html.DropDownListFor(m => m.InstutionId, ViewBag.Instution as SelectList, "-Select Instution-", new { @class = "form-select b-ins" })
-                                    @Html.ValidationMessageFor(m => m.InstutionId, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-
-                            <div class="row ">
-                                @Html.LabelFor(m => m.UserRole, new { @class = "col-md-2 col-form-label role" })
-                                <div class="col">
-                                    @{
-                                        var userList = ViewBag.UserRole as List<string>;
-                                        var defText = "Select UserRole";
-                                    }
-                                    @Html.DropDownListFor(m => m.UserRole, ViewBag.UserRole as SelectList, "-Select Instution-", new { @class = "form-select b-role" })
-                                    @Html.ValidationMessageFor(m => m.UserRole, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-
-
-                            <div class="row ">
-                                @Html.LabelFor(m => m.Password, new { @class = "col-md-2 col-form-label rpass" })
-                                <div class="col">
-                                    @Html.TextBoxFor(m => m.Password, new { @class = "form-control b-rpass " })
-                                </div>
-                            </div>
-                            <div class="row ">
-                                @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 col-form-label rcpass" })
-                                <div class="col">
-                                    @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control b-rcpass" })
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row justify-content-center">
-                            <div class="col-lg-2 form-group">
-                                <div class="offset-md-5 col-md-10">
-                                    <input type="submit" value="Cancel" class="btn btn-danger" />
-                                </div>
-                            </div>
-
-
-                            <div class="col-lg-2 form-group">
-                                <div class="offset-md-2 col-md-10">
-                                    <input type="submit" value="Register" class="btn btn-success" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            }
+            <span class="detail">Register Users</span>
         </div>
     </div>
-</main>
+
+    <div class="row justify-content-center  reg-form ">
+
+        @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { role = "form" }))
+        {
+
+            <div class="row ">
+                @Html.AntiForgeryToken()
+
+                <div class="row" style="margin-top:12px;">
+                    @Html.LabelFor(m => m.Username, new { @class = "col-md-2 col-form-label l-user" })
+                    <div class="col">
+                        @Html.TextBoxFor(m => m.Username, new { @class = "form-control u-box " })
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    @Html.LabelFor(m => m.InstutionId, new { @class = "col-md-2 col-form-label l-user" })
+                    <div class="col">
+                        @{
+                            var instutionList = ViewBag.Instution as List<string>;
+                            var defaultText = "Select UserRole";
+                        }
+                        @Html.DropDownListFor(m => m.InstutionId, ViewBag.Instution as SelectList, "-Select Instution-", new { @class = "form-select u-box" })
+                        @Html.ValidationMessageFor(m => m.InstutionId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="row">
+                    @Html.LabelFor(m => m.UserRole, new { @class = "col-md-2 col-form-label l-user" })
+                    <div class="col">
+                        @{
+                            var userList = ViewBag.UserRole as List<string>;
+                            var defText = "Select UserRole";
+                        }
+                        @Html.DropDownListFor(m => m.UserRole, ViewBag.UserRole as SelectList, "-Select Instution-", new { @class = "form-select u-box" })
+                        @Html.ValidationMessageFor(m => m.UserRole, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+
+                <div class="row">
+                    @Html.LabelFor(m => m.Password, new { @class = "col-md-2 col-form-label l-user" })
+                    <div class="col">
+                        @Html.TextBoxFor(m => m.Password, new { @class = "form-control u-box " })
+                    </div>
+                </div>
+
+                <div class="row ">
+                    @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 col-form-label l-user" })
+                    <div class="col">
+                        @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control u-box" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="row " style="margin-bottom:12px;">
+                <div class="col-lg-3 form-group">
+                    <div class="offset-9 col-md-2">
+                        <input type="submit" value="Regester" class="btn btn-success" />
+                    </div>
+                </div>
+
+
+                <div class="col-lg-2 form-group">
+                    <div class="offset-1 col-md-2">
+                        <input type="submit" value="Cancel" class="btn btn-danger" />
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+</div>
+
 
 @section Scripts{
     @Scripts.Render("~/bundles/jqueryval")
