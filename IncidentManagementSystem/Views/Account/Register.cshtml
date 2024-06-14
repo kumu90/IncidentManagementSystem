@@ -38,9 +38,9 @@
                 @Html.AntiForgeryToken()
 
                 <div class="row" style="margin-top:12px;">
-                    @Html.LabelFor(m => m.Username, new { @class = "col-md-2 col-form-label l-user" })
+                    @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 col-form-label l-user" })
                     <div class="col">
-                        @Html.TextBoxFor(m => m.Username, new { @class = "form-control u-box " })
+                        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control u-box " })
                     </div>
                 </div>
 
@@ -54,14 +54,14 @@
                             </div>
 
                 <div class="row">
-                    @Html.LabelFor(m => m.InstutionId, new { @class = "col-md-2 col-form-label l-user" })
+                    @Html.LabelFor(m => m.InsId, new { @class = "col-md-2 col-form-label l-user" })
                     <div class="col">
                         @{
                             var instutionList = ViewBag.Instution as List<string>;
                             var defaultText = "Select UserRole";
                         }
-                        @Html.DropDownListFor(m => m.InstutionId, ViewBag.Instution as SelectList, "-Select Instution-", new { @class = "form-select u-box" })
-                        @Html.ValidationMessageFor(m => m.InstutionId, "", new { @class = "text-danger" })
+                        @Html.DropDownListFor(m => m.InsId, ViewBag.Instution as SelectList, "-Select Instution-", new { @class = "form-select u-box" })
+                        @Html.ValidationMessageFor(m => m.InsId, "", new { @class = "text-danger" })
                     </div>
                 </div>
 
