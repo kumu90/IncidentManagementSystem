@@ -25,12 +25,13 @@
 
                     <div class="row ">
                         @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(" ",new {@class="text-danger"})
                         <div class="row">
                             <div class="row ">
-                                @Html.LabelFor(m => m.Email, new { @class = "col-md-2 col-form-label name" })
+                                @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 col-form-label name" })
                                 <div class="col">
-                                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control u-box " })
-                                    @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                                    @Html.TextBoxFor(m => m.UserName, new { @class = "form-control u-box " })
+                                    @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
                                 </div>
                             </div>
 
@@ -54,7 +55,7 @@
 
 
                             <div class="row ">
-                                @Html.LabelFor(m => m.Password, new { @class = "col-md-2 col-form-label rpass" })
+                                @Html.LabelFor(m => m.Password, new { @class = "col-md-2 col-form-label role" })
                                 <div class="col">
                                     @Html.PasswordFor(m => m.Password, new { @class = "form-control b-pass icon-pass" })
                                     @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
