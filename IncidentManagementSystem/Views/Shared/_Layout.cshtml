@@ -27,7 +27,7 @@
                             <span class="text nav-text">Dashboard</span>
                         </a>
                     </li>*@
-          
+
                 <li class="item">
                     @Html.Raw(Html.ActionLink("Dashboad", "Dashboard", "Home", new { area = "" }, new { @class = "nav-link" }).ToString().Replace("Dashboad", "<span class='bx bxs-dashboard icon'></span> Dashboard"))
                 </li>
@@ -35,12 +35,12 @@
                 <li class="item">
                     @Html.Raw(Html.ActionLink("User Register", "Register", "Account", new { area = "" }, new { @class = "nav-link" }).ToString().Replace("User Register", "<span class='bx bxs-user icon'></span> User Register"))
                 </li>
-               
-                <li class="item">
-                    @Html.ActionLink("Institution Register", "InstitutionRegister", "Institution", new { area = "" }, new { @class = "nav-link" })
 
+                <li class="item">
+                    @Html.Raw(Html.ActionLink("Institution Register", "InstitutionRegister", "Institution", new { area = "" }, new { @class = "nav-link" }).ToString().Replace("Institution Register", "<span class='bx bxs-building-house icon'></span> Institution Register"))
                 </li>
 
+            
                 <li class="item">
                     <a href="#">Services</a>
                 </li>

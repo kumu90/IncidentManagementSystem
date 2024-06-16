@@ -21,7 +21,7 @@ namespace IncidentManagementSystem.Controllers
             _iInstNameService = iInstNameServices;
             _iGetInstNameService = iGetInstNameService;
         }
-        
+
         public void initialize()
         {
             var InsId = _iGetInstNameService.GetInstName();
@@ -38,7 +38,7 @@ namespace IncidentManagementSystem.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult InstitutionRegister(InstNameDto instNameDto,HttpPostedFileBase image)
+        public ActionResult InstitutionRegister(InstNameDto instNameDto, HttpPostedFileBase image)
         {
             instNameDto.CreatedBy = User.Identity.GetUserId();
             if (ModelState.IsValid)
@@ -67,6 +67,11 @@ namespace IncidentManagementSystem.Controllers
             }
             ViewBag.TaskStatus = TempData["TaskStatus"];
             ViewBag.TaskMessage = TempData["TaskMessage"];
+            return View();
+        }
+
+        public ActionResult GetService()
+        {
             return View();
         }
     }

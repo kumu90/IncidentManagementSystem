@@ -272,6 +272,7 @@
     <Content Include="Views\Institution\InstitutionRegister.cshtml" />
     <Content Include="Views\Home\Dashboard.cshtml" />
     <Content Include="Views\Shared\_Login_Layout.cshtml" />
+    <Content Include="Views\Institution\GetService.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

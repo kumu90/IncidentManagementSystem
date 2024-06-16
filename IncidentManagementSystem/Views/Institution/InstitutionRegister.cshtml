@@ -9,6 +9,7 @@
 
 
     <div class="row  ">
+
         <div class="row header">
 
             <div class="text">
@@ -18,15 +19,16 @@
             </div>
         </div>
 
-        <div class="row ins-row">
+        @using (Html.BeginForm("InstitutionRegister", "Institution", FormMethod.Post, new { enctype = "multipart/form-data", role = "form", id = "ins-form" }))
+        {
+            <div class="row ins-row">
 
 
-            <div class="col-lg-10">
+                <div class="col-lg-10">
 
-                <div class="container-fluid justify-content-center  container-inst-style ">
+                    <div class="container-fluid justify-content-center  container-inst-style ">
 
-                    @using (Html.BeginForm("InstitutionRegister", "Institution", FormMethod.Post, new { enctype = "multipart/form-data", role = "form", id = "ins-form" }))
-                    {
+
                         @Html.AntiForgeryToken()
 
                         @Html.ValidationSummary("", new { @class = "text-danger" })
@@ -94,33 +96,6 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-2 file-upload">
-
-                            <div class="row">
-                                <div class="col-lg-12 file-upload justify-content-center">
-                                    <div class="inst-img" style="background-color:lightgray;">
-                                        <a href="#" id="imageAnchor">
-                                            <img id="preview" src="~/Image/photo-album-regular-24.png" class="card-img-top" alt="Preview" />
-                                        </a>
-                                    </div>
-
-                                    <div class="row upload">
-                                        <div class="col-lg-12">
-
-                                            @*<label for="uploadReportFile">Select file to upload:</label><br />*@
-                                            <input type="file" name="image" id="imageUpload" accept="image/*" onchange="previewImage(event)" class="form-control" style="width: 105px" />
-                                        </div>
-                                    </div>
-
-
-                                    <div class="row justify-content-start buttom-inst">
-                                        <div class="col-lg-4">
-                                            <input type="submit" value="Upload" class="btn btn-primary" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
 
                         <div class="row  form-group" style="margin-top:10px">
                             <div class="col-md-2">
@@ -131,12 +106,38 @@
                                 <input type="button" value="Clear" class="btn btn-secondary btn-lg " onclick="clearForm();" /> @*scrypt method*@
                             </div>
                         </div>
-                    }
+                    </div>
+                </div>
 
+                <div class="col-lg-2 file-upload">
+
+                    <div class="row">
+                        <div class="col-lg-12 file-upload justify-content-center">
+                            <div class="inst-img" style="background-color:lightgray;">
+                                <a href="#" id="imageAnchor">
+                                    <img id="preview" src="~/Image/photo-album-regular-24.png" class="card-img-top" alt="Preview" />
+                                </a>
+                            </div>
+
+                            <div class="row upload">
+                                <div class="col-lg-12">
+
+                                    @*<label for="uploadReportFile">Select file to upload:</label><br />*@
+                                    <input type="file" name="image" id="imageUpload" accept="image/*" onchange="previewImage(event)" class="form-control" style="width: 105px" />
+                                </div>
+                            </div>
+
+
+                            <div class="row justify-content-start buttom-inst">
+                                <div class="col-lg-4">
+                                    <input type="submit" value="Upload" class="btn btn-primary" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-           
-        </div>
+        }
     </div>
 </div>
 
