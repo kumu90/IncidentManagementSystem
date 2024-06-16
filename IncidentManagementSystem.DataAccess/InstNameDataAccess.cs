@@ -39,7 +39,7 @@ namespace IncidentManagementSystem.DataAccess
                         cmd.Parameters.AddWithValue("@contactPersonTechnical", _instNameDto.ContactPersonTechnical);
                         cmd.Parameters.AddWithValue("@contactNumber", _instNameDto.ContactNumber);
                         cmd.Parameters.AddWithValue("@email", _instNameDto.Email);
-                        cmd.Parameters.AddWithValue("@imageUrl", _instNameDto.ImageUrl ?? "");
+                        cmd.Parameters.AddWithValue("@imageUrl", _instNameDto.ImageUrl);
                         cmd.Parameters.AddWithValue("@userId", _instNameDto.CreatedBy ??"");
 
                         conn.Open();
