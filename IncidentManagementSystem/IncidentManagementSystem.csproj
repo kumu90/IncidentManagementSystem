@@ -211,6 +211,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Image\chevron-right-regular-24.png" />
     <Content Include="Image\gwendal-bar-1cmUs5eXOtg-unsplash.jpg" />
+    <Content Include="Image\homepage-seen-computer-screen.jpg" />
     <Content Include="Image\Logo.png" />
     <Content Include="Image\Password.png" />
     <Content Include="Image\photo-album-regular-24.png" />
@@ -270,6 +271,7 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Institution\InstitutionRegister.cshtml" />
     <Content Include="Views\Home\Dashboard.cshtml" />
+    <Content Include="Views\Shared\_Login_Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
