@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using IncidentManagementSystem.Model;
 using IncidentManagementSystem.Service;
+using Microsoft.AspNet.Identity;
 
 namespace IncidentManagementSystem.Controllers
 {
@@ -36,11 +37,15 @@ namespace IncidentManagementSystem.Controllers
         }
 
         [HttpPost]
-        public ActionResult InstitutionRegister(InstNameDto instNameDto)
+        [ValidateAntiForgeryToken]
+        public ActionResult InstitutionRegister(InstNameDto instNameDto,HttpPostedFileBase image)
         {
+            instNameDto.CreatedBy = User.Identity.GetUserId();
             if (ModelState.IsValid)
             {
                 SQLStatusDto sQLStatus = new SQLStatusDto();
+
+                instNameDto.ImageUrl = "https://cmstest.qpaysolutions.net/File/LoadImage?type=Institution&id=84ca03bd-e089-441f-b695-da4651cd0b54.png";
                 sQLStatus = _iInstNameService.InstNameRegister(instNameDto);
 
 

@@ -29,7 +29,7 @@ namespace IncidentManagementSystem.DataAccess
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Connection = conn;
 
-                        cmd.Parameters.AddWithValue("@instId", _instNameDto.InstId);
+                        //cmd.Parameters.AddWithValue("@instId", _instNameDto.InstId);
                         cmd.Parameters.AddWithValue("@institutionName", _instNameDto.InstitutionName);
                         cmd.Parameters.AddWithValue("@country", _instNameDto.Country);
                         cmd.Parameters.AddWithValue("@state", _instNameDto.State);
@@ -39,8 +39,8 @@ namespace IncidentManagementSystem.DataAccess
                         cmd.Parameters.AddWithValue("@contactPersonTechnical", _instNameDto.ContactPersonTechnical);
                         cmd.Parameters.AddWithValue("@contactNumber", _instNameDto.ContactNumber);
                         cmd.Parameters.AddWithValue("@email", _instNameDto.Email);
-                        cmd.Parameters.AddWithValue("@imageUrl", _instNameDto.ImageUrl);
-                        cmd.Parameters.AddWithValue("@userId", _instNameDto.CreatedBy);
+                        cmd.Parameters.AddWithValue("@imageUrl", _instNameDto.ImageUrl ?? "");
+                        cmd.Parameters.AddWithValue("@userId", _instNameDto.CreatedBy ??"");
 
                         conn.Open();
                         //status = cmd.ExecuteScalar().ToString();
@@ -61,8 +61,9 @@ namespace IncidentManagementSystem.DataAccess
             }
             catch (Exception ex)
             {
-                return _SQLStatus;
+                
             }
+            return _SQLStatus;
         }
     }
     public interface IInstNameDataAccess
