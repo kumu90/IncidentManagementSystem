@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -44,8 +45,20 @@ namespace IncidentManagementSystem.Controllers
             if (ModelState.IsValid)
             {
                 SQLStatusDto sQLStatus = new SQLStatusDto();
+                if (image != null && image.ContentLength > 0)
+                {
+                    string imagePath = UploadImg(image);
 
-                instNameDto.ImageUrl = "https://cmstest.qpaysolutions.net/File/LoadImage?type=Institution&id=84ca03bd-e089-441f-b695-da4651cd0b54.png";
+                    if (imagePath == "99")
+                    {
+                        ModelState.AddModelError("", "Invalid image file. Only .jpg, .jpeg, and .png files are allowed.");
+                        return View(instNameDto);
+                    }
+
+                    instNameDto.ImageUrl = Url.Content(imagePath);
+                }
+
+                ////instNameDto.ImageUrl = "";
                 sQLStatus = _iInstNameService.InstNameRegister(instNameDto);
 
 
@@ -74,5 +87,49 @@ namespace IncidentManagementSystem.Controllers
         {
             return View();
         }
+
+        
+
+        public string UploadImg(HttpPostedFileBase imgFile)
+        {
+            if (imgFile == null || imgFile.ContentLength <= 0)
+            {
+                // Returning an error code or message
+                return "99";
+            }
+
+            string[] validExtensions = { ".jpg", ".jpeg", ".png" };
+            string extension = Path.GetExtension(imgFile.FileName).ToLower();
+
+            if (!validExtensions.Contains(extension))
+            {
+                // Invalid file extension
+                return "99";
+            }
+
+            string randomFileName = $"{Guid.NewGuid()}{extension}";
+            string uploadsDir = Server.MapPath("~/Uploads");
+
+            // Ensure the uploads directory exists
+            if (!Directory.Exists(uploadsDir))
+            {
+                Directory.CreateDirectory(uploadsDir);
+            }
+
+            string filePath = Path.Combine(uploadsDir, randomFileName);
+
+            try
+            {
+                imgFile.SaveAs(filePath);
+                // Return the relative path to the saved file
+                return "~/Uploads/" + randomFileName;
+            }
+            catch (Exception ex)
+            {
+                // Handle the exception, log it if necessary
+                return "99";
+            }
+        }
+
     }
 }
