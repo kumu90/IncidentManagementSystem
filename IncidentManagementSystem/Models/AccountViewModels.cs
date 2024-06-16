@@ -6,8 +6,8 @@ namespace IncidentManagementSystem.Models
     public class ExternalLoginConfirmationViewModel
     {
         [Required]
-        [Display(Name = "Email")]
-        public string Email { get; set; }
+        [Display(Name = "User Name")]
+        public string Username { get; set; }
     }
 
     public class ExternalLoginListViewModel
@@ -42,21 +42,21 @@ namespace IncidentManagementSystem.Models
     public class ForgotViewModel
     {
         [Required]
-        [Display(Name = "Email")]
-        public string Email { get; set; }
+        [Display(Name = "User Name")]
+        public string Username { get; set; }
     }
 
     public class LoginViewModel
     {
-        [Required]
-        [Display(Name = "Email")]
-        [EmailAddress]
-        public string Email { get; set; }
-
         //[Required]
         //[Display(Name = "Email")]
         //[EmailAddress]
-        //public string Username { get; set; }
+        //public string Email { get; set; }
+
+        [Required]
+        [Display(Name = "User Name")]
+        //[EmailAddress]
+        public string Username { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
@@ -69,20 +69,25 @@ namespace IncidentManagementSystem.Models
 
     public class RegisterViewModel
     {
-        [Required]
-        [EmailAddress]
-        [Display(Name = "Email")]
-        public string Email { get; set; }
 
+        //[EmailAddress]
+        //[Display(Name = "Email")]
+        //public string Email { get; set; }
+
+        [Required]
         [Display(Name = "User Name")]
-        public string Username { get; set; }
-        public string InstutionId { get; set; }
-        public string UserRole { get; set; }
+        public string UserName { get; set; }
+
+        [Display(Name = "Instution Name")]
+        public string InsId { get; set; }
+
+        [Display(Name = "Roles")]
+        public string UserRole_Id { get; set; }
 
 
         [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
+        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [Display(Name = "Password")]
         public string Password { get; set; }
 
@@ -96,8 +101,8 @@ namespace IncidentManagementSystem.Models
     {
         [Required]
         [EmailAddress]
-        [Display(Name = "Email")]
-        public string Email { get; set; }
+        [Display(Name = "User Name")]
+        public string Username { get; set; }
 
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
@@ -117,7 +122,7 @@ namespace IncidentManagementSystem.Models
     {
         [Required]
         [EmailAddress]
-        [Display(Name = "Email")]
-        public string Email { get; set; }
+        [Display(Name = "User Name")]
+        public string Username { get; set; }
     }
 }

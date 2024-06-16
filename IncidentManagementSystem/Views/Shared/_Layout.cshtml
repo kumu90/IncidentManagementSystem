@@ -10,31 +10,37 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
 
+    <!--==== Boxicons CSS ====-->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
-<body>
+<body style="overflow: hidden;">
     <nav class="sidebar">
-        <img src="~/Image/Logo.png" />
+        <img src="~/Image/Logo.png" id="logo" />
 
 
         <div class="menu-content">
             <ul class="menu-items">
                 @*<div class="menu-title">Your menu title</div>*@
-
+                @*<li class="item">
+                        <a href="Dashboad/Home">
+                            <i class='bx bxs-dashboard  icon'></i>
+                            <span class="text nav-text">Dashboard</span>
+                        </a>
+                    </li>*@
+          
                 <li class="item">
-                    <a href="#">Dashboard</a>
+                    @Html.Raw(Html.ActionLink("Dashboad", "Dashboard", "Home", new { area = "" }, new { @class = "nav-link" }).ToString().Replace("Dashboad", "<span class='bx bxs-dashboard icon'></span> Dashboard"))
                 </li>
 
                 <li class="item">
-                    @Html.ActionLink("User Register", "Register", "Account", new { area = "User Registe" }, new { @class = "nav-link" })
+                    @Html.Raw(Html.ActionLink("User Register", "Register", "Account", new { area = "" }, new { @class = "nav-link" }).ToString().Replace("User Register", "<span class='bx bxs-user icon'></span> User Register"))
+                </li>
+               
+                <li class="item">
+                    @Html.ActionLink("Institution Register", "InstitutionRegister", "Institution", new { area = "" }, new { @class = "nav-link" })
 
                 </li>
-                <li class="item">
-                    @Html.ActionLink("Institution Register", "InstitutionRegister", "Institution", new { area = "Instution Register" }, new { @class = "nav-link" })
 
-                </li>
-                <li class="item">
-                    <a href="#">Reports</a>
-                </li>
                 <li class="item">
                     <a href="#">Services</a>
                 </li>
@@ -42,14 +48,13 @@
                     <a href="#">Contact Us</a>
                 </li>
 
-
             </ul>
         </div>
     </nav>
     <nav class="navbar" style="position:relative">
         <i class="fa-solid fa-bars" id="sidebar-close"></i>
     </nav>
-    <div class="swarup" style="height: 100%; margin-left: 300px; margin-top: 32px; background-color: #F7F8F7; margin-top:0px;">
+    <div class="main">
 
         @*<div style="display:none">*@
         @RenderBody()

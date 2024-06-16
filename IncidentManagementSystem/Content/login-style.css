@@ -7,39 +7,29 @@
 :root {
     --primary-color: #1EB386;
     --text-color: #333333;
+    /*===== Transition ====*/
+    --tran-02: All 0.2s ease;
+    --tran-03: All 0.3s ease;
+    --tran-04: All 0.4s ease;
+    --tran-05: All 0.5s ease;
+}
+
 }
 
 body {
-    margin:0;
-    padding:0;
-    height:100%;
-    width:100%;
-
-}
-
-.row.l {
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
     height: 100%;
-    justify-items: center;
-    align-items: center;
+    width: 100%;
 }
 
-
-/*Test CSS*/
-.rightimg{
-    height:100%;
-    width:100%;
-    object-fit:cover;
+.main-container {
+    margin-top: 0px;
+    width: 100%;
+    height: 100%;
 }
 
-.container-left-style {
-    width: 577px;
-    height: 510px;
-    /*  margin-top: 289px;
-    margin-right: 171px;
-    margin-bottom: 281px;
-    margin-left: 196px;*/
-    /*background-color: aqua;*/
-}
 
 .logo {
     width: 189.09px;
@@ -52,21 +42,18 @@ body {
         height: 54px;
     }
 
-.log-form {
-    width: 577px;
-    height: 392px;
+.header {
+    margin-bottom: 12px;
 }
 
 .form-header {
-    width: 577px;
-    height: 112px;
     margin-bottom: 32px;
 }
 
-.header {
-    width: 577px;
-    height: 64px;
-    margin-bottom: 12px;
+
+
+.subheader {
+    margin-bottom: 32px;
 }
 
 .text-header {
@@ -77,12 +64,6 @@ body {
     text-align: left;
 }
 
-.subheader {
-    width: 577px;
-    height: 36px;
-    margin-bottom: 32px;
-}
-
 .text-subheader {
     font-family: Outfit;
     font-size: 24px;
@@ -91,61 +72,33 @@ body {
     text-align: left;
 }
 
-.log {
-    width: 550px;
-    height: 248px;
+.log-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.uname {
-    width: 550px;
-    height: 76px;
-    margin-bottom: 24px;
+.log-img {
+    max-width: 100%;
+    /*/ max-height: 100%;*/
+     height: 100vh;
+}
+
+
+.l-login {
+    /* margin-bottom: 8px;*/
+    font-family: Outfit;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 24px;
+    text-align: left;
 }
 
 .icon-user {
-    
     background-image: url('../image/user.png');
     background-repeat: no-repeat;
     background-position: left center;
     padding-right: 30px;
-}
-
-.l-uname {
-    width: 73px;
-    height: 24px;
-    font-family: Outfit;
-    font-size: 16px;
-    font-weight: 300;
-    line-height: 24px;
-    text-align: left;
-    margin-bottom: 8px; /*will-change COMENT*/
-}
-
-#Username.form-control.b-uname {
-    width: 550px;
-    height: 44px;
-    padding: 12px 12px 12px 12px;
-    gap: 10px;
-    border-radius: 8px 8px 8px 8px;
-    border: 1px 1px 1px 1px;
-    border: 1px solid #CCCCCC
-}
-
-.pass {
-    width: 550px;
-    height: 76px;
-    margin-bottom: 24px;
-}
-
-.l-pass {
-    width: 73px;
-    height: 24px;
-    font-family: Outfit;
-    font-size: 16px;
-    font-weight: 300;
-    line-height: 24px;
-    text-align: left;
-    margin-bottom: 8px
 }
 
 .icon-pass {
@@ -155,33 +108,20 @@ body {
     padding-right: 30px;
 }
 
-#Password.form-control.b-pass {
-    width: 550px;
-    height: 44px;
-    padding: 12px 12px 12px 12px;
-    gap: 10px;
-    border-radius: 8px 8px 8px 8px;
-    border: 1px 1px 1px 1px;
-    border: 1px solid #CCCCCC
+.b-login {
+    /*  margin-bottom: 24px;*/
+    border: 1px solid black;
 }
 
 .l-btn {
-    width: 550px;
-    height: 48px;
+    width: 280px;
 }
-
-
-
-.container-right-style {
-    width: 976px;
-    height: 1080px;
-}
-
 
 /*register css*/
-.container.reg {
-    background-color: #f3f4f9;
-    height: 550px;
+.container-fluid.reg {
+    margin-top: 0px;
+    width: 100%;
+    height: 100%;
 }
 
 .reg .header {
@@ -227,7 +167,6 @@ body {
 
 .input-icon {
     background-image: url('../image/chevron-right-regular-24.png');
-    
     background-repeat: no-repeat;
     background-position: right center;
     padding-right: 30px;
@@ -236,113 +175,36 @@ body {
 .reg-form {
     background-color: #ffffff;
     width: 100%;
-    height: 326px;
-    top: 232px;
-    left: 332px;
+    height: auto;
+    margin-top: 20px;
     gap: 0;
     border-radius: 12px 12px 12px 12px;
 }
 
-.name {
-    width: 481.33px;
-    height: 24px;
+.l-user {
+    /* width: 481.33px;
+    height: 24px;*/
     font-family: outfit;
     font-size: 16px;
     font-weight: 400;
-    line-height: 24px;
-    text-align: left;
+    /* line-height: 24px;*/
+    text-align: right;
+    margin-bottom: 10px;
 }
 
 .u-box {
-    width: 100%;
-    height: 44px;
-    padding: 10px 0 0 0;
-    gap: 10px;
     margin-bottom: 10px;
-    border-radius: 4px 0 0 0;
-    border: 1px solid black;
-}
-
-.ins {
-    width: 481.33px;
-    height: 24px;
-    font-family: outfit;
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 24px;
-    text-align: left;
-}
-
-.b-ins {
-    width: 100%;
-    height: 44px;
-    padding: 10px 0 0 0;
-    margin-bottom: 10px;
-    border-radius: 4px 0 0 0;
-    border: 1px solid black;
-}
-
-.role {
-    width: 481.33px;
-    height: 24px;
-    font-family: outfit;
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 24px;
-    text-align: left;
-}
-
-.b-role {
-    width: 100%;
-    height: 44px;
-    padding: 10px 0 0 0;
-    gap: 10px;
-    border-radius: 4px 0 0 0;
-    border: 1px solid black;
-}
-
-.rpass {
-    width: 481.33px;
-    height: 24px;
-    font-family: outfit;
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 24px;
-    text-align: left;
-}
-
-.b-rpass {
-    width: 100%;
-    height: 44px;
-    padding: 10px 0 0 0;
-    margin-bottom: 10px;
-    gap: 10px;
-    border-radius: 4px 0 0 0;
-    border: 1px solid black;
-}
-
-.rcpass {
-    width: 481.33px;
-    height: 24px;
-    font-family: outfit;
-    margin-top: 5px;
-    margin-bottom: 10px;
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 24px;
-    text-align: left;
-}
-
-.b-rcpass {
-    width: 100%;
-    height: 44px;
-    padding: 10px 0 0 0;
-    margin-bottom: 10px;
-    border-radius: 4px 0 0 0;
     border: 1px solid black;
 }
 
 /*Instution registration style css*/
+
+.reg-inst {
+    margin-top: 0px;
+    width: 100%;
+    height: 100%;
+}
+
 .container-inst-style {
     width: 100%;
     height: 100%;
@@ -352,15 +214,20 @@ body {
 .l-inst {
     /*width: 90px;*/
     /*  height: 24px;*/
-    text-align: right;
+    height: auto;
+    text-align: left;
     font-family: outfit;
     font-size: 16px;
     font-weight: 400;
     line-height: 24px;
 }
 
+.b-inst {
+    border: 1px solid black;
+}
+
 .row-inst {
-    height: 100%;
+    height: auto;
 }
 
 .inst-row-form {
@@ -368,23 +235,30 @@ body {
 }
 
 .file-upload {
-    width: 400px;
-    height: 400px;
+    /*    width: 300px;
+    height: 300px;*/
+}
+
+.upload {
+    margin-top: 5px;
 }
 
 .inst-img {
-    width: 200px;
-    height: 200px;
+    left: 0px;
+    margin-top: 55px;
+    width: 100px;
+    height: 100px;
 }
 
-    .inst-img img {
+
+    .inst-img .card-img-top {
         display: block;
-        max-width: 200px;
-        max-height: 200px;
+        max-width: 100px;
+        max-height: 100px;
     }
 
 .buttom-inst {
-    margin-top: 0;
+    margin-top: 12px;
 }
 
 
@@ -429,39 +303,77 @@ body {
     transition: all 0.4s ease;
 }
 
+
+.sidebar li {
+    height: 50px;
+    margin-top: 10px;
+    list-style: none;
+    display: flex;
+    align-items: center;
+}
+
+    .sidebar li .icon {
+        color: var(--text-color);
+        display: flex;
+        align-items: center;
+        /* justify-content: center;*/
+
+        font-size: 20px;
+        margin-right: 5px;
+        font-family: outfit;
+    }
+
+
+
 .submenu-active .menu-items {
     transform: translateX(-56%);
 }
 
-.menu-title {
+/*.menu-title {
     color: Var(--text-color);
     font-size: 14px;
     padding: 15px 20px;
-}
+}*/
 
 .item a,
 .submenu-item {
+    font-family: outfit;
     padding: 16px;
     display: inline-block;
     width: 100%;
     border-radius: 12px;
+    display: flex;
 }
 
+
+
+
+/*.icon {
+   
+}*/
+
 .item i {
+    font-family: outfit;
     font-size: 12px;
 }
 
-.item a:hover,
-.submenu-item:hover,
-.submenu .menu-title:hover {
+.item a:hover, .sidebar li a:hover .icon
+/*,
+    .Sidebar li .icon,
+    .submenu-item:hover,*/
+/* .submenu .menu-title:hover*/ {
+    color: #fff;
     background: Var(--primary-color);
+    transition: var(--tran-02);
 }
 
-.submenu-item {
+
+
+/*.submenu-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    color: Var(--text-color);
+    color: var(--text-color);
     cursor: pointer;
 }
 
@@ -474,20 +386,9 @@ body {
     height: calc(100% + 100vh);
     background: #11101d;
     display: none;
-}
+}*/
 
-.show-submenu ~ .submenu {
-    display: block;
-}
 
-.submenu .menu-title {
-    border-radius: 12px;
-    cursor: pointer;
-}
-
-    .submenu .menu-title i {
-        margin-right: 10px;
-    }
 
 .navbar,
 .main {
@@ -508,7 +409,7 @@ body {
     color: #fff;
     padding: 15px 20px;
     font-size: 25px;
-    background: #4070f4;
+    background: Var(--primary-color);
     cursor: pointer;
 }
 
@@ -535,112 +436,65 @@ body {
         text-align: center;
     }
 
-img {
+.sidebar #logo {
     width: 189.09px;
     height: 54px;
 }
 /*.Sidebar.close .text {
     opacity: 0;
 }*/
-.submenu-active .menu-items {
-    transform: translateX(-56%);
-}
 
-.menu-title {
-    color: Var(--text-color);
-    font-size: 14px;
-    padding: 15px 20px;
-}
-
-.item a,
-.submenu-item {
-    padding: 16px;
-    display: inline-block;
+/*
+/------------------* dashboard css*------------------/*/
+.dashboard {
+    margin-top: 0px;
     width: 100%;
-    border-radius: 12px;
-}
-
-.item i {
-    font-size: 12px;
-}
-
-.item a:hover,
-.submenu-item:hover,
-.submenu .menu-title:hover {
-    background: Var(--primary-color);
-}
-
-.submenu-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: Var(--text-color);
-    cursor: pointer;
-}
-
-.submenu {
-    position: absolute;
     height: 100%;
-    width: 100%;
-    top: 0;
-    right: calc(-100% - 26px);
-    height: calc(100% + 100vh);
-    background: Var(--sidebar-color);
-    display: none;
 }
 
-.show-submenu ~ .submenu {
-    display: block;
+.search-box {
+    height: 100px;
+    background-color: #fff;
 }
 
-.submenu .menu-title {
-    border-radius: 12px;
-    cursor: pointer;
+.s-box {
+    margin-top: 20px;
 }
 
-    .submenu .menu-title i {
-        margin-right: 10px;
-    }
-
-.navbar
- {
-    left: 300px;
-    width: calc(100% - 300px);
-    transition: all 0.5s ease;
-    z-index: 1000;
+.s-dash {
+    margin-top: 30px;
 }
 
-.sidebar.close ~ .navbar,
-.sidebar.close ~ .main {
-    left: 0;
+.btn-width {
     width: 100%;
 }
 
-.navbar {
-    position: fixed;
-    color: #fff;
-    padding: 15px 20px;
-    font-size: 25px;
-    background: #4070f4;
-    cursor: pointer;
-}
 
-    .navbar #sidebar-close {
-        cursor: pointer;
-    }
+/*search table csss*/
 
-/*.main {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    z-index: 100;
-    background: #e7f2fd;
-}
 
-    .main h1 {
-        color: #11101d;
-        font-size: 40px;
-        text-align: center;
-    }*/
+/*.table-striped tbody tr:nth-of-type(odd) {
+    background-color: #e3f8f3;*/ /*/ Lighter shade of #1EB386 for striped rows /*/
+/*}
+
+.table-striped tbody tr:nth-of-type(even) {
+    background-color: white;*/ /*/ Alternate rows to have white background /*/
+/*}
+
+.table-striped tbody tr:hover {
+    background-color: #d3f4ec;*/ /*/ Hover effect for striped rows /*/
+/*}
+
+.table-bordered {
+    border-color: #000000;*/ /*/ Border color for the table /*/
+/*}
+
+    .table-bordered th,
+    .table-bordered td {
+        border: 1px solid #000000;*/ /*/ Border color for table cells /*/
+/*}
+
+.table-dark th {
+    background-color: #1EB386;*/ /*/ Background color for table header /*/
+/*color: white;*/ /*/ Text color for table header /*/
+/*}*/
