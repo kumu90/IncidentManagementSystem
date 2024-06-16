@@ -23,7 +23,7 @@
 
                 <div class="container-fluid justify-content-center  container-inst-style ">
 
-                    @using (Html.BeginForm("InstitutionRegister", "Account", FormMethod.Post, new { enctype = "multipart/form-data", role = "form", id = "ins-form" }))
+                    @using (Html.BeginForm("InstitutionRegister", "Institution", FormMethod.Post, new { enctype = "multipart/form-data", role = "form", id = "ins-form" }))
                     {
                         @Html.AntiForgeryToken()
 

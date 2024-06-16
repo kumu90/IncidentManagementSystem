@@ -34,5 +34,35 @@ namespace IncidentManagementSystem.Controllers
             ViewBag.TaskMessage = TempData["TaskMessage"];
             return View();
         }
+
+        [HttpPost]
+        public ActionResult InstitutionRegister(InstNameDto instNameDto)
+        {
+            if (ModelState.IsValid)
+            {
+                SQLStatusDto sQLStatus = new SQLStatusDto();
+                sQLStatus = _iInstNameService.InstNameRegister(instNameDto);
+
+
+                if (sQLStatus.Status == "00")
+                {
+                    TempData["TaskStatus"] = sQLStatus.Status;
+                    TempData["TaskMessage"] = sQLStatus.Message;
+
+
+                }
+                else
+                {
+
+                    TempData["TaskStatus"] = sQLStatus.Status;
+                    TempData["TaskMessage"] = sQLStatus.Message;
+                    ModelState.AddModelError("", "An institution with the same name already exists in the system");
+
+                }
+            }
+            ViewBag.TaskStatus = TempData["TaskStatus"];
+            ViewBag.TaskMessage = TempData["TaskMessage"];
+            return View();
+        }
     }
 }
