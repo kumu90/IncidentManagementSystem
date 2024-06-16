@@ -25,7 +25,7 @@
 
                 <div class="container-fluid justify-content-center  container-inst-style ">
 
-                    @using (Html.BeginForm("InstitutionRegister", "Account", FormMethod.Post, new { enctype = "multipart/form-data", role = "form", id = "ins-form" }))
+                    @using (Html.BeginForm("InstitutionRegister", "Institution", FormMethod.Post, new { enctype = "multipart/form-data", role = "form", id = "ins-form" }))
                     {
                         @Html.AntiForgeryToken()
 
@@ -122,7 +122,7 @@
                             <div class="col-lg-12">
 
                                 @*<label for="uploadReportFile">Select file to upload:</label><br />*@
-                                <input type="file" name="image" id="imageUpload" accept="image/*" onchange="previewImage(event)" class="form-control" style="width: 105px"/>
+                                <input type="file" name="image" id="imageUpload" accept="image/*" onchange="previewImage(event)" class="form-control" style="width: 105px" />
                             </div>
                         </div>
 

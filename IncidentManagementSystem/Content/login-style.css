@@ -7,6 +7,13 @@
 :root {
     --primary-color: #1EB386;
     --text-color: #333333;
+    /*===== Transition ====*/
+    --tran-02: All 0.2s ease;
+    --tran-03: All 0.3s ease;
+    --tran-04: All 0.4s ease;
+    --tran-05: All 0.5s ease;
+}
+
 }
 
 body {
@@ -17,55 +24,12 @@ body {
     width: 100%;
 }
 
-
-.container-left {
-    flex: 1;
-    padding:20px;
-    /*/ Take up half of the available space / padding: 20px;*/
-    /*/ Add some padding for spacing /*/
-}
-
-/*/ Style for the right container /*/
-.container-right {
-    flex: 1;
-    /*/ Take up half of the available space /*/
-}
-
-/*/ Style for the full-screen image /*/
-.rightimg {
-   /* margin-left: 110px;*/
-
+.main-container {
+    margin-top: 0px;
     width: 100%;
-    height:100vh;
-    display:block;
-    /*/ Ensure the image takes up the full width / height: 100vh;*/
-    /*/ Maintain aspect ratio / display: block;*/
-    /*/ Make sure it's displayed as a block element /*/
+    height: 100%;
 }
 
-.l {
-    height: 100%;
-    justify-items: center;
-    align-items: center;
-}
-
-
-/*Test CSS*/
-/*.rightimg {
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
-}*/
-
-/*.container-left-style {
-    width: 577px;
-    height: 510px;
-    margin-top: 289px;
-    margin-right: 171px;
-    margin-bottom: 281px;
-    margin-left: 196px;*/
-/*background-color: aqua;*/
-/*}*/
 
 .logo {
     width: 189.09px;
@@ -78,22 +42,18 @@ body {
         height: 54px;
     }
 
-.log-form {
-    
-    width: 577px;
-    height: 392px;
+.header {
+    margin-bottom: 12px;
 }
 
 .form-header {
-    width: 577px;
-    height: 112px;
     margin-bottom: 32px;
 }
 
-.header {
-    width: 577px;
-    height: 64px;
-    margin-bottom: 12px;
+
+
+.subheader {
+    margin-bottom: 32px;
 }
 
 .text-header {
@@ -104,12 +64,6 @@ body {
     text-align: left;
 }
 
-.subheader {
-    width: 577px;
-    height: 36px;
-    margin-bottom: 32px;
-}
-
 .text-subheader {
     font-family: Outfit;
     font-size: 24px;
@@ -118,12 +72,27 @@ body {
     text-align: left;
 }
 
-.log {
-    width: 550px;
-    height: 248px;
+.log-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.log-img {
+    max-width: 100%;
+    /*/ max-height: 100%;*/
+     height: 100vh;
 }
 
 
+.l-login {
+    /* margin-bottom: 8px;*/
+    font-family: Outfit;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 24px;
+    text-align: left;
+}
 
 .icon-user {
     background-image: url('../image/user.png');
@@ -132,24 +101,6 @@ body {
     padding-right: 30px;
 }
 
-.l-login {
-    margin-bottom: 8px;
-    font-family: Outfit;
-    font-size: 16px;
-    font-weight: 300;
-    line-height: 24px;
-    text-align: left;
-}
-
-.b-login {
-    margin-bottom: 24px;
-    border: 1px solid black;
-}
-
-
-
-
-
 .icon-pass {
     background-image: url('../image/password.png');
     background-repeat: no-repeat;
@@ -157,19 +108,14 @@ body {
     padding-right: 30px;
 }
 
-
-.l-btn {
-    width: 550px;
-    height: 48px;
+.b-login {
+    /*  margin-bottom: 24px;*/
+    border: 1px solid black;
 }
 
-
-
-/*.container-right-style {
-    width: 976px;
-    height: 1080px;
-}*/
-
+.l-btn {
+    width: 280px;
+}
 
 /*register css*/
 .container-fluid.reg {
@@ -289,7 +235,7 @@ body {
 }
 
 .file-upload {
-/*    width: 300px;
+    /*    width: 300px;
     height: 300px;*/
 }
 
@@ -357,15 +303,37 @@ body {
     transition: all 0.4s ease;
 }
 
+
+.sidebar li {
+    height: 50px;
+    margin-top: 10px;
+    list-style: none;
+    display: flex;
+    align-items: center;
+}
+
+    .sidebar li .icon {
+        color: var(--text-color);
+        display: flex;
+        align-items: center;
+        /* justify-content: center;*/
+
+        font-size: 20px;
+        margin-right: 5px;
+        font-family: outfit;
+    }
+
+
+
 .submenu-active .menu-items {
     transform: translateX(-56%);
 }
 
-.menu-title {
+/*.menu-title {
     color: Var(--text-color);
     font-size: 14px;
     padding: 15px 20px;
-}
+}*/
 
 .item a,
 .submenu-item {
@@ -374,19 +342,32 @@ body {
     display: inline-block;
     width: 100%;
     border-radius: 12px;
+    display: flex;
 }
 
-    /*.item i {
-    font-family:outfit;
-    font-size: 12px;
+
+
+
+/*.icon {
+   
 }*/
 
-    .item a:hover,
-    .submenu-item:hover,
-    .submenu .menu-title:hover {
-        color: #fff;
-        background: Var(--primary-color);
-    }
+.item i {
+    font-family: outfit;
+    font-size: 12px;
+}
+
+.item a:hover, .sidebar li a:hover .icon
+/*,
+    .Sidebar li .icon,
+    .submenu-item:hover,*/
+/* .submenu .menu-title:hover*/ {
+    color: #fff;
+    background: Var(--primary-color);
+    transition: var(--tran-02);
+}
+
+
 
 /*.submenu-item {
     display: flex;
@@ -517,4 +498,3 @@ body {
     background-color: #1EB386;*/ /*/ Background color for table header /*/
 /*color: white;*/ /*/ Text color for table header /*/
 /*}*/
-
