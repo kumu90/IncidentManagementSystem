@@ -83,13 +83,7 @@ namespace IncidentManagementSystem.Controllers
             return View();
         }
 
-        public ActionResult GetService()
-        {
-            return View();
-        }
-
-        
-
+       
         public string UploadImg(HttpPostedFileBase imgFile)
         {
             if (imgFile == null || imgFile.ContentLength <= 0)
@@ -130,6 +124,13 @@ namespace IncidentManagementSystem.Controllers
                 return "99";
             }
         }
+
+        public ActionResult GetService()
+        {
+            return View();
+        }
+
+
 
     }
 }
