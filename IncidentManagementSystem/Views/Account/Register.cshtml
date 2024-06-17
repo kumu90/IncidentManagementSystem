@@ -25,7 +25,6 @@
                 @Html.ValidationSummary(" ", new { @class = "text-danger" })
 
                 <div class="row ">
-                    @Html.AntiForgeryToken()
 
                     <div class="row" style="margin-top:12px;">
                         @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 col-form-label l-user" })
@@ -37,19 +36,15 @@
                     <div class="row ">
                         @Html.LabelFor(m => m.InsId, new { @class = "col-md-2 col-form-label l-user" })
                         <div class="col">
-                            @Html.TextBoxFor(m => m.InsId, new { @class = "form-control u-box " })
-                            @*@Html.DropDownListFor(m => m.InsId, ViewBag.Instution as SelectList, "-Select Instution-", new { @class = "form-select b-ins" })*@
+                            @Html.DropDownListFor(m => m.InsId, ViewBag.Instution as SelectList, "-Select Instution-", new { @class = "form-select b-ins" })
                             @Html.ValidationMessageFor(m => m.InsId, "", new { @class = "text-danger" })
                         </div>
                     </div>
-
-
-
                     <div class="row ">
                         @Html.LabelFor(m => m.UserRole_Id, new { @class = "col-md-2 col-form-label l-user" })
                         <div class="col">
-                            @Html.TextBoxFor(m => m.UserRole_Id, new { @class = "form-control u-box " })
-                            @*@Html.DropDownListFor(m => m.UserRole_Id, ViewBag.UserRole as SelectList, "-Select Instution-", new { @class = "form-select b-role" })*@
+                            @*@Html.TextBoxFor(m => m.UserRole_Id, new { @class = "form-control u-box " })*@
+                            @Html.DropDownListFor(m => m.UserRole_Id, ViewBag.UserRole as SelectList, "-Select Instution-", new { @class = "form-select b-role" })
                             @Html.ValidationMessageFor(m => m.UserRole_Id, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -59,6 +54,7 @@
                         @Html.LabelFor(m => m.Password, new { @class = "col-md-2 col-form-label l-user" })
                         <div class="col">
                             @Html.TextBoxFor(m => m.Password, new { @class = "form-control u-box " })
+                            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
                         </div>
                     </div>
 
@@ -66,7 +62,7 @@
                         @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 col-form-label l-user" })
                         <div class="col">
                             @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control u-box" })
-
+                            @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
                         </div>
                     </div>
                 </div>

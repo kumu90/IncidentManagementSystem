@@ -43,8 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GetInstNameDataAccess.cs" />
-    <Compile Include="InstNameDataAccess.cs" />
+    <Compile Include="InstitutionDataAccess.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

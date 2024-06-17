@@ -12,22 +12,20 @@ namespace IncidentManagementSystem.Controllers
 {
     public class InstitutionController : Controller
     {
-        readonly IInstNameService _iInstNameService;
-        readonly IGetInstNameService _iGetInstNameService;
+        readonly IInstitutionService _iInstitutionNameService;
         public InstitutionController()
         {
         }
-        public InstitutionController(IInstNameService iInstNameServices, IGetInstNameService iGetInstNameService)
+        public InstitutionController(IInstitutionService iInstitutionNameService)
         {
-            _iInstNameService = iInstNameServices;
-            _iGetInstNameService = iGetInstNameService;
+            _iInstitutionNameService = iInstitutionNameService;
         }
 
-        public void initialize()
-        {
-            var InsId = _iGetInstNameService.GetInstName();
-            ViewBag.InsName = new SelectList(InsId, "InstId", "InstitutionName");
-        }
+        //public void initialize()
+        //{
+        //    var InsId = _iGetInstNameService.GetInstName();
+        //    ViewBag.InsName = new SelectList(InsId, "InstId", "InstitutionName");
+        //}
 
         [HttpGet]
         public ActionResult InstitutionRegister()
@@ -59,7 +57,7 @@ namespace IncidentManagementSystem.Controllers
                 }
 
                 ////instNameDto.ImageUrl = "";
-                sQLStatus = _iInstNameService.InstNameRegister(instNameDto);
+                sQLStatus = _iInstitutionNameService.InstNameRegister(instNameDto);
 
 
                 if (sQLStatus.Status == "00")
@@ -129,6 +127,7 @@ namespace IncidentManagementSystem.Controllers
         {
             return View();
         }
+
 
 
 
