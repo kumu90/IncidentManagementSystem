@@ -150,16 +150,12 @@ namespace IncidentManagementSystem.Controllers
         /// </summary>
         public void Initialize()
         {
-            //var list = new List<string>() { "SuperAdmin", "Admin", "User" };
-            //ViewBag.Instution = new SelectList(list);
-            //var inst = _instNameService.GetInstName();
-
+           
             var InsId = _iInstitutionService.GetInstName();
             ViewBag.Instution = new SelectList(InsId, "InstId", "InstitutionName");
 
-
-            var user = new List<string>() { "xyz", "abc", "ijk" };
-            ViewBag.Userrole = new SelectList(user);
+            var user = _iInstitutionService.RoleList();
+            ViewBag.UserRole = new SelectList(user, "Id", "Name");
         }
 
         //

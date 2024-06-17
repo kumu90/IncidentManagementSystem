@@ -45,8 +45,7 @@
                     <div class="row ">
                         @Html.LabelFor(m => m.UserRole_Id, new { @class = "col-md-2 col-form-label l-user" })
                         <div class="col">
-                            @*@Html.TextBoxFor(m => m.UserRole_Id, new { @class = "form-control u-box " })*@
-                            @Html.DropDownListFor(m => m.UserRole_Id, ViewBag.UserRole as SelectList, "-Select Instution-", new { @class = "form-select u-box" })
+                            @Html.DropDownListFor(m => m.UserRole_Id, ViewBag.UserRole as SelectList, "-Select Instution-", new { @class = "form-select b-role" })
                             @Html.ValidationMessageFor(m => m.UserRole_Id, "", new { @class = "text-danger" })
                         </div>
                     </div>

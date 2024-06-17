@@ -38,7 +38,7 @@ namespace IncidentManagementSystem.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult InstitutionRegister(InstNameDto instNameDto, HttpPostedFileBase image)
-        {
+                {
             instNameDto.CreatedBy = User.Identity.GetUserId();
             if (ModelState.IsValid)
             {
