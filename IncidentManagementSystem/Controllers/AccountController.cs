@@ -158,7 +158,7 @@ namespace IncidentManagementSystem.Controllers
             ViewBag.Instution = new SelectList(InsId, "InstId", "InstitutionName");
 
 
-            var user = new List<string>() { "xyz", "abc", "ijk" };
+            var user = new List<string>() { "Admin", "Customer", "User" };
             ViewBag.Userrole = new SelectList(user);
         }
 

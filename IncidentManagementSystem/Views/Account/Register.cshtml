@@ -54,7 +54,7 @@
                     <div class="row ">
                         @Html.LabelFor(m => m.Password, new { @class = "col-md-2 col-form-label l-user" })
                         <div class="col">
-                            @Html.TextBoxFor(m => m.Password, new { @class = "form-control u-box " })
+                            @Html.PasswordFor(m => m.Password, new { @class = "form-control u-box " })
                             @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -79,7 +79,7 @@
 
                 <div class="col-lg-2 form-group">
                     <div class="offset-1 col-md-2">
-                        <input type="submit" value="Cancel" class="btn btn-danger" />
+                        <input type="reset" value="Cancel" class="btn btn-danger" />
                     </div>
                 </div>
             </div>
