@@ -498,3 +498,12 @@ body {
     background-color: #1EB386;*/ /*/ Background color for table header /*/
 /*color: white;*/ /*/ Text color for table header /*/
 /*}*/
+
+
+/*------------------------------------------------------------- Service css------------------------------------ */
+
+.container-fluid.service {
+    margin-top: 0px;
+    height: 100%;
+    width: 100%;
+}
