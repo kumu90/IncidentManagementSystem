@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace IncidentManagementSystem.DataAccess
 {
-    public class InstitutionDataAccess: IInstitutionDataAccess
+    public class InstitutionDataAccess : IInstitutionDataAccess
     {
         public SQLStatusDto InstNameRegister(InstNameDto _instNameDto)
         {
@@ -65,8 +65,8 @@ namespace IncidentManagementSystem.DataAccess
             return _SQLStatus;
         }
 
-        
-        
+
+
         public List<InstNameDto> GetInstName()
         {
             List<InstNameDto> Instlist = new List<InstNameDto>();
@@ -106,14 +106,62 @@ namespace IncidentManagementSystem.DataAccess
             }
             catch (Exception ex)
             {
-                return new List<InstNameDto>();
+
             }
+            return new List<InstNameDto>();
         }
-        
+
+
+        public List<Roles> RoleList()
+        {
+            List<Roles> Roleslist = new List<Roles>();
+            try
+            {
+                string conStr = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+                using (SqlConnection conn = new SqlConnection(conStr))
+                {
+                    using (SqlCommand cmd = new SqlCommand(conStr, conn))
+                    {
+
+                        cmd.CommandText = @"InstName";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = conn;
+
+                        conn.Open();
+
+                        using (var sqlDataReader = cmd.ExecuteReader())
+                        {
+                            while (sqlDataReader.Read())
+                            {
+                                Roleslist.Add(new Roles()
+                                {
+                                    Id = sqlDataReader["InstId"].ToString(),
+                                    Name = sqlDataReader["InstitutionName"].ToString()
+                                });
+                            }
+                        }
+
+                        conn.Close();
+
+                    }
+                }
+
+                return Roleslist;
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return new List<Roles>();
+        }
+
     }
     public interface IInstitutionDataAccess
     {
         SQLStatusDto InstNameRegister(InstNameDto _instNameDto);
         List<InstNameDto> GetInstName();
+        List<Roles> RoleList();
     }
+    
 }
