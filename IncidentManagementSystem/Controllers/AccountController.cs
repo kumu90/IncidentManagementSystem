@@ -10,7 +10,6 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using IncidentManagementSystem.Models;
 using System.Collections.Generic;
-using IncidentManagementSystem.DataAccess;
 using IncidentManagementSystem.Service;
 
 namespace IncidentManagementSystem.Controllers
@@ -20,16 +19,24 @@ namespace IncidentManagementSystem.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-        readonly IGetInstNameService _iGetInstNameService;
+        private readonly IInstitutionService _iInstitutionService;
+        //private readonly IGetInstNameService _iGetInstNameService;
+
+        // Constructor with Dependency Injection
+        public AccountController(IInstitutionService iInstitutionService)
+        {
+            _iInstitutionService = iInstitutionService;
+        }
+
         public AccountController()
         {
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, IGetInstNameService getInstName)
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, IInstitutionService instNameService)
         {
             UserManager = userManager;
             SignInManager = signInManager;
-            _iGetInstNameService = getInstName;
+            _iInstitutionService = instNameService;
         }
 
         public ApplicationSignInManager SignInManager
@@ -143,36 +150,18 @@ namespace IncidentManagementSystem.Controllers
         /// </summary>
         public void Initialize()
         {
-            var list = new List<string>() { "SuperAdmin", "Admin", "User" };
-            ViewBag.Instution = new SelectList(list);
+            //var list = new List<string>() { "SuperAdmin", "Admin", "User" };
+            //ViewBag.Instution = new SelectList(list);
+            //var inst = _instNameService.GetInstName();
+
+            var InsId = _iInstitutionService.GetInstName();
+            ViewBag.Instution = new SelectList(InsId, "InstId", "InstitutionName");
+
 
             var user = new List<string>() { "xyz", "abc", "ijk" };
             ViewBag.Userrole = new SelectList(user);
         }
 
-        //public void initialize()
-        //{
-        //    var InsId = _iGetInstNameService.GetInstName();
-        //    ViewBag.InsName = new SelectList(InsId, "InstId", "InstitutionName");
-        //}
-
-        [HttpGet]
-        public ActionResult Instution()
-        {
-            var list = new List<string>() { "SuperAdmin", "Admin", "User" };
-            ViewBag.InsName = list;
-            //initialize();
-            return View();
-        }
-        [HttpGet]
-
-        public ActionResult UserRole()
-        {
-            var user = new List<string>() { "xyz", "abc", "ijk" };
-            ViewBag.Userrole = user;
-
-            return View();
-        }
         //
         // GET: /Account/Register
         [AllowAnonymous]
