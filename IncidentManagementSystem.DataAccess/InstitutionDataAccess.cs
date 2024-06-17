@@ -65,7 +65,60 @@ namespace IncidentManagementSystem.DataAccess
             return _SQLStatus;
         }
 
+        public List<InstNameDto> InstDetail()
+        {
+            List<InstNameDto> list = new List<InstNameDto>();
+            try
+            {
+                string conStr = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+                using (SqlConnection conn = new SqlConnection(conStr))
+                {
+                    using (SqlCommand cmd = new SqlCommand(conStr, conn))
+                    {
 
+                        cmd.CommandText = @"InstList";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = conn;
+
+                        conn.Open();
+
+                        using (var sqlDataReader = cmd.ExecuteReader())
+                        {
+                            while (sqlDataReader.Read())
+                            {
+                                list.Add(new InstNameDto()
+                                {
+                                    InstId = sqlDataReader["InstId"].ToString(),
+                                    InstitutionName = sqlDataReader["InstitutionName"].ToString(),
+                                    Country = sqlDataReader["Country"].ToString(),
+                                    State = sqlDataReader["State"].ToString(),
+                                    Address = sqlDataReader["Address"].ToString(),
+                                    ZipCode = sqlDataReader["ZipCode"].ToString(),
+                                    ContactNumber = sqlDataReader["ContactNumber"].ToString(),
+                                    ContactPersonTechnical = sqlDataReader["ContactPersonTechnical"].ToString(),
+                                    Email = sqlDataReader["ZipCode"].ToString(),
+                                    CreatedBy = sqlDataReader["ContactNumber"].ToString(),
+                                    Flag = sqlDataReader["Flag"].ToString(),
+                                    ContactPersonAdmin = sqlDataReader["ContactPersonAdmin"].ToString(),
+                                    CreatedDate = sqlDataReader["CreatedDate"].ToString()
+                                });
+                            }
+                        }
+
+                        conn.Close();
+
+                    }
+                }
+
+                return list;
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return new List<InstNameDto>();
+        }
 
         public List<InstNameDto> GetInstName()
         {
@@ -160,6 +213,7 @@ namespace IncidentManagementSystem.DataAccess
     public interface IInstitutionDataAccess
     {
         SQLStatusDto InstNameRegister(InstNameDto _instNameDto);
+        List<InstNameDto> InstDetail();
         List<InstNameDto> GetInstName();
         List<Roles> RoleList();
     }

@@ -19,6 +19,12 @@ namespace IncidentManagementSystem.Service
         {
             return _iInstitutionDataAccess.InstNameRegister(_instNameDto);
         }
+
+        public List<InstNameDto> InstDetail()
+        {
+            return _iInstitutionDataAccess.InstDetail();
+        }
+
         public List<InstNameDto> GetInstName()
         {
             return _iInstitutionDataAccess.GetInstName();
@@ -34,6 +40,9 @@ namespace IncidentManagementSystem.Service
     public interface IInstitutionService
     {
         SQLStatusDto InstNameRegister(InstNameDto _instNameDto);
+
+        List<InstNameDto> InstDetail();
+
         List<InstNameDto> GetInstName();
 
         List<Roles> RoleList();
