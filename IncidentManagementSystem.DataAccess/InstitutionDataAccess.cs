@@ -123,7 +123,7 @@ namespace IncidentManagementSystem.DataAccess
                     using (SqlCommand cmd = new SqlCommand(conStr, conn))
                     {
 
-                        cmd.CommandText = @"InstName";
+                        cmd.CommandText = @"RoleList";
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Connection = conn;
 
@@ -135,8 +135,8 @@ namespace IncidentManagementSystem.DataAccess
                             {
                                 Roleslist.Add(new Roles()
                                 {
-                                    Id = sqlDataReader["InstId"].ToString(),
-                                    Name = sqlDataReader["InstitutionName"].ToString()
+                                    Id = sqlDataReader["Id"].ToString(),
+                                    Name = sqlDataReader["Name"].ToString()
                                 });
                             }
                         }
