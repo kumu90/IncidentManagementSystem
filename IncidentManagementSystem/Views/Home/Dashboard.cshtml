@@ -37,13 +37,31 @@
 
         </div>
 
-        <hr/>
+        <hr />
         <div>
             <h3>PartialView</h3>
             @{
-                Html.RenderPartial("_PartialDashboard");
+                Html.RenderPartial("_PartialDashboard", "");
             }
         </div>
     }
 </div>
+
+@section scripts {
+    <script>$(document).ready(function () {
+            $('form').submit(function (event) {
+                event.preventDefault(); // Prevent the default form submission
+                var form = $(this);
+                $.ajax({
+                    url: form.attr('Home'),
+                    type: form.attr('Dashboard'),
+                    data: form.serialize(),
+                    success: function (result) {
+                        $('#partialDashboardContainer').html(result);
+                    }
+                });
+            });
+        });</script>
+}
+@Styles.Render("~/Content/css")
 

@@ -1,8 +1,8 @@
 ﻿@model IEnumerable<IncidentManagementSystem.Model.InstNameDto>
 
 @*<p>
-    @Html.ActionLink("Create New", "Create")
-</p>*@
+        @Html.ActionLink("Create New", "Create")
+    </p>*@
 <table class="table">
     <tr>
         <th>
@@ -36,8 +36,8 @@
             @Html.DisplayNameFor(model => model.Email)
         </th>
         @*<th>
-            @Html.DisplayNameFor(model => model.ImageUrl)
-        </th>*@
+                @Html.DisplayNameFor(model => model.ImageUrl)
+            </th>*@
         <th>
             @Html.DisplayNameFor(model => model.CreatedBy)
         </th>
@@ -45,67 +45,69 @@
             @Html.DisplayNameFor(model => model.CreatedDate)
         </th>
         @*<th>
-            @Html.DisplayNameFor(model => model.UpdatedBy)
-        </th>*@
+                @Html.DisplayNameFor(model => model.UpdatedBy)
+            </th>*@
         <th>
             @Html.DisplayNameFor(model => model.Flag)
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.InstId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.InstitutionName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Country)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.State)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Address)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ZipCode)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ContactPersonAdmin)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ContactPersonTechnical)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ContactNumber)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Email)
-        </td>
-        @*<td>
-            @Html.DisplayFor(modelItem => item.ImageUrl)
-        </td>*@
-        <td>
-            @Html.DisplayFor(modelItem => item.CreatedBy)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CreatedDate)
-        </td>
-        @*<td>
-            @Html.DisplayFor(modelItem => item.UpdatedBy)
-        </td>*@
-        <td>
-            @Html.DisplayFor(modelItem => item.Flag)
-        </td>
-        @*<td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>*@
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.InstId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.InstitutionName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Country)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.State)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ZipCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ContactPersonAdmin)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ContactPersonTechnical)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ContactNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.ImageUrl)
+                </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedBy)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedDate)
+            </td>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.UpdatedBy)
+                </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.Flag)
+            </td>
+            @*<td>
+                    @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+                    @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+                </td>*@
+        </tr>
+    }
 
 </table>
+@Scripts.Render("~/bundles/bootstrap")

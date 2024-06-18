@@ -1,4 +1,5 @@
-﻿using IncidentManagementSystem.Service;
+﻿using IncidentManagementSystem.Model;
+using IncidentManagementSystem.Service;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace IncidentManagementSystem.Controllers
 {
     public class HomeController : Controller
     {
-        readonly IInstitutionService _iInstitutionService;
+         private readonly IInstitutionService _iInstitutionService;
         public HomeController(IInstitutionService iInstitutionService)
         {
             _iInstitutionService = iInstitutionService;
@@ -27,7 +28,7 @@ namespace IncidentManagementSystem.Controllers
         public ActionResult Dashboard()
         {
             var result =_iInstitutionService.InstDetail();
-            return PartialView(result);
+            return PartialView("_PartialDashboard", result);
         }
 
 
