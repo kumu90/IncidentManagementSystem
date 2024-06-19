@@ -16,14 +16,14 @@ namespace IncidentManagementSystem.Service
             _iUserdataAccess = userDataAccess;
         }
 
-        public List<UserDto> UserDetail()
+        public List<UserDto> UserDetail(string search)
         {
-            return _iUserdataAccess.UserDetail();
+            return _iUserdataAccess.UserDetail(search);
         }
     }
 
     public interface IUserService
     {
-        List<UserDto> UserDetail();
+        List<UserDto> UserDetail(string search);
     }
 }

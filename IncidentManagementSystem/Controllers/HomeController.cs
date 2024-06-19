@@ -21,16 +21,18 @@ namespace IncidentManagementSystem.Controllers
         public HomeController()
         {
         }
-        public ActionResult Index()
+        public ActionResult Index(string search)
         {
 
-            var model = new SearchByDateDto();
-            return View(model);
+            ////var model = new SearchByDateDto();
+            //return View();
+            var clients = _userService.UserDetail(search);
+            return View(clients);
         }
 
-        public ActionResult InfoSearch(SearchByDateDto search) 
+        public ActionResult InfoSearch(string search) 
         {
-            var results = _userService.UserDetail();
+            var results = _userService.UserDetail(search);
             return PartialView("InfoSearch", results);
         }
 

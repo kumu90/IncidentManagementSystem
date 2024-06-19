@@ -12,7 +12,7 @@ namespace IncidentManagementSystem.DataAccess
 {
     public class UserDataAccess:IUserDataAccess
     {
-        public List<UserDto> UserDetail()
+        public List<UserDto> UserDetail(string search)
         {
             List<UserDto> list = new List<UserDto>();
             try
@@ -26,7 +26,8 @@ namespace IncidentManagementSystem.DataAccess
                         cmd.CommandText = @"InstList";
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Connection = conn;
-
+                        cmd.Parameters.Add(new SqlParameter("@Search", search ?? ""));
+                        //cmd.Parameters.AddWithValue("@search", search);
                         conn.Open();
 
                         using (var sqlDataReader = cmd.ExecuteReader())
@@ -61,7 +62,7 @@ namespace IncidentManagementSystem.DataAccess
 
             }
             catch (Exception ex)
-            {
+             {
 
             }
             return new List<UserDto>();
@@ -70,6 +71,6 @@ namespace IncidentManagementSystem.DataAccess
 
     public interface IUserDataAccess
     {
-        List<UserDto> UserDetail();
+        List<UserDto> UserDetail(string search);
     }
 }
