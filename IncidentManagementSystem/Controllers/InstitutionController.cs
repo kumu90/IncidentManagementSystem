@@ -78,7 +78,7 @@ namespace IncidentManagementSystem.Controllers
             }
             ViewBag.TaskStatus = TempData["TaskStatus"];
             ViewBag.TaskMessage = TempData["TaskMessage"];
-            return View();
+            return RedirectToAction("Index", "Home");
         }
 
 

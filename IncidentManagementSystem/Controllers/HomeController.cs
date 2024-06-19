@@ -1,4 +1,6 @@
-﻿using System;
+﻿using IncidentManagementSystem.Model;
+using IncidentManagementSystem.Service;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,30 +10,55 @@ namespace IncidentManagementSystem.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index()
+         private readonly IInstitutionService _iInstitutionService;
+         private readonly IUserService _userService;
+        public HomeController(IInstitutionService iInstitutionService, IUserService userService)
         {
-            return View();
+            _iInstitutionService = iInstitutionService;
+            _userService = userService;
         }
 
+        public HomeController()
+        {
+        }
+        public ActionResult Index(string search)
+        {
 
+            ////var model = new SearchByDateDto();
+            //return View();
+            var clients = _userService.UserDetail(search);
+            return View(clients);
+        }
+
+        public ActionResult InfoSearch(string search) 
+        {
+            var results = _userService.UserDetail(search);
+            return PartialView("InfoSearch", results);
+        }
+
+        [HttpGet]
         public ActionResult Dashboard()
         {
-            return View();
+            var model = new SearchByDateDto();
+            return View(model);
+            //var result =_iInstitutionService.InstDetail();
+            //return PartialView("_PartialDashboard", result);
         }
 
-
-        public ActionResult About()
+        [HttpGet]
+        public ActionResult Search (SearchByDateDto search)
         {
-            ViewBag.Message = "Your application description page.";
-
+            //var result = _iInstitutionService.InstDetail();
+            //return PartialView("_PartialDashboard", result);
+            if (ModelState.IsValid)
+            {
+                var result = _iInstitutionService.InstDetail(); 
+                return PartialView("Search", result);
+            }
             return View();
+            //return View(instNameDto);
+
         }
 
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
     }
 }

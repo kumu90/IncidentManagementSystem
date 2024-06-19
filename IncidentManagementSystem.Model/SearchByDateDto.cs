@@ -8,9 +8,6 @@ namespace IncidentManagementSystem.Model
 {
     public class SearchByDateDto
     {
-        //public string startDate { get; set; }
-        //public string endDate { get; set; }
-        //public string search { get; set; }
         public string SearchFor { get; set; }
     }
 }

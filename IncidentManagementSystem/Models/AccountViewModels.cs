@@ -78,7 +78,7 @@ namespace IncidentManagementSystem.Models
         [Display(Name = "User Name")]
         public string UserName { get; set; }
 
-        [Display(Name = "Instution Name")]
+        [Display(Name = "Institution Name")]
         public string InsId { get; set; }
 
         [Display(Name = "Roles")]
