@@ -64,10 +64,12 @@ namespace IncidentManagementSystem.App_Start
         {
             //service
             kernel.Bind<IInstitutionService>().To<InstitutionService>();
-           
+            kernel.Bind<IUserService>().To<UserService>();
+
             //DataAccess
             kernel.Bind<IInstitutionDataAccess>().To<InstitutionDataAccess>();
-            
+            kernel.Bind<IUserDataAccess>().To<UserDataAccess>();
+
         }
     }
 }
