@@ -38,14 +38,14 @@
                     <div class="row ">
                         @Html.LabelFor(m => m.InsId, new { @class = "col-md-2 col-form-label l-user" })
                         <div class="col">
-                            @Html.DropDownListFor(m => m.InsId, ViewBag.Instution as SelectList, "-Select Instution-", new { @class = "form-select u-box" })
+                            @Html.DropDownListFor(m => m.InsId, ViewBag.Institution as SelectList, "-Select Institution-", new { @class = "form-select u-box" })
                             @Html.ValidationMessageFor(m => m.InsId, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="row ">
                         @Html.LabelFor(m => m.UserRole_Id, new { @class = "col-md-2 col-form-label l-user" })
                         <div class="col">
-                            @Html.DropDownListFor(m => m.UserRole_Id, ViewBag.UserRole as SelectList, "-Select Instution-", new { @class = "form-select b-role" })
+                            @Html.DropDownListFor(m => m.UserRole_Id, ViewBag.UserRole as SelectList, "-Select Institution-", new { @class = "form-select b-role" })
                             @Html.ValidationMessageFor(m => m.UserRole_Id, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -72,7 +72,7 @@
             <div class="row " style="margin-bottom:12px;">
                 <div class="col-lg-3 form-group">
                     <div class="offset-9 col-md-2">
-                        <input type="submit" value="Regester" class="btn btn-success" />
+                        <input type="submit" value="Register" class="btn btn-success" />
                     </div>
                 </div>
 

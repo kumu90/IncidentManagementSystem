@@ -40,6 +40,7 @@ namespace IncidentManagementSystem.DataAccess
                         cmd.Parameters.AddWithValue("@email", _instNameDto.Email);
                         cmd.Parameters.AddWithValue("@imageUrl", _instNameDto.ImageUrl);
                         cmd.Parameters.AddWithValue("@userId", _instNameDto.CreatedBy ?? "");
+                        
 
                         conn.Open();
                         //status = cmd.ExecuteScalar().ToString();
