@@ -502,8 +502,9 @@ body {
 
 /*------------------------------------------------------------- Service css------------------------------------ */
 
-.container-fluid.service {
-    margin-top: 0px;
-    width: 100%;
-    height: 100%;
+
+.service {
+    display: flex;
+    justify-content: center;
+    /*align-items: center;*/
 }

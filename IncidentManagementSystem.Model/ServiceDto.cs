@@ -1,19 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace IncidentManagementSystem.Model
 {
     public class ServiceDto
     {
-        public string InstitutionName { get; set; }
-        public string ServiceId { get; set; }
+        [DisplayName ("Service Name")]
         public string ServiceName { get; set; }
+        public string Institution { get; set; }
+    }
+
+    public class TicketDto
+    {
+        public string InstitutionName { get; set; }
+        public string ServiceName { get; set; }
+        public string Email { get; set; }
+
+        [DisplayName("Contact No.")]
+        public string ContectNo { get; set; }
         public string Description { get; set; }
-        public string status {  get; set; }
-        public string Email {  get; set; }
-        public string ContactNo { get; set; }
     }
 }
