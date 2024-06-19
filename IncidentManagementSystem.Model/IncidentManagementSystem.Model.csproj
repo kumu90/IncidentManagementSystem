@@ -47,6 +47,7 @@
     <Compile Include="SearchByDateDto.cs" />
     <Compile Include="ServiceDto.cs" />
     <Compile Include="SQLStatusDto.cs" />
+    <Compile Include="UserDto.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

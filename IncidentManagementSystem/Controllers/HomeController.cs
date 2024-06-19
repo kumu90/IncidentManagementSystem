@@ -11,9 +11,11 @@ namespace IncidentManagementSystem.Controllers
     public class HomeController : Controller
     {
          private readonly IInstitutionService _iInstitutionService;
-        public HomeController(IInstitutionService iInstitutionService)
+         private readonly IUserService _userService;
+        public HomeController(IInstitutionService iInstitutionService, IUserService userService)
         {
             _iInstitutionService = iInstitutionService;
+            _userService = userService;
         }
 
         public HomeController()
@@ -21,29 +23,40 @@ namespace IncidentManagementSystem.Controllers
         }
         public ActionResult Index()
         {
-            return View();
+
+            var model = new SearchByDateDto();
+            return View(model);
         }
 
+        public ActionResult InfoSearch(SearchByDateDto search) 
+        {
+            var results = _userService.UserDetail();
+            return PartialView("InfoSearch", results);
+        }
 
+        [HttpGet]
         public ActionResult Dashboard()
         {
-            var result =_iInstitutionService.InstDetail();
-            return PartialView("_PartialDashboard", result);
+            var model = new SearchByDateDto();
+            return View(model);
+            //var result =_iInstitutionService.InstDetail();
+            //return PartialView("_PartialDashboard", result);
         }
 
-
-        public ActionResult About()
+        [HttpGet]
+        public ActionResult Search (SearchByDateDto search)
         {
-            ViewBag.Message = "Your application description page.";
-
+            //var result = _iInstitutionService.InstDetail();
+            //return PartialView("_PartialDashboard", result);
+            if (ModelState.IsValid)
+            {
+                var result = _iInstitutionService.InstDetail(); 
+                return PartialView("Search", result);
+            }
             return View();
+            //return View(instNameDto);
+
         }
 
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
     }
 }
