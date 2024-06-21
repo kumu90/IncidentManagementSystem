@@ -13,12 +13,14 @@ namespace IncidentManagementSystem.Controllers
     public class InstitutionController : Controller
     {
         readonly IInstitutionService _iInstitutionNameService;
+        readonly IServiceInstutionService _serviceInstutionService;
         public InstitutionController()
         {
         }
-        public InstitutionController(IInstitutionService iInstitutionNameService)
+        public InstitutionController(IInstitutionService iInstitutionNameService, IServiceInstutionService serviceInstutionService)
         {
             _iInstitutionNameService = iInstitutionNameService;
+            _serviceInstutionService = serviceInstutionService;
         }
 
         //public void initialize()
@@ -126,7 +128,36 @@ namespace IncidentManagementSystem.Controllers
         [HttpGet]
         public ActionResult GetService()
         {
+            ViewBag.TaskStatus = TempData["TaskStatus"];
+            ViewBag.TaskMessage = TempData["TaskMessage"];
             return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult GetService(ServiceDto service)
+        {
+            SQLStatusDto sQLStatus = _serviceInstutionService.AddService(service);
+
+            if (sQLStatus.Status == "00")
+            {
+                TempData["TaskStatus"] = sQLStatus.Status;
+                TempData["TaskMessage"] = sQLStatus.Message;
+
+
+            }
+            else
+            {
+
+                TempData["TaskStatus"] = sQLStatus.Status;
+                TempData["TaskMessage"] = sQLStatus.Message;
+                ModelState.AddModelError("", "An institution with the same name already exists in the system");
+
+            }
+            ViewBag.TaskStatus = TempData["TaskStatus"];
+            ViewBag.TaskMessage = TempData["TaskMessage"];
+            return RedirectToAction("Index", "Home");
+
         }
 
         [HttpGet]

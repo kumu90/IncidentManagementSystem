@@ -473,31 +473,31 @@ body {
 /*search table csss*/
 
 
-/*.table-striped tbody tr:nth-of-type(odd) {
-    background-color: #e3f8f3;*/ /*/ Lighter shade of #1EB386 for striped rows /*/
-/*}
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: #E3F8F3 !important;
+}
 
 .table-striped tbody tr:nth-of-type(even) {
-    background-color: white;*/ /*/ Alternate rows to have white background /*/
-/*}
+    background-color: white;
+}
 
 .table-striped tbody tr:hover {
-    background-color: #d3f4ec;*/ /*/ Hover effect for striped rows /*/
-/*}
+    background-color: #d3f4ec; 
+}
 
 .table-bordered {
-    border-color: #000000;*/ /*/ Border color for the table /*/
-/*}
+    border-color: #000000; 
+}
 
     .table-bordered th,
     .table-bordered td {
-        border: 1px solid #000000;*/ /*/ Border color for table cells /*/
-/*}
+        border: 1px solid #000000;
+    }
 
 .table-dark th {
-    background-color: #1EB386;*/ /*/ Background color for table header /*/
-/*color: white;*/ /*/ Text color for table header /*/
-/*}*/
+    background-color: #1EB386;
+    color: white;
+}
 
 
 /*------------------------------------------------------------- Service css------------------------------------ */
@@ -507,4 +507,20 @@ body {
     display: flex;
     justify-content: center;
     /*align-items: center;*/
+}
+
+/*------------------------ticket---------------------------------------*/
+.ticket {
+    display: flex;
+    justify-content: center;
+}
+.form-label {
+    font-family: outfit;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.tik-img{
+    width:280px;
+    height:180px;
 }
