@@ -60,5 +60,10 @@ namespace IncidentManagementSystem.Controllers
 
         }
 
+        public ActionResult Contact()
+        {
+            return View();
+        }
+
     }
 }
