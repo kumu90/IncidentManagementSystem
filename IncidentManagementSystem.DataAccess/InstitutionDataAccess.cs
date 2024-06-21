@@ -66,7 +66,7 @@ namespace IncidentManagementSystem.DataAccess
             return _SQLStatus;
         }
 
-        public List<InstNameDto> InstDetail()
+        public List<InstNameDto> InstDetail(string search)
         {
             List<InstNameDto> list = new List<InstNameDto>();
             try
@@ -80,7 +80,7 @@ namespace IncidentManagementSystem.DataAccess
                         cmd.CommandText = @"InstList";
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Connection = conn;
-
+                        cmd.Parameters.Add(new SqlParameter("@Search", search ?? ""));
                         conn.Open();
 
                         using (var sqlDataReader = cmd.ExecuteReader())
@@ -214,7 +214,7 @@ namespace IncidentManagementSystem.DataAccess
     public interface IInstitutionDataAccess
     {
         SQLStatusDto InstNameRegister(InstNameDto _instNameDto);
-        List<InstNameDto> InstDetail();
+        List<InstNameDto> InstDetail(string search);
         List<InstNameDto> GetInstName();
         List<Roles> RoleList();
     }

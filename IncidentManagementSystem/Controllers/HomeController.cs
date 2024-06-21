@@ -36,29 +36,37 @@ namespace IncidentManagementSystem.Controllers
             return PartialView("InfoSearch", results);
         }
 
+
+        /// <summary>
+        /// To Search Institution Information from the DataBase
+        /// </summary>
+        /// <param name="search"></param>
+        /// <returns></returns>
         [HttpGet]
-        public ActionResult Dashboard()
+        public ActionResult Dashboard(string search)
         {
-            var model = new SearchByDateDto();
-            return View(model);
+            //var model = new SearchByDateDto();
+            //return View(model);
             //var result =_iInstitutionService.InstDetail();
             //return PartialView("_PartialDashboard", result);
+            var clt = _userService.UserDetail(search);
+            return View(clt);
         }
 
         [HttpGet]
-        public ActionResult Search (SearchByDateDto search)
+        public ActionResult Search (string search)
         {
             //var result = _iInstitutionService.InstDetail();
             //return PartialView("_PartialDashboard", result);
             if (ModelState.IsValid)
             {
-                var result = _iInstitutionService.InstDetail(); 
+                var result = _iInstitutionService.InstDetail(search); 
                 return PartialView("Search", result);
             }
             return View();
             //return View(instNameDto);
 
         }
-
+        
     }
 }

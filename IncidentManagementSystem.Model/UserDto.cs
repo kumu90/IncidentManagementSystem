@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,5 +27,23 @@ namespace IncidentManagementSystem.Model
         public string UpdatedBy { get; set; }
         public string Flag { get; set; }
       
+    }
+
+    public class UserInfo
+    {
+        public string Id { get; set; }
+
+        [DisplayName("User Name")]
+        public string Username { get; set; }
+
+        [DisplayName("Email")]
+        public string Email { get; set; }
+
+        [DisplayName("Institution Name")]
+        public string InstId { get; set; }
+
+        [DisplayName("Role")]
+        public string Roles { get; set; }
+
     }
 }
