@@ -1,5 +1,5 @@
 ﻿@using IncidentManagementSystem.Model
-@model SearchByDateDto
+@*@model SearchByDateDto*@
 @*@{
         ViewBag.Title = "Dashboard";
     }
@@ -24,7 +24,8 @@
 
 
                 <div class="col-lg-4 form-group s-dash">
-                    @Html.TextBoxFor(model => model.SearchFor, new { @class = "form-control", placeholder = "Search" })
+                    @*@Html.TextBoxFor(model => model.SearchFor, new { @class = "form-control", placeholder = "Search" })*@
+                    <input type="text" name="search" placeholder="Search..." />
                 </div>
 
                 <div class="col-lg-4 s-dash">

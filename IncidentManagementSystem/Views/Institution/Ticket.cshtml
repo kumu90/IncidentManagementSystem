@@ -4,41 +4,104 @@
         ViewBag.Title = "Ticket";
     }*@
 <div class="container-fluid">
+    <div class="col ticket">
+        @using (Html.BeginForm("Ticket", "Instution", FormMethod.Post, new { role = "form" }))
+        {
+            @Html.AntiForgeryToken()
 
-    @using (Html.BeginForm("Ticket", "Instution", FormMethod.Post, new { role = "form" }))
-    {
-        <div class="col-lg-4 inst-row-form">
-            @Html.LabelFor(m => m.InstitutionName, new { @class = "col-md-4 col-form-label l-inst" })
-            <div class="col-lg-12">
-                @Html.TextBoxFor(m => m.InstitutionName, new { @class = "form-control b-inst" })
-            </div>
-        </div>
-        <div class="col-lg-4 inst-row-form">
-            @Html.LabelFor(m => m.ServiceName, new { @class = "col-md-4 col-form-label l-inst" })
-            <div class="col-lg-12">
-                @Html.TextBoxFor(m => m.ServiceName, new { @class = "form-control b-inst" })
-            </div>
-        </div>
-        <div class="col-lg-4 inst-row-form">
-            @Html.LabelFor(m => m.Email, new { @class = "col-md-4 col-form-label l-inst" })
-            <div class="col-lg-12">
-                @Html.TextBoxFor(m => m.Email, new { @class = "form-control b-inst" })
-            </div>
-        </div>
+            @Html.ValidationSummary("", new { @class = "text-danger" })
+            <div class="row">
+                <div class="row">
+                    <div class="col-lg-4 inst-row-form">
+                        @Html.LabelFor(m => m.InstitutionName, new { @class = "col-md-4 col-form-label l-inst" })
+                        <div class="col-lg-12">
+                            @Html.TextBoxFor(m => m.InstitutionName, new { @class = "form-control b-inst" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 inst-row-form">
+                        @Html.LabelFor(m => m.ServiceName, new { @class = "col-md-4 col-form-label l-inst" })
+                        <div class="col-lg-12">
+                            @Html.TextBoxFor(m => m.ServiceName, new { @class = "form-control b-inst" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 inst-row-form">
+                        @Html.LabelFor(m => m.Email, new { @class = "col-md-4 col-form-label l-inst" })
+                        <div class="col-lg-12">
+                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control b-inst" })
+                        </div>
+                    </div>
+                </div>
 
-        <div class="col-lg-4 inst-row-form">
-            @Html.LabelFor(m => m.ContectNo, new { @class = "col-md-4 col-form-label l-inst" })
-            <div class="col-lg-12">
-                @Html.TextBoxFor(m => m.ContectNo, new { @class = "form-control b-inst" })
-            </div>
-        </div>
+                <div class="row">
+                    <div class="col-lg-4 inst-row-form">
+                        @Html.LabelFor(m => m.ContectNo, new { @class = "col-md-4 col-form-label l-inst" })
+                        <div class="col-lg-12">
+                            @Html.TextBoxFor(m => m.ContectNo, new { @class = "form-control b-inst" })
+                        </div>
+                    </div>
+                </div>
 
-        <div class="col-lg-4 inst-row-form">
-            @Html.LabelFor(m => m.Description, new { @class = "col-md-4 col-form-label l-inst" })
-            <div class="col-lg-12">
-                @Html.TextBoxFor(m => m.Description, new { @class = "form-control b-inst" })
+                <div class="row">
+
+
+                    <div class="mb-3">
+                        <label for="Description" class="form-label">Description</label>
+                        <textarea class="form-control  b-inst" id="Description" rows="3"></textarea>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-2 img-upload">
+                        @Html.LabelFor(m => m.Image, new { @class = "col-md-12 col-form-label l-inst" })
+                        <div class="tik-img" style="background-color:lightgray;">
+                            <a href="#" id="imageAnchor">
+                                <img id="preview" src="~/Image/photo-album-regular-24.png" class="card-img-top" alt="Preview" width="280px" height="180px" />
+                            </a>
+                        </div>
+
+                        <div class="row upload">
+                            <div class="col-lg-12">
+                                @*<label for="uploadReportFile">Select file to upload:</label><br />*@
+                                <input type="file" name="image" id="imageUpload" accept="image/*" onchange="previewImage(event)" class="form-control" style="width: 105px" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row  buttom-inst">
+                    <div class="col-lg-4">
+                        <input type="submit" value="Submit" class="btn btn-primary btn-lg" />
+                    </div>
+                </div>
+
             </div>
-        </div>
-    }
+        }
+
+    </div>
+
 </div>
 
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var preview = document.getElementById('preview');
+        var imageUpload = document.getElementById('imageUpload');
+
+        imageAnchor.addEventListener('click', function () {
+            imageUpload.click();
+        });
+    });
+    function previewImage(event) {
+        var input = event.target;
+        var reader = new FileReader();
+        reader.onload = function () {
+            var imgElement = document.getElementById('preview');
+            imgElement.src = reader.result;
+            imgElement.style.display = 'block'; // Show the image preview
+        }
+        reader.readAsDataURL(input.files[0]);
+    }
+</script>

@@ -12,9 +12,9 @@ namespace IncidentManagementSystem.DataAccess
 {
     public class UserDataAccess:IUserDataAccess
     {
-        public List<UserDto> UserDetail(string search)
+        public List<UserInfo> UserDetail(string search)
         {
-            List<UserDto> list = new List<UserDto>();
+            List<UserInfo> list = new List<UserInfo>();
             try
             {
                 string conStr = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
@@ -23,7 +23,7 @@ namespace IncidentManagementSystem.DataAccess
                     using (SqlCommand cmd = new SqlCommand(conStr, conn))
                     {
 
-                        cmd.CommandText = @"InstList";
+                        cmd.CommandText = @"UserList";
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Connection = conn;
                         cmd.Parameters.Add(new SqlParameter("@Search", search ?? ""));
@@ -34,21 +34,13 @@ namespace IncidentManagementSystem.DataAccess
                         {
                             while (sqlDataReader.Read())
                             {
-                                list.Add(new UserDto()
+                                list.Add(new UserInfo()
                                 {
                                     InstId = sqlDataReader["InstId"].ToString(),
-                                    InstitutionName = sqlDataReader["InstitutionName"].ToString(),
-                                    Country = sqlDataReader["Country"].ToString(),
-                                    State = sqlDataReader["State"].ToString(),
-                                    Address = sqlDataReader["Address"].ToString(),
-                                    ZipCode = sqlDataReader["ZipCode"].ToString(),
-                                    ContactNumber = sqlDataReader["ContactNumber"].ToString(),
-                                    ContactPersonTechnical = sqlDataReader["ContactPersonTechnical"].ToString(),
-                                    Email = sqlDataReader["ZipCode"].ToString(),
-                                    CreatedBy = sqlDataReader["ContactNumber"].ToString(),
-                                    Flag = sqlDataReader["Flag"].ToString(),
-                                    ContactPersonAdmin = sqlDataReader["ContactPersonAdmin"].ToString(),
-                                    CreatedDate = sqlDataReader["CreatedDate"].ToString()
+                                    Username = sqlDataReader["Username"].ToString(),                                    
+                                    Email = sqlDataReader["Email"].ToString(),
+                                    Roles = sqlDataReader["UserRoleId"].ToString(),
+                                    
                                 });
                             }
                         }
@@ -65,12 +57,12 @@ namespace IncidentManagementSystem.DataAccess
              {
 
             }
-            return new List<UserDto>();
+            return new List<UserInfo>();
         }
     }
 
     public interface IUserDataAccess
     {
-        List<UserDto> UserDetail(string search);
+        List<UserInfo> UserDetail(string search);
     }
 }

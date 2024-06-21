@@ -23,6 +23,7 @@ namespace IncidentManagementSystem.Model
 
         [DisplayName("Contact No.")]
         public string ContectNo { get; set; }
-        public string Description { get; set; }
+        [DisplayName("Upload Supporting Image")]
+        public string Image { get; set; }
     }
 }
