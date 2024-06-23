@@ -486,7 +486,7 @@ body {
 }
 
 .table-bordered {
-    border-color: #000000; 
+    border-color: #EFEFEF;
 }
 
     .table-bordered th,
@@ -495,7 +495,7 @@ body {
     }
 
 .table-dark th {
-    background-color: #1EB386;
+    background-color: #EBF8FD;
     color: white;
 }
 
