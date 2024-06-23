@@ -40,10 +40,14 @@
                     @Html.Raw(Html.ActionLink("Institution Register", "InstitutionRegister", "Institution", new { area = "" }, new { @class = "nav-link" }).ToString().Replace("Institution Register", "<span class='bx bxs-building-house icon'></span> Institution Register"))
                 </li>
                 
-            
                 <li class="item">
-                    <a href="#">Services</a>
+                    @Html.Raw(Html.ActionLink("ServiceLink","GetService","Institution", new {area ="" }, new {@class = "nav-link"}).ToString().Replace("ServiceLink", "<span class='bx bxs-cog icon'></span> Service")) 
                 </li>
+
+
+                @*<li class="item">
+                    <a href="#">Services</a>
+                </li>*@
                 <li class="item">
                     <a href="#">Contact Us</a>
                 </li>

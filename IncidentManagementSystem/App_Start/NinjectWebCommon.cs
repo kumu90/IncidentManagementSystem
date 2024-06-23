@@ -63,12 +63,14 @@ namespace IncidentManagementSystem.App_Start
         private static void RegisterServices(IKernel kernel)
         {
             //service
+            kernel.Bind<IServiceInstutionService>().To<ServiceInstutionService>();
             kernel.Bind<IInstitutionService>().To<InstitutionService>();
             kernel.Bind<IUserService>().To<UserService>();
 
             //DataAccess
             kernel.Bind<IInstitutionDataAccess>().To<InstitutionDataAccess>();
             kernel.Bind<IUserDataAccess>().To<UserDataAccess>();
+            kernel.Bind<IServiceInstutionDataAccess>().To<ServiceInstutionDataAccess>();
 
         }
     }
