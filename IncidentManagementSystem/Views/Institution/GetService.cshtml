@@ -20,16 +20,16 @@
             @Html.ValidationSummary("", new { @class = "text-danger" })
             <div class="row">
                 <div class="row inst-row-form">
-                    @Html.LabelFor(m => m.ServiceName, new { @class = "col-md-4 col-form-label l-inst" })
+                    @Html.LabelFor(m => m.Institution, new { @class = "col-md-4 col-form-label l-inst" })
                     <div class="col-md-12">
-                        @Html.TextBoxFor(m => m.ServiceName, new { @class = "form-control b-inst" })
+                        @Html.TextBoxFor(m => m.Institution, new { @class = "form-control b-inst" })
                     </div>
                 </div>
 
                 <div class="row inst-row-form">
-                    @Html.LabelFor(m => m.Institution, new { @class = "col-md-4 col-form-label l-inst" })
+                    @Html.LabelFor(m => m.ServiceName, new { @class = "col-md-4 col-form-label l-inst" })
                     <div class="col-md-12">
-                        @Html.TextBoxFor(m => m.Institution, new { @class = "form-control b-inst" })
+                        @Html.TextBoxFor(m => m.ServiceName, new { @class = "form-control b-inst" })
                     </div>
                 </div>
 
