@@ -20,9 +20,9 @@ namespace IncidentManagementSystem.Service
             return _iInstitutionDataAccess.InstNameRegister(_instNameDto);
         }
 
-        public List<InstNameDto> InstDetail()
+        public List<InstNameDto> InstDetail(string search)
         {
-            return _iInstitutionDataAccess.InstDetail();
+            return _iInstitutionDataAccess.InstDetail(search);
         }
 
         public List<InstNameDto> GetInstName()
@@ -41,7 +41,7 @@ namespace IncidentManagementSystem.Service
     {
         SQLStatusDto InstNameRegister(InstNameDto _instNameDto);
 
-        List<InstNameDto> InstDetail();
+        List<InstNameDto> InstDetail(string search);
 
         List<InstNameDto> GetInstName();
 
