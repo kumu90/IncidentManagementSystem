@@ -126,11 +126,14 @@ namespace IncidentManagementSystem.Controllers
         }
 
         [HttpGet]
-        public ActionResult GetService()
+        public ActionResult GetService(string InstId)
         {
+            var model = new ServiceDto
+            { Institution = InstId };
             ViewBag.TaskStatus = TempData["TaskStatus"];
             ViewBag.TaskMessage = TempData["TaskMessage"];
-            return View();
+
+            return View(model);
         }
 
         [HttpPost]

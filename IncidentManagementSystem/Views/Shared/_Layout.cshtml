@@ -41,12 +41,13 @@
                 </li>
                 
                 <li class="item">
-                    @Html.Raw(Html.ActionLink("Service","GetService","Institution"))
+                    @Html.Raw(Html.ActionLink("ServiceLink","GetService","Institution", new {area ="" }, new {@class = "nav-link"}).ToString().Replace("ServiceLink", "<span class='bx bxs-cog icon'></span> Service")) 
                 </li>
-            
-                <li class="item">
+
+
+                @*<li class="item">
                     <a href="#">Services</a>
-                </li>
+                </li>*@
                 <li class="item">
                     <a href="#">Contact Us</a>
                 </li>
