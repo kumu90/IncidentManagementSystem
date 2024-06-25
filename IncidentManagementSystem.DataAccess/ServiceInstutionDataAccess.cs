@@ -53,47 +53,47 @@ namespace IncidentManagementSystem.DataAccess
             return _SQLStatus;
         }
 
-        //public SQLStatusDto RegisterService(RegisterServiceDto _registerServiceDto)
-        //{
-        //    SQLStatusDto _sQLStatus = new SQLStatusDto();
-        //    try
-        //    {
-        //        string conStr = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
-        //        using (SqlConnection conn = new SqlConnection(conStr))
-        //        {
-        //            using (SqlCommand cmd = new SqlCommand(conStr, conn))
-        //            {
+        public SQLStatusDto TicketCreate(TicketDto _ticketDto)
+        {
+            SQLStatusDto _sQLStatus = new SQLStatusDto();
+            try
+            {
+                string conStr = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+                using (SqlConnection conn = new SqlConnection(conStr))
+                {
+                    using (SqlCommand cmd = new SqlCommand(conStr, conn))
+                    {
 
-        //                cmd.CommandText = @"InstitutionServiceRegister";
-        //                cmd.CommandType = CommandType.StoredProcedure;
-        //                cmd.Connection = conn;
-
-
-        //                cmd.Parameters.AddWithValue("@Service", _registerServiceDto.InstId);
-        //                cmd.Parameters.AddWithValue("@InstId", _registerServiceDto.serviceName);
-
-        //                conn.Open();
-        //                cmd.ExecuteNonQuery();
-        //                conn.Close();
+                        cmd.CommandText = @"InstitutionTicketCreate";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = conn;
 
 
-        //            }
-        //        }
+                        cmd.Parameters.AddWithValue("@Service", _ticketDto.InstId);
+                        cmd.Parameters.AddWithValue("@InstId", _ticketDto.ServiceId);
 
-        //        return _sQLStatus;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Console.WriteLine(ex.Message);
-        //    }
-        //    return _sQLStatus;
-        //}
+                        conn.Open();
+                        cmd.ExecuteNonQuery();
+                        conn.Close();
+
+
+                    }
+                }
+
+                return _sQLStatus;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return _sQLStatus;
+        }
     }
 
     public interface IServiceInstutionDataAccess
     {
         SQLStatusDto AddService(ServiceDto service);
 
-        //SQLStatusDto RegisterService(RegisterServiceDto _registerServiceDto);
+        SQLStatusDto TicketCreate(TicketDto _ticketDto);
     }
 }

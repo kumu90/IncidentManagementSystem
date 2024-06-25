@@ -177,30 +177,6 @@ namespace IncidentManagementSystem.Controllers
         //}
 
 
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult RegisterService(RegisterServiceDto _registerServiceDto)
-        //{
-        //    SQLStatusDto sQLStatus = _serviceInstutionService.RegisterService(_registerServiceDto);
-
-        //    if (sQLStatus.Status == "00")
-        //    {
-        //        TempData["TaskStatus"] = sQLStatus.Status;
-        //        TempData["TaskMessage"] = sQLStatus.Message;
-
-        //    }
-        //    else
-        //    {
-        //        TempData["TaskStatus"] = sQLStatus.Status;
-        //        TempData["TaskMessage"] = sQLStatus.Message;
-        //        ModelState.AddModelError("", "An Service with the same name already exists in the system");
-
-        //    }
-        //    ViewBag.TaskStatus = TempData["TaskStatus"];
-        //    ViewBag.TaskMessage = TempData["TaskMessage"];
-        //    return View();
-
-        //}
 
         [HttpGet]
         public ActionResult Ticket()
@@ -208,6 +184,31 @@ namespace IncidentManagementSystem.Controllers
             return View();
         }
 
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Ticket(TicketDto _ticketDto)
+        {
+            SQLStatusDto sQLStatus = _serviceInstutionService.TicketCreate(_ticketDto);
+
+            if (sQLStatus.Status == "00")
+            {
+                TempData["TaskStatus"] = sQLStatus.Status;
+                TempData["TaskMessage"] = sQLStatus.Message;
+
+            }
+            else
+            {
+                TempData["TaskStatus"] = sQLStatus.Status;
+                TempData["TaskMessage"] = sQLStatus.Message;
+                ModelState.AddModelError("", "An Ticket with the same name already exists in the system");
+
+            }
+            ViewBag.TaskStatus = TempData["TaskStatus"];
+            ViewBag.TaskMessage = TempData["TaskMessage"];
+            return View();
+
+        }
 
 
     }

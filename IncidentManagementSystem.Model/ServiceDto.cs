@@ -28,15 +28,20 @@ namespace IncidentManagementSystem.Model
     }
     public class TicketDto
     {
+
+        [DisplayName("Institution Name")]
         public string InstId { get; set; }
+
+        [DisplayName("Service")]
         public string ServiceId { get; set; }
 
-        public string Discription {  get; set; }
+        [DisplayName("Description")]
+        public string Description {  get; set; }
 
         [DisplayName("Contact")]
         public string ContectNo { get; set; }
 
-
+        [DisplayName("Email")]
         public string Email { get; set; }
 
         
