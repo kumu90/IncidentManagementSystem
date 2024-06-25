@@ -11,6 +11,7 @@ using Microsoft.Owin.Security;
 using IncidentManagementSystem.Models;
 using System.Collections.Generic;
 using IncidentManagementSystem.Service;
+using IncidentManagementSystem.Model;
 
 namespace IncidentManagementSystem.Controllers
 {
@@ -154,8 +155,8 @@ namespace IncidentManagementSystem.Controllers
             var InsId = _iInstitutionService.GetInstName();
             ViewBag.Institution = new SelectList(InsId, "InstId", "InstitutionName");
 
-            var user = _iInstitutionService.RoleList();
-            ViewBag.UserRole = new SelectList(user, "Id", "Name");
+            List<Roles> role = _iInstitutionService.RoleList();
+            ViewBag.UserRole = new SelectList(role, "Name", "Name");
         }
 
         //

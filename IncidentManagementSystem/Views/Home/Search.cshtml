@@ -3,6 +3,24 @@
 @*<p>
         @Html.ActionLink("Create New", "Create")
     </p>*@
+
+
+<style>
+    /* CSS for table border color */
+    .table-bordered > thead > tr > th,
+    .table-bordered > tbody > tr > td,
+    .table-bordered > tfoot > tr > td {
+        border-color: #808080; /* Change color here */
+    }
+
+    /* Optional: Adjust border thickness */
+    .table-bordered {
+        border-width: 2px; /* Adjust as needed */
+    }
+</style>
+
+
+
 @if (Model != null && Model.Any())
 {
     <table class="table table-striped table-bordered">

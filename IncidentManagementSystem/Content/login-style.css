@@ -486,17 +486,19 @@ body {
 }
 
 .table-bordered {
-    border-color: #EFEFEF;
+          
 }
 
     .table-bordered th,
     .table-bordered td {
         border: 1px solid #000000;
+     
     }
 
 .table-dark th {
-    background-color: #EBF8FD;
-    color: white;
+    background-color: #C9CDD0;
+    color: #000000;
+    
 }
 
 
