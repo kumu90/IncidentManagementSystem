@@ -17,25 +17,29 @@ namespace IncidentManagementSystem.DataAccess
             SQLStatusDto _SQLStatus = new SQLStatusDto();
             try
             {
-                string conStr = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
-                /*ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;*/
+                string conStr = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;                
                 using (SqlConnection conn = new SqlConnection(conStr))
                 {
                     using (SqlCommand cmd = new SqlCommand(conStr, conn))
                     {
 
-                        cmd.CommandText = @"InsertServiceRegistration";
+                        cmd.CommandText = @"InstitutionServiceRegister";
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Connection = conn;
-
-                       
-                        cmd.Parameters.AddWithValue("@service_name", service.ServiceName);
+                        cmd.Parameters.AddWithValue("@Service", service.ServiceName);
                         cmd.Parameters.AddWithValue("@InstId", service.Institution);
 
                         conn.Open();
-                        cmd.ExecuteNonQuery();
-                        conn.Close();
-
+                        //cmd.ExecuteNonQuery();
+                        //conn.Close();
+                        using (var rdr = cmd.ExecuteReader())
+                        {
+                            while (rdr.Read())
+                            {
+                                _SQLStatus.Status = rdr["Status"].ToString();
+                                _SQLStatus.Message = rdr["Message"].ToString();
+                            }
+                        }
 
                     }
                 }
@@ -44,14 +48,52 @@ namespace IncidentManagementSystem.DataAccess
             }
             catch (Exception ex)
             {
-
+                Console.WriteLine(ex.Message);
             }
             return _SQLStatus;
         }
+
+        //public SQLStatusDto RegisterService(RegisterServiceDto _registerServiceDto)
+        //{
+        //    SQLStatusDto _sQLStatus = new SQLStatusDto();
+        //    try
+        //    {
+        //        string conStr = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+        //        using (SqlConnection conn = new SqlConnection(conStr))
+        //        {
+        //            using (SqlCommand cmd = new SqlCommand(conStr, conn))
+        //            {
+
+        //                cmd.CommandText = @"InstitutionServiceRegister";
+        //                cmd.CommandType = CommandType.StoredProcedure;
+        //                cmd.Connection = conn;
+
+
+        //                cmd.Parameters.AddWithValue("@Service", _registerServiceDto.InstId);
+        //                cmd.Parameters.AddWithValue("@InstId", _registerServiceDto.serviceName);
+
+        //                conn.Open();
+        //                cmd.ExecuteNonQuery();
+        //                conn.Close();
+
+
+        //            }
+        //        }
+
+        //        return _sQLStatus;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Console.WriteLine(ex.Message);
+        //    }
+        //    return _sQLStatus;
+        //}
     }
 
     public interface IServiceInstutionDataAccess
     {
         SQLStatusDto AddService(ServiceDto service);
+
+        //SQLStatusDto RegisterService(RegisterServiceDto _registerServiceDto);
     }
 }

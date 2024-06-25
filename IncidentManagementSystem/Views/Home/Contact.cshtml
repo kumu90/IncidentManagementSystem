@@ -11,14 +11,15 @@
     <link rel="stylesheet" type="text/css" href="css/style.css" />
 
     <style>
-       *{
-            margin:0px;
-            padding:0px;
+        * {
+            margin: 0px;
+            padding: 0px;
             box-sizing: border-box;
-            font-family: sans-seriff;
-@{
+            font-family: outfit;
+            @{
     ViewBag.Title = "Contact";
 }
+        }
        .contact{
            min-height: 100vh;
 
@@ -52,7 +53,7 @@
            width:100%;
            padding:12px;
            border-radius: 8px;
-           border: none;
+           border-color: black;
            color: #333;
        }
        input:focus
@@ -60,15 +61,17 @@
            outline:none;
            box-shadow: 0 0 8px #bbb;
        }
-       button{
-           display: inline-block;
-           padding: 12px 24px;
-           background-color: #4caf50;
-           color:#fff;
-           border: none;
-           cursor: pointer;
-           transition: 0.3s ease;
-       }
+        button {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: #198754;
+            
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            transition: 0.3s ease;
+            border-radius: 4px;
+        }
        button:hover{
            background-color: #45a049;
        }
@@ -98,12 +101,13 @@
               grid-gap:30px;
           }
       }
+     
     </style>
 </head>
 <body>
     <section class="contact">
         <div class="container">
-<h2>Contact</h2>
+<h2>Contact Us</h2>
             <div class="contact-wrapper">
                 <div class="contact-form">
                     <h3>Send us a message</h3>

@@ -80,7 +80,8 @@ namespace IncidentManagementSystem.Controllers
             }
             ViewBag.TaskStatus = TempData["TaskStatus"];
             ViewBag.TaskMessage = TempData["TaskMessage"];
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Dashboard", "Home");
+            //return View();
         }
 
 
@@ -120,9 +121,10 @@ namespace IncidentManagementSystem.Controllers
             }
             catch (Exception ex)
             {
-                // Handle the exception, log it if necessary
-                return "99";
+                Console.WriteLine(ex.Message);
+                
             }
+            return "99";
         }
 
         [HttpGet]
@@ -154,14 +156,51 @@ namespace IncidentManagementSystem.Controllers
 
                 TempData["TaskStatus"] = sQLStatus.Status;
                 TempData["TaskMessage"] = sQLStatus.Message;
-                ModelState.AddModelError("", "An institution with the same name already exists in the system");
+                ModelState.AddModelError("", "An Service with the same name already exists in the system");
 
             }
             ViewBag.TaskStatus = TempData["TaskStatus"];
             ViewBag.TaskMessage = TempData["TaskMessage"];
-            return RedirectToAction("Index", "Home");
+            return View();
 
         }
+
+        //[HttpGet]
+        //public ActionResult RegisterService()
+        //{
+        //    //var model = new ServiceDto
+        //    //{ Institution = InstId };
+        //    //ViewBag.TaskStatus = TempData["TaskStatus"];
+        //    //ViewBag.TaskMessage = TempData["TaskMessage"];
+
+        //    return View();
+        //}
+
+
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult RegisterService(RegisterServiceDto _registerServiceDto)
+        //{
+        //    SQLStatusDto sQLStatus = _serviceInstutionService.RegisterService(_registerServiceDto);
+
+        //    if (sQLStatus.Status == "00")
+        //    {
+        //        TempData["TaskStatus"] = sQLStatus.Status;
+        //        TempData["TaskMessage"] = sQLStatus.Message;
+
+        //    }
+        //    else
+        //    {
+        //        TempData["TaskStatus"] = sQLStatus.Status;
+        //        TempData["TaskMessage"] = sQLStatus.Message;
+        //        ModelState.AddModelError("", "An Service with the same name already exists in the system");
+
+        //    }
+        //    ViewBag.TaskStatus = TempData["TaskStatus"];
+        //    ViewBag.TaskMessage = TempData["TaskMessage"];
+        //    return View();
+
+        //}
 
         [HttpGet]
         public ActionResult Ticket()
