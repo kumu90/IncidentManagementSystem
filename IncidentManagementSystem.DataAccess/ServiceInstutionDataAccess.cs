@@ -69,12 +69,24 @@ namespace IncidentManagementSystem.DataAccess
                         cmd.Connection = conn;
 
 
-                        cmd.Parameters.AddWithValue("@Service", _ticketDto.InstId);
-                        cmd.Parameters.AddWithValue("@InstId", _ticketDto.ServiceId);
+                        cmd.Parameters.AddWithValue("@ServiceId", _ticketDto.ServiceId);
+                        cmd.Parameters.AddWithValue("@InstId", _ticketDto.InstId);
+                        cmd.Parameters.AddWithValue("@Description", _ticketDto.Description);
+                        cmd.Parameters.AddWithValue("@Contect", _ticketDto.ContectNo);
+                        cmd.Parameters.AddWithValue("@Email", _ticketDto.Email);
+                        cmd.Parameters.AddWithValue("@ImageId", _ticketDto.Image ?? "");
 
                         conn.Open();
-                        cmd.ExecuteNonQuery();
-                        conn.Close();
+                        //cmd.ExecuteNonQuery();
+                        //conn.Close();
+                        using (var rdr = cmd.ExecuteReader())
+                        {
+                            while (rdr.Read())
+                            {
+                                _sQLStatus.Status = rdr["Status"].ToString();
+                                _sQLStatus.Message = rdr["Message"].ToString();
+                            }
+                        }
 
 
                     }

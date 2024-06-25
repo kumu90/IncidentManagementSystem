@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,17 +31,22 @@ namespace IncidentManagementSystem.Model
     {
 
         [DisplayName("Institution Name")]
+        [Required]
         public string InstId { get; set; }
 
+        [Required]
         [DisplayName("Service")]
         public string ServiceId { get; set; }
 
+        [Required]
         [DisplayName("Description")]
         public string Description {  get; set; }
 
+        [Required]
         [DisplayName("Contact")]
         public string ContectNo { get; set; }
 
+        [Required]
         [DisplayName("Email")]
         public string Email { get; set; }
 
