@@ -14,7 +14,6 @@ namespace IncidentManagementSystem.Model
         public string Id { get; set; }
 
         [DisplayName("Institution Id")]
-        [Required]
         public string InstId { get; set; }
 
         [DisplayName("Institution Name")]
@@ -48,7 +47,7 @@ namespace IncidentManagementSystem.Model
         public string Email { get; set; }
 
         [DisplayName("Image")]
-        [Required(ErrorMessage ="Uplode Image Less Then 200Kb")]
+        //[Required(ErrorMessage ="Uplode Image Less Then 200Kb")]
         public string ImageUrl { get; set; }
         public string CreatedBy { get; set; }
         public string CreatedDate { get; set; }

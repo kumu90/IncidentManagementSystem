@@ -13,17 +13,19 @@
             <div class="row">
                 <div class="row">
                     <div class="col-lg-4 inst-row-form">
-                        @Html.LabelFor(m => m.InstitutionName, new { @class = "col-md-4 col-form-label l-inst" })
+                        @Html.LabelFor(m => m.InstId, new { @class = "col-md-4 col-form-label l-inst" })
                         <div class="col-lg-12">
-                            @Html.TextBoxFor(m => m.InstitutionName, new { @class = "form-control b-inst" })
+                            @Html.TextBoxFor(m => m.InstId, new { @class = "form-control b-inst" })
+                            @Html.ValidationMessageFor(m => m.InstId, "", new { @class = "text-danger" })
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-lg-4 inst-row-form">
-                        @Html.LabelFor(m => m.ServiceName, new { @class = "col-md-4 col-form-label l-inst" })
+                        @Html.LabelFor(m => m.ServiceId, new { @class = "col-md-4 col-form-label l-inst" })
                         <div class="col-lg-12">
-                            @Html.TextBoxFor(m => m.ServiceName, new { @class = "form-control b-inst" })
+                            @Html.TextBoxFor(m => m.ServiceId, new { @class = "form-control b-inst" })
+                            @Html.ValidationMessageFor(m => m.ServiceId, "", new { @class = "text-danger" })
                         </div>
                     </div>
                 </div>
@@ -32,6 +34,7 @@
                         @Html.LabelFor(m => m.Email, new { @class = "col-md-4 col-form-label l-inst" })
                         <div class="col-lg-12">
                             @Html.TextBoxFor(m => m.Email, new { @class = "form-control b-inst" })
+                            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
                         </div>
                     </div>
                 </div>
@@ -41,17 +44,19 @@
                         @Html.LabelFor(m => m.ContectNo, new { @class = "col-md-4 col-form-label l-inst" })
                         <div class="col-lg-12">
                             @Html.TextBoxFor(m => m.ContectNo, new { @class = "form-control b-inst" })
+                            @Html.ValidationMessageFor(m => m.ContectNo, "", new { @class = "text-danger" })
                         </div>
                     </div>
                 </div>
 
                 <div class="row">
-
-
-                    <div class="mb-3">
-                        <label for="Description" class="form-label">Description</label>
-                        <textarea class="form-control  b-inst" id="Description" rows="3"></textarea>
-                    </div>
+                    <div class="col-lg-4 inst-row-form">
+                        @Html.LabelFor(m => m.Discription, new { @class = "col-md-4 col-form-label l-inst" })
+                        <div class="mb-3">
+                            @Html.TextAreaFor(m => m.Discription, new { @class = "form-control b-inst" })
+                            @Html.ValidationMessageFor(m => m.Discription, "", new { @class = "text-danger" })
+                        </div>
+                    </div>                                       
                 </div>
 
                 <div class="row">
@@ -70,6 +75,10 @@
                             </div>
                         </div>
                     </div>
+                </div>
+
+                <div class="col-lg-4 s-dash">
+                    <input type="submit" value="Search" class="btn btn-primary btn-width" />
                 </div>
 
                 <div class="row  buttom-inst">
