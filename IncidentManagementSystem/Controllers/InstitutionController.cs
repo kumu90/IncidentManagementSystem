@@ -12,15 +12,31 @@ namespace IncidentManagementSystem.Controllers
 {
     public class InstitutionController : Controller
     {
-        readonly IInstitutionService _iInstitutionNameService;
-        readonly IServiceInstutionService _serviceInstutionService;
+        readonly IInstitutionService _iInstitutionService;
+        readonly IServiceInstutionService _iserviceInstutionService;
         public InstitutionController()
         {
         }
+
+        public void Initialize()
+        {
+
+            var InstId = _iInstitutionService.GetInstName();
+            ViewBag.Institution = new SelectList(InstId, "InstId", "InstitutionName");
+
+            var servId = _iserviceInstutionService.GetServiceName();
+            ViewBag.service = new SelectList(servId, "ServiceId", "serviceName");
+        }
+
+        public JsonResult InstService(string InstId)
+        {
+            var servId = _iserviceInstutionService.GetServiceName(InstId);
+            return Json(servId, JsonRequestBehavior.AllowGet);
+        }
         public InstitutionController(IInstitutionService iInstitutionNameService, IServiceInstutionService serviceInstutionService)
         {
-            _iInstitutionNameService = iInstitutionNameService;
-            _serviceInstutionService = serviceInstutionService;
+            _iInstitutionService = iInstitutionNameService;
+            _iserviceInstutionService = serviceInstutionService;
         }
 
         //public void initialize()
@@ -59,7 +75,7 @@ namespace IncidentManagementSystem.Controllers
                 }
 
                 ////instNameDto.ImageUrl = "";
-                sQLStatus = _iInstitutionNameService.InstNameRegister(instNameDto);
+                sQLStatus = _iInstitutionService.InstNameRegister(instNameDto);
 
 
                 if (sQLStatus.Status == "00")
@@ -142,7 +158,7 @@ namespace IncidentManagementSystem.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult GetService(ServiceDto service)
         {
-            SQLStatusDto sQLStatus = _serviceInstutionService.AddService(service);
+            SQLStatusDto sQLStatus = _iserviceInstutionService.AddService(service);
 
             if (sQLStatus.Status == "00")
             {
@@ -181,6 +197,7 @@ namespace IncidentManagementSystem.Controllers
         [HttpGet]
         public ActionResult Ticket()
         {
+            Initialize();
             return View();
         }
 
@@ -189,7 +206,7 @@ namespace IncidentManagementSystem.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Ticket(TicketDto _ticketDto)
         {
-            SQLStatusDto sQLStatus = _serviceInstutionService.TicketCreate(_ticketDto);
+            SQLStatusDto sQLStatus = _iserviceInstutionService.TicketCreate(_ticketDto);
 
             if (sQLStatus.Status == "00")
             {
