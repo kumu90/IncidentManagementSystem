@@ -14,7 +14,7 @@
     --tran-05: All 0.5s ease;
 }
 
-}
+
 
 body {
     overflow: hidden;
@@ -197,7 +197,7 @@ body {
     border: 1px solid black;
 }
 
-/*Instution registration style css*/
+/*-------------------------------------------------Instution registration style css------------------------------------------------------------------------------*/
 
 .reg-inst {
     margin-top: 0px;
@@ -470,7 +470,7 @@ body {
 }
 
 
-/*search table csss*/
+/*----------------------------------------search table csss---------------------------------------------------------*/
 
 
 .table-striped tbody tr:nth-of-type(odd) {
