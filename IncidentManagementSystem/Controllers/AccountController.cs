@@ -187,10 +187,11 @@ namespace IncidentManagementSystem.Controllers
          {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.UserName, InstId = model.InsId, UserRoleId = model.UserRole_Id };
+                var user = new ApplicationUser { UserName = model.UserName, InstId = model.InsId};
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    await this.UserManager.AddToRoleAsync(user.Id, model.UserRole_Id);
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
@@ -203,7 +204,7 @@ namespace IncidentManagementSystem.Controllers
                 }
                 AddErrors(result);
             }
-
+            Initialize();
             // If we got this far, something failed, redisplay form
             return View(model);
         }
