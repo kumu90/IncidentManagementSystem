@@ -13,10 +13,9 @@
             <div class="row">
                 <div class="row">
                     <div class="col-lg-4 inst-row-form">
-                        @Html.LabelFor(m => m.InstId, new { @class = "col-md-4 col-form-label l-inst" })
-                        <div class="col-lg-12">
-                            @*@Html.TextBoxFor(m => m.InstId, new { @class = "form-control b-inst" })*@
-                            @Html.DropDownListFor(m => m.InstId, ViewBag.InstId as SelectList, "-Select Institution-", new { @class = "form-select u-box" })
+                        @Html.LabelFor(m => m.InstId, new { @class = "col-md-2 col-form-label l-user" })
+                        <div class="col">
+                            @Html.DropDownListFor(m => m.InstId, ViewBag.Institution as SelectList, "-Select Institution-", new { @class = "form-select u-box" })
                             @Html.ValidationMessageFor(m => m.InstId, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -58,7 +57,7 @@
                             @Html.TextAreaFor(m => m.Description, new { @class = "form-control b-inst" })
                             @Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger" })
                         </div>
-                    </div>                                       
+                    </div>
                 </div>
 
                 <div class="row">
@@ -80,8 +79,8 @@
                 </div>
 
                 @*<div class="col-lg-4 s-dash">
-                    <input type="submit" value="Submit" class="btn btn-primary btn-width" />
-                </div>*@
+                        <input type="submit" value="Submit" class="btn btn-primary btn-width" />
+                    </div>*@
 
                 <div class="row  buttom-inst">
                     <div class="col-lg-4">
@@ -96,23 +95,59 @@
 
 </div>
 
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        var preview = document.getElementById('preview');
-        var imageUpload = document.getElementById('imageUpload');
+@*<script>
+        
+    </script>*@
 
-        imageAnchor.addEventListener('click', function () {
-            imageUpload.click();
+
+@section scripts{
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var preview = document.getElementById('preview');
+            var imageUpload = document.getElementById('imageUpload');
+
+            imageAnchor.addEventListener('click', function () {
+                imageUpload.click();
+            });
         });
-    });
-    function previewImage(event) {
-        var input = event.target;
-        var reader = new FileReader();
-        reader.onload = function () {
-            var imgElement = document.getElementById('preview');
-            imgElement.src = reader.result;
-            imgElement.style.display = 'block'; // Show the image preview
+        function previewImage(event) {
+            var input = event.target;
+            var reader = new FileReader();
+            reader.onload = function () {
+                var imgElement = document.getElementById('preview');
+                imgElement.src = reader.result;
+                imgElement.style.display = 'block'; // Show the image preview
+            }
+            reader.readAsDataURL(input.files[0]);
         }
-        reader.readAsDataURL(input.files[0]);
-    }
-</script>
+
+
+        //////
+        /////  To select services of the selected Institution 
+        //////
+        $(document).ready(function () {
+            debugger;
+            $("#InstID").on("change", function () {
+                debugger;
+                const stateID = $('#InstID').val();
+                $('#ServiceName').html("");
+                $('#ServiceName').append($('<option disabled selected value>-Select District-</option>'));
+                $.ajax({
+                    method: "GET",
+                    url: '@Url.Action("InstService")',
+                    data: { InstID: InstID },
+                    success: function (result) {
+                        debugger;
+                        //// Append the retrieved districts to the dropdown
+                        $.each(result, function (i, service) {
+                            $("#disName").append($('<option>', {
+                                value: service.ServiceID,
+                                text: service.ServiceName
+                            }));
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+}

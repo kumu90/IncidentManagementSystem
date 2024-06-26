@@ -32,4 +32,5 @@ namespace IncidentManagementSystem.Model
         public string Roles { get; set; }
 
     }
+
 }
