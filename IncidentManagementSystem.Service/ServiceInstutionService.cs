@@ -21,17 +21,22 @@ namespace IncidentManagementSystem.Service
         {
             return _serviceInstutionDataAccess.AddService(service);
         }
-
         public SQLStatusDto TicketCreate(TicketDto _ticketDto)
         {
             return _serviceInstutionDataAccess.TicketCreate(_ticketDto);
         }
+
+        //public SQLStatusDto RegisterService(RegisterServiceDto _registerServiceDto)
+        //{
+        //    return _serviceInstutionDataAccess.RegisterService(_registerServiceDto);
+        //}
     }
 
     public interface IServiceInstutionService
     {
         SQLStatusDto AddService(ServiceDto service);
+        SQLStatusDto TicketCreate(TicketDto ticketDto);
 
-        SQLStatusDto TicketCreate(TicketDto _ticket);
+        //SQLStatusDto RegisterService(RegisterServiceDto _registerServiceDto);
     }
 }
