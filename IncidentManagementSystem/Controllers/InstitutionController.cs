@@ -18,7 +18,14 @@ namespace IncidentManagementSystem.Controllers
         {
         }
 
-        public void Initialize()
+        public InstitutionController(IInstitutionService iInstitutionNameService, IServiceInstutionService serviceInstutionService)
+        {
+            _iInstitutionService = iInstitutionNameService;
+            _iserviceInstutionService = serviceInstutionService;
+        }
+
+
+        public void Init()
         {
 
             var InstId = _iInstitutionService.GetInstName();
@@ -28,17 +35,12 @@ namespace IncidentManagementSystem.Controllers
             ViewBag.service = new SelectList(servId, "ServiceId", "serviceName");
         }
 
+
         public JsonResult InstService(string InstId)
         {
             var servId = _iserviceInstutionService.GetServiceName(InstId);
             return Json(servId, JsonRequestBehavior.AllowGet);
         }
-        public InstitutionController(IInstitutionService iInstitutionNameService, IServiceInstutionService serviceInstutionService)
-        {
-            _iInstitutionService = iInstitutionNameService;
-            _iserviceInstutionService = serviceInstutionService;
-        }
-
         //public void initialize()
         //{
         //    var InsId = _iGetInstNameService.GetInstName();
@@ -138,7 +140,7 @@ namespace IncidentManagementSystem.Controllers
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                
+
             }
             return "99";
         }
@@ -197,7 +199,7 @@ namespace IncidentManagementSystem.Controllers
         [HttpGet]
         public ActionResult Ticket()
         {
-            Initialize();
+            Init();
             return View();
         }
 
@@ -205,24 +207,34 @@ namespace IncidentManagementSystem.Controllers
         [HttpPost]
         public ActionResult Ticket(TicketDto _ticketDto)
         {
-            SQLStatusDto sQLStatus = _iserviceInstutionService.TicketCreate(_ticketDto);
-
-            if (sQLStatus.Status == "00")
+            try
             {
-                TempData["TaskStatus"] = sQLStatus.Status;
-                TempData["TaskMessage"] = sQLStatus.Message;
+                SQLStatusDto sQLStatus = _iserviceInstutionService.TicketCreate(_ticketDto);
 
+                if (sQLStatus.Status == "00")
+                {
+                    TempData["TaskStatus"] = sQLStatus.Status;
+                    TempData["TaskMessage"] = sQLStatus.Message;
+
+                }
+                else
+                {
+                    TempData["TaskStatus"] = sQLStatus.Status;
+                    TempData["TaskMessage"] = sQLStatus.Message;
+                    ModelState.AddModelError("", "An Ticket with the same name already exists in the system");
+
+                }
+                ViewBag.TaskStatus = TempData["TaskStatus"];
+                ViewBag.TaskMessage = TempData["TaskMessage"];
             }
-            else
+            catch (Exception ex)
             {
-                TempData["TaskStatus"] = sQLStatus.Status;
-                TempData["TaskMessage"] = sQLStatus.Message;
-                ModelState.AddModelError("", "An Ticket with the same name already exists in the system");
-
+                // ex.AddError
             }
-            ViewBag.TaskStatus = TempData["TaskStatus"];
-            ViewBag.TaskMessage = TempData["TaskMessage"];
+            Init();
             return View();
+
+
 
         }
 

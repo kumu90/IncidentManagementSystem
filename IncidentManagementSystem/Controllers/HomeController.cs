@@ -68,6 +68,15 @@ namespace IncidentManagementSystem.Controllers
 
         }
 
+
+        public ActionResult TicketSearch(string search)
+        {
+            return View();
+        }
+        public ActionResult TicketSearchInfo(string search)
+        {   
+            return View();
+        }
         public ActionResult Contact()
         {
             return View();
