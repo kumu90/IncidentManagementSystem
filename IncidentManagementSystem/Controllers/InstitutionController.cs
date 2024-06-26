@@ -203,7 +203,6 @@ namespace IncidentManagementSystem.Controllers
 
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Ticket(TicketDto _ticketDto)
         {
             SQLStatusDto sQLStatus = _iserviceInstutionService.TicketCreate(_ticketDto);
