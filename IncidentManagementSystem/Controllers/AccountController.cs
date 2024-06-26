@@ -21,12 +21,14 @@ namespace IncidentManagementSystem.Controllers
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
         private readonly IInstitutionService _iInstitutionService;
+        private readonly IServiceInstutionService _iserviceInstutionService;
         //private readonly IGetInstNameService _iGetInstNameService;
 
         // Constructor with Dependency Injection
-        public AccountController(IInstitutionService iInstitutionService)
+        public AccountController(IInstitutionService iInstitutionService, IServiceInstutionService serviceInstutionService)
         {
             _iInstitutionService = iInstitutionService;
+            _iserviceInstutionService = serviceInstutionService;
         }
 
         public AccountController()
@@ -157,8 +159,16 @@ namespace IncidentManagementSystem.Controllers
 
             List<Roles> role = _iInstitutionService.RoleList();
             ViewBag.UserRole = new SelectList(role, "Name", "Name");
+
+            //var servId = _iserviceInstutionService.GetServiceName();
+            //ViewBag.service = new SelectList(servId, "ServiceId", "serviceName");
         }
 
+        //public JsonResult InstService(string InstId)
+        //{
+        //    var servId = _iserviceInstutionService.GetServiceName(InstId);
+        //    return Json(servId,JsonRequestBehavior.AllowGet);
+        //}
         //
         // GET: /Account/Register
         [AllowAnonymous]

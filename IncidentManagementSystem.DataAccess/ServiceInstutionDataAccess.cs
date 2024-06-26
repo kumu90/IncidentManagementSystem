@@ -72,9 +72,9 @@ namespace IncidentManagementSystem.DataAccess
                         cmd.Parameters.AddWithValue("@ServiceId", _ticketDto.ServiceId);
                         cmd.Parameters.AddWithValue("@InstId", _ticketDto.InstId);
                         cmd.Parameters.AddWithValue("@Description", _ticketDto.Description);
-                        cmd.Parameters.AddWithValue("@Contect", _ticketDto.ContectNo);
+                        cmd.Parameters.AddWithValue("@CellNumber", _ticketDto.CellNumber);
                         cmd.Parameters.AddWithValue("@Email", _ticketDto.Email);
-                        cmd.Parameters.AddWithValue("@ImageId", _ticketDto.Image ?? "");
+                        cmd.Parameters.AddWithValue("@ImageUrl", _ticketDto.ImageUrl ?? "");
 
                         conn.Open();
                         //cmd.ExecuteNonQuery();
@@ -100,6 +100,51 @@ namespace IncidentManagementSystem.DataAccess
             }
             return _sQLStatus;
         }
+
+
+        public List<ServiceDto> GetServiceName(string InstId="")
+        {
+            List<ServiceDto> Servicelist = new List<ServiceDto>();
+            try
+            {
+                string conStr = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+                using (SqlConnection conn = new SqlConnection(conStr))
+                {
+                    using (SqlCommand cmd = new SqlCommand(conStr, conn))
+                    {
+
+                        cmd.CommandText = @"ServiceName";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = conn;
+
+                        conn.Open();
+
+                        using (var sqlDataReader = cmd.ExecuteReader())
+                        {
+                            while (sqlDataReader.Read())
+                            {
+                                Servicelist.Add(new ServiceDto()
+                                {
+                                    ServiceId = Convert.ToInt32(sqlDataReader["ServiceId"].ToString()),
+                                    ServiceName = sqlDataReader["ServiceName"].ToString()
+                                });
+                            }
+                        }
+
+                        conn.Close();
+
+                    }
+                }
+
+                return Servicelist;
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return new List<ServiceDto>();
+        }
     }
 
     public interface IServiceInstutionDataAccess
@@ -107,5 +152,7 @@ namespace IncidentManagementSystem.DataAccess
         SQLStatusDto AddService(ServiceDto service);
 
         SQLStatusDto TicketCreate(TicketDto _ticketDto);
+
+        List<ServiceDto> GetServiceName(string InstId = "");
     }
 }

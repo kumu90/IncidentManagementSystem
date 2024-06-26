@@ -10,20 +10,25 @@ namespace IncidentManagementSystem.Service
 {
     public class ServiceInstutionService : IServiceInstutionService
     {
-        private readonly IServiceInstutionDataAccess _serviceInstutionDataAccess;
+        private readonly IServiceInstutionDataAccess _iserviceInstutionDataAccess;
 
         public  ServiceInstutionService(IServiceInstutionDataAccess serviceInstutionDataAccess)
         {
-            _serviceInstutionDataAccess = serviceInstutionDataAccess;
+            _iserviceInstutionDataAccess = serviceInstutionDataAccess;
         }
 
         public SQLStatusDto AddService(ServiceDto service)
         {
-            return _serviceInstutionDataAccess.AddService(service);
+            return _iserviceInstutionDataAccess.AddService(service);
         }
         public SQLStatusDto TicketCreate(TicketDto _ticketDto)
         {
-            return _serviceInstutionDataAccess.TicketCreate(_ticketDto);
+            return _iserviceInstutionDataAccess.TicketCreate(_ticketDto);
+        }
+
+        public List<ServiceDto> GetServiceName(string InstId = "")
+        {
+            return _iserviceInstutionDataAccess.GetServiceName(InstId);
         }
 
         //public SQLStatusDto RegisterService(RegisterServiceDto _registerServiceDto)

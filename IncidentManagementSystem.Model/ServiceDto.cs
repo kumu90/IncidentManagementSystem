@@ -11,6 +11,8 @@ namespace IncidentManagementSystem.Model
 {
     public class ServiceDto
     {
+        public int ServiceId { get; set; }
+        [Required]
         [DisplayName ("Service Name")]
         public string ServiceName { get; set; }
         public string Institution { get; set; }
@@ -43,8 +45,8 @@ namespace IncidentManagementSystem.Model
         public string Description {  get; set; }
 
         [Required]
-        [DisplayName("Contact")]
-        public string ContectNo { get; set; }
+        [DisplayName("Cell Number")]
+        public string CellNumber { get; set; }
 
         [Required]
         [DisplayName("Email")]
@@ -52,6 +54,6 @@ namespace IncidentManagementSystem.Model
 
         
         [DisplayName("Upload Supporting Image")]
-        public string Image { get; set; }
+        public string ImageUrl { get; set; }
     }
 }
