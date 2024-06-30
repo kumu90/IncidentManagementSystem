@@ -175,8 +175,54 @@
 @section scripts{
     <script>
 
-        $(document).ready(function () {            $('.selectService').click(function (e) {                debugger;                e.preventDefault();                var serviceName = $(this).text();                //var selectedServices = $('#selectedServices');                /* selectedServices.val(selectedServices.val() + serviceName + ',');*/
-                // Check if serviceName is already in selectedServices                //if (selectedServices.val().indexOf(serviceName) === -1) {                //    selectedServices.val(selectedServices.val() + serviceName + ',');                //} else {                //    // Optionally, you can show a message or handle the case where it's already selected                //    console.log(serviceName + ' is already selected.');                //}                //// Check if the button with the same serviceName already exists                if ($('#selectedServicesLabel').find('button:contains("' + serviceName + '")').length === 0) {                    // Create a new button element with cross icon                    var button = $('<button>').text(serviceName)                        .addClass('btn btn-primary mr-2 mb-2')                        .attr('type', 'button').css('margin-left', '10px')                        .append($('<span>').addClass('ml-2').css({ 'color': 'red', 'margin-left': '5px' }).html('&times;'));                    // Append the button to the 'selectedServicesLabel' div                    $('#selectedServicesLabel').append(button);                    // Add click event to remove the button                    button.click(function () {                        $(this).remove();  // Remove the button itself when clicked                    });                } else {                    // Handle the case where the button already exists                    console.log('Button for "' + serviceName + '" already selected.');                }            });            $('#submit').click(function () {                var serviceNameInput = $('#serviceNameInput').val();                var selectedServices = $('#selectedServicesLabel');                selectedServices.val(selectedServices.val() + serviceNameInput + '\n');                $('#serviceNameInput').val('');            });        });
+        $(document).ready(function () {
+            $('.selectService').click(function (e) {
+                debugger;
+                e.preventDefault();
+                var serviceName = $(this).text();
+
+                //var selectedServices = $('#selectedServices');
+
+                /* selectedServices.val(selectedServices.val() + serviceName + ',');*/
+
+                // Check if serviceName is already in selectedServices
+                //if (selectedServices.val().indexOf(serviceName) === -1) {
+                //    selectedServices.val(selectedServices.val() + serviceName + ',');
+
+                //} else {
+                //    // Optionally, you can show a message or handle the case where it's already selected
+                //    console.log(serviceName + ' is already selected.');
+                //}
+
+                //// Check if the button with the same serviceName already exists
+                if ($('#selectedServicesLabel').find('button:contains("' + serviceName + '")').length === 0) {
+                    // Create a new button element with cross icon
+                    var button = $('<button>').text(serviceName)
+                        .addClass('btn btn-primary mr-2 mb-2')
+                        .attr('type', 'button').css('margin-left', '10px')
+                        .append($('<span>').addClass('ml-2').css({ 'color': 'red', 'margin-left': '5px' }).html('&times;'));
+
+                    // Append the button to the 'selectedServicesLabel' div
+                    $('#selectedServicesLabel').append(button);
+
+                    // Add click event to remove the button
+                    button.click(function () {
+                        $(this).remove();  // Remove the button itself when clicked
+                    });
+                } else {
+                    // Handle the case where the button already exists
+                    console.log('Button for "' + serviceName + '" already selected.');
+                }
+            });
+
+
+            $('#submit').click(function () {
+                var serviceNameInput = $('#serviceNameInput').val();
+                var selectedServices = $('#selectedServicesLabel');
+                selectedServices.val(selectedServices.val() + serviceNameInput + '\n');
+                $('#serviceNameInput').val('');
+            });
+        });
 
 
         // Show the image preview
@@ -188,20 +234,7 @@
                 imageUpload.click();
             });
         });
-        function previewImage(event) {
-            var input = event.target;
-            var reader = new FileReader();
-            reader.onload = function () {
-                var imgElement = document.getElementById('preview');
-                imgElement.src = reader.result;
-                imgElement.style.display = 'block'; 
-            }
-            reader.readAsDataURL(input.files[0]);
-
-
-        imageAnchor.addEventListener('click', function () {
-            imageUpload.click();
-        });
+<<<<<<< HEAD
     });
     function previewImage(event) {
         var input = event.target;
@@ -217,12 +250,35 @@
         
     }
 
-        function clearForm() {
-            // Reset the form
-            document.getElementById("ins-form").reset();
     function clearForm() {
         // Reset the form
         document.getElementById("ins-form").reset();
+
+        // Reset the file input
+        document.getElementById("imageUpload").value = "";
+
+        // Reset the image preview
+        document.getElementById("preview").src = "#";
+        document.getElementById("preview").style.display = "block";
+    }
+</script>
+
+=======
+        function previewImage(event) {
+            var input = event.target;
+            var reader = new FileReader();
+            reader.onload = function () {
+                var imgElement = document.getElementById('preview');
+                imgElement.src = reader.result;
+                imgElement.style.display = 'block'; 
+            }
+            reader.readAsDataURL(input.files[0]);
+
+
+
+        function clearForm() {
+            // Reset the form
+            document.getElementById("ins-form").reset();
 
             // Reset the file input
             document.getElementById("imageUpload").value = "";
@@ -236,9 +292,4 @@
         }
     </script>
 }
-        // Reset the image preview
-        document.getElementById("preview").src = "#";
-        document.getElementById("preview").style.display = "block";
-    }
-</script>
-
+>>>>>>> 9f8054c1718d9eba308b1305fbc13e3b43ba5ed4
