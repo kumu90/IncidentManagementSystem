@@ -174,7 +174,6 @@
 </div>
 @section scripts{
     <script>
-
         $(document).ready(function () {
             $('.selectService').click(function (e) {
                 debugger;
@@ -224,7 +223,6 @@
             });
         });
 
-
         // Show the image preview
         document.addEventListener("DOMContentLoaded", function () {
             var preview = document.getElementById('preview');
@@ -234,47 +232,20 @@
                 imageUpload.click();
             });
         });
-<<<<<<< HEAD
-    });
-    function previewImage(event) {
-        var input = event.target;
-        var reader = new FileReader();
-        reader.onload = function () {
-            var imgElement = document.getElementById('preview');
-            imgElement.src = reader.result;
-            imgElement.style.display = 'block'; // Show the image preview
-        }
-        reader.readAsDataURL(input.files[0]);
 
-
-        
-    }
-
-    function clearForm() {
-        // Reset the form
-        document.getElementById("ins-form").reset();
-
-        // Reset the file input
-        document.getElementById("imageUpload").value = "";
-
-        // Reset the image preview
-        document.getElementById("preview").src = "#";
-        document.getElementById("preview").style.display = "block";
-    }
-</script>
-
-=======
         function previewImage(event) {
             var input = event.target;
             var reader = new FileReader();
             reader.onload = function () {
                 var imgElement = document.getElementById('preview');
                 imgElement.src = reader.result;
-                imgElement.style.display = 'block'; 
+                imgElement.style.display = 'block'; // Show the image preview
             }
             reader.readAsDataURL(input.files[0]);
 
 
+
+        }
 
         function clearForm() {
             // Reset the form
@@ -286,10 +257,9 @@
             // Reset the image preview
             document.getElementById("preview").src = "#";
             document.getElementById("preview").style.display = "block";
-
-            // Clear selected services
-            document.getElementById("selectedServices").innerHTML = "";
         }
-    </script>
+   
+        
+</script>
 }
->>>>>>> 9f8054c1718d9eba308b1305fbc13e3b43ba5ed4
+

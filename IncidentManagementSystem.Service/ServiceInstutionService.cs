@@ -45,7 +45,6 @@ namespace IncidentManagementSystem.Service
     {
         SQLStatusDto AddService(ServiceDto service);
         SQLStatusDto TicketCreate(TicketDto ticketDto);
-        List<ServiceDto> GetServiceName(string InstId = "");
 
         List<ServiceDto> GetServices(string InstId = "");
 
