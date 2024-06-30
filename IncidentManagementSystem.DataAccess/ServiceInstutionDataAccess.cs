@@ -26,8 +26,8 @@ namespace IncidentManagementSystem.DataAccess
                         cmd.CommandText = @"InstitutionServiceRegister";
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Connection = conn;
-                        cmd.Parameters.AddWithValue("@Service", service.ServiceName);
-                        cmd.Parameters.AddWithValue("@InstId", service.Institution);
+                        cmd.Parameters.AddWithValue("@ServiceId", service.ServiceId);
+                        cmd.Parameters.AddWithValue("@InstId", service.InstId);
 
                         conn.Open();
                         //cmd.ExecuteNonQuery();
@@ -102,7 +102,7 @@ namespace IncidentManagementSystem.DataAccess
         }
 
 
-        public List<ServiceDto> GetServiceName(string InstId="")
+        public List<ServiceDto> GetServices(string InstId="")
         {
             List<ServiceDto> Servicelist = new List<ServiceDto>();
             try
@@ -113,10 +113,10 @@ namespace IncidentManagementSystem.DataAccess
                     using (SqlCommand cmd = new SqlCommand(conStr, conn))
                     {
 
-                        cmd.CommandText = @"ServiceName";
+                        cmd.CommandText = "GetService";
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Connection = conn;
-
+                        cmd.Parameters.AddWithValue("@instId", InstId ?? "");
                         conn.Open();
 
                         using (var sqlDataReader = cmd.ExecuteReader())
@@ -126,7 +126,7 @@ namespace IncidentManagementSystem.DataAccess
                                 Servicelist.Add(new ServiceDto()
                                 {
                                     ServiceId = Convert.ToInt32(sqlDataReader["ServiceId"].ToString()),
-                                    ServiceName = sqlDataReader["ServiceName"].ToString()
+                                    ServiceName = sqlDataReader["ServiceName"].ToString(),
                                 });
                             }
                         }
@@ -145,6 +145,55 @@ namespace IncidentManagementSystem.DataAccess
             }
             return new List<ServiceDto>();
         }
+
+        public List<TicketDto> ticketInfo(string search = "")
+        {
+            List<TicketDto> Ticketlist = new List<TicketDto>();
+            try
+            {
+                string conStr = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+                using (SqlConnection conn = new SqlConnection(conStr))
+                {
+                    using (SqlCommand cmd = new SqlCommand(conStr, conn))
+                    {
+
+                        cmd.CommandText = @"TicketName";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@Search", search ?? ""));
+                        cmd.Connection = conn;
+
+                        conn.Open();
+
+                        using (var sqlDataReader = cmd.ExecuteReader())
+                        {
+                            while (sqlDataReader.Read())
+                            {
+                                Ticketlist.Add(new TicketDto()
+                                {
+                                    Description = sqlDataReader["Description"].ToString(),
+                                    InstId = sqlDataReader["InstId"].ToString(),
+                                    ServiceId = sqlDataReader["ServiceId"].ToString(),
+                                    CellNumber = sqlDataReader["CellNumber"].ToString(),
+                                    Email = sqlDataReader["Email"].ToString()
+                                    
+                                });
+                            }
+                        }
+
+                        conn.Close();
+
+                    }
+                }
+
+                return Ticketlist;
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return new List<TicketDto>();
+        }
     }
 
     public interface IServiceInstutionDataAccess
@@ -153,6 +202,8 @@ namespace IncidentManagementSystem.DataAccess
 
         SQLStatusDto TicketCreate(TicketDto _ticketDto);
 
-        List<ServiceDto> GetServiceName(string InstId = "");
+        List<ServiceDto> GetServices(string InstId = "");
+
+        List<TicketDto> ticketInfo(string search = "");
     }
 }

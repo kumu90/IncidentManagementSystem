@@ -12,10 +12,12 @@ namespace IncidentManagementSystem.Controllers
     {
          private readonly IInstitutionService _iInstitutionService;
          private readonly IUserService _userService;
-        public HomeController(IInstitutionService iInstitutionService, IUserService userService)
+        private readonly IServiceInstutionService _iServiceInstutionService;
+        public HomeController(IInstitutionService iInstitutionService, IUserService userService, IServiceInstutionService iServiceInstutionService)
         {
             _iInstitutionService = iInstitutionService;
             _userService = userService;
+            _iServiceInstutionService = iServiceInstutionService;
         }
 
         public HomeController()
@@ -23,9 +25,6 @@ namespace IncidentManagementSystem.Controllers
         }
         public ActionResult Index(string search)
         {
-
-            ////var model = new SearchByDateDto();
-            //return View();
             var clients = _userService.UserDetail(search);
             return View(clients);
         }
@@ -45,10 +44,6 @@ namespace IncidentManagementSystem.Controllers
         [HttpGet]
         public ActionResult Dashboard(string search)
         {
-            //var model = new SearchByDateDto();
-            //return View(model);
-            //var result =_iInstitutionService.InstDetail();
-            //return PartialView("_PartialDashboard", result);
             var clt = _userService.UserDetail(search);
             return View(clt);
         }
@@ -56,27 +51,28 @@ namespace IncidentManagementSystem.Controllers
         [HttpGet]
         public ActionResult Search (string search)
         {
-            //var result = _iInstitutionService.InstDetail();
-            //return PartialView("_PartialDashboard", result);
             if (ModelState.IsValid)
             {
                 var result = _iInstitutionService.InstDetail(search); 
                 return PartialView("Search", result);
             }
             return View();
-            //return View(instNameDto);
-
         }
 
 
         public ActionResult TicketSearch(string search)
         {
-            return View();
+            var TicketInfo = _iServiceInstutionService.ticketInfo(search);
+            return View(TicketInfo);
         }
+
         public ActionResult TicketSearchInfo(string search)
-        {   
-            return View();
+        {
+            var results = _iServiceInstutionService.ticketInfo(search);
+            return PartialView("TicketSearchInfo", results);
         }
+
+
         public ActionResult Contact()
         {
             return View();

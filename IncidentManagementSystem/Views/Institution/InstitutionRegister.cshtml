@@ -1,9 +1,10 @@
-﻿ @model IncidentManagementSystem.Model.InstNameDto
+﻿@model IncidentManagementSystem.Model.InstNameDto
 @*@{
         ViewBag.Title = "InstitutionRegister";
     }*@
 
-
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 
 <div class="container-fluid reg-inst">
 
@@ -95,17 +96,49 @@
                                     @Html.TextBoxFor(m => m.ContactPersonTechnical, new { @class = "form-control b-inst" })
                                 </div>
                             </div>
+                            @*<div class="col-lg-4  inst-row-form">
+                                    <label class="col-md-4 col-form-label l-inst">Service</label>
+                                    <div class="col-md-12">
+                                        <select class="form-control b-inst" name="ServiceId" id="ServiceId">
+                                            <option value="">--Select Services--</option>
+                                            @foreach (var Service in ViewBag.services)
+                                            {
+                                                <option value="@Service.Value">@Service.Text</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>*@
+                            <div class="col-lg-4  inst-row-form">
+                                <label class="col-md-4 col-form-label l-inst">Service</label>
+                                <div class="col-md-12">
+                                    <select class="form-control b-inst" name="ServiceId" id="ServiceId" multiple>
+                                        <option value="">--Select Services--</option>
+                                        @foreach (var Service in ViewBag.services)
+                                        {
+                                            <option value="@Service.Value" class="selectService">@Service.Text</option>
+                                        }
+                                    </select>
+                                </div>
+                                <div class="col-md-12">
+                                    <div id="selectedServicesLabel">
+                                        @*<div>
+                                            <textarea class="form-control" id="selectedServices" name="selectedServices"></textarea>
+                                        </div>*@
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="row  form-group" style="margin-top:10px">
                             <div class="col-md-2">
-                                <input type="submit" value="Register" class="btn btn-success btn-lg" />
+                                <input type="submit" value="Register" class="btn btn-success btn-lg" id="submit"/>
                             </div>
                             <div class="col-md-2">
                                 @*<input type="button" value="Clear Form" onclick="window.location.reload();" />*@
                                 <input type="reset" value="Clear" class="btn btn-secondary btn-lg " onclick="clearForm();" /> @*scrypt method*@
                             </div>
                         </div>
+
                     </div>
                 </div>
 
@@ -118,33 +151,53 @@
                                     <img id="preview" src="~/Image/photo-album-regular-24.png" class="card-img-top" alt="Preview" />
                                 </a>
                             </div>
+                        </div>
+                        <div class="row upload">
+                            <div class="col-lg-12">
 
-                            <div class="row upload">
-                                <div class="col-lg-12">
-
-                                    @*<label for="uploadReportFile">Select file to upload:</label><br />*@
-                                    <input type="file" name="image" id="imageUpload" accept="image/*" onchange="previewImage(event)" class="form-control" style="width: 105px" />
-                                </div>
+                                @*<label for="uploadReportFile">Select file to upload:</label><br />*@
+                                <input type="file" name="image" id="imageUpload" accept="image/*" onchange="previewImage(event)" class="form-control" style="width: 105px" />
                             </div>
+                        </div>
 
 
-                            @*<div class="row justify-content-start buttom-inst">
+                        @*<div class="row justify-content-start buttom-inst">
                                 <div class="col-lg-4">
                                     <input type="submit" value="Upload" class="btn btn-primary" />
                                 </div>
                             </div>*@
-                        </div>
                     </div>
                 </div>
             </div>
         }
     </div>
 </div>
+@section scripts{
+    <script>
 
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        var preview = document.getElementById('preview');
-        var imageUpload = document.getElementById('imageUpload');
+        $(document).ready(function () {            $('.selectService').click(function (e) {                debugger;                e.preventDefault();                var serviceName = $(this).text();                //var selectedServices = $('#selectedServices');                /* selectedServices.val(selectedServices.val() + serviceName + ',');*/
+                // Check if serviceName is already in selectedServices                //if (selectedServices.val().indexOf(serviceName) === -1) {                //    selectedServices.val(selectedServices.val() + serviceName + ',');                //} else {                //    // Optionally, you can show a message or handle the case where it's already selected                //    console.log(serviceName + ' is already selected.');                //}                //// Check if the button with the same serviceName already exists                if ($('#selectedServicesLabel').find('button:contains("' + serviceName + '")').length === 0) {                    // Create a new button element with cross icon                    var button = $('<button>').text(serviceName)                        .addClass('btn btn-primary mr-2 mb-2')                        .attr('type', 'button').css('margin-left', '10px')                        .append($('<span>').addClass('ml-2').css({ 'color': 'red', 'margin-left': '5px' }).html('&times;'));                    // Append the button to the 'selectedServicesLabel' div                    $('#selectedServicesLabel').append(button);                    // Add click event to remove the button                    button.click(function () {                        $(this).remove();  // Remove the button itself when clicked                    });                } else {                    // Handle the case where the button already exists                    console.log('Button for "' + serviceName + '" already selected.');                }            });            $('#submit').click(function () {                var serviceNameInput = $('#serviceNameInput').val();                var selectedServices = $('#selectedServicesLabel');                selectedServices.val(selectedServices.val() + serviceNameInput + '\n');                $('#serviceNameInput').val('');            });        });
+
+
+        // Show the image preview
+        document.addEventListener("DOMContentLoaded", function () {
+            var preview = document.getElementById('preview');
+            var imageUpload = document.getElementById('imageUpload');
+
+            imageAnchor.addEventListener('click', function () {
+                imageUpload.click();
+            });
+        });
+        function previewImage(event) {
+            var input = event.target;
+            var reader = new FileReader();
+            reader.onload = function () {
+                var imgElement = document.getElementById('preview');
+                imgElement.src = reader.result;
+                imgElement.style.display = 'block'; 
+            }
+            reader.readAsDataURL(input.files[0]);
+
 
         imageAnchor.addEventListener('click', function () {
             imageUpload.click();
@@ -164,13 +217,25 @@
         
     }
 
+        function clearForm() {
+            // Reset the form
+            document.getElementById("ins-form").reset();
     function clearForm() {
         // Reset the form
         document.getElementById("ins-form").reset();
 
-        // Reset the file input
-        document.getElementById("imageUpload").value = "";
+            // Reset the file input
+            document.getElementById("imageUpload").value = "";
 
+            // Reset the image preview
+            document.getElementById("preview").src = "#";
+            document.getElementById("preview").style.display = "block";
+
+            // Clear selected services
+            document.getElementById("selectedServices").innerHTML = "";
+        }
+    </script>
+}
         // Reset the image preview
         document.getElementById("preview").src = "#";
         document.getElementById("preview").style.display = "block";

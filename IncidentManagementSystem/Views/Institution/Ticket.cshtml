@@ -25,7 +25,7 @@
                         @Html.LabelFor(m => m.ServiceId, new { @class = "col-md-4 col-form-label l-inst" })
                         <div class="col-lg-12">
                             @*@Html.TextBoxFor(m => m.ServiceId, new { @class = "form-control b-inst" })*@
-                            @Html.DropDownListFor(m => m.ServiceId, ViewBag.service as SelectList, "-Select Service-", new { @class = "form-select u-box" })
+                            @Html.DropDownListFor(m => m.ServiceId, ViewBag.services as SelectList, "-Select Service-", new { @class = "form-select u-box" })
                             @Html.ValidationMessageFor(m => m.ServiceId, "", new { @class = "text-danger" })
                         </div>
                     </div>

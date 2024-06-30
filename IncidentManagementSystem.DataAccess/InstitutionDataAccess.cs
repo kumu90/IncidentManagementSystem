@@ -14,11 +14,11 @@ namespace IncidentManagementSystem.DataAccess
     {
         public SQLStatusDto InstNameRegister(InstNameDto _instNameDto)
         {
+            var servic = string.Join(",", _instNameDto.ServiceId);
             SQLStatusDto _SQLStatus = new SQLStatusDto();
             try
             {
                 string conStr = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
-                /*ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;*/
                 using (SqlConnection conn = new SqlConnection(conStr))
                 {
                     using (SqlCommand cmd = new SqlCommand(conStr, conn))
@@ -40,6 +40,7 @@ namespace IncidentManagementSystem.DataAccess
                         cmd.Parameters.AddWithValue("@email", _instNameDto.Email);
                         cmd.Parameters.AddWithValue("@imageUrl", _instNameDto.ImageUrl);
                         cmd.Parameters.AddWithValue("@userId", _instNameDto.CreatedBy ?? "");
+                        cmd.Parameters.AddWithValue("@serviceId",_instNameDto.ServiceId);
                         
 
                         conn.Open();
@@ -49,6 +50,7 @@ namespace IncidentManagementSystem.DataAccess
                         {
                             while (rdr.Read())
                             {
+                                //_instNameDto.ServiceId = Convert.ToInt32(rdr["serviceid"].ToString());
                                 _SQLStatus.Status = rdr["Status"].ToString();
                                 _SQLStatus.Message = rdr["Message"].ToString();
                             }
