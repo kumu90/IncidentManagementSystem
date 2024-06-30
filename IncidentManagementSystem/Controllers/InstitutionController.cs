@@ -118,7 +118,7 @@ namespace IncidentManagementSystem.Controllers
             }
 
             string randomFileName = $"{Guid.NewGuid()}{extension}";
-            string uploadsDir = Server.MapPath("~/Uploads");
+            string uploadsDir = Server.MapPath("D:/Projects2024/IncidentManagementSystemProject/Uploads");
 
             // Ensure the uploads directory exists
             if (!Directory.Exists(uploadsDir))
