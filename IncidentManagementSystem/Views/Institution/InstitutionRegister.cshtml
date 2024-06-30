@@ -148,21 +148,36 @@
             </div>
         }
     </div>
+</div>
+@section scripts{
 
+    <script>
+        $(document).ready(function () {
+            $('.selectService').click(function (e) {
+                debugger;
+                e.preventDefault();
+                var serviceName = $(this).text();
 
-    @section scripts{
-        <script>
-            $(document).ready(function () {
-                $('.selectService').click(function (e) {
-                    debugger;
-                    e.preventDefault();
-                    var serviceName = $(this).text();
-                    if ($('#selectedServicesLabel').find('button:contains("' + serviceName + '")').length === 0) {
-                        // Create a new button element with cross icon
-                        var button = $('<button>').text(serviceName)
-                            .addClass('btn btn-primary mr-2 mb-2')
-                            .attr('type', 'button').css('margin-left', '10px')
-                            .append($('<span>').addClass('ml-2').css({ 'color': 'red', 'margin-left': '5px' }).html('&times;'));
+                //var selectedServices = $('#selectedServices');
+
+                /* selectedServices.val(selectedServices.val() + serviceName + ',');*/
+
+                // Check if serviceName is already in selectedServices
+                //if (selectedServices.val().indexOf(serviceName) === -1) {
+                //    selectedServices.val(selectedServices.val() + serviceName + ',');
+
+                //} else {
+                //    // Optionally, you can show a message or handle the case where it's already selected
+                //    console.log(serviceName + ' is already selected.');
+                //}
+
+                //// Check if the button with the same serviceName already exists
+                if ($('#selectedServicesLabel').find('button:contains("' + serviceName + '")').length === 0) {
+                    // Create a new button element with cross icon
+                    var button = $('<button>').text(serviceName)
+                        .addClass('btn btn-primary mr-2 mb-2')
+                        .attr('type', 'button').css('margin-left', '10px')
+                        .append($('<span>').addClass('ml-2').css({ 'color': 'red', 'margin-left': '5px' }).html('&times;'));
 
                         // Append the button to the 'selectedServicesLabel' div
                         $('#selectedServicesLabel').append(button);
