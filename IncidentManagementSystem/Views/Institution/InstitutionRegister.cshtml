@@ -96,6 +96,7 @@
                                     @Html.TextBoxFor(m => m.ContactPersonTechnical, new { @class = "form-control b-inst" })
                                 </div>
                             </div>
+                            
                             <div class="col-lg-4  inst-row-form">
                                 <label class="col-md-4 col-form-label l-inst">Service</label>
                                 <div class="col-md-12">
@@ -109,145 +110,122 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div id="selectedServicesLabel">
-                                        @*<div>
-                                                <textarea class="form-control" id="selectedServices" name="selectedServices"></textarea>
-                                            </div>*@
-                                    </div>
+                                        
+                                    </div>                                  
                                 </div>
                             </div>
                         </div>
+                    </div>
 
-                        <div class="row  form-group" style="margin-top:10px">
-                            <div class="col-md-2">
-                                <input type="submit" value="Register" class="btn btn-success btn-lg" id="submit" />
-                            </div>
-                            <div class="col-md-2">
-                                @*<input type="button" value="Clear Form" onclick="window.location.reload();" />*@
-                                <input type="reset" value="Clear" class="btn btn-secondary btn-lg " onclick="clearForm();" /> @*scrypt method*@
-                            </div>
+                    <div class="row  form-group" style="margin-top:10px">
+                        <div class="col-md-2">
+                      
+                            <input type="submit" value="Register" class="btn btn-success btn-lg" id="submit" />                           
                         </div>
-
+                        <div class="col-md-2">
+                            <input type="reset" value="Clear" class="btn btn-secondary btn-lg " onclick="clearForm();" /> @*scrypt method*@
+                        </div>
                     </div>
                 </div>
+            </div>
 
-                <div class="col-lg-2 file-upload">
+            <div class="col-lg-2 file-upload">
 
-                    <div class="row">
-                        <div class="col-lg-12 file-upload justify-content-center">
-                            <div class="inst-img" style="background-color:lightgray;">
-                                <a href="#" id="imageAnchor">
-                                    <img id="preview" src="~/Image/photo-album-regular-24.png" class="card-img-top" alt="Preview" />
-                                </a>
-                            </div>
+                <div class="row">
+                    <div class="col-lg-12 file-upload justify-content-center">
+                        <div class="inst-img" style="background-color:lightgray;">
+                            <a href="#" id="imageAnchor">
+                                <img id="preview" src="~/Image/photo-album-regular-24.png" class="card-img-top" alt="Preview" />
+                            </a>
                         </div>
-                        <div class="row upload">
-                            <div class="col-lg-12">
-
-                                @*<label for="uploadReportFile">Select file to upload:</label><br />*@
-                                <input type="file" name="image" id="imageUpload" accept="image/*" onchange="previewImage(event)" class="form-control" style="width: 105px" />
-                            </div>
+                    </div>
+                    <div class="row upload">
+                        <div class="col-lg-12">                                                       
+                            <input type="file" name="image" id="imageUpload" accept="image/*" onchange="previewImage(event)" class="form-control" style="width: 105px" />
                         </div>
-
-
-                        @*<div class="row justify-content-start buttom-inst">
-                                <div class="col-lg-4">
-                                    <input type="submit" value="Upload" class="btn btn-primary" />
-                                </div>
-                            </div>*@
                     </div>
                 </div>
             </div>
         }
     </div>
-</div>
-@section scripts{
-    <script>
-        $(document).ready(function () {
-            $('.selectService').click(function (e) {
-                debugger;
-                e.preventDefault();
-                var serviceName = $(this).text();
 
-                //var selectedServices = $('#selectedServices');
 
-                /* selectedServices.val(selectedServices.val() + serviceName + ',');*/
+    @section scripts{
+        <script>
+            $(document).ready(function () {
+                $('.selectService').click(function (e) {
+                    debugger;
+                    e.preventDefault();
+                    var serviceName = $(this).text();
+                    if ($('#selectedServicesLabel').find('button:contains("' + serviceName + '")').length === 0) {
+                        // Create a new button element with cross icon
+                        var button = $('<button>').text(serviceName)
+                            .addClass('btn btn-primary mr-2 mb-2')
+                            .attr('type', 'button').css('margin-left', '10px')
+                            .append($('<span>').addClass('ml-2').css({ 'color': 'red', 'margin-left': '5px' }).html('&times;'));
 
-                // Check if serviceName is already in selectedServices
-                //if (selectedServices.val().indexOf(serviceName) === -1) {
-                //    selectedServices.val(selectedServices.val() + serviceName + ',');
+                        // Append the button to the 'selectedServicesLabel' div
+                        $('#selectedServicesLabel').append(button);
 
-                //} else {
-                //    // Optionally, you can show a message or handle the case where it's already selected
-                //    console.log(serviceName + ' is already selected.');
-                //}
+                        // Add click event to remove the button
+                        button.click(function () {
+                            $(this).remove();  // Remove the button itself when clicked
+                        });
+                    } else {
+                        // Handle the case where the button already exists
+                        console.log('Button for "' + serviceName + '" already selected.');
+                    }
+                });
 
-                //// Check if the button with the same serviceName already exists
-                if ($('#selectedServicesLabel').find('button:contains("' + serviceName + '")').length === 0) {
-                    // Create a new button element with cross icon
-                    var button = $('<button>').text(serviceName)
-                        .addClass('btn btn-primary mr-2 mb-2')
-                        .attr('type', 'button').css('margin-left', '10px')
-                        .append($('<span>').addClass('ml-2').css({ 'color': 'red', 'margin-left': '5px' }).html('&times;'));
 
-                    // Append the button to the 'selectedServicesLabel' div
-                    $('#selectedServicesLabel').append(button);
+                $('#submit').click(function () {
+                    var serviceNameInput = $('#serviceNameInput').val();
+                    var selectedServices = $('#selectedServicesLabel');
+                    selectedServices.val(selectedServices.val() + serviceNameInput + '\n');
+                    $('#serviceNameInput').val('');
+                });
+            });
 
-                    // Add click event to remove the button
-                    button.click(function () {
-                        $(this).remove();  // Remove the button itself when clicked
-                    });
-                } else {
-                    // Handle the case where the button already exists
-                    console.log('Button for "' + serviceName + '" already selected.');
+            // Show the image preview
+            document.addEventListener("DOMContentLoaded", function () {
+                var preview = document.getElementById('preview');
+                var imageUpload = document.getElementById('imageUpload');
+
+                imageAnchor.addEventListener('click', function () {
+                    imageUpload.click();
+                });
+            });
+
+            function previewImage(event) {
+                var input = event.target;
+                var reader = new FileReader();
+                reader.onload = function () {
+                    var imgElement = document.getElementById('preview');
+                    imgElement.src = reader.result;
+
+                    imgElement.style.display = 'block';
+
+                    imgElement.style.display = 'block'; // Show the image preview
+
                 }
-            });
-
-
-            $('#submit').click(function () {
-                var serviceNameInput = $('#serviceNameInput').val();
-                var selectedServices = $('#selectedServicesLabel');
-                selectedServices.val(selectedServices.val() + serviceNameInput + '\n');
-                $('#serviceNameInput').val('');
-            });
-        });
-
-        // Show the image preview
-        document.addEventListener("DOMContentLoaded", function () {
-            var preview = document.getElementById('preview');
-            var imageUpload = document.getElementById('imageUpload');
-
-            imageAnchor.addEventListener('click', function () {
-                imageUpload.click();
-            });
-        });
-
-        function previewImage(event) {
-            var input = event.target;
-            var reader = new FileReader();
-            reader.onload = function () {
-                var imgElement = document.getElementById('preview');
-                imgElement.src = reader.result;
-                imgElement.style.display = 'block'; // Show the image preview
-            }
-            reader.readAsDataURL(input.files[0]);
+                reader.readAsDataURL(input.files[0]);
 
 
 
-        }
 
-            function clearForm() {
-                // Reset the form
-                document.getElementById("ins-form").reset();
+                function clearForm() {
+                    // Reset the form
+                    document.getElementById("ins-form").reset();
 
-                // Reset the file input
-                document.getElementById("imageUpload").value = "";
+                    // Reset the file input
+                    document.getElementById("imageUpload").value = "";
 
-            // Reset the image preview
-            document.getElementById("preview").src = "#";
-            document.getElementById("preview").style.display = "block";
-        }
-   
-        
-</script>
-}
+                    // Reset the image preview
+                    document.getElementById("preview").src = "#";
+                    document.getElementById("preview").style.display = "block";
 
+                    // Clear selected services
+                    document.getElementById("selectedServices").innerHTML = "";
+                }
+        </script>
+    }

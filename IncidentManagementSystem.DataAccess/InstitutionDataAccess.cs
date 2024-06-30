@@ -39,8 +39,8 @@ namespace IncidentManagementSystem.DataAccess
                         cmd.Parameters.AddWithValue("@contactNumber", _instNameDto.ContactNumber);
                         cmd.Parameters.AddWithValue("@email", _instNameDto.Email);
                         cmd.Parameters.AddWithValue("@imageUrl", _instNameDto.ImageUrl);
-                        cmd.Parameters.AddWithValue("@userId", _instNameDto.CreatedBy ?? "");
-                        cmd.Parameters.AddWithValue("@serviceId",serviceList);
+                        cmd.Parameters.AddWithValue("@userId", _instNameDto.CreatedBy);
+                        cmd.Parameters.AddWithValue("@serviceIds",serviceList);
                         
 
                         conn.Open();
