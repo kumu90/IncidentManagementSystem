@@ -25,9 +25,6 @@
                     <input type="submit" value="Search" class="btn btn-primary btn-width" />
                 </div>
 
-                @*<div class="col-lg-4 s-dash">
-                        <input type="button" value="Create" class="btn btn-success btn-width" onclick="location.href='@Url.Action("Ticket", "Institu")'" id="createUser" />
-                    </div>*@
             </div>
 
         </div>
@@ -36,7 +33,7 @@
         <div id="partialTicketContainer">
             <h3>No Data </h3>
             @{
-                Html.Action("_TicketSearchInfo");
+                Html.Action("TicketSearchInfo");
             }
         </div>
     }

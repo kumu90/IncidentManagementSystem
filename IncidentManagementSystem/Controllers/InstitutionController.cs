@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI.WebControls;
 using IncidentManagementSystem.Model;
 using IncidentManagementSystem.Service;
 using Microsoft.AspNet.Identity;
@@ -27,29 +28,25 @@ namespace IncidentManagementSystem.Controllers
 
         public void Init()
         {
+            var institution = _iInstitutionService.GetInstName();
+            ViewBag.Institution = new SelectList(institution, "InstId", "InstitutionName");
 
-            var InstId = _iInstitutionService.GetInstName();
-            ViewBag.Institution = new SelectList(InstId, "InstId", "InstitutionName");
-
-            var servId = _iserviceInstutionService.GetServiceName();
-            ViewBag.service = new SelectList(servId, "ServiceId", "serviceName");
+            var services = _iserviceInstutionService.GetServices();
+            ViewBag.services = new SelectList(services, "ServiceId", "serviceName");
         }
 
 
         public JsonResult InstService(string InstId)
         {
-            var servId = _iserviceInstutionService.GetServiceName(InstId);
+            var servId = _iserviceInstutionService.GetServices(InstId);
             return Json(servId, JsonRequestBehavior.AllowGet);
         }
-        //public void initialize()
-        //{
-        //    var InsId = _iGetInstNameService.GetInstName();
-        //    ViewBag.InsName = new SelectList(InsId, "InstId", "InstitutionName");
-        //}
+       
 
         [HttpGet]
         public ActionResult InstitutionRegister()
         {
+            Init();
             ViewBag.TaskStatus = TempData["TaskStatus"];
             ViewBag.TaskMessage = TempData["TaskMessage"];
             return View();
@@ -148,24 +145,28 @@ namespace IncidentManagementSystem.Controllers
         [HttpGet]
         public ActionResult GetService(string InstId)
         {
-            var model = new ServiceDto
-            { Institution = InstId };
+            //var model = new ServiceDto
+            //{ Institution = InstId };
+            Init();
             ViewBag.TaskStatus = TempData["TaskStatus"];
             ViewBag.TaskMessage = TempData["TaskMessage"];
 
-            return View(model);
+            return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult GetService(ServiceDto service)
         {
-            SQLStatusDto sQLStatus = _iserviceInstutionService.AddService(service);
+            Init();
+            SQLStatusDto sQLStatus = new SQLStatusDto();/* _iserviceInstutionService.AddService(service);*/
+            sQLStatus = _iserviceInstutionService.AddService(service);
 
             if (sQLStatus.Status == "00")
             {
                 TempData["TaskStatus"] = sQLStatus.Status;
                 TempData["TaskMessage"] = sQLStatus.Message;
+                return View();
 
 
             }
@@ -183,21 +184,21 @@ namespace IncidentManagementSystem.Controllers
 
         }
 
-        //[HttpGet]
-        //public ActionResult RegisterService()
-        //{
-        //    //var model = new ServiceDto
-        //    //{ Institution = InstId };
-        //    //ViewBag.TaskStatus = TempData["TaskStatus"];
-        //    //ViewBag.TaskMessage = TempData["TaskMessage"];
+        ////[HttpGet]
+        ////public ActionResult RegisterService()
+        ////{
+        ////    //var model = new ServiceDto
+        ////    //{ Institution = InstId };
+        ////    //ViewBag.TaskStatus = TempData["TaskStatus"];
+        ////    //ViewBag.TaskMessage = TempData["TaskMessage"];
 
-        //    return View();
-        //}
+        ////    return View();
+        ////}
 
 
 
         [HttpGet]
-        public ActionResult Ticket()
+        public ActionResult Ticket(string InstId)
         {
             Init();
             return View();
@@ -232,13 +233,11 @@ namespace IncidentManagementSystem.Controllers
             {
                 // ex.AddError
             }
-            Init();
+            //Init(_ticketDto);
             return View();
 
 
 
         }
-
-
     }
 }

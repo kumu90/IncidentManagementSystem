@@ -11,11 +11,12 @@ namespace IncidentManagementSystem.Model
 {
     public class ServiceDto
     {
+        [DisplayName("Services")]
         public int ServiceId { get; set; }
-        [Required]
-        [DisplayName ("Service Name")]
+                
         public string ServiceName { get; set; }
-        public string Institution { get; set; }
+        public bool Flag { get; set; }
+        public string InstId { get; set; }
     }
     public class RegisterServiceDto
     {

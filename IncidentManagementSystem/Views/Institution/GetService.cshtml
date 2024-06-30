@@ -20,30 +20,59 @@
             @Html.ValidationSummary("", new { @class = "text-danger" })
             <div class="row">
                 <div class="row inst-row-form">
-                    @Html.LabelFor(m => m.Institution, new { @class = "col-md-4 col-form-label l-inst" })
+                    @Html.LabelFor(m => m.InstId, new { @class = "col-md-4 col-form-label l-inst" })
                     <div class="col-md-12">
-                        @Html.TextBoxFor(m => m.Institution, new { @class = "form-control b-inst" })
+                        @Html.DropDownListFor(m => m.InstId, ViewBag.Institution as SelectList, "-Select Institution-", new { @class = "form-select u-box" })
                     </div>
                 </div>
 
                 <div class="row inst-row-form">
-                    @Html.LabelFor(m => m.ServiceName, new { @class = "col-md-4 col-form-label l-inst" })
+                    @Html.LabelFor(m => m.ServiceId, new { @class = "col-md-4 col-form-label l-inst" })
                     <div class="col-md-12">
-                        @Html.TextBoxFor(m => m.ServiceName, new { @class = "form-control b-inst" })
+                        @Html.DropDownListFor(m => m.ServiceId, ViewBag.services as SelectList, "-Select Service-", new { @class = "form-select u-box" })
                     </div>
                 </div>
 
                 <div class="col-lg-4 form-group">
                     <div class=" col-md-2">
-                        <input type="submit" value="Register" class="btn btn-success" />
+                        <input type="submit" value="submit" class="btn btn-success" />
                     </div>
                 </div>
 
                 @*<div class="col-lg-4 s-dash">
-                    <input type="button" value="Create" class="btn btn-success btn-width" onclick="location.href='@Url.Action("RegisterService", "Institution")'" id="createInst" />
-                </div>*@
+                        <input type="button" value="Create" class="btn btn-success btn-width" onclick="location.href='@Url.Action("RegisterService", "Institution")'" id="createInst" />
+                    </div>*@
 
             </div>
         }
     </div>
 </div>
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            debugger;
+            $("#InstId").on("change", function () {
+                debugger;
+                const instId = $('#InstId').val();
+                $('#ServiceId').html("");
+                $('#ServiceId').append($('<option disabled selected value>-Select Services-</option>'));
+                $.ajax({
+                    method: "GET",
+                    url: '@Url.Action("InstService")',
+                    data: { instId: instId },
+                    success: function (result) {
+                        console.log(result);
+                        //// Append the retrieved districts to the dropdown
+                        $.each(result, function (i, service) {
+                            debugger;
+                            $('#ServiceId').append($('<option>', {
+                                value: service.ServiceId,
+                                text: service.ServiceName
+                            }));
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+}
