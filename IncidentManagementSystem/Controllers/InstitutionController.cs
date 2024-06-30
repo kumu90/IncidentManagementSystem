@@ -206,7 +206,6 @@ namespace IncidentManagementSystem.Controllers
 
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Ticket(TicketDto _ticketDto)
         {
             try
