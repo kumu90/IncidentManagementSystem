@@ -43,6 +43,9 @@
         <td>
             @Html.DisplayFor(modelItem => item.ImageUrl)
         </td>
+        <td>
+            @Html.ActionLink("Details", "GetTicketDetail", "Home", new RouteValueDictionary { { "InstId", item.InstId } }, null)
+        </td>
         @*<td>
             @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
             @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
