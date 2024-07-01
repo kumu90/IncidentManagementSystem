@@ -20,7 +20,7 @@
             </div>
         </div>
 
-        @using (Html.BeginForm("InstitutionRegister", "Institution", FormMethod.Post, new { enctype = "multipart/form-data", role = "form", id = "ins-form" }))
+        @using (Html.BeginForm("InstitutionRegister", "Institution", FormMethod.Post, new { enctype = "multipart/form-data", role = "form", id = "ins_form" }))
         {
             <div class="row ins-row">
 
@@ -175,11 +175,13 @@
 @section scripts{
 
     <script>
+        let serviceList = [];
         $(document).ready(function () {
             $('.selectService').click(function (e) {
                 debugger;
                 e.preventDefault();
                 var serviceName = $(this).text();
+                var serviceValue = $(this).val();
 
                 //var selectedServices = $('#selectedServices');
 
@@ -201,12 +203,21 @@
                         .addClass('btn btn-primary mr-2 mb-2')
                         .attr('type', 'button').css('margin-left', '10px')
                         .append($('<span>').addClass('ml-2').css({ 'color': 'red', 'margin-left': '5px' }).html('&times;'));
-
+                    serviceList.push(serviceValue);
                     // Append the button to the 'selectedServicesLabel' div
                     $('#selectedServicesLabel').append(button);
 
+                    console.log(serviceList);
+
                     // Add click event to remove the button
-                    button.click(function () {
+                    button.click(function (e) {
+                        debugger;
+                        const index = serviceList.indexOf(serviceValue);
+                        if (index > -1) { // only splice array when item is found
+                            serviceList.splice(index, 1); // 2nd parameter means remove one item only
+                        }
+                        console.log(serviceList);
+                        //serviceList.
                         $(this).remove();  // Remove the button itself when clicked
                     });
                 } else {
@@ -217,10 +228,17 @@
 
 
             $('#submit').click(function () {
-                var serviceNameInput = $('#serviceNameInput').val();
-                var selectedServices = $('#selectedServicesLabel');
-                selectedServices.val(selectedServices.val() + serviceNameInput + '\n');
-                $('#serviceNameInput').val('');
+                debugger;
+                var services = serviceList.join(',');
+                $("<input>").attr({
+                    name: "ServiceIdList",
+                    id: "hiddenId",
+                    type: "hidden",
+                    value: services
+                }).appendTo("#ins_form"); 
+               
+                //$('#ins_form').append('<input type="hidden" name="fieldname" value="" />');
+            
             });
         });
 

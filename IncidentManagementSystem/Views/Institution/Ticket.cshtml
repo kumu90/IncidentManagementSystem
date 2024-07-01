@@ -121,27 +121,23 @@
             reader.readAsDataURL(input.files[0]);
         }
 
-
-        //////
-        /////  To select services of the selected Institution 
-        //////
         $(document).ready(function () {
             debugger;
-            $("#InstID").on("change", function () {
+            $("#InstId").on("change", function () {
                 debugger;
-                const stateID = $('#InstID').val();
-                $('#ServiceName').html("");
-                $('#ServiceName').append($('<option disabled selected value>-Select District-</option>'));
+                const InstId = $('#InstId').val();
+                $('#ServiceId').html("");
+                $('#ServiceId').append($('<option disabled selected value>-Select Services-</option>'));
                 $.ajax({
                     method: "GET",
                     url: '@Url.Action("InstService")',
-                    data: { InstID: InstID },
+                    data: { InstId: InstId },
                     success: function (result) {
                         debugger;
                         //// Append the retrieved districts to the dropdown
                         $.each(result, function (i, service) {
-                            $("#disName").append($('<option>', {
-                                value: service.ServiceID,
+                            $('#ServiceId').append($('<option>', {
+                                value: service.ServiceId,
                                 text: service.ServiceName
                             }));
                         });

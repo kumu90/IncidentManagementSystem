@@ -54,7 +54,7 @@ namespace IncidentManagementSystem.Model
         public string UpdatedBy { get; set; }
         public string Flag { get; set; }
 
-        public List<int> ServiceId { get; set; }
+        public string ServiceIdList { get; set; }
     }
 
     public class Roles
