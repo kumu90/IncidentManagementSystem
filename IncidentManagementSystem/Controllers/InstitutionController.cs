@@ -198,7 +198,7 @@ namespace IncidentManagementSystem.Controllers
 
 
         [HttpGet]
-        public ActionResult Ticket(string InstId)
+        public ActionResult Ticket()
         {
             Init();
             return View();
@@ -227,6 +227,7 @@ namespace IncidentManagementSystem.Controllers
                 }
                 ViewBag.TaskStatus = TempData["TaskStatus"];
                 ViewBag.TaskMessage = TempData["TaskMessage"];
+                Init();
             }
             catch (Exception ex)
             {

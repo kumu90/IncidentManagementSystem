@@ -279,6 +279,7 @@
     <Content Include="Views\Institution\RegisterService.cshtml" />
     <Content Include="Views\Home\TicketSearch.cshtml" />
     <Content Include="Views\Home\TicketSearchInfo.cshtml" />
+    <Content Include="Views\Home\GetTicketDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
