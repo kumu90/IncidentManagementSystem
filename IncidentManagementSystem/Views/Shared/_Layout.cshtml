@@ -22,11 +22,11 @@
             <ul class="menu-items">
                 @*<div class="menu-title">Your menu title</div>*@
                 @*<li class="item">
-                        <a href="Dashboad/Home">
-                            <i class='bx bxs-dashboard  icon'></i>
-                            <span class="text nav-text">Dashboard</span>
-                        </a>
-                    </li>*@
+            <a href="Dashboad/Home">
+                <i class='bx bxs-dashboard  icon'></i>
+                <span class="text nav-text">Dashboard</span>
+            </a>
+        </li>*@
 
                 <li class="item">
                     @Html.Raw(Html.ActionLink("Dashboad", "Dashboard", "Home", new { area = "" }, new { @class = "nav-link" }).ToString().Replace("Dashboad", "<span class='bx bxs-dashboard icon'></span> Dashboard"))
@@ -39,15 +39,18 @@
                 <li class="item">
                     @Html.Raw(Html.ActionLink("Institution Register", "InstitutionRegister", "Institution", new { area = "" }, new { @class = "nav-link" }).ToString().Replace("Institution Register", "<span class='bx bxs-building-house icon'></span> Institution Register"))
                 </li>
-                
+
                 <li class="item">
-                    @Html.Raw(Html.ActionLink("ServiceLink","GetService","Institution", new {area ="" }, new {@class = "nav-link"}).ToString().Replace("ServiceLink", "<span class='bx bxs-cog icon'></span> Service")) 
+                    @Html.Raw(Html.ActionLink("ServiceLink", "GetService", "Institution", new { area = "" }, new { @class = "nav-link" }).ToString().Replace("ServiceLink", "<span class='bx bxs-cog icon'></span> Service"))
+                </li>
+                <li class="item">
+                    @Html.Raw(Html.ActionLink("TicketLink", "Ticket", "Institution", new { area = "" }, new { @class = "nav-link" }).ToString().Replace("TicketLink", "<span class='bx bxs-cog icon'></span> Ticket"))
                 </li>
 
 
                 @*<li class="item">
-                    <a href="#">Services</a>
-                </li>*@
+            <a href="#">Services</a>
+        </li>*@
                 <li class="item">
                     <a href="#">Contact Us</a>
                 </li>
