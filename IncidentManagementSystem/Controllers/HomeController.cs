@@ -72,16 +72,15 @@ namespace IncidentManagementSystem.Controllers
             return PartialView("TicketSearchInfo", results);
         }
 
-        public ActionResult GetTicketDetail(string Id)
+        public ActionResult GetTicketDetail(int TicketId)
         {
-            //var user = _iServiceInstutionService.ticketInfo(Id);
-            //if (user == null)
-            //{
-            //    return HttpNotFound();
-            //}
-
-            //return View(user);
-            return View();
+            var ticketDetail = _iServiceInstutionService.getTicketDetails(TicketId);
+            if (ticketDetail == null)
+            {
+                return HttpNotFound();
+            }
+            return View(ticketDetail);
+            //return View();
         }
 
         public ActionResult Contact()

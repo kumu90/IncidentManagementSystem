@@ -7,17 +7,18 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Net.Sockets;
 
 namespace IncidentManagementSystem.DataAccess
 {
-    public class ServiceInstutionDataAccess: IServiceInstutionDataAccess
+    public class ServiceInstutionDataAccess : IServiceInstutionDataAccess
     {
         public SQLStatusDto AddService(ServiceDto service)
         {
             SQLStatusDto _SQLStatus = new SQLStatusDto();
             try
             {
-                string conStr = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;                
+                string conStr = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
                 using (SqlConnection conn = new SqlConnection(conStr))
                 {
                     using (SqlCommand cmd = new SqlCommand(conStr, conn))
@@ -102,7 +103,7 @@ namespace IncidentManagementSystem.DataAccess
         }
 
 
-        public List<ServiceDto> GetServices(string InstId="")
+        public List<ServiceDto> GetServices(string InstId = "")
         {
             List<ServiceDto> Servicelist = new List<ServiceDto>();
             try
@@ -170,12 +171,13 @@ namespace IncidentManagementSystem.DataAccess
                             {
                                 Ticketlist.Add(new TicketDto()
                                 {
-                                    Description = sqlDataReader["Description"].ToString(),
-                                    InstId = sqlDataReader["InstId"].ToString(),
-                                    ServiceId = sqlDataReader["ServiceId"].ToString(),
+                                    //Description = sqlDataReader["Description"].ToString(),
+                                    //status = Convert.ToBoolean(sqlDataReader["InstId"].ToString()),
+                                    InstId = sqlDataReader["InstitutionName"].ToString(),
+                                    ServiceId = sqlDataReader["ServiceName"].ToString(),
                                     CellNumber = sqlDataReader["CellNumber"].ToString(),
                                     Email = sqlDataReader["Email"].ToString()
-                                    
+
                                 });
                             }
                         }
@@ -194,16 +196,72 @@ namespace IncidentManagementSystem.DataAccess
             }
             return new List<TicketDto>();
         }
-    }
 
-    public interface IServiceInstutionDataAccess
-    {
-        SQLStatusDto AddService(ServiceDto service);
+        public TicketDto getTicketDetails(int TicketId)
+        {
+            TicketDto Ticketlist =new TicketDto();
+            try
+            {
+                string conStr = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+                using (SqlConnection conn = new SqlConnection(conStr))
+                {
+                    using (SqlCommand cmd = new SqlCommand(conStr, conn))
+                    {
 
-        SQLStatusDto TicketCreate(TicketDto _ticketDto);
+                        cmd.CommandText = "GetTicketDetails";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@Id", TicketId));
+                        cmd.Connection = conn;
 
-        List<ServiceDto> GetServices(string InstId = "");
+                        conn.Open();
 
-        List<TicketDto> ticketInfo(string search = "");
+                        using (var sqlDataReader = cmd.ExecuteReader())
+                        {
+                            if (sqlDataReader.Read())
+                            {
+                                Ticketlist = new TicketDto()
+                                {
+                                    TicketId = Convert.ToInt32(sqlDataReader["TicketId"].ToString()),
+                                    date = Convert.ToDateTime(sqlDataReader["Date"].ToString()),
+                                    status = Convert.ToBoolean(sqlDataReader["status"].ToString()),
+                                    InstId = sqlDataReader["InstitutionName"].ToString(),
+                                    ServiceId = sqlDataReader["ServiceName"].ToString(),
+                                    CellNumber = sqlDataReader["CellNumber"].ToString(),
+                                    Email = sqlDataReader["Email"].ToString(),
+                                    Description = sqlDataReader["Description"].ToString(),
+                                    //status = Convert.ToBoolean(sqlDataReader["InstId"].ToString()),
+
+                                };
+
+
+                            }
+                        }
+                    }
+
+                    conn.Close();
+
+                }
+                return Ticketlist;
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return null;
+        }
     }
 }
+
+public interface IServiceInstutionDataAccess
+{
+    SQLStatusDto AddService(ServiceDto service);
+
+    SQLStatusDto TicketCreate(TicketDto _ticketDto);
+
+    List<ServiceDto> GetServices(string InstId = "");
+
+    List<TicketDto> ticketInfo(string search = "");
+
+    TicketDto getTicketDetails(int TicketId);
+}
+

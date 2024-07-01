@@ -2,6 +2,7 @@
 using IncidentManagementSystem.Model;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -35,6 +36,12 @@ namespace IncidentManagementSystem.Service
         {
             return _iserviceInstutionDataAccess.ticketInfo(search);
         }
+
+        public TicketDto getTicketDetails(int TicketId)
+        {
+            return _iserviceInstutionDataAccess.getTicketDetails(TicketId);
+        }
+
         //public SQLStatusDto RegisterService(RegisterServiceDto _registerServiceDto)
         //{
         //    return _serviceInstutionDataAccess.RegisterService(_registerServiceDto);
@@ -49,6 +56,8 @@ namespace IncidentManagementSystem.Service
         List<ServiceDto> GetServices(string InstId = "");
 
         List<TicketDto> ticketInfo(string search = "");
+
+        TicketDto getTicketDetails(int TicketId);
         //SQLStatusDto AddService(object value1, object value2);
 
         //SQLStatusDto RegisterService(RegisterServiceDto _registerServiceDto);

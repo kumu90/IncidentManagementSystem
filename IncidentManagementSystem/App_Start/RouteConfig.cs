@@ -19,6 +19,15 @@ namespace IncidentManagementSystem
                 defaults: new { controller = "Account", action = "Login", id = UrlParameter.Optional }
             );
 
+
+            /// custom for ticket
+            routes.MapRoute(
+            name: "TicketDetail",
+            url: "Home/TicketSearch/{TicketId}",
+            defaults: new { controller = "Home", action = "TicketSearch", TicketId = UrlParameter.Optional }
+            );
+
+
             // Custom route 
             routes.MapRoute(
                 name: "InstitutionService",
