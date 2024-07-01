@@ -14,7 +14,7 @@ namespace IncidentManagementSystem.DataAccess
     {
         public SQLStatusDto InstNameRegister(InstNameDto _instNameDto)
         {
-            var serviceList = string.Join(",", _instNameDto.ServiceId);
+            //var serviceList = string.Join(",", _instNameDto.ServiceId);
             SQLStatusDto _SQLStatus = new SQLStatusDto();
             try
             {
@@ -39,9 +39,9 @@ namespace IncidentManagementSystem.DataAccess
                         cmd.Parameters.AddWithValue("@contactNumber", _instNameDto.ContactNumber);
                         cmd.Parameters.AddWithValue("@email", _instNameDto.Email);
                         cmd.Parameters.AddWithValue("@imageUrl", _instNameDto.ImageUrl);
-                        cmd.Parameters.AddWithValue("@userId", _instNameDto.CreatedBy);
-                        cmd.Parameters.AddWithValue("@serviceIds",serviceList);
-                        
+                        cmd.Parameters.AddWithValue("@userId", _instNameDto.CreatedBy ?? "");
+                        cmd.Parameters.AddWithValue("@serviceIds", _instNameDto.ServiceIdList??"");
+
 
                         conn.Open();
                         using (var rdr = cmd.ExecuteReader())
