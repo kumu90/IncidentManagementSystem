@@ -44,13 +44,10 @@ namespace IncidentManagementSystem.DataAccess
 
 
                         conn.Open();
-                        //status = cmd.ExecuteScalar().ToString();
-                        //conn.Close();
                         using (var rdr = cmd.ExecuteReader())
                         {
                             while (rdr.Read())
-                            {
-                                //_instNameDto.ServiceId = Convert.ToInt32(rdr["serviceid"].ToString());
+                            {                                
                                 _SQLStatus.Status = rdr["Status"].ToString();
                                 _SQLStatus.Message = rdr["Message"].ToString();
                             }
