@@ -312,13 +312,13 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Ticket\Search.cshtml" />
     <Content Include="Views\Ticket\Index.cshtml" />
-    <Content Include="Views\Product\GetService.cshtml" />
     <Content Include="Views\Ticket\Create.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\User\Search.cshtml" />
     <Content Include="Views\Ticket\TicketDetail.cshtml" />
     <Content Include="Views\Institution\Index.cshtml" />
     <Content Include="Views\Institution\search.cshtml" />
+    <Content Include="Views\Product\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

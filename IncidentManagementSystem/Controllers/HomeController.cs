@@ -35,43 +35,7 @@ namespace IncidentManagementSystem.Controllers
             return View();
         }
 
-        [HttpGet]
-        public ActionResult Search(string search)
-        {
-            if (ModelState.IsValid)
-            {
-                var result = _iInstitutionService.InstitutionList(search);
-                return PartialView("Search", result);
-            }
-            return View();
-        }
-
-
-        //public ActionResult TicketSearch(string search)
-        //{
-        //    var TicketInfo = _iServiceInstutionService.ticketInfo(search);
-        //    return View(TicketInfo);
-        //}
-
-        //public ActionResult TicketSearchInfo(string search)
-        //{
-        //    var results = _iServiceInstutionService.ticketInfo(search);
-        //    return PartialView("TicketSearchInfo", results);
-        //}
-
-        //public ActionResult GetTicketDetail(int TicketId)
-        //{
-        //    var model = new TicketDto
-        //    { TicketId = TicketId };
-        //    var ticketDetail = _iServiceInstutionService.getTicketDetails(TicketId);
-        //    if (ticketDetail == null)
-        //    {
-        //        return View();
-        //    }
-        //    return View(ticketDetail);
-        //    //return View();
-        //}
-
+        
         public ActionResult Contact()
         {
             return View();
