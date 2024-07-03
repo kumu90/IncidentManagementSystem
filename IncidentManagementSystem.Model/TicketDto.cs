@@ -25,6 +25,10 @@ namespace IncidentManagementSystem.Model
         public string ServiceId { get; set; }
 
         [Required]
+        [DisplayName("Issue")]
+        public string IssueId { get; set; }
+
+        [Required]
         [DisplayName("Description")]
         public string Description { get; set; }
 

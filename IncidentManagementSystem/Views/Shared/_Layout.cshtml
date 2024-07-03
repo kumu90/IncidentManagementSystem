@@ -46,14 +46,10 @@
                 <li class="item">
                     @Html.Raw(Html.ActionLink("TicketLink", "Create", "Ticket", new { area = "" }, new { @class = "nav-link" }).ToString().Replace("TicketLink", "<span class='bx bxs-cog icon'></span> Ticket"))
                 </li>
-
-
-                @*<li class="item">
-            <a href="#">Services</a>
-        </li>*@
                 <li class="item">
-                    <a href="#">Contact Us</a>
+                    @Html.Raw(Html.ActionLink("ContactLink", "Contact", "Home", new { area = "" }, new { @class = "nav-link" }).ToString().Replace("ContactLink", "<span class='bx bxs-cog icon'></span> Contact Us"))
                 </li>
+                                
 
             </ul>
         </div>

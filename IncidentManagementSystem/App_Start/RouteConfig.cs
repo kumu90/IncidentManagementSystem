@@ -21,19 +21,19 @@ namespace IncidentManagementSystem
 
 
             /// custom for ticket
-            routes.MapRoute(
-            name: "TicketDetail",
-            url: "Home/TicketSearch/{TicketId}",
-            defaults: new { controller = "Home", action = "TicketSearch", TicketId = UrlParameter.Optional }
-            );
+            //routes.MapRoute(
+            //name: "TicketDetail",
+            //url: "Home/TicketSearch/{TicketId}",
+            //defaults: new { controller = "Home", action = "TicketSearch", TicketId = UrlParameter.Optional }
+            //);
 
 
-            // Custom route 
-            routes.MapRoute(
-                name: "InstitutionService",
-                url: "Institution/GetService/{InstId}",
-                defaults: new { controller = "Institution", action = "GetService" }
-            );
+            //// Custom route 
+            //routes.MapRoute(
+            //    name: "InstitutionService",
+            //    url: "Institution/GetService/{InstId}",
+            //    defaults: new { controller = "Institution", action = "GetService" }
+            //);
         }
     }
 }
