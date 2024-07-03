@@ -1,15 +1,9 @@
 ﻿@model IncidentManagementSystem.Model.TicketDto
-
-@*@{
-        ViewBag.Title = "Ticket";
-    }*@
 <div class="container-fluid">
     <div class="col ticket">
-        @using (Html.BeginForm("Ticket", "Institution", FormMethod.Post, new { role = "form" }))
+        @using (Html.BeginForm("Create", "Ticket", FormMethod.Post, new { role = "form" }))
         {
             @Html.AntiForgeryToken()
-
-            @*@Html.ValidationSummary("", new { @class = "text-danger" })*@
             <div class="row">
                 <div class="row">
                     <div class="col-lg-4 inst-row-form">
@@ -24,7 +18,6 @@
                     <div class="col-lg-4 inst-row-form">
                         @Html.LabelFor(m => m.ServiceId, new { @class = "col-md-4 col-form-label l-inst" })
                         <div class="col-lg-12">
-                            @*@Html.TextBoxFor(m => m.ServiceId, new { @class = "form-control b-inst" })*@
                             @Html.DropDownListFor(m => m.ServiceId, ViewBag.services as SelectList, "-Select Service-", new { @class = "form-select u-box" })
                             @Html.ValidationMessageFor(m => m.ServiceId, "", new { @class = "text-danger" })
                         </div>
@@ -65,23 +58,17 @@
                         @Html.LabelFor(m => m.ImageUrl, new { @class = "col-md-12 col-form-label l-inst" })
                         <div class="tik-img" style="background-color:lightgray;">
                             <a href="#" id="imageAnchor">
-                                <img id="preview" src="~/Image/photo-album-regular-24.png" class="card-img-top" alt="Preview" width="280px" height="180px" />
+                                <img id="preview" src="~/Image/photo-album-regular-24.png" class="card-img-top" alt="Preview" style=" width: 280px; height:180px " />
                             </a>
                         </div>
 
                         <div class="row upload">
                             <div class="col-lg-12">
-                                @*<label for="uploadReportFile">Select file to upload:</label><br />*@
                                 <input type="file" name="image" id="imageUpload" accept="image/*" onchange="previewImage(event)" class="form-control" style="width: 105px" />
                             </div>
                         </div>
                     </div>
                 </div>
-
-                @*<div class="col-lg-4 s-dash">
-                        <input type="submit" value="Submit" class="btn btn-primary btn-width" />
-                    </div>*@
-
                 <div class="row  buttom-inst">
                     <div class="col-lg-4">
                         <input type="submit" value="Submit" class="btn btn-primary btn-lg" />
@@ -95,13 +82,32 @@
 
 </div>
 
-@*<script>
-        
-    </script>*@
-
-
 @section scripts{
     <script>
+        $(document).ready(function () {
+        debugger;
+        $("#InstId").on("change", function () {
+        debugger;
+        const InstId = $('#InstId').val();
+        $('#ServiceId').html("");
+        $('#ServiceId').append($('<option disabled selected value>-Select Services-</option>'));
+        $.ajax({
+            method: "GET",
+            url: '@Url.Action("InstService")',
+            data: { InstId: InstId },
+            success: function (result) {
+                debugger;
+                //// Append the retrieved districts to the dropdown
+                $.each(result, function (i, service) {
+                    $('#ServiceId').append($('<option>', {
+                        value: service.ServiceId,
+                        text: service.ServiceName
+                    }));
+                });
+            }
+        });
+    });
+});
         document.addEventListener("DOMContentLoaded", function () {
             var preview = document.getElementById('preview');
             var imageUpload = document.getElementById('imageUpload');
@@ -121,29 +127,6 @@
             reader.readAsDataURL(input.files[0]);
         }
 
-        $(document).ready(function () {
-            debugger;
-            $("#InstId").on("change", function () {
-                debugger;
-                const InstId = $('#InstId').val();
-                $('#ServiceId').html("");
-                $('#ServiceId').append($('<option disabled selected value>-Select Services-</option>'));
-                $.ajax({
-                    method: "GET",
-                    url: '@Url.Action("InstService")',
-                    data: { InstId: InstId },
-                    success: function (result) {
-                        debugger;
-                        //// Append the retrieved districts to the dropdown
-                        $.each(result, function (i, service) {
-                            $('#ServiceId').append($('<option>', {
-                                value: service.ServiceId,
-                                text: service.ServiceName
-                            }));
-                        });
-                    }
-                });
-            });
-        });
+
     </script>
 }

@@ -43,8 +43,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="InstitutionService.cs" />
+    <Compile Include="ProductService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ServiceInstutionService.cs" />
+    <Compile Include="TicketService.cs" />
     <Compile Include="UserService.cs" />
   </ItemGroup>
   <ItemGroup>

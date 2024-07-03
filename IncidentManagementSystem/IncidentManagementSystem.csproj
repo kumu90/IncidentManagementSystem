@@ -178,6 +178,9 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InstitutionController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Controllers\TicketController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -271,15 +274,16 @@
     <Content Include="Views\Institution\InstitutionRegister.cshtml" />
     <Content Include="Views\Home\Dashboard.cshtml" />
     <Content Include="Views\Shared\_Login_Layout.cshtml" />
-    <Content Include="Views\Institution\GetService.cshtml" />
-    <Content Include="Views\Home\Search.cshtml" />
-    <Content Include="Views\Home\InfoSearch.cshtml" />
-    <Content Include="Views\Institution\Ticket.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Institution\RegisterService.cshtml" />
-    <Content Include="Views\Home\TicketSearch.cshtml" />
-    <Content Include="Views\Home\TicketSearchInfo.cshtml" />
-    <Content Include="Views\Home\GetTicketDetail.cshtml" />
+    <Content Include="Views\Ticket\Search.cshtml" />
+    <Content Include="Views\Ticket\Index.cshtml" />
+    <Content Include="Views\Product\GetService.cshtml" />
+    <Content Include="Views\Ticket\Create.cshtml" />
+    <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\User\Search.cshtml" />
+    <Content Include="Views\Ticket\TicketDetail.cshtml" />
+    <Content Include="Views\Institution\Index.cshtml" />
+    <Content Include="Views\Institution\search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -6,8 +6,11 @@ using System.Threading.Tasks;
 
 namespace IncidentManagementSystem.Model
 {
-    public class SearchByDateDto
+    public class Roles
     {
-        public string SearchFor { get; set; }
+
+        public string Id { get; set; }
+        public string Name { get; set; }
     }
 }
+

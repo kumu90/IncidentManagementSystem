@@ -12,7 +12,7 @@ namespace IncidentManagementSystem.DataAccess
 {
     public class InstitutionDataAccess : IInstitutionDataAccess
     {
-        public SQLStatusDto InstNameRegister(InstNameDto _instNameDto)
+        public SQLStatusDto InstitutionCreate(InstNameDto _instNameDto)
         {
             //var serviceList = string.Join(",", _instNameDto.ServiceId);
             SQLStatusDto _SQLStatus = new SQLStatusDto();
@@ -65,7 +65,7 @@ namespace IncidentManagementSystem.DataAccess
             return _SQLStatus;
         }
 
-        public List<InstNameDto> InstDetail(string search)
+        public List<InstNameDto> InstitutionList(string search)
         {
             List<InstNameDto> list = new List<InstNameDto>();
             try
@@ -212,8 +212,8 @@ namespace IncidentManagementSystem.DataAccess
     }
     public interface IInstitutionDataAccess
     {
-        SQLStatusDto InstNameRegister(InstNameDto _instNameDto);
-        List<InstNameDto> InstDetail(string search);
+        SQLStatusDto InstitutionCreate(InstNameDto _instNameDto);
+        List<InstNameDto> InstitutionList(string search);
         List<InstNameDto> GetInstName();
         List<Roles> RoleList();
     }

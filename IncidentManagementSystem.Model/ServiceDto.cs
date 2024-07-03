@@ -17,49 +17,50 @@ namespace IncidentManagementSystem.Model
         public string ServiceName { get; set; }
         public bool Flag { get; set; }
         public string InstId { get; set; }
+        public TicketDto ticket { get; set; }
     }
-    public class RegisterServiceDto
-    {
+    //public class RegisterServiceDto
+    //{
 
-        public string Id { get; set; }
+    //    public string Id { get; set; }
 
-        [DisplayName("Service Name")]
-        public string serviceName { get; set; }
+    //    [DisplayName("Service Name")]
+    //    public string serviceName { get; set; }
 
-        [DisplayName("Institution Name")]
-        public string InstId { get; set; }
-        
-    }
-    public class TicketDto
-    {
-        [Key]
-        public int TicketId { get; set; }
+    //    [DisplayName("Institution Name")]
+    //    public string InstId { get; set; }
 
-        public DateTime date { get; set; }
-        public bool status { get; set; }
+    //}
+    //public class TicketDto
+    //{
+    //    [Key]
+    //    public int TicketId { get; set; }
 
-        [DisplayName("Institution Name")]
-        [Required]
-        public string InstId { get; set; }
+    //    public DateTime date { get; set; }
+    //    public bool status { get; set; }
 
-        [Required]
-        [DisplayName("Service")]
-        public string ServiceId { get; set; }
+    //    [DisplayName("Institution Name")]
+    //    [Required]
+    //    public string InstId { get; set; }
 
-        [Required]
-        [DisplayName("Description")]
-        public string Description {  get; set; }
+    //    [Required]
+    //    [DisplayName("Service")]
+    //    public string ServiceId { get; set; }
 
-        [Required]
-        [DisplayName("Cell Number")]
-        public string CellNumber { get; set; }
+    //    [Required]
+    //    [DisplayName("Description")]
+    //    public string Description {  get; set; }
 
-        [Required]
-        [DisplayName("Email")]
-        public string Email { get; set; }
+    //    [Required]
+    //    [DisplayName("Cell Number")]
+    //    public string CellNumber { get; set; }
 
-                
-        [DisplayName("Upload Supporting Image")]
-        public string ImageUrl { get; set; }
-    }
+    //    [Required]
+    //    [DisplayName("Email")]
+    //    public string Email { get; set; }
+
+
+    //    [DisplayName("Upload Supporting Image")]
+    //    public string ImageUrl { get; set; }
+    //}
 }

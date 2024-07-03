@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
+using IncidentManagementSystem.DataAccess;
 using IncidentManagementSystem.Model;
 using IncidentManagementSystem.Service;
 using Microsoft.AspNet.Identity;
@@ -14,15 +15,15 @@ namespace IncidentManagementSystem.Controllers
     public class InstitutionController : Controller
     {
         readonly IInstitutionService _iInstitutionService;
-        readonly IServiceInstutionService _iserviceInstutionService;
+        readonly IProductService _iproductService;
         public InstitutionController()
         {
         }
 
-        public InstitutionController(IInstitutionService iInstitutionNameService, IServiceInstutionService serviceInstutionService)
+        public InstitutionController(IInstitutionService iInstitutionNameService, IProductService iproductService)
         {
             _iInstitutionService = iInstitutionNameService;
-            _iserviceInstutionService = serviceInstutionService;
+            _iproductService = iproductService;
         }
 
 
@@ -31,17 +32,32 @@ namespace IncidentManagementSystem.Controllers
             var institution = _iInstitutionService.GetInstName();
             ViewBag.Institution = new SelectList(institution, "InstId", "InstitutionName");
 
-            var services = _iserviceInstutionService.GetServices();
+            var services = _iproductService.GetServices();
             ViewBag.services = new SelectList(services, "ServiceId", "serviceName");
         }
 
 
         public JsonResult InstService(string InstId)
         {
-            var servId = _iserviceInstutionService.GetServices(InstId);
+            var servId = _iproductService.GetServices(InstId);
             return Json(servId, JsonRequestBehavior.AllowGet);
         }
        
+        public ActionResult Index(string search)
+        {
+            var clt = _iInstitutionService.InstitutionList(search);
+            return View(clt);
+        }
+
+        public ActionResult search(string search)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = _iInstitutionService.InstitutionList(search);
+                return PartialView("search", result);
+            }
+            return View();
+        }
 
         [HttpGet]
         public ActionResult InstitutionRegister()
@@ -74,7 +90,7 @@ namespace IncidentManagementSystem.Controllers
                 }
 
                 ////instNameDto.ImageUrl = "";
-                sQLStatus = _iInstitutionService.InstNameRegister(instNameDto);
+                sQLStatus = _iInstitutionService.InstitutionCreate(instNameDto);
 
 
                 if (sQLStatus.Status == "00")
@@ -142,47 +158,47 @@ namespace IncidentManagementSystem.Controllers
             return "99";
         }
 
-        [HttpGet]
-        public ActionResult GetService(string InstId)
-        {
-            //var model = new ServiceDto
-            //{ Institution = InstId };
-            Init();
-            ViewBag.TaskStatus = TempData["TaskStatus"];
-            ViewBag.TaskMessage = TempData["TaskMessage"];
+        //[HttpGet]
+        //public ActionResult GetService(string InstId)
+        //{
+        //    var model = new ServiceDto
+        //    { InstId = InstId };
+        //    Init();
+        //    ViewBag.TaskStatus = TempData["TaskStatus"];
+        //    ViewBag.TaskMessage = TempData["TaskMessage"];
 
-            return View();
-        }
+        //    return View();
+        //}
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult GetService(ServiceDto service)
-        {
-            Init();
-            SQLStatusDto sQLStatus = new SQLStatusDto();/* _iserviceInstutionService.AddService(service);*/
-            sQLStatus = _iserviceInstutionService.AddService(service);
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult GetService(ServiceDto service)
+        //{
+        //    Init();
+        //    SQLStatusDto sQLStatus = new SQLStatusDto();/* _iserviceInstutionService.AddService(service);*/
+        //    sQLStatus = _iserviceInstutionService.AddService(service);
 
-            if (sQLStatus.Status == "00")
-            {
-                TempData["TaskStatus"] = sQLStatus.Status;
-                TempData["TaskMessage"] = sQLStatus.Message;
-                return View();
+        //    if (sQLStatus.Status == "00")
+        //    {
+        //        TempData["TaskStatus"] = sQLStatus.Status;
+        //        TempData["TaskMessage"] = sQLStatus.Message;
+        //        return View();
 
 
-            }
-            else
-            {
+        //    }
+        //    else
+        //    {
 
-                TempData["TaskStatus"] = sQLStatus.Status;
-                TempData["TaskMessage"] = sQLStatus.Message;
-                ModelState.AddModelError("", "An Service with the same name already exists in the system");
+        //        TempData["TaskStatus"] = sQLStatus.Status;
+        //        TempData["TaskMessage"] = sQLStatus.Message;
+        //        ModelState.AddModelError("", "An Service with the same name already exists in the system");
 
-            }
-            ViewBag.TaskStatus = TempData["TaskStatus"];
-            ViewBag.TaskMessage = TempData["TaskMessage"];
-            return View();
+        //    }
+        //    ViewBag.TaskStatus = TempData["TaskStatus"];
+        //    ViewBag.TaskMessage = TempData["TaskMessage"];
+        //    return View();
 
-        }
+        //}
 
         ////[HttpGet]
         ////public ActionResult RegisterService()
@@ -197,47 +213,47 @@ namespace IncidentManagementSystem.Controllers
 
 
 
-        [HttpGet]
-        public ActionResult Ticket()
-        {
-            Init();
-            return View();
-        }
+        //[HttpGet]
+        //public ActionResult Ticket()
+        //{
+        //    Init();
+        //    return View();
+        //}
 
 
-        [HttpPost]
-        public ActionResult Ticket(TicketDto _ticketDto)
-        {
-            try
-            {
-                SQLStatusDto sQLStatus = _iserviceInstutionService.TicketCreate(_ticketDto);
+        //[HttpPost]
+        //public ActionResult Ticket(TicketDto _ticketDto)
+        //{
+        //    try
+        //    {
+        //        SQLStatusDto sQLStatus = _iserviceInstutionService.TicketCreate(_ticketDto);
 
-                if (sQLStatus.Status == "00")
-                {
-                    TempData["TaskStatus"] = sQLStatus.Status;
-                    TempData["TaskMessage"] = sQLStatus.Message;
+        //        if (sQLStatus.Status == "00")
+        //        {
+        //            TempData["TaskStatus"] = sQLStatus.Status;
+        //            TempData["TaskMessage"] = sQLStatus.Message;
 
-                }
-                else
-                {
-                    TempData["TaskStatus"] = sQLStatus.Status;
-                    TempData["TaskMessage"] = sQLStatus.Message;
-                    ModelState.AddModelError("", "An Ticket with the same name already exists in the system");
+        //        }
+        //        else
+        //        {
+        //            TempData["TaskStatus"] = sQLStatus.Status;
+        //            TempData["TaskMessage"] = sQLStatus.Message;
+        //            ModelState.AddModelError("", "An Ticket with the same name already exists in the system");
 
-                }
-                ViewBag.TaskStatus = TempData["TaskStatus"];
-                ViewBag.TaskMessage = TempData["TaskMessage"];
-                Init();
-            }
-            catch (Exception ex)
-            {
-                // ex.AddError
-            }
-            //Init(_ticketDto);
-            return View();
+        //        }
+        //        ViewBag.TaskStatus = TempData["TaskStatus"];
+        //        ViewBag.TaskMessage = TempData["TaskMessage"];
+        //        Init();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        // ex.AddError
+        //    }
+        //    //Init(_ticketDto);
+        //    return View();
 
 
 
-        }
+        //}
     }
 }

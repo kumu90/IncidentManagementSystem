@@ -1,7 +1,13 @@
-﻿<div class="container-fluid dashboard">
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<div class="container-fluid dashboard">
     <div class="col-lg-12 header ">
         <div class="header-text">
-            Ticket Details
+            <h2>Ticket List</h2>
         </div>
         <div class="col text">
             <span class="page input-icon">Ticket</span>
@@ -10,7 +16,7 @@
         </div>
     </div>
 
-    @using (Html.BeginForm("TicketSearchInfo", "Home", FormMethod.Get, new { id = "searchForm", enctype = "multipart/form-data" }))
+    @using (Html.BeginForm("Search", "Ticket", FormMethod.Get, new { id = "searchForm", enctype = "multipart/form-data" }))
     {
         <div class="container-fluid search-box">
             <div class=" row s-box">
@@ -30,10 +36,9 @@
         </div>
 
         <hr />
-        <div id="partialTicketContainer">
-            <h3>No Data </h3>
+        <div id="partialTicketContainer">            
             @{
-                Html.Action("TicketSearchInfo");
+                Html.Action("Search");
             }
         </div>
     }

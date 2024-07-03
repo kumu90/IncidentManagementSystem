@@ -7,53 +7,11 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Net.Sockets;
 
 namespace IncidentManagementSystem.DataAccess
 {
-    public class ServiceInstutionDataAccess : IServiceInstutionDataAccess
+    public class TicketDataAccess : ITicketDataAccess
     {
-        public SQLStatusDto AddService(ServiceDto service)
-        {
-            SQLStatusDto _SQLStatus = new SQLStatusDto();
-            try
-            {
-                string conStr = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
-                using (SqlConnection conn = new SqlConnection(conStr))
-                {
-                    using (SqlCommand cmd = new SqlCommand(conStr, conn))
-                    {
-
-                        cmd.CommandText = @"InstitutionServiceRegister";
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Connection = conn;
-                        cmd.Parameters.AddWithValue("@ServiceId", service.ServiceId);
-                        cmd.Parameters.AddWithValue("@InstId", service.InstId);
-
-                        conn.Open();
-                        //cmd.ExecuteNonQuery();
-                        //conn.Close();
-                        using (var rdr = cmd.ExecuteReader())
-                        {
-                            while (rdr.Read())
-                            {
-                                _SQLStatus.Status = rdr["Status"].ToString();
-                                _SQLStatus.Message = rdr["Message"].ToString();
-                            }
-                        }
-
-                    }
-                }
-
-                return _SQLStatus;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-            return _SQLStatus;
-        }
-
         public SQLStatusDto TicketCreate(TicketDto _ticketDto)
         {
             SQLStatusDto _sQLStatus = new SQLStatusDto();
@@ -68,7 +26,6 @@ namespace IncidentManagementSystem.DataAccess
                         cmd.CommandText = @"InstitutionTicketCreate";
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Connection = conn;
-
 
                         cmd.Parameters.AddWithValue("@ServiceId", _ticketDto.ServiceId);
                         cmd.Parameters.AddWithValue("@InstId", _ticketDto.InstId);
@@ -101,52 +58,6 @@ namespace IncidentManagementSystem.DataAccess
             }
             return _sQLStatus;
         }
-
-
-        public List<ServiceDto> GetServices(string InstId = "")
-        {
-            List<ServiceDto> Servicelist = new List<ServiceDto>();
-            try
-            {
-                string conStr = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
-                using (SqlConnection conn = new SqlConnection(conStr))
-                {
-                    using (SqlCommand cmd = new SqlCommand(conStr, conn))
-                    {
-
-                        cmd.CommandText = "GetService";
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Connection = conn;
-                        cmd.Parameters.AddWithValue("@instId", InstId ?? "");
-                        conn.Open();
-
-                        using (var sqlDataReader = cmd.ExecuteReader())
-                        {
-                            while (sqlDataReader.Read())
-                            {
-                                Servicelist.Add(new ServiceDto()
-                                {
-                                    ServiceId = Convert.ToInt32(sqlDataReader["ServiceId"].ToString()),
-                                    ServiceName = sqlDataReader["ServiceName"].ToString(),
-                                });
-                            }
-                        }
-
-                        conn.Close();
-
-                    }
-                }
-
-                return Servicelist;
-
-            }
-            catch (Exception ex)
-            {
-
-            }
-            return new List<ServiceDto>();
-        }
-
         public List<TicketDto> ticketInfo(string search = "")
         {
             List<TicketDto> Ticketlist = new List<TicketDto>();
@@ -199,7 +110,7 @@ namespace IncidentManagementSystem.DataAccess
 
         public TicketDto getTicketDetails(int TicketId)
         {
-            TicketDto Ticketlist =new TicketDto();
+            TicketDto Ticketlist = new TicketDto();
             try
             {
                 string conStr = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
@@ -251,17 +162,10 @@ namespace IncidentManagementSystem.DataAccess
         }
     }
 }
-
-public interface IServiceInstutionDataAccess
+public interface ITicketDataAccess
 {
-    SQLStatusDto AddService(ServiceDto service);
-
-    SQLStatusDto TicketCreate(TicketDto _ticketDto);
-
-    List<ServiceDto> GetServices(string InstId = "");
-
+    SQLStatusDto TicketCreate(TicketDto ticketDto);
     List<TicketDto> ticketInfo(string search = "");
 
     TicketDto getTicketDetails(int TicketId);
 }
-
