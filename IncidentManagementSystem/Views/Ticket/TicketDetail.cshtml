@@ -1,15 +1,8 @@
 ﻿@model IncidentManagementSystem.Model.TicketDto
 
-@{
-    ViewBag.Title = "TicketDetail";
-}
-
-<h2>TicketDetail</h2>
-@model IncidentManagementSystem.Model.TicketDto
-
-@{
-    ViewBag.Title = "GetTicketDetail";
-}
+@*@{
+        ViewBag.Title = "GetTicketDetail";
+    }*@
 <h2>TicketDetail</h2>
 <style>
     .dl-horizontal {
@@ -20,19 +13,18 @@
         .dl-horizontal dt {
             text-align: right !important;
             width: auto;
-            clear: both;
+            clear: left;
             float: left;
             margin-left: 12px;
             margin-right: 10px;
             font-family: Outfit;
             font-weight: 600;
-            white-space: normal;
-            
+           
         }
 
         .dl-horizontal dd {
-            text-align: right !important;
-            margin-left: 120px;
+            margin-right:20px;
+            margin-left: 230px;
             margin-bottom: 20px;
         }
 
@@ -48,26 +40,18 @@
 
 <div class="row">
 
-    <div class="col-md-6 ticket">
-
-
+    <div class="col-md-8 ticket">
         <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.TicketId)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.TicketId)
+            </dd>
             <dt>
                 @Html.DisplayNameFor(model => model.InstId)
             </dt>
-<div>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.TicketId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TicketId)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.InstId)
-        </dt>
 
             <dd>
                 @Html.DisplayFor(model => model.InstId)
