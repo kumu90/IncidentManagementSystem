@@ -8,9 +8,9 @@
         <th>
             @Html.DisplayNameFor(model => model.ServiceId)
         </th>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.Description)
-        </th>
+        </th>*@
         <th>
             @Html.DisplayNameFor(model => model.CellNumber)
         </th>
@@ -31,9 +31,9 @@
         <td>
             @Html.DisplayFor(modelItem => item.ServiceId)
         </td>
-        <td>
+        @*<td>
             @Html.DisplayFor(modelItem => item.Description)
-        </td>
+        </td>*@
         <td>
             @Html.DisplayFor(modelItem => item.CellNumber)
         </td>
@@ -44,7 +44,7 @@
             @Html.DisplayFor(modelItem => item.ImageUrl)
         </td>
         <td>
-            @Html.ActionLink("Details", "GetTicketDetail", "Home", new RouteValueDictionary { { "InstId", item.InstId } }, null)
+            @Html.ActionLink("Details", "GetTicketDetail", "Home", new RouteValueDictionary { { "TicketId", item.TicketId} }, null)
         </td>
         @*<td>
             @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |

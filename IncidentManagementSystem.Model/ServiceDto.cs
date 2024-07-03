@@ -32,6 +32,11 @@ namespace IncidentManagementSystem.Model
     }
     public class TicketDto
     {
+        [Key]
+        public int TicketId { get; set; }
+
+        public DateTime date { get; set; }
+        public bool status { get; set; }
 
         [DisplayName("Institution Name")]
         [Required]
@@ -53,7 +58,7 @@ namespace IncidentManagementSystem.Model
         [DisplayName("Email")]
         public string Email { get; set; }
 
-        
+                
         [DisplayName("Upload Supporting Image")]
         public string ImageUrl { get; set; }
     }
