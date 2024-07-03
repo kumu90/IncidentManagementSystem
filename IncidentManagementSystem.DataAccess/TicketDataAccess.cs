@@ -82,6 +82,7 @@ namespace IncidentManagementSystem.DataAccess
                             {
                                 Ticketlist.Add(new TicketDto()
                                 {
+                                    TicketId = Convert.ToInt32(sqlDataReader["TicketId"].ToString()),
                                     //Description = sqlDataReader["Description"].ToString(),
                                     //status = Convert.ToBoolean(sqlDataReader["InstId"].ToString()),
                                     InstId = sqlDataReader["InstitutionName"].ToString(),

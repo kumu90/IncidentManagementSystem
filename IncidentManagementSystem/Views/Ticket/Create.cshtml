@@ -1,5 +1,18 @@
 ﻿@model IncidentManagementSystem.Model.TicketDto
-<div class="container-fluid">
+
+<div class="container-fluid dashboard">
+    <div class="col-lg-12 header ">
+        <div class="header-text">
+            <h2>Ticket </h2>
+        </div>
+        <div class="col text">
+            <span class="page input-icon">Ticket</span>
+
+            <span class="detail">Ticket Create </span>
+        </div>
+    </div>
+
+    @*<div class="container-fluid">*@
     <div class="col ticket">
         @using (Html.BeginForm("Create", "Ticket", FormMethod.Post, new { role = "form" }))
         {
@@ -20,6 +33,15 @@
                         <div class="col-lg-12">
                             @Html.DropDownListFor(m => m.ServiceId, ViewBag.services as SelectList, "-Select Service-", new { @class = "form-select u-box" })
                             @Html.ValidationMessageFor(m => m.ServiceId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 inst-row-form">
+                        @Html.LabelFor(m => m.IssueId, new { @class = "col-md-4 col-form-label l-inst" })
+                        <div class="col-lg-12">
+                            @Html.DropDownListFor(m => m.ServiceId, ViewBag.services as SelectList, "-Select Service-", new { @class = "form-select u-box" })
+                            @Html.ValidationMessageFor(m => m.IssueId, "", new { @class = "text-danger" })
                         </div>
                     </div>
                 </div>
