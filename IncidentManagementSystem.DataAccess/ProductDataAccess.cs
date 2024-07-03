@@ -13,7 +13,7 @@ namespace IncidentManagementSystem.DataAccess
     public class ProductDataAccess : IProductDataAccess
     {
 
-        public SQLStatusDto AddService(ServiceDto service)
+        public SQLStatusDto ServiceCreate(ServiceDto service)
         {
             SQLStatusDto _SQLStatus = new SQLStatusDto();
             try
@@ -106,7 +106,7 @@ namespace IncidentManagementSystem.DataAccess
 
 public interface IProductDataAccess
 {
-    SQLStatusDto AddService(ServiceDto service);
+    SQLStatusDto ServiceCreate(ServiceDto service);
 
  
 

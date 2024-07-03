@@ -16,9 +16,9 @@ namespace IncidentManagementSystem.Service
             _iproductDataAccess = iproductDataAccess;
         }
 
-        public SQLStatusDto AddService(ServiceDto service)
+        public SQLStatusDto ServiceCreate(ServiceDto service)
         {
-            return _iproductDataAccess.AddService(service);
+            return _iproductDataAccess.ServiceCreate(service);
         }
       
         public List<ServiceDto> GetServices(string InstId = "")
@@ -36,7 +36,7 @@ namespace IncidentManagementSystem.Service
 
 public interface IProductService
 {
-    SQLStatusDto AddService(ServiceDto service);
+    SQLStatusDto ServiceCreate(ServiceDto service);
    
 
     List<ServiceDto> GetServices(string InstId = "");

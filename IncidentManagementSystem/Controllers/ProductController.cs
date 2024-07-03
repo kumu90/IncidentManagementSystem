@@ -50,7 +50,7 @@ namespace IncidentManagementSystem.Controllers
         }
 
         [HttpGet]
-        public ActionResult GetService(string InstId)
+        public ActionResult Create(string InstId)
         {
             Init();
             var model = new ServiceDto
@@ -60,14 +60,15 @@ namespace IncidentManagementSystem.Controllers
 
             return View();
         }
+        
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult GetService(ServiceDto service)
+        public ActionResult Create(ServiceDto service)
         {
             Init();
             SQLStatusDto sQLStatus = new SQLStatusDto();/* _iserviceInstutionService.AddService(service);*/
-            sQLStatus = _iproductService.AddService(service);
+            sQLStatus = _iproductService.ServiceCreate(service);
 
             if (sQLStatus.Status == "00")
             {
