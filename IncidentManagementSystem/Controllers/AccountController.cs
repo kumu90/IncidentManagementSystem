@@ -21,14 +21,14 @@ namespace IncidentManagementSystem.Controllers
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
         private readonly IInstitutionService _iInstitutionService;
-        private readonly IServiceInstutionService _iserviceInstutionService;
+        
         //private readonly IGetInstNameService _iGetInstNameService;
 
         // Constructor with Dependency Injection
-        public AccountController(IInstitutionService iInstitutionService, IServiceInstutionService serviceInstutionService)
+        public AccountController(IInstitutionService iInstitutionService)
         {
             _iInstitutionService = iInstitutionService;
-            _iserviceInstutionService = serviceInstutionService;
+            
         }
 
         public AccountController()

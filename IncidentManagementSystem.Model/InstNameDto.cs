@@ -57,9 +57,9 @@ namespace IncidentManagementSystem.Model
         public string ServiceIdList { get; set; }
     }
 
-    public class Roles
-    {
-        public string Id { get; set; }
-        public string Name { get; set; }
-    }
+    //public class Roles
+    //{
+    //    public string Id { get; set; }
+    //    public string Name { get; set; }
+    //}
 }
