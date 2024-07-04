@@ -10,27 +10,25 @@ namespace IncidentManagementSystem.Controllers
 {
     public class HomeController : Controller
     {
-         private readonly IInstitutionService _iInstitutionService;
-         private readonly IUserService _userService;
-        public HomeController(IInstitutionService iInstitutionService, IUserService userService )
+         //private readonly IInstitutionService _iInstitutionService;
+         //private readonly IUserService _userService;
+        public HomeController(/*IInstitutionService iInstitutionService, IUserService userService*/ )
         {
-            _iInstitutionService = iInstitutionService;
-            _userService = userService;
+            //_iInstitutionService = iInstitutionService;
+            ///_userService = userService;
             
         }
 
-        public HomeController()
+        //public HomeController()
+        //{
+        //}
+        public ActionResult Index()
         {
-        }
-        public ActionResult Index(string search)
-        {
-            //var clients = _userService.UserDetail(search);
-            //return View(clients);
             return View("Dashboard");
         }
 
         [HttpGet]
-        public ActionResult Dashboard(string search)
+        public ActionResult Dashboard()
         {
             return View();
         }

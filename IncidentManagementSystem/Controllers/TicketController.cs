@@ -43,19 +43,19 @@ namespace IncidentManagementSystem.Controllers
 
         public ActionResult Index(string search)
         {
-            var TicketInfo = _iTicketService.ticketInfo(search);
+            var TicketInfo = _iTicketService.TicketInfo(search);
             return View(TicketInfo);
         }
 
         public ActionResult Search(string search) 
         {
-            var results = _iTicketService.ticketInfo(search);
+            var results = _iTicketService.TicketInfo(search);
             return PartialView("Search", results);
         }
 
 
         [HttpGet]
-        public ActionResult Create(ServiceDto serviceDto)
+        public ActionResult Create()
         {
             //var model = new ServiceDto
             //{ InstId = InstId };
@@ -94,7 +94,7 @@ namespace IncidentManagementSystem.Controllers
             }
             catch (Exception ex)
             {
-                // ex.AddError
+                Console.WriteLine(ex.Message);
             }
             return View();
 
@@ -102,9 +102,9 @@ namespace IncidentManagementSystem.Controllers
 
         public ActionResult TicketDetail(int TicketId)
         {
-            var model = new TicketDto
-            { TicketId = TicketId };
-            var ticketDetail = _iTicketService.getTicketDetails(TicketId);
+            //var model = new TicketDto
+            //{ TicketId = TicketId };
+            var ticketDetail = _iTicketService.GetTicketDetails(TicketId);
             if (ticketDetail == null)
             {
                 return View();

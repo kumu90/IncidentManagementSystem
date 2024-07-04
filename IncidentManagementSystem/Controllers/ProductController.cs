@@ -50,11 +50,11 @@ namespace IncidentManagementSystem.Controllers
         }
 
         [HttpGet]
-        public ActionResult Create(string InstId)
+        public ActionResult Create()
         {
             Init();
-            var model = new ServiceDto
-            { InstId = InstId };
+            //var model = new ServiceDto
+            //{ InstId = InstId };
             ViewBag.TaskStatus = TempData["TaskStatus"];
             ViewBag.TaskMessage = TempData["TaskMessage"];
 
@@ -67,8 +67,7 @@ namespace IncidentManagementSystem.Controllers
         public ActionResult Create(ServiceDto service)
         {
             Init();
-            SQLStatusDto sQLStatus = new SQLStatusDto();/* _iserviceInstutionService.AddService(service);*/
-            sQLStatus = _iproductService.ServiceCreate(service);
+            SQLStatusDto sQLStatus = _iproductService.ServiceCreate(service);
 
             if (sQLStatus.Status == "00")
             {
