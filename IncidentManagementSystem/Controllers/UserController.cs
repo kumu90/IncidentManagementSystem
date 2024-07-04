@@ -10,16 +10,16 @@ namespace IncidentManagementSystem.Controllers
 {
     public class UserController : Controller
     {
-        private readonly IInstitutionService _iInstitutionService;
+        ///private readonly IInstitutionService _iInstitutionService;
         private readonly IUserService _userService;
 
         public UserController()
         {
 
         }
-        public UserController(IInstitutionService iInstitutionService, IUserService userService)
+        public UserController(/*IInstitutionService iInstitutionService,*/ IUserService userService)
         {
-            _iInstitutionService = iInstitutionService;
+            ///_iInstitutionService = iInstitutionService;
             _userService = userService;
         }
 

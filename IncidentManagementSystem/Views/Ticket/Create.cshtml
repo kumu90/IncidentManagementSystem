@@ -40,7 +40,7 @@
                     <div class="col-lg-4 inst-row-form">
                         @Html.LabelFor(m => m.IssueId, new { @class = "col-md-4 col-form-label l_ticket" })
                         <div class="col-lg-12">
-                            @Html.DropDownListFor(m => m.IssueId, ViewBag.services as SelectList, "-Select Service-", new { @class = "form-select u-box" })
+                            @Html.DropDownListFor(m => m.IssueId, ViewBag.Issues as SelectList, "-Select Issue-", new { @class = "form-select u-box" })
                             @Html.ValidationMessageFor(m => m.IssueId, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -86,7 +86,7 @@
 
                         <div class="row upload">
                             <div class="col-lg-12">
-                                <input type="file" name="image" id="imageUpload" accept="image/*" onchange="previewImage(event)" class="form-control" style="width: 105px" />
+                                <input type="file" name="image" id="imageUpload" accept="image/*" onchange="previewImage('event')" class="form-control" style="width: 105px" />
                             </div>
                         </div>
                     </div>

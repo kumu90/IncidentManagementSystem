@@ -58,7 +58,7 @@ namespace IncidentManagementSystem.DataAccess
             }
             return _sQLStatus;
         }
-        public List<TicketDto> ticketInfo(string search = "")
+        public List<TicketDto> TicketInfo(string search = "")
         {
             List<TicketDto> Ticketlist = new List<TicketDto>();
             try
@@ -104,12 +104,12 @@ namespace IncidentManagementSystem.DataAccess
             }
             catch (Exception ex)
             {
-
+                Console.WriteLine(ex.Message);
             }
             return new List<TicketDto>();
         }
 
-        public TicketDto getTicketDetails(int TicketId)
+        public TicketDto GetTicketDetails(int TicketId)
         {
             TicketDto Ticketlist = new TicketDto();
             try
@@ -157,16 +157,62 @@ namespace IncidentManagementSystem.DataAccess
             }
             catch (Exception ex)
             {
-
+                Console.WriteLine(ex.Message);
             }
             return null;
+        }
+
+        public List<IssueDto> GetIssuesList() 
+        {
+            List<IssueDto> Issuelist = new List<IssueDto>();
+            try
+            {
+                string conStr = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+                using (SqlConnection conn = new SqlConnection(conStr))
+                {
+                    using (SqlCommand cmd = new SqlCommand(conStr, conn))
+                    {
+
+                        cmd.CommandText = @"IssueList";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = conn;
+
+                        conn.Open();
+
+                        using (var sqlDataReader = cmd.ExecuteReader())
+                        {
+                            while (sqlDataReader.Read())
+                            {
+                                Issuelist.Add(new IssueDto()
+                                {
+                                    IssueId = Convert.ToInt32(sqlDataReader["IssueId"].ToString()),
+                                    IssueName = sqlDataReader["Issue"].ToString()
+                                });
+                            }
+                        }
+
+                        conn.Close();
+
+                    }
+                }
+
+                return Issuelist;
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return new List<IssueDto>();
         }
     }
 }
 public interface ITicketDataAccess
 {
     SQLStatusDto TicketCreate(TicketDto ticketDto);
-    List<TicketDto> ticketInfo(string search = "");
+    List<TicketDto> TicketInfo(string search = "");
 
-    TicketDto getTicketDetails(int TicketId);
+    TicketDto GetTicketDetails(int TicketId);
+
+    List<IssueDto> GetIssuesList();
 }

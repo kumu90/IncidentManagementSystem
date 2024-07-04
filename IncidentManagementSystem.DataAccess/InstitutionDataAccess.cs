@@ -60,7 +60,7 @@ namespace IncidentManagementSystem.DataAccess
             }
             catch (Exception ex)
             {
-
+                Console.WriteLine(ex.Message);
             }
             return _SQLStatus;
         }
@@ -115,7 +115,7 @@ namespace IncidentManagementSystem.DataAccess
             }
             catch (Exception ex)
             {
-
+                Console.WriteLine(ex.Message);
             }
             return new List<InstNameDto>();
         }
@@ -159,7 +159,7 @@ namespace IncidentManagementSystem.DataAccess
             }
             catch (Exception ex)
             {
-
+                Console.WriteLine(ex.Message);
             }
             return new List<InstNameDto>();
         }
@@ -204,7 +204,7 @@ namespace IncidentManagementSystem.DataAccess
             }
             catch (Exception ex)
             {
-
+                Console.WriteLine(ex.Message);
             }
             return new List<Roles>();
         }

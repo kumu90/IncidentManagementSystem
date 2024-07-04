@@ -55,7 +55,7 @@ namespace IncidentManagementSystem.DataAccess
             }
             catch (Exception ex)
              {
-
+                Console.WriteLine(ex.Message);
             }
             return new List<UserInfo>();
         }
