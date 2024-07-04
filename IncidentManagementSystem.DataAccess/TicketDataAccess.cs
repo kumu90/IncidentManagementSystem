@@ -88,6 +88,7 @@ namespace IncidentManagementSystem.DataAccess
                                     //status = Convert.ToBoolean(sqlDataReader["InstId"].ToString()),
                                     InstId = sqlDataReader["InstitutionName"].ToString(),
                                     ServiceId = sqlDataReader["ServiceName"].ToString(),
+                                    IssueId = sqlDataReader["Issue"].ToString(),
                                     CellNumber = sqlDataReader["CellNumber"].ToString(),
                                     Email = sqlDataReader["Email"].ToString()
 
@@ -110,7 +111,7 @@ namespace IncidentManagementSystem.DataAccess
             return new List<TicketDto>();
         }
 
-        public TicketDto GetTicketDetails(int TicketId)
+        public TicketDto GetTicketDetails(string TicketId)
         {
             TicketDto Ticketlist = new TicketDto();
             try
@@ -214,7 +215,7 @@ public interface ITicketDataAccess
     SQLStatusDto TicketCreate(TicketDto ticketDto);
     List<TicketDto> TicketInfo(string search = "");
 
-    TicketDto GetTicketDetails(int TicketId);
+    TicketDto GetTicketDetails(string TicketId);
 
     List<IssueDto> GetIssuesList();
 }
