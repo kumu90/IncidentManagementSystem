@@ -144,7 +144,7 @@ namespace IncidentManagementSystem.DataAccess
                                     CellNumber = sqlDataReader["CellNumber"].ToString(),
                                     Email = sqlDataReader["Email"].ToString(),
                                     Description = sqlDataReader["Description"].ToString(),
-                                    //status = Convert.ToBoolean(sqlDataReader["InstId"].ToString()),
+                                    ImageUrl = sqlDataReader["ImageUrl"].ToString()
 
                                 };
 
