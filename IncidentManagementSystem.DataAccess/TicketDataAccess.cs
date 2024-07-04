@@ -26,8 +26,9 @@ namespace IncidentManagementSystem.DataAccess
                         cmd.CommandText = @"InstitutionTicketCreate";
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Connection = conn;
-
+                        cmd.Parameters.AddWithValue("@TicketId", _ticketDto.TicketId);
                         cmd.Parameters.AddWithValue("@ServiceId", _ticketDto.ServiceId);
+                        cmd.Parameters.AddWithValue("@IssueId", _ticketDto.IssueId);
                         cmd.Parameters.AddWithValue("@InstId", _ticketDto.InstId);
                         cmd.Parameters.AddWithValue("@Description", _ticketDto.Description);
                         cmd.Parameters.AddWithValue("@CellNumber", _ticketDto.CellNumber);
@@ -82,7 +83,7 @@ namespace IncidentManagementSystem.DataAccess
                             {
                                 Ticketlist.Add(new TicketDto()
                                 {
-                                    TicketId = Convert.ToInt32(sqlDataReader["TicketId"].ToString()),
+                                    TicketId = sqlDataReader["TicketId"].ToString(),
                                     //Description = sqlDataReader["Description"].ToString(),
                                     //status = Convert.ToBoolean(sqlDataReader["InstId"].ToString()),
                                     InstId = sqlDataReader["InstitutionName"].ToString(),
@@ -133,11 +134,12 @@ namespace IncidentManagementSystem.DataAccess
                             {
                                 Ticketlist = new TicketDto()
                                 {
-                                    TicketId = Convert.ToInt32(sqlDataReader["TicketId"].ToString()),
+                                    TicketId = sqlDataReader["TicketId"].ToString(),
                                     date = Convert.ToDateTime(sqlDataReader["Date"].ToString()),
                                     status = Convert.ToBoolean(sqlDataReader["status"].ToString()),
                                     InstId = sqlDataReader["InstitutionName"].ToString(),
                                     ServiceId = sqlDataReader["ServiceName"].ToString(),
+                                    IssueId = sqlDataReader["ServiceName"].ToString(),
                                     CellNumber = sqlDataReader["CellNumber"].ToString(),
                                     Email = sqlDataReader["Email"].ToString(),
                                     Description = sqlDataReader["Description"].ToString(),

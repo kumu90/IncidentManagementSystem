@@ -93,7 +93,7 @@ namespace IncidentManagementSystem.Controllers
                 }
                 ViewBag.TaskStatus = TempData["TaskStatus"];
                 ViewBag.TaskMessage = TempData["TaskMessage"];
-
+                return View();
             }
             catch (Exception ex)
             {
@@ -116,11 +116,6 @@ namespace IncidentManagementSystem.Controllers
             return View(ticketDetail);            
         }
 
-        [HttpGet]
-        public ActionResult Detail()
-        {
-            //var model = new TicketDto { TicketId = TicketId };
-            return View();
-        }
+       
     }
 }

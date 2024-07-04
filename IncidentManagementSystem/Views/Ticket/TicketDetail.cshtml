@@ -46,16 +46,21 @@
 
         <dl class="dl-horizontal">
             <dt>
-                @Html.DisplayNameFor(model => model.InstId)
-            </dt>
-
-            <dt>
                 @Html.DisplayNameFor(model => model.TicketId)
             </dt>
 
             <dd>
                 @Html.DisplayFor(model => model.TicketId)
             </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.date)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.date)
+            </dd>
+
             <dt>
                 @Html.DisplayNameFor(model => model.InstId)
             </dt>
@@ -70,6 +75,14 @@
 
             <dd>
                 @Html.DisplayFor(model => model.ServiceId)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.IssueId)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.IssueId)
             </dd>
 
             <dt>
@@ -97,25 +110,33 @@
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.ImageUrl)
+                @Html.DisplayNameFor(model => model.status)
             </dt>
 
             <dd>
-                <a href="#" id="imageAnchor">
-                
-                    @if (!string.IsNullOrEmpty(Model.ImageUrl))
-                    {
-                        <img id="preview" src="@Model.ImageUrl" class="card-img-top" alt="Preview" style="width: 280px; height: 180px;" />
-                    }
-                    else
-                    {
-                      
-                        <img id="preview"  class="card-img-top" alt="Preview" style="width: 280px; height: 180px;" />
-                    }
-                </a>
-            
-                @Html.DisplayFor(model => model.ImageUrl)
+                @Html.DisplayFor(model => model.status)
             </dd>
+
+            @*<dt>
+            @Html.DisplayNameFor(model => model.ImageUrl)
+        </dt>
+
+        <dd>
+            <a href="#" id="imageAnchor">
+
+                @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                {
+                    <img id="preview" src="@Model.ImageUrl" class="card-img-top" alt="Preview" style="width: 280px; height: 180px;" />
+                }
+                else
+                {
+
+                    <img id="preview" class="card-img-top" alt="Preview" style="width: 280px; height: 180px;" />
+                }
+            </a>
+
+            @Html.DisplayFor(model => model.ImageUrl)
+        </dd>*@
         </dl>
     </div>
 
