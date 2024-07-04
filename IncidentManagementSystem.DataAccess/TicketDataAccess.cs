@@ -82,7 +82,7 @@ namespace IncidentManagementSystem.DataAccess
                             {
                                 Ticketlist.Add(new TicketDto()
                                 {
-                                    TicketId = Convert.ToInt32(sqlDataReader["TicketId"].ToString()),
+                                    TicketId = sqlDataReader["TicketId"].ToString(),
                                     //Description = sqlDataReader["Description"].ToString(),
                                     //status = Convert.ToBoolean(sqlDataReader["InstId"].ToString()),
                                     InstId = sqlDataReader["InstitutionName"].ToString(),
@@ -109,7 +109,7 @@ namespace IncidentManagementSystem.DataAccess
             return new List<TicketDto>();
         }
 
-        public TicketDto GetTicketDetails(int TicketId)
+        public TicketDto GetTicketDetails(string TicketId)
         {
             TicketDto Ticketlist = new TicketDto();
             try
@@ -133,7 +133,7 @@ namespace IncidentManagementSystem.DataAccess
                             {
                                 Ticketlist = new TicketDto()
                                 {
-                                    TicketId = Convert.ToInt32(sqlDataReader["TicketId"].ToString()),
+                                    TicketId =sqlDataReader["TicketId"].ToString(),
                                     date = Convert.ToDateTime(sqlDataReader["Date"].ToString()),
                                     status = Convert.ToBoolean(sqlDataReader["status"].ToString()),
                                     InstId = sqlDataReader["InstitutionName"].ToString(),
@@ -212,7 +212,7 @@ public interface ITicketDataAccess
     SQLStatusDto TicketCreate(TicketDto ticketDto);
     List<TicketDto> TicketInfo(string search = "");
 
-    TicketDto GetTicketDetails(int TicketId);
+    TicketDto GetTicketDetails(string TicketId);
 
     List<IssueDto> GetIssuesList();
 }

@@ -103,7 +103,7 @@ namespace IncidentManagementSystem.Controllers
 
         }
 
-        public ActionResult TicketDetail(int TicketId)
+        public ActionResult TicketDetail(string TicketId)
         {
             //var model = new TicketDto
             //{ TicketId = TicketId };

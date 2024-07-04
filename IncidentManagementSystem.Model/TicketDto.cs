@@ -11,7 +11,7 @@ namespace IncidentManagementSystem.Model
     public class TicketDto
     {
         [Key]
-        public int TicketId { get; set; }
+        public string TicketId { get; set; }
 
         public DateTime date { get; set; }
         public bool status { get; set; }
