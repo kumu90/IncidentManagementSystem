@@ -3,24 +3,20 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Institutation Index</h2>
 
-@using IncidentManagementSystem.Model
-@*@model SearchByDateDto*@
 
     <div class="container-fluid dashboard">
         <div class="col-lg-12 header ">
             <div class="header-text">
-                <h2>Ticket List</h2>
             </div>
             <div class="col text">
                 <span class="page input-icon">Ticket</span>
 
-                <span class="detail">Ticket Details </span>
+                <span class="detail">Institution Details </span>
             </div>
         </div>
 
-        @using (Html.BeginForm("Search", "Institution", FormMethod.Get, new { id = "searchForm", enctype = "multipart/form-data" }))
+        @using (Html.BeginForm("search", "Institution", FormMethod.Get, new { id = "searchForm", enctype = "multipart/form-data" }))
         {
             <div class="container-fluid search-box">
                 <div class=" row s-box">
@@ -39,9 +35,9 @@
             </div>
 
             <hr />
-            <div id="partialTicketContainer">
+            <div id="partialInstitutionContainer">
                 @{
-                    Html.Action("Search");
+                    Html.Action("search");
                 }
             </div>
         }
@@ -58,7 +54,7 @@
                     type: $(this).attr('method'),
                     data: $(this).serialize(),
                     success: function (result) {
-                        $('#partialDashboardContainer').html(result);
+                        $('#partialInstitutionContainer').html(result);
                     },
                     error: function (xhr, status, error) {
                         alert('Error: ' + error);

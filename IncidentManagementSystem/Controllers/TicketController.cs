@@ -19,7 +19,7 @@ namespace IncidentManagementSystem.Controllers
         {
 
         }
-        public TicketController(ITicketService iTicketService,IProductService iproductService, IInstitutionService institutionService)
+        public TicketController(ITicketService iTicketService, IProductService iproductService, IInstitutionService institutionService)
         {
             _iTicketService = iTicketService;
             _iInstitutionService = institutionService;
@@ -50,7 +50,7 @@ namespace IncidentManagementSystem.Controllers
             return View(TicketInfo);
         }
 
-        public ActionResult Search(string search) 
+        public ActionResult Search(string search)
         {
             var results = _iTicketService.TicketInfo(search);
             return PartialView("Search", results);
@@ -93,14 +93,14 @@ namespace IncidentManagementSystem.Controllers
                 }
                 ViewBag.TaskStatus = TempData["TaskStatus"];
                 ViewBag.TaskMessage = TempData["TaskMessage"];
-                
+
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
+            //return RedirectToAction("TicketDetail");
             return View();
-
         }
 
         public ActionResult TicketDetail(string TicketId)
@@ -113,6 +113,13 @@ namespace IncidentManagementSystem.Controllers
                 return View();
             }
             return View(ticketDetail);            
+        }
+
+        [HttpGet]
+        public ActionResult Detail()
+        {
+            //var model = new TicketDto { TicketId = TicketId };
+            return View();
         }
     }
 }

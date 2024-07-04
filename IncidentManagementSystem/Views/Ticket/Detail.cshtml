@@ -1,10 +1,7 @@
 ﻿@model IncidentManagementSystem.Model.TicketDto
 
-@{
-    ViewBag.Title = "TicketDetail";
-}
 
-<h2>TicketDetail</h2>
+<h2>Detail</h2>
 <style>
     .dl-horizontal {
         background-color: #fff;
@@ -20,11 +17,10 @@
             margin-right: 10px;
             font-family: Outfit;
             font-weight: 600;
-            white-space: normal;
         }
 
         .dl-horizontal dd {
-            margin-right:20px;
+            margin-right: 20px;
             margin-left: 230px;
             margin-bottom: 20px;
         }
@@ -41,14 +37,8 @@
 
 <div class="row">
 
-    <div class="col-md-6 ticket">
-
-
+    <div class="col-md-8 ticket">
         <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.InstId)
-            </dt>
-
             <dt>
                 @Html.DisplayNameFor(model => model.TicketId)
             </dt>
@@ -96,29 +86,12 @@
                 @Html.DisplayFor(model => model.Email)
             </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.ImageUrl)
-            </dt>
-
-            <dd>
-                <a href="#" id="imageAnchor">
-                
-                    @if (!string.IsNullOrEmpty(Model.ImageUrl))
-                    {
-                        <img id="preview" src="@Model.ImageUrl" class="card-img-top" alt="Preview" style="width: 280px; height: 180px;" />
-                    }
-                    else
-                    {
-                      
-                        <img id="preview"  class="card-img-top" alt="Preview" style="width: 280px; height: 180px;" />
-                    }
-                </a>
-            
-                @Html.DisplayFor(model => model.ImageUrl)
-            </dd>
         </dl>
     </div>
 
 </div>
 @Scripts.Render("~/bundles/bootstrap")
-
+@*<p>
+        @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>*@
