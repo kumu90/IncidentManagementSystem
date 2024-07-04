@@ -3,8 +3,10 @@
 
 <table class="table">
     <tr>
-        <th>Inst. Name </th>
+        <th>Ticket </th>
+        <th>Institution Name </th>
         <th>Service Name</th>
+        <th>Issue</th>
         <th>CellNumber</th>
         <th>Email</th>
         <th>Detail</th>
@@ -16,25 +18,27 @@
     {
         <tr>
             <td>
+                @Html.DisplayFor(modelItem => item.TicketId)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.InstId)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ServiceId)
             </td>
-       
+            <td>
+                @Html.DisplayFor(modelItem => item.IssueId)
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.CellNumber)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            @*<td>
-                @Html.DisplayFor(modelItem => item.ImageUrl)
-            </td>*@
+            </td>           
             <td>
                 @Html.ActionLink("Details", "TicketDetail", "Ticket", new RouteValueDictionary { { "TicketId", item.TicketId } }, null)
             </td>
-        
+
         </tr>
     }
 
