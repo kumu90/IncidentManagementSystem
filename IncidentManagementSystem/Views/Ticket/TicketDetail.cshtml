@@ -24,7 +24,7 @@
         }
 
         .dl-horizontal dd {
-            margin-right:20px;
+            margin-right: 20px;
             margin-left: 230px;
             margin-bottom: 20px;
         }
@@ -45,9 +45,6 @@
 
 
         <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.InstId)
-            </dt>
 
             <dt>
                 @Html.DisplayNameFor(model => model.TicketId)
@@ -102,18 +99,18 @@
 
             <dd>
                 <a href="#" id="imageAnchor">
-                
+
                     @if (!string.IsNullOrEmpty(Model.ImageUrl))
                     {
                         <img id="preview" src="@Model.ImageUrl" class="card-img-top" alt="Preview" style="width: 280px; height: 180px;" />
                     }
                     else
                     {
-                      
-                        <img id="preview"  class="card-img-top" alt="Preview" style="width: 280px; height: 180px;" />
+
+                        <img id="preview" class="card-img-top" alt="Preview" style="width: 280px; height: 180px;" />
                     }
                 </a>
-            
+
                 @Html.DisplayFor(model => model.ImageUrl)
             </dd>
         </dl>

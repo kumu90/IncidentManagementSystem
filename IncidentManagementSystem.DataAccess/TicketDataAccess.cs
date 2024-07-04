@@ -137,10 +137,11 @@ namespace IncidentManagementSystem.DataAccess
                                     status = Convert.ToBoolean(sqlDataReader["status"].ToString()),
                                     InstId = sqlDataReader["InstitutionName"].ToString(),
                                     ServiceId = sqlDataReader["ServiceName"].ToString(),
+                                    IssueId = sqlDataReader["Issue"].ToString(),
                                     CellNumber = sqlDataReader["CellNumber"].ToString(),
                                     Email = sqlDataReader["Email"].ToString(),
                                     Description = sqlDataReader["Description"].ToString(),
-                                    //status = Convert.ToBoolean(sqlDataReader["InstId"].ToString()),
+                                    ImageUrl = sqlDataReader["ImageUrl"].ToString()
 
                                 };
 
