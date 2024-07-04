@@ -1,9 +1,7 @@
 ﻿@model IncidentManagementSystem.Model.TicketDto
 
-@*@{
-        ViewBag.Title = "GetTicketDetail";
-    }*@
-<h2>TicketDetail</h2>
+
+<h2>Detail</h2>
 <style>
     .dl-horizontal {
         background-color: #fff;
@@ -19,11 +17,10 @@
             margin-right: 10px;
             font-family: Outfit;
             font-weight: 600;
-           
         }
 
         .dl-horizontal dd {
-            margin-right:20px;
+            margin-right: 20px;
             margin-left: 230px;
             margin-bottom: 20px;
         }
@@ -89,26 +86,6 @@
                 @Html.DisplayFor(model => model.Email)
             </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.ImageUrl)
-            </dt>
-
-            <dd>
-                <a href="#" id="imageAnchor">
-                
-                    @if (!string.IsNullOrEmpty(Model.ImageUrl))
-                    {
-                        <img id="preview" src="@Model.ImageUrl" class="card-img-top" alt="Preview" style="width: 280px; height: 180px;" />
-                    }
-                    else
-                    {
-                      
-                        <img id="preview"  class="card-img-top" alt="Preview" style="width: 280px; height: 180px;" />
-                    }
-                </a>
-            
-                @Html.DisplayFor(model => model.ImageUrl)
-            </dd>
         </dl>
     </div>
 

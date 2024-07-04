@@ -1,6 +1,6 @@
 ﻿@model IncidentManagementSystem.Model.TicketDto
 
-<div class="container-fluid dashboard">
+<div class="container-fluid">
     <div class="col-lg-12 header ">
         <div class="header-text">
             <h2>Ticket </h2>
@@ -12,7 +12,7 @@
         </div>
     </div>
 
-    @*<div class="container-fluid">*@
+
     <div class="col ticket">
         @using (Html.BeginForm("Create", "Ticket", FormMethod.Post, new { role = "form" }))
         {
@@ -20,7 +20,7 @@
             <div class="row">
                 <div class="row">
                     <div class="col-lg-4 inst-row-form">
-                        @Html.LabelFor(m => m.InstId, new { @class = "col-md-4 col-form-label l-inst" })
+                        @Html.LabelFor(m => m.InstId, new { @class = "col-md-4 col-form-label l_ticket" })
                         <div class="col">
                             @Html.DropDownListFor(m => m.InstId, ViewBag.Institution as SelectList, "-Select Institution-", new { @class = "form-select u-box" })
                             @Html.ValidationMessageFor(m => m.InstId, "", new { @class = "text-danger" })
@@ -29,7 +29,7 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-4 inst-row-form">
-                        @Html.LabelFor(m => m.ServiceId, new { @class = "col-md-4 col-form-label l-inst" })
+                        @Html.LabelFor(m => m.ServiceId, new { @class = "col-md-4 col-form-label l_ticket" })
                         <div class="col-lg-12">
                             @Html.DropDownListFor(m => m.ServiceId, ViewBag.services as SelectList, "-Select Service-", new { @class = "form-select u-box" })
                             @Html.ValidationMessageFor(m => m.ServiceId, "", new { @class = "text-danger" })
@@ -38,16 +38,16 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-4 inst-row-form">
-                        @Html.LabelFor(m => m.IssueId, new { @class = "col-md-4 col-form-label l-inst" })
+                        @Html.LabelFor(m => m.IssueId, new { @class = "col-md-4 col-form-label l_ticket" })
                         <div class="col-lg-12">
-                            @Html.DropDownListFor(m => m.ServiceId, ViewBag.services as SelectList, "-Select Service-", new { @class = "form-select u-box" })
+                            @Html.DropDownListFor(m => m.IssueId, ViewBag.services as SelectList, "-Select Service-", new { @class = "form-select u-box" })
                             @Html.ValidationMessageFor(m => m.IssueId, "", new { @class = "text-danger" })
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-lg-4 inst-row-form">
-                        @Html.LabelFor(m => m.Email, new { @class = "col-md-4 col-form-label l-inst" })
+                        @Html.LabelFor(m => m.Email, new { @class = "col-md-4 col-form-label l_ticket" })
                         <div class="col-lg-12">
                             @Html.TextBoxFor(m => m.Email, new { @class = "form-control b-inst" })
                             @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
@@ -57,7 +57,7 @@
 
                 <div class="row">
                     <div class="col-lg-4 inst-row-form">
-                        @Html.LabelFor(m => m.CellNumber, new { @class = "col-md-4 col-form-label l-inst" })
+                        @Html.LabelFor(m => m.CellNumber, new { @class = "col-md-4 col-form-label l_ticket" })
                         <div class="col-lg-12">
                             @Html.TextBoxFor(m => m.CellNumber, new { @class = "form-control b-inst" })
                             @Html.ValidationMessageFor(m => m.CellNumber, "", new { @class = "text-danger" })
@@ -67,7 +67,7 @@
 
                 <div class="row">
                     <div class="col-lg-4 inst-row-form">
-                        @Html.LabelFor(m => m.Description, new { @class = "col-md-4 col-form-label l-inst" })
+                        @Html.LabelFor(m => m.Description, new { @class = "col-md-4 col-form-label l_ticket" })
                         <div class="mb-3">
                             @Html.TextAreaFor(m => m.Description, new { @class = "form-control b-inst" })
                             @Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger" })
@@ -76,8 +76,8 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-md-2 img-upload">
-                        @Html.LabelFor(m => m.ImageUrl, new { @class = "col-md-12 col-form-label l-inst" })
+                    <div class="col-md-4 img-upload">
+                        @Html.LabelFor(m => m.ImageUrl, new { @class = "col-md-12 col-form-label l_ticket" })
                         <div class="tik-img" style="background-color:lightgray;">
                             <a href="#" id="imageAnchor">
                                 <img id="preview" src="~/Image/photo-album-regular-24.png" class="card-img-top" alt="Preview" style=" width: 280px; height:180px " />
@@ -91,7 +91,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row  buttom-inst">
+                <div class="row  buttom-ticket">
                     <div class="col-lg-4">
                         <input type="submit" value="Submit" class="btn btn-primary btn-lg" />
                     </div>
