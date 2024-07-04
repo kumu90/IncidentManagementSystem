@@ -161,6 +161,50 @@ namespace IncidentManagementSystem.DataAccess
             }
             return null;
         }
+
+        public List<IssueDto> GetIssuesList() 
+        {
+            List<IssueDto> Issuelist = new List<IssueDto>();
+            try
+            {
+                string conStr = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+                using (SqlConnection conn = new SqlConnection(conStr))
+                {
+                    using (SqlCommand cmd = new SqlCommand(conStr, conn))
+                    {
+
+                        cmd.CommandText = @"IssueList";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = conn;
+
+                        conn.Open();
+
+                        using (var sqlDataReader = cmd.ExecuteReader())
+                        {
+                            while (sqlDataReader.Read())
+                            {
+                                Issuelist.Add(new IssueDto()
+                                {
+                                    IssueId = Convert.ToInt32(sqlDataReader["IssueId"].ToString()),
+                                    IssueName = sqlDataReader["Issue"].ToString()
+                                });
+                            }
+                        }
+
+                        conn.Close();
+
+                    }
+                }
+
+                return Issuelist;
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return new List<IssueDto>();
+        }
     }
 }
 public interface ITicketDataAccess
@@ -169,4 +213,6 @@ public interface ITicketDataAccess
     List<TicketDto> TicketInfo(string search = "");
 
     TicketDto GetTicketDetails(int TicketId);
+
+    List<IssueDto> GetIssuesList();
 }

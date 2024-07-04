@@ -5,12 +5,6 @@
 }
 
 <h2>TicketDetail</h2>
-@model IncidentManagementSystem.Model.TicketDto
-
-@{
-    ViewBag.Title = "GetTicketDetail";
-}
-<h2>TicketDetail</h2>
 <style>
     .dl-horizontal {
         background-color: #fff;
@@ -27,7 +21,6 @@
             font-family: Outfit;
             font-weight: 600;
             white-space: normal;
-            
         }
 
         .dl-horizontal dd {
@@ -55,19 +48,17 @@
             <dt>
                 @Html.DisplayNameFor(model => model.InstId)
             </dt>
-<div>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.TicketId)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.TicketId)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.InstId)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.TicketId)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.TicketId)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.InstId)
+            </dt>
 
             <dd>
                 @Html.DisplayFor(model => model.InstId)
@@ -117,7 +108,4 @@
 
 </div>
 @Scripts.Render("~/bundles/bootstrap")
-@*<p>
-        @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-        @Html.ActionLink("Back to List", "Index")
-    </p>*@
+

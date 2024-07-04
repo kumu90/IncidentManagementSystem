@@ -33,6 +33,9 @@ namespace IncidentManagementSystem.Controllers
 
             var services = _iproductService.GetServices();
             ViewBag.services = new SelectList(services, "ServiceId", "serviceName");
+
+            var Issues = _iTicketService.GetIssueList();
+            ViewBag.Issues = new SelectList(Issues, "IssueId", "IssueName");
         }
 
         public JsonResult InstService(string InstId)
@@ -109,8 +112,7 @@ namespace IncidentManagementSystem.Controllers
             {
                 return View();
             }
-            return View(ticketDetail);
-            //return View();
+            return View(ticketDetail);            
         }
     }
 }

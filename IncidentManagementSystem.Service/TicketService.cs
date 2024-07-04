@@ -10,24 +10,29 @@ namespace IncidentManagementSystem.Service
 {
     public class TicketService : ITicketService
     {
-        private readonly ITicketDataAccess _iticketDataAccess;
+        private readonly ITicketDataAccess _iTicketDataAccess;
 
         public TicketService(ITicketDataAccess iticketDataAccess)
         {
-            _iticketDataAccess = iticketDataAccess;
+            _iTicketDataAccess = iticketDataAccess;
         }
         public SQLStatusDto TicketCreate(TicketDto _ticketDto)
         {
-            return _iticketDataAccess.TicketCreate(_ticketDto);
+            return _iTicketDataAccess.TicketCreate(_ticketDto);
         }
         public List<TicketDto> TicketInfo(string search = "")
         {
-            return _iticketDataAccess.TicketInfo(search);
+            return _iTicketDataAccess.TicketInfo(search);
         }
         public TicketDto GetTicketDetails(int TicketId)
         {
-            return _iticketDataAccess.GetTicketDetails(TicketId);
+            return _iTicketDataAccess.GetTicketDetails(TicketId);
         }
+
+        public List<IssueDto> GetIssueList()
+        {
+            return _iTicketDataAccess.GetIssuesList();
+        } 
     }
 }
 public interface ITicketService
@@ -36,4 +41,5 @@ public interface ITicketService
     List<TicketDto> TicketInfo(string search = "");
 
     TicketDto GetTicketDetails(int TicketId);
+    List<IssueDto> GetIssueList();
 }
