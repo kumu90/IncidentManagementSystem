@@ -3,51 +3,42 @@
 @*<p>
         @Html.ActionLink("Create New", "Create")
     </p>*@
+@{
+    int sno = 0; // Initialize serial number
+}
 @if (Model != null && Model.Any())
 {
-    <table class="table table-striped table-bordered">
-        <thead class="table-dark">
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Username)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.InstId)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Roles)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Email)
-                </th>
-
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
+    <div class="panel panel-default overflow-auto">
+        <table class="table table-striped">
+            <thead class="whitespace-nowrap">
                 <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Username)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.InstId)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Roles)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Email)
-                    </td>
-
+                    <th>S No.</th>
+                    <th>Username</th>
+                    <th>InstId</th>
+                    <th>Roles</th>
+                    <th>Email</th>
                 </tr>
-            }
-        </tbody>
+            </thead>
+            <tbody class="whitespace-nowrap">
+                @foreach (var item in Model)
+                {
+                    sno++;
+                    <tr>
+                        <td>@sno</td>
+                        <td>@item.Username</td>
+                        <td>@item.InstId</td>
+                        <td>@item.Roles</td>
+                        <td>@item.Email</td>
+                    </tr>
+                }
+            </tbody>
 
-    </table>
-}
-else
-{
-    <p>No data available.</p>
+        </table>
+        @*}
+            else
+            {
+            <p>No data available.</p>*@
+    </div>
+
 }
 @Scripts.Render("~/bundles/bootstrap")

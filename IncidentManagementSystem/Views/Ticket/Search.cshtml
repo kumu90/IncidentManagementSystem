@@ -1,51 +1,47 @@
 ﻿@using IncidentManagementSystem.Model
 @model List<TicketDto>
 
-<table class="table">
-    <tr>
-        <th>Ticket Id</th>
-        <th>Instution Name </th>
-        <th>Service Name</th>
-        <th>Issue</th>
-        <th>CellNumber</th>
-        <th>Email</th>
-        <th>Ststus</th>
-        <th>Detail</th>
-       
-       
-    </tr>
+@{
+    int sno = 0; // Initialize serial number
+}
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.TicketId)
-            </td>
+<div class="panel panel-default overflow-auto">
+    <table class="table table-striped">
+        <thead class="whitespace-nowrap">
+            <tr>
+                <th>S No.</th>
+                <th>Ticket Id</th>
+                <th>Instution Name </th>
+                <th>Service Name</th>
+                <th>Issue</th>
+                <th>CellNumber</th>
+                <th>Email</th>
+                <th>Status</th>
+                <th>Detail</th>
 
-            <td>
-                @Html.DisplayFor(modelItem => item.InstId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ServiceId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IssueId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CellNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            @*<td>
-            @Html.DisplayFor(modelItem => item.ImageUrl)
-        </td>*@
-            <td>
-                @Html.ActionLink("Details", "TicketDetail", "Ticket", new RouteValueDictionary { { "TicketId", item.TicketId } }, null)
-            </td>
 
-        </tr>
-    }
+            </tr>
+        </thead>
+        <tbody class="whitespace-nowrap">
+            @foreach (var item in Model)
+            {
+                sno++;
+                <tr>
+                    <td>@sno</td>
+                    <td>@item.TicketId</td>
+                    <td>@item.InstId</td>
+                    <td>@item.ServiceId</td>
+                    <td>@item.IssueId</td>
+                    <td>@item.CellNumber</td>
+                    <td>@item.Email</td>
+                    <td>@item.status</td>
+                    <td>
+                        @Html.ActionLink("Details", "TicketDetail", "Ticket", new RouteValueDictionary { { "TicketId", item.TicketId } }, null)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 
-</table>
+</div>
 
