@@ -36,7 +36,7 @@ namespace IncidentManagementSystem.DataAccess
                             {
                                 list.Add(new UserInfo()
                                 {
-                                    InstId = sqlDataReader["InstId"].ToString(),
+                                    InstId = sqlDataReader["InstitutionName"].ToString(),
                                     Username = sqlDataReader["Username"].ToString(),                                    
                                     Email = sqlDataReader["Email"].ToString(),
                                     Roles = sqlDataReader["UserRoleId"].ToString(),
