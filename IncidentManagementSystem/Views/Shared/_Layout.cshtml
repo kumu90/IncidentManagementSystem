@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNet.Identity
+<!DOCTYPE html>
 <html style="height:100%">
 <head>
     <meta charset="utf-8" />
@@ -22,11 +23,11 @@
             <ul class="menu-items" style="padding-left:0rem !important;">
                 @*<div class="menu-title">Your menu title</div>*@
                 @*<li class="item">
-            <a href="Dashboad/Home">
-                <i class='bx bxs-dashboard  icon'></i>
-                <span class="text nav-text">Dashboard</span>
-            </a>
-        </li>*@
+                        <a href="Dashboad/Home">
+                            <i class='bx bxs-dashboard  icon'></i>
+                            <span class="text nav-text">Dashboard</span>
+                        </a>
+                    </li>*@
 
                 <li class="item">
                     @Html.Raw(Html.ActionLink("Dashboad", "Dashboard", "Home", new { area = "" }, new { @class = "nav-link" }).ToString().Replace("Dashboad", "<span class='bx bxs-dashboard icon'></span> Dashboard"))
@@ -49,16 +50,28 @@
                 <li class="item">
                     @Html.Raw(Html.ActionLink("ContactLink", "Contact", "Home", new { area = "" }, new { @class = "nav-link" }).ToString().Replace("ContactLink", "<span class='bx bxs-cog icon'></span> Contact Us"))
                 </li>
-                <li class="item">
-                    @Html.Raw(Html.ActionLink("LogOutLink", "LogOff", "Account", new { area = "" }, new { @class = "nav-link" }).ToString().Replace("LogOutLink", "<span class='bx bxs-cog icon'></span> Log Out"))
-                </li>
 
-
+                @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <li class="item">
+                        <a class="nav-link bx bxs-cog icon" href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
+                    </li>
+                }
             </ul>
         </div>
     </nav>
     <nav class="navbar" style="position:relative">
         <i class="fa-solid fa-bars" id="sidebar-close"></i>
+        @if (Request.IsAuthenticated)
+        {
+            @Html.ActionLink(User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", @class = "nav-link" })
+        }
+
+
+        @*@{
+            Html.RenderPartial("_LoginPartial");
+               }*@
     </nav>
     <div class="main">
 
