@@ -1,24 +1,24 @@
 ﻿@model IEnumerable<IncidentManagementSystem.Model.UserInfo>
 
-@*<p>
-        @Html.ActionLink("Create New", "Create")
-    </p>*@
 @if (Model != null && Model.Any())
 {
     <table class="table table-striped table-bordered">
         <thead class="table-dark">
             <tr>
+                @*<th>
+                    S.No
+                </th>*@
                 <th>
-                    @Html.DisplayNameFor(model => model.Username)
+                    User Name
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.InstId)
+                    Institution
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Roles)
+                    Roles
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Email)
+                    Email
                 </th>
 
             </tr>
