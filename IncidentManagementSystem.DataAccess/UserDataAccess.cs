@@ -39,7 +39,7 @@ namespace IncidentManagementSystem.DataAccess
                                     InstId = sqlDataReader["InstitutionName"].ToString(),
                                     Username = sqlDataReader["Username"].ToString(),                                    
                                     Email = sqlDataReader["Email"].ToString(),
-                                    Roles = sqlDataReader["UserRoleId"].ToString(),
+                                    Roles = sqlDataReader["Name"].ToString(),
                                     
                                 });
                             }
