@@ -49,7 +49,10 @@
                 <li class="item">
                     @Html.Raw(Html.ActionLink("ContactLink", "Contact", "Home", new { area = "" }, new { @class = "nav-link" }).ToString().Replace("ContactLink", "<span class='bx bxs-cog icon'></span> Contact Us"))
                 </li>
-                                
+                <li class="item">
+                    @Html.Raw(Html.ActionLink("LogOutLink", "LogOff", "Account", new { area = "" }, new { @class = "nav-link" }).ToString().Replace("LogOutLink", "<span class='bx bxs-cog icon'></span> Log Out"))
+                </li>
+
 
             </ul>
         </div>

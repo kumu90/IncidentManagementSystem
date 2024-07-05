@@ -165,7 +165,7 @@ namespace IncidentManagementSystem.DataAccess
             return null;
         }
 
-        public List<IssueDto> GetIssuesList() 
+        public List<IssueDto> GetIssuesList(string ServiceId = "") 
         {
             List<IssueDto> Issuelist = new List<IssueDto>();
             try
@@ -217,5 +217,5 @@ public interface ITicketDataAccess
 
     TicketDto GetTicketDetails(string TicketId);
 
-    List<IssueDto> GetIssuesList();
+    List<IssueDto> GetIssuesList(string ServiceId = "");
 }

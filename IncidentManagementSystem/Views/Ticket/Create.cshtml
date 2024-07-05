@@ -86,7 +86,7 @@
 
                         <div class="row upload">
                             <div class="col-lg-12">
-                                <input type="file" name="image" id="imageUpload" accept="image/*" onchange="previewImage(event)" class="form-control" style="width: 105px" />
+                                <input type="file" name="image" id="imageUpload" accept="image/*" onchange="previewImage('event')" class="form-control" style="width: 105px" />
                             </div>
                         </div>
                     </div>
@@ -108,28 +108,57 @@
     <script>
         $(document).ready(function () {
         debugger;
-        $("#InstId").on("change", function () {
-        debugger;
-        const InstId = $('#InstId').val();
-        $('#ServiceId').html("");
-        $('#ServiceId').append($('<option disabled selected value>-Select Services-</option>'));
-        $.ajax({
-            method: "GET",
-            url: '@Url.Action("InstService")',
-            data: { InstId: InstId },
-            success: function (result) {
-                debugger;
-                //// Append the retrieved districts to the dropdown
-                $.each(result, function (i, service) {
-                    $('#ServiceId').append($('<option>', {
-                        value: service.ServiceId,
-                        text: service.ServiceName
-                    }));
+            $("#InstId").on("change", function () {
+            debugger;
+            const InstId = $('#InstId').val();
+            $('#ServiceId').html("");
+            $('#ServiceId').append($('<option disabled selected value>-Select Services-</option>'));
+                $.ajax({
+                    method: "GET",
+                    url: '@Url.Action("InstService")',
+                    data: { InstId: InstId },
+                    success: function (result) {
+                        debugger;
+                        //// Append the retrieved service to the dropdown
+                        $.each(result, function (i, service) {
+                            $('#ServiceId').append($('<option>', {
+                                value: service.ServiceId,
+                                text: service.ServiceName
+                            }));
+                        });
+                    }
                 });
-            }
+            });
         });
-    });
-});
+
+        $(document).ready(function () {
+        debugger;
+            $("#ServiceId").on("change", function () {
+            debugger;
+                const InstId = $('#ServiceId').val();
+                $('#IssueId').html("");
+                $('#IssueId').append($('<option disabled selected value>-Select Issue-</option>'));
+                $.ajax({
+                    method: "GET",
+                    url: '@Url.Action("ServiceIssue")',
+                    data: { InstId: InstId },
+                    success: function (result) {
+                        debugger;
+                        //// Append the retrieved Issues to the dropdown
+                        $.each(result, function (i, Issues) {
+                            $('#IssueId').append($('<option>', {
+                                value: Issues.IssueId,
+                                text: Issues.IssueName
+                            }));
+                        });
+                    }
+                });
+            });
+        });
+
+
+
+
         document.addEventListener("DOMContentLoaded", function () {
             debugger;
             var preview = document.getElementById('preview');

@@ -304,7 +304,7 @@
     <Content Include="Views\User\Search.cshtml" />
     <Content Include="Views\Ticket\TicketDetail.cshtml" />
     <Content Include="Views\Institution\Index.cshtml" />
-    <Content Include="Views\Institution\search.cshtml" />
+    <Content Include="Views\Institution\Search.cshtml" />
     <Content Include="Views\Product\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>

@@ -29,7 +29,7 @@ namespace IncidentManagementSystem.Service
             return _iTicketDataAccess.GetTicketDetails(TicketId);
         }
 
-        public List<IssueDto> GetIssueList()
+        public List<IssueDto> GetIssueList(string ServiceId = "")
         {
             return _iTicketDataAccess.GetIssuesList();
         } 
@@ -41,5 +41,5 @@ public interface ITicketService
     List<TicketDto> TicketInfo(string search = "");
 
     TicketDto GetTicketDetails(string TicketId);
-    List<IssueDto> GetIssueList();
+    List<IssueDto> GetIssueList(string ServiceId="");
 }

@@ -44,6 +44,13 @@ namespace IncidentManagementSystem.Controllers
             return Json(servId, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpGet]
+        public JsonResult ServiceIssue(string ServiceId)
+        {
+            var Issues = _iTicketService.GetIssueList(ServiceId);
+            return Json(Issues, JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult Index(string search)
         {
             var TicketInfo = _iTicketService.TicketInfo(search);

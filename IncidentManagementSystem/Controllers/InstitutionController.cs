@@ -49,7 +49,7 @@ namespace IncidentManagementSystem.Controllers
             return View(clt);
         }
 
-        public ActionResult search(string search)
+        public ActionResult Search(string search)
         {
             if (ModelState.IsValid)
             {
@@ -75,7 +75,7 @@ namespace IncidentManagementSystem.Controllers
             instNameDto.CreatedBy = User.Identity.GetUserId();
             if (ModelState.IsValid)
             {
-                SQLStatusDto sQLStatus = new SQLStatusDto();
+                //SQLStatusDto sQLStatus = new SQLStatusDto();
                 if (image != null && image.ContentLength > 0)
                 {
                     string imagePath = UploadImg(image);
@@ -90,7 +90,7 @@ namespace IncidentManagementSystem.Controllers
                 }
 
                 ////instNameDto.ImageUrl = "";
-                sQLStatus = _iInstitutionService.InstitutionCreate(instNameDto);
+                SQLStatusDto sQLStatus = _iInstitutionService.InstitutionCreate(instNameDto);
 
 
                 if (sQLStatus.Status == "00")
