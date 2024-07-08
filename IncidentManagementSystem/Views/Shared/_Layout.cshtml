@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNet.Identity
+<!DOCTYPE html>
 <html style="height:100%">
 <head>
     <meta charset="utf-8" />
@@ -13,13 +14,13 @@
     <!--==== Boxicons CSS ====-->
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
-<body style="overflow: hidden;">
+<body @*style="overflow: hidden;"*@>
     <nav class="sidebar">
         <img src="~/Image/Logo.png" id="logo" />
 
 
         <div class="menu-content">
-            <ul class="menu-items">
+            <ul class="menu-items" style="padding-left:0rem !important;">
                 @*<div class="menu-title">Your menu title</div>*@
                 @*<li class="item">
             <a href="Dashboad/Home">
@@ -41,24 +42,36 @@
                 </li>
 
                 <li class="item">
-                    @Html.Raw(Html.ActionLink("ServiceLink", "GetService", "Institution", new { area = "" }, new { @class = "nav-link" }).ToString().Replace("ServiceLink", "<span class='bx bxs-cog icon'></span> Service"))
+                    @Html.Raw(Html.ActionLink("ServiceLink", "Create", "Product", new { area = "" }, new { @class = "nav-link" }).ToString().Replace("ServiceLink", "<span class='bx bxs-cog icon'></span> Service"))
                 </li>
-
                 <li class="item">
-                    @Html.Raw(Html.ActionLink("ContactLink", "Contact", "Home", new { area = "" }, new { @class = "nav-link" }).ToString().Replace("ContactLink", "<span class='bx bxs-cog icon'></span> Contact"))
+                    @Html.Raw(Html.ActionLink("TicketLink", "Create", "Ticket", new { area = "" }, new { @class = "nav-link" }).ToString().Replace("TicketLink", "<span class='bx bxs-cog icon'></span> Ticket"))
                 </li>
-                @*<li class="item">
-            <a href="#">Services</a>
-        </li>*@
-                @*<li class="item">
-                    <a href="#">Contact Us</a>
-                </li>*@
+                <li class="item">
+                    @Html.Raw(Html.ActionLink("ContactLink", "Contact", "Home", new { area = "" }, new { @class = "nav-link" }).ToString().Replace("ContactLink", "<span class='bx bxs-cog icon'></span> Contact Us"))
+                </li>
 
+                @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <li class="item">
+                        <a class="nav-link bx bxs-cog icon" href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
+                    </li>
+                }
             </ul>
         </div>
     </nav>
     <nav class="navbar" style="position:relative">
         <i class="fa-solid fa-bars" id="sidebar-close"></i>
+        @if (Request.IsAuthenticated)
+        {
+            @Html.ActionLink(User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", @class = "nav-link" })
+        }
+
+
+        @*@{
+            Html.RenderPartial("_LoginPartial");
+               }*@
     </nav>
     <div class="main">
 

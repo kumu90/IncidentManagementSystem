@@ -16,15 +16,9 @@ namespace IncidentManagementSystem
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "Account", action = "Login", id = UrlParameter.Optional }
             );
 
-            // Custom route 
-            routes.MapRoute(
-                name: "InstitutionService",
-                url: "Institution/GetService/{InstId}",
-                defaults: new { controller = "Institution", action = "GetService" }
-            );
         }
     }
 }

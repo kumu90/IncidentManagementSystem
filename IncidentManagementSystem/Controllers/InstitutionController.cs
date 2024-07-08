@@ -4,6 +4,8 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI.WebControls;
+using IncidentManagementSystem.DataAccess;
 using IncidentManagementSystem.Model;
 using IncidentManagementSystem.Service;
 using Microsoft.AspNet.Identity;
@@ -12,26 +14,55 @@ namespace IncidentManagementSystem.Controllers
 {
     public class InstitutionController : Controller
     {
-        readonly IInstitutionService _iInstitutionNameService;
-        readonly IServiceInstutionService _serviceInstutionService;
+        readonly IInstitutionService _iInstitutionService;
+        readonly IProductService _iproductService;
         public InstitutionController()
         {
         }
-        public InstitutionController(IInstitutionService iInstitutionNameService, IServiceInstutionService serviceInstutionService)
+
+        public InstitutionController(IInstitutionService iInstitutionNameService, IProductService iproductService)
         {
-            _iInstitutionNameService = iInstitutionNameService;
-            _serviceInstutionService = serviceInstutionService;
+            _iInstitutionService = iInstitutionNameService;
+            _iproductService = iproductService;
         }
 
-        //public void initialize()
-        //{
-        //    var InsId = _iGetInstNameService.GetInstName();
-        //    ViewBag.InsName = new SelectList(InsId, "InstId", "InstitutionName");
-        //}
+
+        public void Init()
+        {
+            var institution = _iInstitutionService.GetInstName();
+            ViewBag.Institution = new SelectList(institution, "InstId", "InstitutionName");
+
+            var services = _iproductService.GetServices();
+            ViewBag.services = new SelectList(services, "ServiceId", "serviceName");
+        }
+
+
+        public JsonResult InstService(string InstId)
+        {
+            var servId = _iproductService.GetServices(InstId);
+            return Json(servId, JsonRequestBehavior.AllowGet);
+        }
+       
+        public ActionResult Index(string search)
+        {
+            var clt = _iInstitutionService.InstitutionList(search);
+            return View(clt);
+        }
+
+        public ActionResult Search(string search)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = _iInstitutionService.InstitutionList(search);
+                return PartialView("search", result);
+            }
+            return View();
+        }
 
         [HttpGet]
         public ActionResult InstitutionRegister()
         {
+            Init();
             ViewBag.TaskStatus = TempData["TaskStatus"];
             ViewBag.TaskMessage = TempData["TaskMessage"];
             return View();
@@ -44,7 +75,7 @@ namespace IncidentManagementSystem.Controllers
             instNameDto.CreatedBy = User.Identity.GetUserId();
             if (ModelState.IsValid)
             {
-                SQLStatusDto sQLStatus = new SQLStatusDto();
+                //SQLStatusDto sQLStatus = new SQLStatusDto();
                 if (image != null && image.ContentLength > 0)
                 {
                     string imagePath = UploadImg(image);
@@ -59,7 +90,7 @@ namespace IncidentManagementSystem.Controllers
                 }
 
                 ////instNameDto.ImageUrl = "";
-                sQLStatus = _iInstitutionNameService.InstNameRegister(instNameDto);
+                SQLStatusDto sQLStatus = _iInstitutionService.InstitutionCreate(instNameDto);
 
 
                 if (sQLStatus.Status == "00")
@@ -80,7 +111,8 @@ namespace IncidentManagementSystem.Controllers
             }
             ViewBag.TaskStatus = TempData["TaskStatus"];
             ViewBag.TaskMessage = TempData["TaskMessage"];
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Dashboard", "Home");
+            //return View();
         }
 
 
@@ -102,7 +134,7 @@ namespace IncidentManagementSystem.Controllers
             }
 
             string randomFileName = $"{Guid.NewGuid()}{extension}";
-            string uploadsDir = Server.MapPath("~/Uploads");
+            string uploadsDir = Server.MapPath("D:/Projects2024/IncidentManagementSystemProject/Uploads");
 
             // Ensure the uploads directory exists
             if (!Directory.Exists(uploadsDir))
@@ -120,56 +152,12 @@ namespace IncidentManagementSystem.Controllers
             }
             catch (Exception ex)
             {
-                // Handle the exception, log it if necessary
-                return "99";
-            }
-        }
-
-        [HttpGet]
-        public ActionResult GetService(string InstId)
-        {
-            var model = new ServiceDto
-            { Institution = InstId };
-            ViewBag.TaskStatus = TempData["TaskStatus"];
-            ViewBag.TaskMessage = TempData["TaskMessage"];
-
-            return View(model);
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult GetService(ServiceDto service)
-        {
-            SQLStatusDto sQLStatus = _serviceInstutionService.AddService(service);
-
-            if (sQLStatus.Status == "00")
-            {
-                TempData["TaskStatus"] = sQLStatus.Status;
-                TempData["TaskMessage"] = sQLStatus.Message;
-
+                Console.WriteLine(ex.Message);
 
             }
-            else
-            {
-
-                TempData["TaskStatus"] = sQLStatus.Status;
-                TempData["TaskMessage"] = sQLStatus.Message;
-                ModelState.AddModelError("", "An institution with the same name already exists in the system");
-
-            }
-            ViewBag.TaskStatus = TempData["TaskStatus"];
-            ViewBag.TaskMessage = TempData["TaskMessage"];
-            return RedirectToAction("Index", "Home");
-
+            return "99";
         }
 
-        [HttpGet]
-        public ActionResult Ticket()
-        {
-            return View();
-        }
-
-
-
+        
     }
 }

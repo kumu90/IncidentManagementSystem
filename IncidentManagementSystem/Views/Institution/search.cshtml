@@ -1,0 +1,63 @@
+﻿
+@model IEnumerable<IncidentManagementSystem.Model.InstNameDto>
+@{
+    int sno = 0; // Initialize serial number
+}
+@if (Model != null && Model.Any())
+{
+    <div class="panel panel-default overflow-auto">
+        <table class="table table-striped">
+            <thead class="whitespace-nowrap">
+                <tr>
+                    <th>S No.</th>
+                    <th>InstId</th>
+                    <th>InstitutionName</th>
+                    <th>Country</th>
+                    <th>State</th>
+                    <th>Address</th>
+                    <th>ZipCode</th>
+                    <th>ContactPersonAdmin</th>
+                    <th>ContactPersonTechnical</th>
+                    <th>ContactNumber</th>
+                    <th>Email</th>
+                    <th>CreatedBy</th>
+                    <th>CreatedDate</th>
+                    <th>Flag</th>
+                </tr>
+            </thead>
+            <tbody class="whitespace-nowrap">
+                @foreach (var item in Model)
+                {
+                    sno++;
+                    <tr>
+                        <td>@sno</td>
+                        <td>@item.InstId</td>
+                        <td>@item.InstitutionName</td>
+                        <td>@item.Country</td>
+                        <td>@item.State</td>
+                        <td>@item.Address</td>
+                        <td>@item.ZipCode</td>
+                        <td>@item.ContactPersonAdmin</td>
+                        <td>@item.ContactPersonTechnical</td>
+                        <td>@item.ContactNumber</td>
+                        <td>@item.Email</td>
+                        <td>@item.CreatedBy</td>
+                        <td>@item.CreatedDate</td>
+                        <td>@item.Flag</td>
+                        <td>
+                            @Html.ActionLink("Add", "Create", "Product", new { id = item.Id }, null)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+        @*}
+        else
+        {
+        <p>No data available.</p>*@
+       
+        @Scripts.Render("~/bundles/bootstrap")
+
+    </div>
+}

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,20 +11,13 @@ namespace IncidentManagementSystem.Model
 {
     public class ServiceDto
     {
-        [DisplayName ("Service Name")]
+        [DisplayName("Services")]
+        public int ServiceId { get; set; }
+                
         public string ServiceName { get; set; }
-        public string Institution { get; set; }
+        public bool Flag { get; set; }
+        public string InstId { get; set; }
+        public TicketDto ticket { get; set; }
     }
-
-    public class TicketDto
-    {
-        public string InstitutionName { get; set; }
-        public string ServiceName { get; set; }
-        public string Email { get; set; }
-
-        [DisplayName("Contact No.")]
-        public string ContectNo { get; set; }
-        [DisplayName("Upload Supporting Image")]
-        public string Image { get; set; }
-    }
+  
 }

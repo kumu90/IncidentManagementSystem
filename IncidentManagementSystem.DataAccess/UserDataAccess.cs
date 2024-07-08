@@ -36,10 +36,10 @@ namespace IncidentManagementSystem.DataAccess
                             {
                                 list.Add(new UserInfo()
                                 {
-                                    InstId = sqlDataReader["InstId"].ToString(),
+                                    InstId = sqlDataReader["InstitutionName"].ToString(),
                                     Username = sqlDataReader["Username"].ToString(),                                    
                                     Email = sqlDataReader["Email"].ToString(),
-                                    Roles = sqlDataReader["UserRoleId"].ToString(),
+                                    Roles = sqlDataReader["Name"].ToString(),
                                     
                                 });
                             }
@@ -55,7 +55,7 @@ namespace IncidentManagementSystem.DataAccess
             }
             catch (Exception ex)
              {
-
+                Console.WriteLine(ex.Message);
             }
             return new List<UserInfo>();
         }

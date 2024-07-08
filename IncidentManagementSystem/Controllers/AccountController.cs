@@ -11,6 +11,7 @@ using Microsoft.Owin.Security;
 using IncidentManagementSystem.Models;
 using System.Collections.Generic;
 using IncidentManagementSystem.Service;
+using IncidentManagementSystem.Model;
 
 namespace IncidentManagementSystem.Controllers
 {
@@ -20,12 +21,14 @@ namespace IncidentManagementSystem.Controllers
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
         private readonly IInstitutionService _iInstitutionService;
+        
         //private readonly IGetInstNameService _iGetInstNameService;
 
         // Constructor with Dependency Injection
         public AccountController(IInstitutionService iInstitutionService)
         {
             _iInstitutionService = iInstitutionService;
+            
         }
 
         public AccountController()
@@ -154,10 +157,18 @@ namespace IncidentManagementSystem.Controllers
             var InsId = _iInstitutionService.GetInstName();
             ViewBag.Institution = new SelectList(InsId, "InstId", "InstitutionName");
 
-            var user = _iInstitutionService.RoleList();
-            ViewBag.UserRole = new SelectList(user, "Id", "Name");
+            List<Roles> role = _iInstitutionService.RoleList();
+            ViewBag.UserRole = new SelectList(role, "Name", "Name");
+
+            //var servId = _iserviceInstutionService.GetServiceName();
+            //ViewBag.service = new SelectList(servId, "ServiceId", "serviceName");
         }
 
+        //public JsonResult InstService(string InstId)
+        //{
+        //    var servId = _iserviceInstutionService.GetServiceName(InstId);
+        //    return Json(servId,JsonRequestBehavior.AllowGet);
+        //}
         //
         // GET: /Account/Register
         [AllowAnonymous]
@@ -176,10 +187,11 @@ namespace IncidentManagementSystem.Controllers
          {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.UserName, InstId = model.InsId, UserRoleId = model.UserRole_Id };
+                var user = new ApplicationUser { UserName = model.UserName, InstId = model.InsId};
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    await this.UserManager.AddToRoleAsync(user.Id, model.UserRole_Id);
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
@@ -192,7 +204,7 @@ namespace IncidentManagementSystem.Controllers
                 }
                 AddErrors(result);
             }
-
+            Initialize();
             // If we got this far, something failed, redisplay form
             return View(model);
         }
@@ -417,7 +429,7 @@ namespace IncidentManagementSystem.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Login", "Account");
         }
 
         //

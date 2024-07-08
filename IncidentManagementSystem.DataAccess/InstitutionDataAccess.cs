@@ -12,13 +12,13 @@ namespace IncidentManagementSystem.DataAccess
 {
     public class InstitutionDataAccess : IInstitutionDataAccess
     {
-        public SQLStatusDto InstNameRegister(InstNameDto _instNameDto)
+        public SQLStatusDto InstitutionCreate(InstNameDto _instNameDto)
         {
+            //var serviceList = string.Join(",", _instNameDto.ServiceId);
             SQLStatusDto _SQLStatus = new SQLStatusDto();
             try
             {
                 string conStr = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
-                /*ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;*/
                 using (SqlConnection conn = new SqlConnection(conStr))
                 {
                     using (SqlCommand cmd = new SqlCommand(conStr, conn))
@@ -40,15 +40,14 @@ namespace IncidentManagementSystem.DataAccess
                         cmd.Parameters.AddWithValue("@email", _instNameDto.Email);
                         cmd.Parameters.AddWithValue("@imageUrl", _instNameDto.ImageUrl);
                         cmd.Parameters.AddWithValue("@userId", _instNameDto.CreatedBy ?? "");
-                        
+                        cmd.Parameters.AddWithValue("@serviceIds", _instNameDto.ServiceIdList??"");
+
 
                         conn.Open();
-                        //status = cmd.ExecuteScalar().ToString();
-                        //conn.Close();
                         using (var rdr = cmd.ExecuteReader())
                         {
                             while (rdr.Read())
-                            {
+                            {                                
                                 _SQLStatus.Status = rdr["Status"].ToString();
                                 _SQLStatus.Message = rdr["Message"].ToString();
                             }
@@ -61,12 +60,12 @@ namespace IncidentManagementSystem.DataAccess
             }
             catch (Exception ex)
             {
-
+                Console.WriteLine(ex.Message);
             }
             return _SQLStatus;
         }
 
-        public List<InstNameDto> InstDetail(string search)
+        public List<InstNameDto> InstitutionList(string search)
         {
             List<InstNameDto> list = new List<InstNameDto>();
             try
@@ -116,7 +115,7 @@ namespace IncidentManagementSystem.DataAccess
             }
             catch (Exception ex)
             {
-
+                Console.WriteLine(ex.Message);
             }
             return new List<InstNameDto>();
         }
@@ -160,7 +159,7 @@ namespace IncidentManagementSystem.DataAccess
             }
             catch (Exception ex)
             {
-
+                Console.WriteLine(ex.Message);
             }
             return new List<InstNameDto>();
         }
@@ -205,7 +204,7 @@ namespace IncidentManagementSystem.DataAccess
             }
             catch (Exception ex)
             {
-
+                Console.WriteLine(ex.Message);
             }
             return new List<Roles>();
         }
@@ -213,8 +212,8 @@ namespace IncidentManagementSystem.DataAccess
     }
     public interface IInstitutionDataAccess
     {
-        SQLStatusDto InstNameRegister(InstNameDto _instNameDto);
-        List<InstNameDto> InstDetail(string search);
+        SQLStatusDto InstitutionCreate(InstNameDto _instNameDto);
+        List<InstNameDto> InstitutionList(string search);
         List<InstNameDto> GetInstName();
         List<Roles> RoleList();
     }

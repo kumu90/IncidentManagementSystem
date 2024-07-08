@@ -44,10 +44,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="InstNameDto.cs" />
+    <Compile Include="IssueDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SearchByDateDto.cs" />
+    <Compile Include="RegisterServiceDto.cs" />
+    <Compile Include="Roles.cs" />
     <Compile Include="ServiceDto.cs" />
     <Compile Include="SQLStatusDto.cs" />
+    <Compile Include="TicketDto.cs" />
     <Compile Include="UserDto.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
