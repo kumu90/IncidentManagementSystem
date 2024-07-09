@@ -308,7 +308,7 @@ body {
     height: 50px;
     margin-top: 10px;
     list-style: none;
-    display: flex;
+   /* display: flex;*/
     align-items: center;
 }
 
@@ -322,11 +322,34 @@ body {
         margin-right: 5px;
         font-family: outfit;
     }
+#sidebar li {
+    height: 50px;
+    margin-top: 10px;
+    list-style: none;
+    /* display: flex;*/
+    align-items: center;
+}
+
+    #sidebar li .icon {
+        color: var(--text-color);
+        display: flex;
+        align-items: center;
+        /* justify-content: center;*/
+
+        font-size: 20px;
+        margin-right: 5px;
+        font-family: outfit;
+    }
 
 
 
-.submenu-active .menu-items {
+/*.submenu-active .menu-items {
     transform: translateX(-56%);
+}*/
+
+
+.submenu-active .submenu {
+    display: block;
 }
 
 /*.menu-title {
@@ -353,9 +376,21 @@ body {
 }*/
 
 .item i {
+    color: var(--text-color);
+    display: flex;
+    align-items: center;
+    /* justify-content: center;*/
+
+    font-size: 20px;
+    margin-right: 5px;
     font-family: outfit;
-    font-size: 12px;
+    font-size: 20px;
 }
+
+/*#logoutForm {
+    font-family: outfit;
+}*/
+
 
 .item a:hover, .sidebar li a:hover .icon
 /*,
@@ -389,6 +424,55 @@ body {
 }*/
 
 
+#sidebar:not(.expand) .sidebar-item .sidebar-dropdown {
+    position: absolute;
+    top: 0;
+    left: 70px;
+    background-color: #0e2238;
+    padding: 0;
+    min-width: 15rem;
+    display: none;
+}
+
+
+#sidebar:not(.expand) .sidebar-item:hover .has-dropdown + .sidebar-dropdown {
+    display: block;
+    max-height: 15em;
+    width: 100%;
+    opacity: 1;
+}
+
+#sidebar.expand .sidebar-link[data-bs-toggle="collapse"]::after {
+    border: solid;
+    border-width: 0 .075rem .075rem 0;
+    content: "";
+    display: inline-block;
+    padding: 2px;
+    position: absolute;
+    right: 1.5rem;
+    top: 1.4rem;
+    transform: rotate(-135deg);
+    transition: all .2s ease-out;
+}
+
+#sidebar.expand .sidebar-link[data-bs-toggle="collapse"].collapsed::after {
+    transform: rotate(45deg);
+    transition: all .2s ease-out;
+}
+
+
+
+.sidebar-footer {
+    position: fixed;
+    font-family: outfit;
+   /* padding: 16px;*/
+    display: inline-block;
+    width: 100%;
+    border-radius: 12px;
+    display: flex;
+    bottom: 20px;
+   /* left: 20px;*/
+}
 
 .navbar,
 .main {

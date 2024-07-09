@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
 
+    <!-- ============= bootstrap =======================       -->
     <!--==== Boxicons CSS ====-->
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
@@ -20,45 +21,93 @@
 
 
         <div class="menu-content">
-            <ul class="menu-items" style="padding-left:0rem !important;">
-                @*<div class="menu-title">Your menu title</div>*@
-                @*<li class="item">
-                        <a href="Dashboad/Home">
-                            <i class='bx bxs-dashboard  icon'></i>
-                            <span class="text nav-text">Dashboard</span>
-                        </a>
-                    </li>*@
+            <div class="menu-items" style="padding-left:0rem !important;">
+             
 
                 <li class="item">
                     @Html.Raw(Html.ActionLink("Dashboad", "Dashboard", "Home", new { area = "" }, new { @class = "nav-link" }).ToString().Replace("Dashboad", "<span class='bx bxs-dashboard icon'></span> Dashboard"))
                 </li>
-
-                <li class="item">
-                    @Html.Raw(Html.ActionLink("User Register", "Register", "Account", new { area = "" }, new { @class = "nav-link" }).ToString().Replace("User Register", "<span class='bx bxs-user icon'></span> User Register"))
-                </li>
-
-                <li class="item">
-                    @Html.Raw(Html.ActionLink("Institution Register", "InstitutionRegister", "Institution", new { area = "" }, new { @class = "nav-link" }).ToString().Replace("Institution Register", "<span class='bx bxs-building-house icon'></span> Institution Register"))
-                </li>
-
                 <li class="item">
                     @Html.Raw(Html.ActionLink("ServiceLink", "Create", "Product", new { area = "" }, new { @class = "nav-link" }).ToString().Replace("ServiceLink", "<span class='bx bxs-cog icon'></span> Service"))
                 </li>
+
+                @*<li class="item">
+                        @Html.Raw(Html.ActionLink("User Register", "Register", "Account", new { area = "" }, new { @class = "nav-link" }).ToString().Replace("User Register", "<span class='bx bxs-user icon'></span> User Register"))
+                    </li>
+
+                    <li class="item">
+                        @Html.Raw(Html.ActionLink("Institution Register", "InstitutionRegister", "Institution", new { area = "" }, new { @class = "nav-link" }).ToString().Replace("Institution Register", "<span class='bx bxs-building-house icon'></span> Institution Register"))
+                    </li>*@
+
+
+                @*<li class="item">
+                        @Html.Raw(Html.ActionLink("TicketLink", "Create", "Ticket", new { area = "" }, new { @class = "nav-link" }).ToString().Replace("TicketLink", "<span class='bx bxs-cog icon'></span> Ticket"))
+                    </li>*@
+                @*<li class="item">
+                        @Html.Raw(Html.ActionLink("ContactLink", "Contact", "Home", new { area = "" }, new { @class = "nav-link" }).ToString().Replace("ContactLink", "<span class='bx bxs-cog icon'></span> Contact Us"))
+                    </li>*@
+
+
+
+                <div class="item" id="sidebar">
+                    <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse" data-bs-target="#auth" aria-expanded="false" aria-controls="auth">
+                        <i class="bx bxs-user icon"></i>
+                        <span>Register</span>
+                        <i class='bx bx-chevron-down' style="position:relative; margin-left:135px; font-size:25px;"></i>
+                    </a>
+                    <div id="auth" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+
+                        <li class="item">
+                            @Html.Raw(Html.ActionLink("User Register", "Register", "Account", new { area = "" }, new { @class = "nav-link" }).ToString().Replace("User Register", "<span class='bx bxs-user icon'></span> User Register"))
+                        </li>
+
+                        <li class="item">
+                            @Html.Raw(Html.ActionLink("Institution Register", "InstitutionRegister", "Institution", new { area = "" }, new { @class = "nav-link" }).ToString().Replace("Institution Register", "<span class='bx bxs-building-house icon'></span> Institution Register"))
+                        </li>
+                    </div>
+                </div>
+
+
                 <li class="item">
-                    @Html.Raw(Html.ActionLink("TicketLink", "Create", "Ticket", new { area = "" }, new { @class = "nav-link" }).ToString().Replace("TicketLink", "<span class='bx bxs-cog icon'></span> Ticket"))
-                </li>
-                <li class="item">
-                    @Html.Raw(Html.ActionLink("ContactLink", "Contact", "Home", new { area = "" }, new { @class = "nav-link" }).ToString().Replace("ContactLink", "<span class='bx bxs-cog icon'></span> Contact Us"))
+                    <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse" data-bs-target="#multi" aria-expanded="false" aria-controls="multi">
+                        <i class="bx bxs-plus-circle icon"></i>
+                        <span>Ticket</span>
+                        <i class='bx bx-chevron-down' style="position:relative; margin-left:150px; font-size:25px;"></i>
+                    </a>
+                    <ul id="multi" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+
+                        <li class="item">
+                            @Html.Raw(Html.ActionLink("TicketLink", "Create", "Ticket", new { area = "" }, new { @class = "nav-link" }).ToString().Replace("TicketLink", "<span class='bx bxs-cog icon'></span> Ticket"))
+                        </li>
+
+                        <li class="item">
+                            @Html.Raw(Html.ActionLink("TicketIndexLink", "Index", "Ticket", new { area = "" }, new { @class = "nav-link" }).ToString().Replace("TicketIndexLink", "<span class='bx bxs-cog icon'></span> Search"))
+                        </li>
+                    </ul>
                 </li>
 
+            </div>
+
+            <div class="sidebar-footer">
                 @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
                 {
                     @Html.AntiForgeryToken()
-                    <li class="item">
-                        <a class="nav-link bx bxs-cog icon" href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
-                    </li>
+                    <ul class="menu-items" style="padding-left:0rem !important;">
+                        <li class="item">
+                            <a class="nav-link bx bxs-cog icon" href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
+                        </li>
+                    </ul>
                 }
-            </ul>
+            </div>
+
+            @*<div class="sidebar-footer">
+                    <ul class="menu-items" style="padding-left:0rem !important;">
+                        <li class="item">
+                            @Html.Raw(Html.ActionLink("LogoffLink", "LogOff", "Account", new { @class = "nav-link ", onclick = "javascript:document.getElementById('logoutForm').submit(); return false;" }).ToString().Replace("LogoffLink", "<span class='bx bxs-cog icon'></span> Log off"))
+                        </li>
+                    </ul>
+                </div>*@
+
         </div>
     </nav>
     <nav class="navbar" style="position:relative">
@@ -67,11 +116,6 @@
         {
             @Html.ActionLink(User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", @class = "nav-link" })
         }
-
-
-        @*@{
-            Html.RenderPartial("_LoginPartial");
-               }*@
     </nav>
     <div class="main">
 
