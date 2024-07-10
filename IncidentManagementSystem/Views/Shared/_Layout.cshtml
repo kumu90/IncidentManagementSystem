@@ -10,8 +10,6 @@
     <link href="~/Content/login-style.css" rel="stylesheet" />
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
-
-    <!-- ============= bootstrap =======================       -->
     <!--==== Boxicons CSS ====-->
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
@@ -91,8 +89,6 @@
                 <li class="item">
                     @Html.Raw(Html.ActionLink("ServiceLink", "Create", "Product", new { area = "" }, new { @class = "nav-link" }).ToString().Replace("ServiceLink", "<span class='bx bxs-cog icon'></span> Service"))
                 </li>
-
-
             </div>
             <footer class="sidebar-footer">
                 @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "sidebar-footer" }))
@@ -103,23 +99,13 @@
                             <li class="item">
                                 <a class="nav-link" href="javascript:document.getElementById('logoutForm').submit()">
                                     <i class="bx bxs-log-out icon"></i>
-                                    <span @*style="font-size:20px;"*@>Logout</span>
+                                    <span>Logout</span>
                                 </a>
                             </li>
                         </ul>
                     </div>
                 }
             </footer>
-
-            <!--<footer class="sidebar-footer">
-            <ul class="menu-items" style="padding-left:0rem !important;">
-                <li class="item">
-                    <button>LogOff</button>-->
-            @*@Html.Raw(Html.ActionLink("LogoffLink", "LogOff", "Account", new { area = "" }, new { @class = "nav-link ", onclick = "javascript:document.getElementById('logoutForm').submit(); return false;" }).ToString().Replace("LogoffLink", "<span class='bx bxs-cog icon'></span> Log off"))*@
-            <!--</li>
-                </ul>
-            </footer>-->
-
         </div>
     </nav>
     <nav class="navbar" style="position:relative">
