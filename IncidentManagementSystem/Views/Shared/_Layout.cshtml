@@ -22,9 +22,9 @@
             <div class="menu-items" style="padding-left:0rem !important;">
 
 
-                <li class="item">
+                <div class="item">
                     @Html.Raw(Html.ActionLink("Dashboad", "Dashboard", "Home", new { area = "" }, new { @class = "nav-link" }).ToString().Replace("Dashboad", "<span class='bx bxs-dashboard icon'></span> Dashboard"))
-                </li>
+                </div>
 
                 <div class="item">
                     <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse" data-bs-target="#Detail" aria-expanded="false" aria-controls="Detail">
@@ -86,9 +86,9 @@
                     </div>
                 </div>
 
-                <li class="item">
+                <div class="item">
                     @Html.Raw(Html.ActionLink("ServiceLink", "Create", "Product", new { area = "" }, new { @class = "nav-link" }).ToString().Replace("ServiceLink", "<span class='bx bxs-cog icon'></span> Service"))
-                </li>
+                </div>
             </div>
             <footer class="sidebar-footer">
                 @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "sidebar-footer" }))
@@ -127,8 +127,9 @@
             </footer>*@
     </div>
 
-    <script src="~/Content/JavaScript-sidebar.js"></script>
-
+    @*<script src="/Content/JavaScript-sidebar.js"></script>*@
+    @*<script src="~/Content/JavaScript-sidebar.js"></script>*@
+    <script type="text/javascript" src="~/Content/JavaScript-sidebar.js"></script>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
