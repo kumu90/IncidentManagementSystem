@@ -50,6 +50,7 @@
     <Compile Include="Roles.cs" />
     <Compile Include="ServiceDto.cs" />
     <Compile Include="SQLStatusDto.cs" />
+    <Compile Include="TicketAssignDto.cs" />
     <Compile Include="TicketDto.cs" />
     <Compile Include="UserDto.cs" />
   </ItemGroup>
