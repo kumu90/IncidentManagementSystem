@@ -38,7 +38,6 @@
     }
 </style>
 
-
 <div class="row">
 
     <div class="col-md-6 ticket">
@@ -52,8 +51,6 @@
             <dd>
                 @Html.DisplayFor(model => model.TicketId)
             </dd>
-
-
 
             <dt>
                 @Html.DisplayNameFor(model => model.InstId)
@@ -119,29 +116,40 @@
                 @Html.DisplayFor(model => model.status)
             </dd>
 
-            @*<dt>
-            @Html.DisplayNameFor(model => model.ImageUrl)
-        </dt>
 
-        <dd>
-            <a href="#" id="imageAnchor">
+            <dt>
+                @Html.DisplayNameFor(model => model.ImageUrl)
+            </dt>
 
-                @if (!string.IsNullOrEmpty(Model.ImageUrl))
-                {
-                    <img id="preview" src="@Model.ImageUrl" class="card-img-top" alt="Preview" style="width: 280px; height: 180px;" />
-                }
-                else
-                {
+            <dd>
+                <a href="#" id="imageAnchor">
 
-                    <img id="preview" class="card-img-top" alt="Preview" style="width: 280px; height: 180px;" />
-                }
-            </a>
+                    @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                    {
+                        <img id="preview" src="@Model.ImageUrl" class="card-img-top" alt="Preview" style="width: 280px; height: 180px;" />
+                    }
+                    else
+                    {
 
-            @Html.DisplayFor(model => model.ImageUrl)
-        </dd>*@
+                        <img id="preview" class="card-img-top" alt="Preview" style="width: 280px; height: 180px;" />
+                    }
+                </a>
+
+                @Html.DisplayFor(model => model.ImageUrl)
+            </dd>
+
+            <dt>
+                <input type="button" value="Assign" class="btn btn-success btn-width" onclick="assignTicket('@Model.TicketId')"  , null />
+            </dt>
         </dl>
     </div>
 
 </div>
+<script>
+    function assignTicket(ticketId) {
+        var url = '@Url.Action("Assign", "Ticket")?TicketId=' + ticketId;
+        window.location.href = url;
+    }
+</script>
 @Scripts.Render("~/bundles/bootstrap")
 

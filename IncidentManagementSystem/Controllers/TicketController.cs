@@ -31,6 +31,9 @@ namespace IncidentManagementSystem.Controllers
             var institution = _iInstitutionService.GetInstName();
             ViewBag.Institution = new SelectList(institution, "InstId", "InstitutionName");
 
+            List<Roles> role = _iInstitutionService.RoleList();
+            ViewBag.UserRole = new SelectList(role, "Name", "Name");
+
             var services = _iproductService.GetServices();
             ViewBag.services = new SelectList(services, "ServiceId", "serviceName");
 
@@ -112,8 +115,6 @@ namespace IncidentManagementSystem.Controllers
 
         public ActionResult TicketDetail(string TicketId)
         {
-            //var model = new TicketDto
-            //{ TicketId = TicketId };
             var ticketDetail = _iTicketService.GetTicketDetails(TicketId);
             if (ticketDetail == null)
             {
@@ -122,6 +123,48 @@ namespace IncidentManagementSystem.Controllers
             return View(ticketDetail);            
         }
 
-       
+        [HttpGet]
+        public ActionResult Assign(string TicketId)
+        {
+            Init();
+            TicketAssignDto assignDto = _iTicketService.TicketAssign(TicketId);
+            // ViewBag.TaskStatus = TempData["TaskStatus"];
+            // ViewBag.TaskMessage = TempData["TaskMessage"];
+
+            return View();
+        }
+
+        //[HttpPost]
+        //public ActionResult Assign(string TicketId="")
+        //{
+        //    Init();
+        //    try
+        //    {
+        //        TicketAssignDto assignDto = _iTicketService.TicketAssign(TicketId);
+
+        //        //if (sQLStatus.Status == "00")
+        //        //{
+        //        //    TempData["TaskStatus"] = sQLStatus.Status;
+        //        //    TempData["TaskMessage"] = sQLStatus.Message;
+
+        //        //}
+        //        //else
+        //        //{
+        //        //    TempData["TaskStatus"] = sQLStatus.Status;
+        //        //    TempData["TaskMessage"] = sQLStatus.Message;
+        //        //    ModelState.AddModelError("", "An Ticket with the same name already exists in the system");
+
+        //        //}
+        //        //ViewBag.TaskStatus = TempData["TaskStatus"];
+        //        //ViewBag.TaskMessage = TempData["TaskMessage"];
+        //        return View(assignDto);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Console.WriteLine(ex.Message);
+        //    }
+        //    return View();
+       // }
+
     }
 }

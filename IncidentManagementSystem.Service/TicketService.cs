@@ -33,6 +33,10 @@ namespace IncidentManagementSystem.Service
         {
             return _iTicketDataAccess.GetIssuesList();
         } 
+        public TicketAssignDto TicketAssign(string TicketId)
+        {
+            return _iTicketDataAccess.TicketAssign(TicketId);
+        }
     }
 }
 public interface ITicketService
@@ -42,4 +46,5 @@ public interface ITicketService
 
     TicketDto GetTicketDetails(string TicketId);
     List<IssueDto> GetIssueList(string ServiceId="");
+    TicketAssignDto TicketAssign(string TicketId = "");
 }

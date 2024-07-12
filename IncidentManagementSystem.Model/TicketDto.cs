@@ -14,7 +14,7 @@ namespace IncidentManagementSystem.Model
         public string TicketId { get; set; }
 
         public DateTime date { get; set; }
-        public bool status { get; set; }
+        public string status { get; set; }
 
         [DisplayName("Institution Name")]
         [Required]

@@ -10,14 +10,15 @@ using System.Threading.Tasks;
 
 namespace IncidentManagementSystem.DataAccess
 {
+
     public class TicketDataAccess : ITicketDataAccess
     {
+        private string conStr = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
         public SQLStatusDto TicketCreate(TicketDto _ticketDto)
         {
             SQLStatusDto _sQLStatus = new SQLStatusDto();
             try
             {
-                string conStr = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
                 using (SqlConnection conn = new SqlConnection(conStr))
                 {
                     using (SqlCommand cmd = new SqlCommand(conStr, conn))
@@ -64,7 +65,6 @@ namespace IncidentManagementSystem.DataAccess
             List<TicketDto> Ticketlist = new List<TicketDto>();
             try
             {
-                string conStr = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
                 using (SqlConnection conn = new SqlConnection(conStr))
                 {
                     using (SqlCommand cmd = new SqlCommand(conStr, conn))
@@ -116,7 +116,6 @@ namespace IncidentManagementSystem.DataAccess
             TicketDto Ticketlist = new TicketDto();
             try
             {
-                string conStr = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
                 using (SqlConnection conn = new SqlConnection(conStr))
                 {
                     using (SqlCommand cmd = new SqlCommand(conStr, conn))
@@ -137,7 +136,7 @@ namespace IncidentManagementSystem.DataAccess
                                 {
                                     TicketId = sqlDataReader["TicketId"].ToString(),
                                     date = Convert.ToDateTime(sqlDataReader["Date"].ToString()),
-                                    status = Convert.ToBoolean(sqlDataReader["status"].ToString()),
+                                    status = sqlDataReader["status"].ToString(),
                                     InstId = sqlDataReader["InstitutionName"].ToString(),
                                     ServiceId = sqlDataReader["ServiceName"].ToString(),
                                     IssueId = sqlDataReader["Issue"].ToString(),
@@ -162,15 +161,14 @@ namespace IncidentManagementSystem.DataAccess
             {
                 Console.WriteLine(ex.Message);
             }
-            return null;
+            return Ticketlist;
         }
 
-        public List<IssueDto> GetIssuesList(string ServiceId = "") 
+        public List<IssueDto> GetIssuesList(string ServiceId = "")
         {
             List<IssueDto> Issuelist = new List<IssueDto>();
             try
             {
-                string conStr = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
                 using (SqlConnection conn = new SqlConnection(conStr))
                 {
                     using (SqlCommand cmd = new SqlCommand(conStr, conn))
@@ -208,6 +206,55 @@ namespace IncidentManagementSystem.DataAccess
             }
             return new List<IssueDto>();
         }
+
+        public TicketAssignDto TicketAssign(string TicketId="")
+        {
+            TicketAssignDto ticketAssignDto = new TicketAssignDto();
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(conStr))
+                {
+                    using (SqlCommand cmd = new SqlCommand(conStr, conn))
+                    {
+
+                        cmd.CommandText = "TicketAssign";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = conn;
+                        cmd.Parameters.AddWithValue("@TicketId", TicketId );
+                        cmd.Parameters.AddWithValue("@AssignTo", ticketAssignDto.AssignTo);
+
+
+                        conn.Open();
+
+                        using (var sqlDataReader = cmd.ExecuteReader())
+                        {
+                            if (sqlDataReader.Read())
+                            {
+                                ticketAssignDto = new TicketAssignDto()
+                                {
+                                    TicketId = sqlDataReader["TicketId"].ToString(),
+                                    Date = Convert.ToDateTime(sqlDataReader["Date"].ToString()),
+                                    Status = sqlDataReader["status"].ToString()
+
+
+                                };
+
+
+                            }
+                        }
+
+
+                    }
+                    conn.Close();
+                }                               
+                return ticketAssignDto;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return ticketAssignDto;
+        }
     }
 }
 public interface ITicketDataAccess
@@ -218,4 +265,5 @@ public interface ITicketDataAccess
     TicketDto GetTicketDetails(string TicketId);
 
     List<IssueDto> GetIssuesList(string ServiceId = "");
+    TicketAssignDto TicketAssign(string TicketId="");
 }
