@@ -30,7 +30,7 @@
                     <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse" data-bs-target="#Detail" aria-expanded="false" aria-controls="Detail">
                         <i class="bx bxs-collection icon"></i>
                         <span>Detail</span>
-                        <i class='bx bx-chevron-down' style="position:relative; margin-left:150px; font-size:25px;"></i>
+                        <i class='bx bx-chevron-down' ></i>
                     </a>
                     <div id="Detail" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
 
@@ -50,7 +50,7 @@
                     <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse" data-bs-target="#auth" aria-expanded="false" aria-controls="auth">
                         <i class="bx bxs-user icon"></i>
                         <span>Register</span>
-                        <i class='bx bx-chevron-down' style="position:relative; margin-left:135px; font-size:25px;"></i>
+                        <i class='bx bx-chevron-down' ></i>
                     </a>
                     <div id="auth" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar" @*style=" border: 0.5px solid #000000;*@ @*style=" background: #D1FFBD;*@ ">
                         <ul>
@@ -71,7 +71,7 @@
                     <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse" data-bs-target="#multi" aria-expanded="false" aria-controls="multi">
                         <i class="bx bxs-plus-circle icon"></i>
                         <span>Ticket</span>
-                        <i class='bx bx-chevron-down' style="position:relative; margin-left:150px; font-size:25px;"></i>
+                        <i class='bx bx-chevron-down' ></i>
                     </a>
                     <div id="multi" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                         <ul>
@@ -80,7 +80,7 @@
                             </li>
 
                             <li class="item">
-                                @Html.Raw(Html.ActionLink("TicketIndexLink", "Index", "Ticket", new { area = "" }, new { @class = "nav-link" }).ToString().Replace("TicketIndexLink", "<span class='bx bxs-search icon'></span> Search"))
+                                @Html.Raw(Html.ActionLink("TicketIndexLink", "Index", "Ticket", new { area = "" }, new { @class = "nav-link" }).ToString().Replace("TicketIndexLink", "<span class='bx bx-search icon'></span> Search"))
                             </li>
                         </ul>
                     </div>

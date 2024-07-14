@@ -445,13 +445,17 @@ body {
 }
 
 
-.sidebar-link .collapsed .bx-chevron-down {
-    transform: rotate(-180deg); 
+.sidebar-link.collapsed .bx-chevron-down {
+    position: relative;
+    font-size: 25px;
+    transform: rotate(-180deg);
 }
 
-
-
-.sidebar-footer {
+.sidebar-link .bx-chevron-down {
+    position: relative;
+    font-size: 25px;
+}
+    .sidebar-footer {
     position: fixed;
     font-family: outfit;
     /* padding: 16px;*/
