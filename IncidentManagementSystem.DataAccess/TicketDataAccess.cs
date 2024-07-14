@@ -219,10 +219,8 @@ namespace IncidentManagementSystem.DataAccess
 
                         cmd.CommandText = "TicketAssign";
                         cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@TicketId", TicketId));
                         cmd.Connection = conn;
-                        cmd.Parameters.AddWithValue("@TicketId", TicketId );
-                        cmd.Parameters.AddWithValue("@AssignTo", ticketAssignDto.AssignTo);
-
 
                         conn.Open();
 
@@ -234,19 +232,18 @@ namespace IncidentManagementSystem.DataAccess
                                 {
                                     TicketId = sqlDataReader["TicketId"].ToString(),
                                     Date = Convert.ToDateTime(sqlDataReader["Date"].ToString()),
-                                    Status = sqlDataReader["status"].ToString()
-
+                                    Status = sqlDataReader["status"].ToString(),
+                                    IssueId= sqlDataReader["IssueId"].ToString()
+                                    
 
                                 };
 
 
                             }
                         }
-
-
                     }
-                    conn.Close();
-                }                               
+
+                }
                 return ticketAssignDto;
             }
             catch (Exception ex)
