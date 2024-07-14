@@ -52,7 +52,7 @@
                         <span>Register</span>
                         <i class='bx bx-chevron-down' ></i>
                     </a>
-                    <div id="auth" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar" @*style=" border: 0.5px solid #000000;*@ @*style=" background: #D1FFBD;*@ ">
+                    <div id="auth" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar" @*style=" border: 0.5px solid #000000;style=" background: #D1FFBD;*@>
                         <ul>
                             <li class="item">
                                 @Html.Raw(Html.ActionLink("User Register", "Register", "Account", new { area = "" }, new { @class = "nav-link" }).ToString().Replace("User Register", "<span class=' bx bxs-user-plus icon'></span> User Register"))

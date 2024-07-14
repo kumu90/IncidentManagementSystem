@@ -128,43 +128,43 @@ namespace IncidentManagementSystem.Controllers
         {
             Init();
             var result = _iTicketService.TicketAssign(TicketId);
-            // ViewBag.TaskStatus = TempData["TaskStatus"];
-            // ViewBag.TaskMessage = TempData["TaskMessage"];
+            ViewBag.TaskStatus = TempData["TaskStatus"];
+            ViewBag.TaskMessage = TempData["TaskMessage"];
 
             return View(result);
         }
 
-        //[HttpPost]
-        //public ActionResult Assign(string TicketId="")
-        //{
-        //    Init();
-        //    try
-        //    {
-        //        TicketAssignDto assignDto = _iTicketService.TicketAssign(TicketId);
+        [HttpPost]
+        public ActionResult Assign(TicketAssignDto ticketAssignDto)
+        {
+            Init();
+            try
+            {
+                SQLStatusDto sQLStatus = _iTicketService.TicketAssignTo(ticketAssignDto);
 
-        //        //if (sQLStatus.Status == "00")
-        //        //{
-        //        //    TempData["TaskStatus"] = sQLStatus.Status;
-        //        //    TempData["TaskMessage"] = sQLStatus.Message;
+                if (sQLStatus.Status == "00")
+                {
+                    TempData["TaskStatus"] = sQLStatus.Status;
+                    TempData["TaskMessage"] = sQLStatus.Message;
 
-        //        //}
-        //        //else
-        //        //{
-        //        //    TempData["TaskStatus"] = sQLStatus.Status;
-        //        //    TempData["TaskMessage"] = sQLStatus.Message;
-        //        //    ModelState.AddModelError("", "An Ticket with the same name already exists in the system");
+                }
+                else
+                {
+                    TempData["TaskStatus"] = sQLStatus.Status;
+                    TempData["TaskMessage"] = sQLStatus.Message;
+                    ModelState.AddModelError("", "An Ticket with the same name already AssignTo ");
 
-        //        //}
-        //        //ViewBag.TaskStatus = TempData["TaskStatus"];
-        //        //ViewBag.TaskMessage = TempData["TaskMessage"];
-        //        return View(assignDto);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Console.WriteLine(ex.Message);
-        //    }
-        //    return View();
-       // }
+                }
+                ViewBag.TaskStatus = TempData["TaskStatus"];
+                ViewBag.TaskMessage = TempData["TaskMessage"];
+                return View("Index");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return View();
+        }
 
     }
 }

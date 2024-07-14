@@ -11,7 +11,7 @@ namespace IncidentManagementSystem.Model
         public string Id { get; set; }
         public DateTime Date { get; set; }
         public string IssueId { get; set; }
-        public string Status { get; set; }
+        public string ServiceId { get; set; }
         public string AssignTo { get; set; }
         public string TicketId { get; set; }
     }
