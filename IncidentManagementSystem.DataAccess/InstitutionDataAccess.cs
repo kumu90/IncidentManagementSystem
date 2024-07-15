@@ -46,7 +46,7 @@ namespace IncidentManagementSystem.DataAccess
                         conn.Open();
                         using (var rdr = cmd.ExecuteReader())
                         {
-                            while (rdr.Read())
+                            rdr.Read();
                             {                                
                                 _SQLStatus.Status = rdr["Status"].ToString();
                                 _SQLStatus.Message = rdr["Message"].ToString();
