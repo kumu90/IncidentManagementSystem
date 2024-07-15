@@ -26,8 +26,7 @@ namespace IncidentManagementSystem.DataAccess
 
                         cmd.CommandText = @"InstitutionTicketCreate";
                         cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Connection = conn;
-                        cmd.Parameters.AddWithValue("@TicketId", _ticketDto.TicketId);
+                        cmd.Connection = conn;                       
                         cmd.Parameters.AddWithValue("@ServiceId", _ticketDto.ServiceId);
                         cmd.Parameters.AddWithValue("@IssueId", _ticketDto.IssueId);
                         cmd.Parameters.AddWithValue("@InstId", _ticketDto.InstId);
@@ -41,7 +40,7 @@ namespace IncidentManagementSystem.DataAccess
                         //conn.Close();
                         using (var rdr = cmd.ExecuteReader())
                         {
-                            while (rdr.Read())
+                            rdr.Read();
                             {
                                 _sQLStatus.Status = rdr["Status"].ToString();
                                 _sQLStatus.Message = rdr["Message"].ToString();
@@ -85,7 +84,7 @@ namespace IncidentManagementSystem.DataAccess
                                 {
                                     TicketId = sqlDataReader["TicketId"].ToString(),
                                     //Description = sqlDataReader["Description"].ToString(),
-                                    //status = Convert.ToBoolean(sqlDataReader["InstId"].ToString()),
+                                    status = sqlDataReader["Status"].ToString(),
                                     InstId = sqlDataReader["InstitutionName"].ToString(),
                                     ServiceId = sqlDataReader["ServiceName"].ToString(),
                                     IssueId = sqlDataReader["Issue"].ToString(),

@@ -103,13 +103,12 @@ namespace IncidentManagementSystem.Controllers
                 }
                 ViewBag.TaskStatus = TempData["TaskStatus"];
                 ViewBag.TaskMessage = TempData["TaskMessage"];
-                return View();
+                return View("Index");
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
-            //return RedirectToAction("TicketDetail");
             return View();
         }
 
