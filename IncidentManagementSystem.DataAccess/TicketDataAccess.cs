@@ -262,26 +262,22 @@ namespace IncidentManagementSystem.DataAccess
                     using (SqlCommand cmd = new SqlCommand(conStr, conn))
                     {
 
-                        cmd.CommandText = "TicketAssignTo";
+                        cmd.CommandText = "InstitutionTicketAssignUpdate";
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Connection = conn;
                         cmd.Parameters.AddWithValue("@TicketId", AssignDto.TicketId);
                         cmd.Parameters.AddWithValue("@AssignTo", AssignDto.AssignTo);
                     
 
-                        conn.Open();
-                        //cmd.ExecuteNonQuery();
-                        //conn.Close();
+                        conn.Open();                        
                         using (var rdr = cmd.ExecuteReader())
                         {
-                            while (rdr.Read())
+                            rdr.Read();
                             {
                                 _sQLStatus.Status = rdr["Status"].ToString();
                                 _sQLStatus.Message = rdr["Message"].ToString();
                             }
                         }
-
-
                     }
                 }
 

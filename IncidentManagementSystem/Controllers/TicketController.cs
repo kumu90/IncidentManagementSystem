@@ -32,7 +32,7 @@ namespace IncidentManagementSystem.Controllers
             ViewBag.Institution = new SelectList(institution, "InstId", "InstitutionName");
 
             List<Roles> role = _iInstitutionService.RoleList();
-            ViewBag.UserRole = new SelectList(role, "Name", "Name");
+            ViewBag.UserRole = new SelectList(role, "Id", "Name");
 
             var services = _iproductService.GetServices();
             ViewBag.services = new SelectList(services, "ServiceId", "serviceName");
