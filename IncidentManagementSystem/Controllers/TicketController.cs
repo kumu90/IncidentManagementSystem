@@ -70,8 +70,6 @@ namespace IncidentManagementSystem.Controllers
         [HttpGet]
         public ActionResult Create()
         {
-            //var model = new ServiceDto
-            //{ InstId = InstId };
             Init();
             ViewBag.TaskStatus = TempData["TaskStatus"];
             ViewBag.TaskMessage = TempData["TaskMessage"];
@@ -88,22 +86,7 @@ namespace IncidentManagementSystem.Controllers
             {
                 SQLStatusDto sQLStatus = _iTicketService.TicketCreate(ticketDto);
 
-                if (sQLStatus.Status == "00")
-                {
-                    TempData["TaskStatus"] = sQLStatus.Status;
-                    TempData["TaskMessage"] = sQLStatus.Message;
-
-                }
-                else
-                {
-                    TempData["TaskStatus"] = sQLStatus.Status;
-                    TempData["TaskMessage"] = sQLStatus.Message;
-                    ModelState.AddModelError("", "An Ticket with the same name already exists in the system");
-
-                }
-                ViewBag.TaskStatus = TempData["TaskStatus"];
-                ViewBag.TaskMessage = TempData["TaskMessage"];
-                return View("Index");
+                return View();
             }
             catch (Exception ex)
             {

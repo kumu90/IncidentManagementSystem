@@ -181,7 +181,7 @@ namespace IncidentManagementSystem.DataAccess
 
                         using (var sqlDataReader = cmd.ExecuteReader())
                         {
-                            while (sqlDataReader.Read())
+                            sqlDataReader.Read();
                             {
                                 Issuelist.Add(new IssueDto()
                                 {
