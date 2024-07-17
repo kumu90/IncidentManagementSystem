@@ -2,6 +2,7 @@
 using IncidentManagementSystem.Service;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -73,17 +74,36 @@ namespace IncidentManagementSystem.Controllers
             Init();
             ViewBag.TaskStatus = TempData["TaskStatus"];
             ViewBag.TaskMessage = TempData["TaskMessage"];
+            var previousTickets = _iTicketService.TicketInfo();
 
-            return View();
+            // Create a new instance of TicketDto for the form
+            var ticketDto = new TicketDto();
+
+            // Optionally, you can pass both previous tickets and the new ticketDto to the view
+            ViewBag.PreviousTickets = previousTickets;
+
+            return View(ticketDto);
         }
 
 
         [HttpPost]
-        public ActionResult Create(TicketDto ticketDto)
+        public ActionResult Create(TicketDto ticketDto , HttpPostedFileBase file)
         {
             Init();
             try
             {
+                if (file != null && file.ContentLength > 0)
+                {
+                    byte[] imageData = null;
+
+                    using (var binaryReader = new BinaryReader(file.InputStream))
+                    {
+                        imageData = binaryReader.ReadBytes(file.ContentLength);
+                    }
+
+                    // Set the ImageData property in the ticketDto
+                    ticketDto.ImageData = imageData;
+                }
                 SQLStatusDto sQLStatus = _iTicketService.TicketCreate(ticketDto);
 
                 return View();
