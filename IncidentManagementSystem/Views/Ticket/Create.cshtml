@@ -14,7 +14,7 @@
 
 
     <div class="col ticket">
-        @using (Html.BeginForm("Create", "Ticket", FormMethod.Post, new { role = "form" }))
+        @using (Html.BeginForm("Create", "Ticket", FormMethod.Post, new { role = "form", enctype = "multipart/form-data" }))
         {
             @Html.AntiForgeryToken()
             <div class="row">
@@ -79,20 +79,20 @@
                     <div class="col-md-4 img-upload">
                         <div>
                             <label for="file">Upload Image:</label>
-                            <input type="file" name="file" id="file" />
+                            <input type="file" name="file" id="file" required />
                         </div>
                         @*@Html.LabelFor(m => m.ImageUrl, new { @class = "col-md-12 col-form-label l_ticket" })
-                        <div class="tik-img" style="background-color:lightgray;">
-                            <a href="#" id="imageAnchor">
-                                <img id="preview" src="~/Image/photo-album-regular-24.png" class="card-img-top" alt="Preview" style=" width: 280px; height:180px " />
-                            </a>
-                        </div>
-
-                        <div class="row upload">
-                            <div class="col-lg-12">
-                                <input type="file" name="image" id="imageUpload" accept="image/*" onchange="previewImage(event)" class="form-control" style="width: 105px" />
+                            <div class="tik-img" style="background-color:lightgray;">
+                                <a href="#" id="imageAnchor">
+                                    <img id="preview" src="~/Image/photo-album-regular-24.png" class="card-img-top" alt="Preview" style=" width: 280px; height:180px " />
+                                </a>
                             </div>
-                        </div>*@
+
+                            <div class="row upload">
+                                <div class="col-lg-12">
+                                    <input type="file" name="image" id="imageUpload" accept="image/*" onchange="previewImage(event)" class="form-control" style="width: 105px" />
+                                </div>
+                            </div>*@
                     </div>
                 </div>
                 <div class="row  buttom-ticket">
@@ -112,14 +112,14 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th>Previous Problems</th>                       
+                        <th>Previous Problems</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var prevTicket in ViewBag.PreviousTickets)
                     {
                         <tr>
-                            <td>@prevTicket.Description</td>                            
+                            <td>@prevTicket.Description</td>
                         </tr>
                     }
                 </tbody>

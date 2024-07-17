@@ -7,6 +7,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.UI;
+using System.Web.UI.WebControls;
 
 namespace IncidentManagementSystem.Controllers
 {
@@ -94,19 +95,30 @@ namespace IncidentManagementSystem.Controllers
             {
                 if (file != null && file.ContentLength > 0)
                 {
-                    byte[] imageData = null;
+                    //byte[] imageData = null;
 
-                    using (var binaryReader = new BinaryReader(file.InputStream))
-                    {
-                        imageData = binaryReader.ReadBytes(file.ContentLength);
-                    }
+                    //using (var binaryReader = new BinaryReader(file.InputStream))
+                    //{
+                    //    imageData = binaryReader.ReadBytes(file.ContentLength);
+                    //}
 
                     // Set the ImageData property in the ticketDto
-                    ticketDto.ImageData = imageData;
-                }
-                SQLStatusDto sQLStatus = _iTicketService.TicketCreate(ticketDto);
+                    //ticketDto.ImageData = imageData;
 
-                return View();
+                    ticketDto.ImageUrl = Path.GetFileName(file.FileName);
+                    using (var binaryReader = new BinaryReader(file.InputStream))
+                    {
+                        ticketDto.ImageData = binaryReader.ReadBytes(file.ContentLength);
+                    }
+
+                    SQLStatusDto sQLStatus = _iTicketService.TicketCreate(ticketDto);
+                }
+                else
+                {
+                    ViewBag.Message = "Invalid image file.";
+                }
+
+                return View(ticketDto);
             }
             catch (Exception ex)
             {

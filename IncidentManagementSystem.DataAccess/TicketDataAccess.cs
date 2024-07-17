@@ -34,20 +34,8 @@ namespace IncidentManagementSystem.DataAccess
                         cmd.Parameters.AddWithValue("@CellNumber", _ticketDto.CellNumber);
                         cmd.Parameters.AddWithValue("@Email", _ticketDto.Email);
                         cmd.Parameters.AddWithValue("@ImageUrl", _ticketDto.ImageUrl ?? "");
-                        ////if (!string.IsNullOrEmpty(_ticketDto.ImageUrl))
-                        ////{
-                        ////    cmd.Parameters.AddWithValue("@ImageUrl", _ticketDto.ImageUrl);
-                        ////}
-                        ////else
-                        //if (_ticketDto.ImageData != null && _ticketDto.ImageData.Length > 0)
-                        //{
-                        //    cmd.Parameters.AddWithValue("@ImageData", _ticketDto.ImageData);
-                        //}
-                        //else
-                        //{
-                        //    //cmd.Parameters.AddWithValue("@ImageUrl", DBNull.Value); // or handle null case as needed
-                        //    cmd.Parameters.AddWithValue("@ImageData", DBNull.Value);
-                        //}
+                        cmd.Parameters.AddWithValue("@ImageData", _ticketDto.ImageData);                        
+                        
 
                         conn.Open();
                         using (var rdr = cmd.ExecuteReader())
