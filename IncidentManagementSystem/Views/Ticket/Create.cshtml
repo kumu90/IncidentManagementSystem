@@ -14,7 +14,7 @@
 
 
     <div class="col ticket">
-        @using (Html.BeginForm("Create", "Ticket", FormMethod.Post, new { role = "form" }))
+        @using (Html.BeginForm("Create", "Ticket", FormMethod.Post, new { role = "form", enctype = "multipart/form-data" }))
         {
             @Html.AntiForgeryToken()
             <div class="row">
@@ -86,14 +86,14 @@
 
                         <div class="row upload">
                             <div class="col-lg-12">
-                                <input type="file" name="image" id="imageUpload" accept="image/*" onchange="previewImage('event')" class="form-control" style="width: 105px" />
+                                <input type="file" name="image" id="imageUpload" accept="image/*" onchange="previewImage(event)" class="form-control" style="width: 105px" />
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="row  buttom-ticket">
-                    <div class="col-lg-4">
-                        <input type="submit" value="Submit" class="btn btn-primary btn-lg" />
+                    <div class="col-md-2">
+                        <input type="submit" value="Register" class="btn btn-primary btn-lg" id="submit" />
                     </div>
                 </div>
 
@@ -103,6 +103,7 @@
     </div>
 
 </div>
+
 
 @section scripts{
     <script>
@@ -179,5 +180,7 @@
             reader.readAsDataURL(input.files[0]);
         }
 
+
+        
     </script>
 }
