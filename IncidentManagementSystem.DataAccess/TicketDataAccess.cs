@@ -7,6 +7,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Net.Mime;
 
 namespace IncidentManagementSystem.DataAccess
 {
@@ -26,7 +27,7 @@ namespace IncidentManagementSystem.DataAccess
 
                         cmd.CommandText = @"InstitutionTicketCreate";
                         cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Connection = conn;                       
+                        cmd.Connection = conn;
                         cmd.Parameters.AddWithValue("@ServiceId", _ticketDto.ServiceId);
                         cmd.Parameters.AddWithValue("@IssueId", _ticketDto.IssueId);
                         cmd.Parameters.AddWithValue("@InstId", _ticketDto.InstId);
@@ -36,6 +37,16 @@ namespace IncidentManagementSystem.DataAccess
                         cmd.Parameters.AddWithValue("@ImageUrl", _ticketDto.ImageUrl ?? "");
                         cmd.Parameters.AddWithValue("@ImageData", _ticketDto.ImageData);                        
                         
+
+                       // cmd.Parameters.AddWithValue("@ImageData", _ticketDto.ImageData ?? "");
+                        cmd.Parameters.AddWithValue("@ContentType", _ticketDto.contentType ?? "");
+
+                        // Handle ImageData as byte array properly
+                        SqlParameter imageDataParam = new SqlParameter("@ImageData", SqlDbType.VarBinary, -1);
+                        imageDataParam.Value = _ticketDto.ImageData ?? new byte[0]; // Ensure ImageData is not null
+                        cmd.Parameters.Add(imageDataParam);
+
+
 
                         conn.Open();
                         using (var rdr = cmd.ExecuteReader())
@@ -205,7 +216,7 @@ namespace IncidentManagementSystem.DataAccess
             return new List<IssueDto>();
         }
 
-        public TicketAssignDto TicketAssign(string TicketId="")
+        public TicketAssignDto TicketAssign(string TicketId = "")
         {
             TicketAssignDto ticketAssignDto = new TicketAssignDto();
             try
@@ -231,8 +242,8 @@ namespace IncidentManagementSystem.DataAccess
                                     TicketId = sqlDataReader["TicketId"].ToString(),
                                     Date = Convert.ToDateTime(sqlDataReader["Date"].ToString()),
                                     ServiceId = sqlDataReader["ServiceName"].ToString(),
-                                    IssueId= sqlDataReader["Issue"].ToString()
-                                    
+                                    IssueId = sqlDataReader["Issue"].ToString()
+
 
                                 };
 
@@ -266,7 +277,7 @@ namespace IncidentManagementSystem.DataAccess
                         cmd.Connection = conn;
                         cmd.Parameters.AddWithValue("@TicketId", AssignDto.TicketId);
                         cmd.Parameters.AddWithValue("@AssignTo", AssignDto.AssignTo);
-                    
+
 
                         conn.Open();                        
                         using (var rdr = cmd.ExecuteReader())
@@ -298,7 +309,7 @@ public interface ITicketDataAccess
     TicketDto GetTicketDetails(string TicketId);
 
     List<IssueDto> GetIssuesList(string ServiceId = "");
-    TicketAssignDto TicketAssign(string TicketId="");
+    TicketAssignDto TicketAssign(string TicketId = "");
 
     SQLStatusDto TicketAssignTo(TicketAssignDto AssignDto);
 }
