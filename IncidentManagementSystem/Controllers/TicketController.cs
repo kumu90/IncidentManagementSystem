@@ -95,16 +95,6 @@ namespace IncidentManagementSystem.Controllers
             {
                 if (file != null && file.ContentLength > 0)
                 {
-                    //byte[] imageData = null;
-
-                    //using (var binaryReader = new BinaryReader(file.InputStream))
-                    //{
-                    //    imageData = binaryReader.ReadBytes(file.ContentLength);
-                    //}
-
-                    // Set the ImageData property in the ticketDto
-                    //ticketDto.ImageData = imageData;
-
                     ticketDto.ImageUrl = Path.GetFileName(file.FileName);
                     using (var binaryReader = new BinaryReader(file.InputStream))
                     {
@@ -118,7 +108,7 @@ namespace IncidentManagementSystem.Controllers
                     ViewBag.Message = "Invalid image file.";
                 }
 
-                return View(ticketDto);
+                return View();
             }
             catch (Exception ex)
             {

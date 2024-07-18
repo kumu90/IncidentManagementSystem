@@ -10,5 +10,6 @@ namespace IncidentManagementSystem.Model
     {
         public int IssueId { get; set; }
         public string IssueName { get; set; }
+        public int ServiceId { get; set; }
     }
 }
