@@ -184,13 +184,14 @@ namespace IncidentManagementSystem.DataAccess
 
                         cmd.CommandText = @"IssueList";
                         cmd.CommandType = CommandType.StoredProcedure;
+
                         cmd.Connection = conn;
 
                         conn.Open();
 
                         using (var sqlDataReader = cmd.ExecuteReader())
                         {
-                            sqlDataReader.Read();
+                            while(sqlDataReader.Read())
                             {
                                 Issuelist.Add(new IssueDto()
                                 {
