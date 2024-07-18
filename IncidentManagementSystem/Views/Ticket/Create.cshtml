@@ -112,7 +112,7 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th>Previous Problems</th>
+                        <th>Description</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -164,13 +164,13 @@
         debugger;
             $("#ServiceId").on("change", function () {
             debugger;
-                const InstId = $('#ServiceId').val();
+                const ServiceId = $('#ServiceId').val();
                 $('#IssueId').html("");
                 $('#IssueId').append($('<option disabled selected value>-Select Issue-</option>'));
                 $.ajax({
                     method: "GET",
                     url: '@Url.Action("ServiceIssue")',
-                    data: { InstId: InstId },
+                    data: { ServiceId: ServiceId },
                     success: function (result) {
                         debugger;
                         //// Append the retrieved Issues to the dropdown
@@ -184,7 +184,6 @@
                 });
             });
         });
-
 
 
 
