@@ -88,10 +88,7 @@ namespace IncidentManagementSystem.Controllers
 
                     instNameDto.ImageUrl = Url.Content(imagePath);
                 }
-
-                ////instNameDto.ImageUrl = "";
                 SQLStatusDto sQLStatus = _iInstitutionService.InstitutionCreate(instNameDto);
-
 
                 if (sQLStatus.Status == "00")
                 {
