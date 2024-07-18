@@ -77,18 +77,22 @@
 
                 <div class="row">
                     <div class="col-md-4 img-upload">
-                        @Html.LabelFor(m => m.ImageUrl, new { @class = "col-md-12 col-form-label l_ticket" })
-                        <div class="tik-img" style="background-color:lightgray;">
-                            <a href="#" id="imageAnchor">
-                                <img id="preview" src="~/Image/photo-album-regular-24.png" class="card-img-top" alt="Preview" style=" width: 280px; height:180px " />
-                            </a>
+                        <div>
+                            <label for="file">Upload Image:</label>
+                            <input type="file" name="file" id="file" required />
                         </div>
-
-                        <div class="row upload">
-                            <div class="col-lg-12">
-                                <input type="file" name="image" id="imageUpload" accept="image/*" onchange="previewImage(event)" class="form-control" style="width: 105px" />
+                        @*@Html.LabelFor(m => m.ImageUrl, new { @class = "col-md-12 col-form-label l_ticket" })
+                            <div class="tik-img" style="background-color:lightgray;">
+                                <a href="#" id="imageAnchor">
+                                    <img id="preview" src="~/Image/photo-album-regular-24.png" class="card-img-top" alt="Preview" style=" width: 280px; height:180px " />
+                                </a>
                             </div>
-                        </div>
+
+                            <div class="row upload">
+                                <div class="col-lg-12">
+                                    <input type="file" name="image" id="imageUpload" accept="image/*" onchange="previewImage(event)" class="form-control" style="width: 105px" />
+                                </div>
+                            </div>*@
                     </div>
                 </div>
                 <div class="row  buttom-ticket">
@@ -100,6 +104,31 @@
             </div>
         }
 
+
+        <hr />
+        @if (ViewBag.PreviousTickets != null && ViewBag.PreviousTickets.Count > 0)
+        {
+            <h3>Previous Tickets</h3>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Previous Problems</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var prevTicket in ViewBag.PreviousTickets)
+                    {
+                        <tr>
+                            <td>@prevTicket.Description</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p>No previous tickets found.</p>
+        }
     </div>
 
 </div>

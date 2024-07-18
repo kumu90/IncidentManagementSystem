@@ -44,7 +44,7 @@ namespace IncidentManagementSystem.Model
         [DisplayName("Upload Supporting Image")]
         public HttpPostedFileBase ImageFile { get; set; }
         public string ImageUrl { get; set; }
+
         public byte[] ImageData { get; set; }
-        public string contentType {  get; set; }
     }
 }

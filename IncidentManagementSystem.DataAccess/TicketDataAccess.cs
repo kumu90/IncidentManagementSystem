@@ -35,6 +35,8 @@ namespace IncidentManagementSystem.DataAccess
                         cmd.Parameters.AddWithValue("@CellNumber", _ticketDto.CellNumber);
                         cmd.Parameters.AddWithValue("@Email", _ticketDto.Email);
                         cmd.Parameters.AddWithValue("@ImageUrl", _ticketDto.ImageUrl ?? "");
+                        cmd.Parameters.AddWithValue("@ImageData", _ticketDto.ImageData);                        
+                        
 
                        // cmd.Parameters.AddWithValue("@ImageData", _ticketDto.ImageData ?? "");
                         cmd.Parameters.AddWithValue("@ContentType", _ticketDto.contentType ?? "");
@@ -47,8 +49,6 @@ namespace IncidentManagementSystem.DataAccess
 
 
                         conn.Open();
-                        //cmd.ExecuteNonQuery();
-                        //conn.Close();
                         using (var rdr = cmd.ExecuteReader())
                         {
                             rdr.Read();
@@ -57,8 +57,6 @@ namespace IncidentManagementSystem.DataAccess
                                 _sQLStatus.Message = rdr["Message"].ToString();
                             }
                         }
-
-
                     }
                 }
 
@@ -192,7 +190,7 @@ namespace IncidentManagementSystem.DataAccess
 
                         using (var sqlDataReader = cmd.ExecuteReader())
                         {
-                            while (sqlDataReader.Read())
+                            sqlDataReader.Read();
                             {
                                 Issuelist.Add(new IssueDto()
                                 {
@@ -273,26 +271,22 @@ namespace IncidentManagementSystem.DataAccess
                     using (SqlCommand cmd = new SqlCommand(conStr, conn))
                     {
 
-                        cmd.CommandText = "TicketAssignTo";
+                        cmd.CommandText = "InstitutionTicketAssignUpdate";
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Connection = conn;
                         cmd.Parameters.AddWithValue("@TicketId", AssignDto.TicketId);
                         cmd.Parameters.AddWithValue("@AssignTo", AssignDto.AssignTo);
 
 
-                        conn.Open();
-                        //cmd.ExecuteNonQuery();
-                        //conn.Close();
+                        conn.Open();                        
                         using (var rdr = cmd.ExecuteReader())
                         {
-                            while (rdr.Read())
+                            rdr.Read();
                             {
                                 _sQLStatus.Status = rdr["Status"].ToString();
                                 _sQLStatus.Message = rdr["Message"].ToString();
                             }
                         }
-
-
                     }
                 }
 

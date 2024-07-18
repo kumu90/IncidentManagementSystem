@@ -75,7 +75,7 @@
                     </dt>
 
                     <dd>
-                        @Html.TextBoxFor(m => m.TicketId, new { @class = "form-control b-inst" , @readonly = "readonly" })
+                        @Html.TextBoxFor(m => m.TicketId, new { @class = "form-control b-inst", @readonly = "readonly" })
                     </dd>
 
                     <dt>
@@ -100,4 +100,41 @@
         </div>
     }
 </div>
+<div class="modal" tabindex="-1" role="dialog" id="modalTaskComplete">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content col-lg-10 col-md-9">
+            <div class="modal-header text-center">
+                <h4 class="modal-title">Member Branch Creation Status</h4>
+            </div>
+            <div class="modal-body text-center">
+                <h4 class="@(@ViewBag.TaskStatus=="00"?"text-success":"text-danger")">@ViewBag.TaskMessage</h4>
+            </div>
+            <div class="modal-footer" style="padding:8px 8px 16px 8px;margin-top:0px">
+                @if (@ViewBag.TaskStatus == "00")
+                {
+                    <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal" data-target="#modalTaskComplete" onclick="location.href='@Url.Action("Search","Ticket")'">Okay</button>
+                }
+                else
+                {
+                    <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal" data-target="#modalTaskComplete" onclick="location.href = '@Url.Action("Assign","Ticket")'">Okay</button>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            debugger;
+            var status= '@ViewBag.TaskStatus';
+            if (status != null && status != '')
+            {
+                $("#modalTaskComplete").modal('show');
+            }
+        });
+    </script>
+}
+
+
 

@@ -2,10 +2,12 @@
 using IncidentManagementSystem.Service;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.UI;
+using System.Web.UI.WebControls;
 
 namespace IncidentManagementSystem.Controllers
 {
@@ -32,7 +34,7 @@ namespace IncidentManagementSystem.Controllers
             ViewBag.Institution = new SelectList(institution, "InstId", "InstitutionName");
 
             List<Roles> role = _iInstitutionService.RoleList();
-            ViewBag.UserRole = new SelectList(role, "Name", "Name");
+            ViewBag.UserRole = new SelectList(role, "Id", "Name");
 
             var services = _iproductService.GetServices();
             ViewBag.services = new SelectList(services, "ServiceId", "serviceName");
@@ -70,40 +72,53 @@ namespace IncidentManagementSystem.Controllers
         [HttpGet]
         public ActionResult Create()
         {
-            //var model = new ServiceDto
-            //{ InstId = InstId };
             Init();
             ViewBag.TaskStatus = TempData["TaskStatus"];
             ViewBag.TaskMessage = TempData["TaskMessage"];
+            var previousTickets = _iTicketService.TicketInfo();
 
-            return View();
+            // Create a new instance of TicketDto for the form
+            var ticketDto = new TicketDto();
+
+            // Optionally, you can pass both previous tickets and the new ticketDto to the view
+            ViewBag.PreviousTickets = previousTickets;
+
+            return View(ticketDto);
         }
 
 
         [HttpPost]
-        public ActionResult Create(TicketDto ticketDto)
+        public ActionResult Create(TicketDto ticketDto , HttpPostedFileBase file)
         {
             Init();
             try
             {
-                SQLStatusDto sQLStatus = _iTicketService.TicketCreate(ticketDto);
-
-                if (sQLStatus.Status == "00")
+                if (file != null && file.ContentLength > 0)
                 {
-                    TempData["TaskStatus"] = sQLStatus.Status;
-                    TempData["TaskMessage"] = sQLStatus.Message;
+                    //byte[] imageData = null;
 
+                    //using (var binaryReader = new BinaryReader(file.InputStream))
+                    //{
+                    //    imageData = binaryReader.ReadBytes(file.ContentLength);
+                    //}
+
+                    // Set the ImageData property in the ticketDto
+                    //ticketDto.ImageData = imageData;
+
+                    ticketDto.ImageUrl = Path.GetFileName(file.FileName);
+                    using (var binaryReader = new BinaryReader(file.InputStream))
+                    {
+                        ticketDto.ImageData = binaryReader.ReadBytes(file.ContentLength);
+                    }
+
+                    SQLStatusDto sQLStatus = _iTicketService.TicketCreate(ticketDto);
                 }
                 else
                 {
-                    TempData["TaskStatus"] = sQLStatus.Status;
-                    TempData["TaskMessage"] = sQLStatus.Message;
-                    ModelState.AddModelError("", "An Ticket with the same name already exists in the system");
-
+                    ViewBag.Message = "Invalid image file.";
                 }
-                ViewBag.TaskStatus = TempData["TaskStatus"];
-                ViewBag.TaskMessage = TempData["TaskMessage"];
-                return View("Index");
+
+                return View(ticketDto);
             }
             catch (Exception ex)
             {
