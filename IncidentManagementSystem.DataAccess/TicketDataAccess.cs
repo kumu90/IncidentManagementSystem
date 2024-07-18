@@ -35,20 +35,9 @@ namespace IncidentManagementSystem.DataAccess
                         cmd.Parameters.AddWithValue("@CellNumber", _ticketDto.CellNumber);
                         cmd.Parameters.AddWithValue("@Email", _ticketDto.Email);
                         cmd.Parameters.AddWithValue("@ImageUrl", _ticketDto.ImageUrl ?? "");
-                        cmd.Parameters.AddWithValue("@ImageData", _ticketDto.ImageData);
-                        cmd.Parameters.AddWithValue("@ContentType", _ticketDto.contentType ?? "");
-
-
-                        //// cmd.Parameters.AddWithValue("@ImageData", _ticketDto.ImageData ?? "");
-                        // cmd.Parameters.AddWithValue("@ContentType", _ticketDto.contentType ?? "");
-
-                        // // Handle ImageData as byte array properly
-                        // SqlParameter imageDataParam = new SqlParameter("@ImageData", SqlDbType.VarBinary, -1);
-                        // imageDataParam.Value = _ticketDto.ImageData ?? new byte[0]; // Ensure ImageData is not null
-                        // cmd.Parameters.Add(imageDataParam);
-
-
-
+                        cmd.Parameters.AddWithValue("@ImageData", _ticketDto.ImageData);                        
+                       //cmd.Parameters.AddWithValue("@ImageData", _ticketDto.ImageData);
+                  
                         conn.Open();
                         using (var rdr = cmd.ExecuteReader())
                         {
@@ -185,7 +174,7 @@ namespace IncidentManagementSystem.DataAccess
 
                         cmd.CommandText = @"IssueList";
                         cmd.CommandType = CommandType.StoredProcedure;
-
+                        cmd.Parameters.AddWithValue("@ServiceId", ServiceId ?? "");
                         cmd.Connection = conn;
 
                         conn.Open();
