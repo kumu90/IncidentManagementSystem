@@ -106,6 +106,7 @@ namespace IncidentManagementSystem.Controllers
                     //ticketDto.ImageData = imageData;
 
                     ticketDto.ImageUrl = Path.GetFileName(file.FileName);
+                    ticketDto.contentType = file.ContentType;
                     using (var binaryReader = new BinaryReader(file.InputStream))
                     {
                         ticketDto.ImageData = binaryReader.ReadBytes(file.ContentLength);
