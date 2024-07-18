@@ -79,7 +79,15 @@
                     <div class="col-md-4 img-upload">
                         <div>
                             <label for="file">Upload Image:</label>
-                            <input type="file" name="file" id="file" required />
+
+                            <div class="tik-img" style="background-color:lightgray;">
+                                <a href="#" id="imageAnchor">
+                                    <img id="preview" src="~/Image/photo-album-regular-24.png" class="card-img-top" alt="Preview" style=" width: 280px; height:180px " />
+                                </a>
+                            </div>
+
+                            <input type="file" name="file" id="file" accept="image/*" onchange="previewImage(event)" class="form-control" style="width: 105px" required />
+
                         </div>
                         @*@Html.LabelFor(m => m.ImageUrl, new { @class = "col-md-12 col-form-label l_ticket" })
                             <div class="tik-img" style="background-color:lightgray;">
@@ -191,10 +199,10 @@
         document.addEventListener("DOMContentLoaded", function () {
             debugger;
             var preview = document.getElementById('preview');
-            var imageUpload = document.getElementById('imageUpload');
+            var file = document.getElementById('file');
 
             imageAnchor.addEventListener('click', function () {
-                imageUpload.click();
+                file.click();
             });
         });
         function previewImage(event) {
