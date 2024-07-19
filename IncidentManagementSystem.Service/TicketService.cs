@@ -31,7 +31,7 @@ namespace IncidentManagementSystem.Service
 
         public List<IssueDto> GetIssueList(string ServiceId = "")
         {
-            return _iTicketDataAccess.GetIssuesList();
+            return _iTicketDataAccess.GetIssuesList(ServiceId);
         } 
         public TicketAssignDto TicketAssign(string TicketId)
         {

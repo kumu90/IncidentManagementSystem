@@ -75,15 +75,8 @@ namespace IncidentManagementSystem.Controllers
             Init();
             ViewBag.TaskStatus = TempData["TaskStatus"];
             ViewBag.TaskMessage = TempData["TaskMessage"];
-            var previousTickets = _iTicketService.GetIssueList();
-
-            // Create a new instance of TicketDto for the form
-            var ticketDto = new TicketDto();
-
-            // Optionally, you can pass both previous tickets and the new ticketDto to the view
-            ViewBag.PreviousTickets = previousTickets;
-
-            return View(ticketDto);
+            
+            return View();
         }
 
 

@@ -172,7 +172,7 @@ namespace IncidentManagementSystem.DataAccess
                     using (SqlCommand cmd = new SqlCommand(conStr, conn))
                     {
 
-                        cmd.CommandText = @"IssueList";
+                        cmd.CommandText = "IssueList";
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Parameters.AddWithValue("@ServiceId", ServiceId ?? "");
                         cmd.Connection = conn;

@@ -114,7 +114,7 @@
 
 
         <hr />
-        @if (ViewBag.PreviousTickets != null && ViewBag.PreviousTickets.Count > 0)
+        @*@if (ViewBag.PreviousTickets != null && ViewBag.PreviousTickets.Count > 0)
         {
             <h3>Previous Tickets</h3>
             <table class="table">
@@ -127,7 +127,7 @@
                     @foreach (var prevTicket in ViewBag.PreviousTickets)
                     {
                         <tr>
-                            <td>@prevTicket.IssueId</td>
+                            <td>@prevTicket.Description</td>
                         </tr>
                     }
                 </tbody>
@@ -136,7 +136,7 @@
         else
         {
             <p>No previous tickets found.</p>
-        }
+        }*@
     </div>
 
 </div>
