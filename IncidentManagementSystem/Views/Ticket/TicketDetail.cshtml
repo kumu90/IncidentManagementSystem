@@ -127,6 +127,7 @@
                     @if (!string.IsNullOrEmpty(Model.ImageUrl))
                     {
                         <img id="preview" src="@Model.ImageUrl" class="card-img-top" alt="Preview" style="width: 280px; height: 180px;" />
+
                     }
                     else
                     {
@@ -135,12 +136,11 @@
                     }
                 </a>
 
-                @Html.DisplayFor(model => model.ImageUrl)
+                @*@Html.DisplayFor(model => model.ImageUrl)*@
             </dd>
 
             <dt>
                 <input type="button" value="Assign" class="btn btn-success btn-width" onclick="assignTicket('@Model.TicketId')" , null />
-
             </dt>
             <dd>
                 <input type="button" value="Reject" class="btn btn-danger btn-width" />

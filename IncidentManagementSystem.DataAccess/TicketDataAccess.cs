@@ -141,9 +141,20 @@ namespace IncidentManagementSystem.DataAccess
                                     CellNumber = sqlDataReader["CellNumber"].ToString(),
                                     Email = sqlDataReader["Email"].ToString(),
                                     Description = sqlDataReader["Description"].ToString(),
-                                    ImageUrl = sqlDataReader["ImageUrl"].ToString()
+                                    ImageUrl = sqlDataReader["ImageData"].ToString(),
+                                    ImageData = (byte[])sqlDataReader["ImageData"],
+                                    contentType = sqlDataReader["ContentType"].ToString()
+
 
                                 };
+
+                                // Convert byte[] ImageData to base64 string for ImageUrl
+                                //if (ticketDetail.ImageData != null && ticketDetail.ImageData.Length > 0)
+                                //{
+                                //    string base64String = Convert.ToBase64String(ticketDetail.ImageData);
+                                //    ticketDetail.ImageUrl = $"data:{ticketDetail.ContentType};base64,{base64String}";
+                                //}
+
 
 
                             }
