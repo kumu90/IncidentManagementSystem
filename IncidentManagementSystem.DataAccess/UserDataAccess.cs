@@ -12,12 +12,12 @@ namespace IncidentManagementSystem.DataAccess
 {
     public class UserDataAccess:IUserDataAccess
     {
+        private readonly string conStr = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
         public List<UserInfo> UserDetail(string search)
         {
             List<UserInfo> list = new List<UserInfo>();
             try
             {
-                string conStr = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
                 using (SqlConnection conn = new SqlConnection(conStr))
                 {
                     using (SqlCommand cmd = new SqlCommand(conStr, conn))
@@ -26,10 +26,8 @@ namespace IncidentManagementSystem.DataAccess
                         cmd.CommandText = @"UserList";
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Connection = conn;
-                        cmd.Parameters.Add(new SqlParameter("@Search", search ?? ""));
-                        //cmd.Parameters.AddWithValue("@search", search);
+                        cmd.Parameters.Add(new SqlParameter("@Search", search ?? ""));                        
                         conn.Open();
-
                         using (var sqlDataReader = cmd.ExecuteReader())
                         {
                             while (sqlDataReader.Read())
@@ -44,12 +42,9 @@ namespace IncidentManagementSystem.DataAccess
                                 });
                             }
                         }
-
                         conn.Close();
-
                     }
                 }
-
                 return list;
 
             }

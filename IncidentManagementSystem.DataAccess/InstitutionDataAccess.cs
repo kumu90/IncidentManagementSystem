@@ -12,13 +12,13 @@ namespace IncidentManagementSystem.DataAccess
 {
     public class InstitutionDataAccess : IInstitutionDataAccess
     {
+        private readonly string conStr = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
         public SQLStatusDto InstitutionCreate(InstNameDto _instNameDto)
         {
             //var serviceList = string.Join(",", _instNameDto.ServiceId);
             SQLStatusDto _SQLStatus = new SQLStatusDto();
             try
             {
-                string conStr = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
                 using (SqlConnection conn = new SqlConnection(conStr))
                 {
                     using (SqlCommand cmd = new SqlCommand(conStr, conn))
@@ -27,8 +27,6 @@ namespace IncidentManagementSystem.DataAccess
                         cmd.CommandText = @"InstitutionClientCreate";
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Connection = conn;
-
-                        //cmd.Parameters.AddWithValue("@instId", _instNameDto.InstId);
                         cmd.Parameters.AddWithValue("@institutionName", _instNameDto.InstitutionName);
                         cmd.Parameters.AddWithValue("@country", _instNameDto.Country);
                         cmd.Parameters.AddWithValue("@state", _instNameDto.State);
@@ -70,7 +68,6 @@ namespace IncidentManagementSystem.DataAccess
             List<InstNameDto> list = new List<InstNameDto>();
             try
             {
-                string conStr = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
                 using (SqlConnection conn = new SqlConnection(conStr))
                 {
                     using (SqlCommand cmd = new SqlCommand(conStr, conn))
@@ -125,7 +122,6 @@ namespace IncidentManagementSystem.DataAccess
             List<InstNameDto> Instlist = new List<InstNameDto>();
             try
             {
-                string conStr = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
                 using (SqlConnection conn = new SqlConnection(conStr))
                 {
                     using (SqlCommand cmd = new SqlCommand(conStr, conn))
@@ -170,7 +166,6 @@ namespace IncidentManagementSystem.DataAccess
             List<Roles> Roleslist = new List<Roles>();
             try
             {
-                string conStr = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
                 using (SqlConnection conn = new SqlConnection(conStr))
                 {
                     using (SqlCommand cmd = new SqlCommand(conStr, conn))

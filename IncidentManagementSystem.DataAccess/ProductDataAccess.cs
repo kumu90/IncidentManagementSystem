@@ -12,18 +12,16 @@ namespace IncidentManagementSystem.DataAccess
 {
     public class ProductDataAccess : IProductDataAccess
     {
-
+        private readonly string conStr = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString; 
         public SQLStatusDto ServiceCreate(ServiceDto service)
         {
             SQLStatusDto _SQLStatus = new SQLStatusDto();
             try
-            {
-                string conStr = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+            {               
                 using (SqlConnection conn = new SqlConnection(conStr))
                 {
                     using (SqlCommand cmd = new SqlCommand(conStr, conn))
                     {
-
                         cmd.CommandText = @"InstitutionServiceRegister";
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Connection = conn;
@@ -35,7 +33,7 @@ namespace IncidentManagementSystem.DataAccess
                         //conn.Close();
                         using (var rdr = cmd.ExecuteReader())
                         {
-                            while (rdr.Read())
+                            rdr.Read();
                             {
                                 _SQLStatus.Status = rdr["Status"].ToString();
                                 _SQLStatus.Message = rdr["Message"].ToString();
@@ -59,8 +57,7 @@ namespace IncidentManagementSystem.DataAccess
         {
             List<ServiceDto> Servicelist = new List<ServiceDto>();
             try
-            {
-                string conStr = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+            {             
                 using (SqlConnection conn = new SqlConnection(conStr))
                 {
                     using (SqlCommand cmd = new SqlCommand(conStr, conn))
