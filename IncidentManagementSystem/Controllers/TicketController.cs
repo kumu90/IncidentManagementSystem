@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Sockets;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.UI;
@@ -118,14 +119,42 @@ namespace IncidentManagementSystem.Controllers
             return View();
         }
 
-        public ActionResult TicketDetail(string TicketId)
+        public ActionResult  TicketDetail(string TicketId)
         {
+
             var ticketDetail = _iTicketService.GetTicketDetails(TicketId);
-            if (ticketDetail == null)
+
+            if (!string.IsNullOrEmpty(ticketDetail.ImageUrl))
             {
-                return View();
+                //// Assuming ImageData is a byte[] property in your Ticket model
+                //if (ticketDetail.ImageUrl != null && ticketDetail.ImageUrl.Length > 0)
+                //{
+                //    // Return the image data
+                //    return View (ticketDetail);
+                //}
+                if (ticketDetail.ImageData != null && ticketDetail.ImageData.Length > 0)
+                {
+                    string base64String = Convert.ToBase64String(ticketDetail.ImageData);
+                    ticketDetail.ImageUrl = $"data:{ticketDetail.contentType};base64,{base64String}";
+                    return View(ticketDetail);
+                }
+
+                else
+                {
+                    // Handle case where image data is null or empty
+                    // For example, return a placeholder image or handle appropriately
+                    return View("ticketDetail");
+                }
             }
-            return View(ticketDetail);            
+            else
+            {
+                return HttpNotFound();
+            }
+            //if (ticketDetail == null)
+            //{
+            //    return View();
+            //}
+            //return View(ticketDetail);            
         }
 
         [HttpGet]
@@ -170,6 +199,8 @@ namespace IncidentManagementSystem.Controllers
             }
             return View();
         }
+
+
 
     }
 }
