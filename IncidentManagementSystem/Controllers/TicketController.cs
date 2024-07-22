@@ -205,7 +205,9 @@ namespace IncidentManagementSystem.Controllers
             return View();
         }
 
-
-
+        public ActionResult Delete(string TicketId) 
+        {
+            return View();
+        }
     }
 }
