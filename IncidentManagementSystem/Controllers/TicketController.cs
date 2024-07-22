@@ -89,6 +89,18 @@ namespace IncidentManagementSystem.Controllers
             {
                 if (file != null && file.ContentLength > 0)
                 {
+
+                    // Check file extension if needed
+                    var allowedExtensions = new string[] { ".jpg", ".jpeg", ".png", ".gif" };
+                    var fileExtension = Path.GetExtension(file.FileName).ToLower();
+                    if (!allowedExtensions.Contains(fileExtension))
+                    {
+                        ModelState.AddModelError("", "Only image files are allowed (.jpg, .jpeg, .png, .gif)");
+                        ViewBag.TaskStatus = "Error";
+                        ViewBag.TaskMessage = "Invalid image file.";
+                        return RedirectToAction("Create", "Ticket");
+                    }
+
                     ticketDto.ImageUrl = Path.GetFileName(file.FileName);
                     ticketDto.contentType = file.ContentType;
                     using (var binaryReader = new BinaryReader(file.InputStream))

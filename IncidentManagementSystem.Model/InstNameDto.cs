@@ -49,6 +49,8 @@ namespace IncidentManagementSystem.Model
         [DisplayName("Image")]
         //[Required(ErrorMessage ="Uplode Image Less Then 200Kb")]
         public string ImageUrl { get; set; }
+        public byte[] ImageData {  get; set; }
+        public string contentType { get; set; }
         public string CreatedBy { get; set; }
         public string CreatedDate { get; set; }
         public string UpdatedBy { get; set; }

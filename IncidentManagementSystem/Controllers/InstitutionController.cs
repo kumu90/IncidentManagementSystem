@@ -70,46 +70,68 @@ namespace IncidentManagementSystem.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult InstitutionRegister(InstNameDto instNameDto, HttpPostedFileBase image)
+        public ActionResult InstitutionRegister(InstNameDto instNameDto, HttpPostedFileBase file)
         {
             instNameDto.CreatedBy = User.Identity.GetUserId();
             if (ModelState.IsValid)
             {
-                //SQLStatusDto sQLStatus = new SQLStatusDto();
-                if (image != null && image.ContentLength > 0)
+                if (file != null && file.ContentLength > 0)
                 {
-                    string imagePath = UploadImg(image);
-
-                    if (imagePath == "99")
+                    // Check file extension if needed
+                    var allowedExtensions = new string[] { ".jpg", ".jpeg", ".png", ".gif" };
+                    var fileExtension = Path.GetExtension(file.FileName).ToLower();
+                    if (!allowedExtensions.Contains(fileExtension))
                     {
-                        ModelState.AddModelError("", "Invalid image file. Only .jpg, .jpeg, and .png files are allowed.");
-                        return View(instNameDto);
+                        ModelState.AddModelError("", "Only image files are allowed (.jpg, .jpeg, .png, .gif)");
+                        ViewBag.TaskStatus = "Error";
+                        ViewBag.TaskMessage = "Invalid image file.";
+                        return RedirectToAction("InstitutionRegister", "Institution");
                     }
 
-                    instNameDto.ImageUrl = Url.Content(imagePath);
-                }
-                SQLStatusDto sQLStatus = _iInstitutionService.InstitutionCreate(instNameDto);
+                    instNameDto.ImageUrl = Path.GetFileName(file.FileName);
+                    instNameDto.contentType = file.ContentType;
 
-                if (sQLStatus.Status == "00")
-                {
-                    TempData["TaskStatus"] = sQLStatus.Status;
-                    TempData["TaskMessage"] = sQLStatus.Message;
-
-
+                    using (var binaryReader = new BinaryReader(file.InputStream))
+                    {
+                        instNameDto.ImageData = binaryReader.ReadBytes(file.ContentLength);
+                    }
                 }
                 else
                 {
+                    ModelState.AddModelError("", "Please upload an image file.");
+                    ViewBag.TaskStatus = "Error";
+                    ViewBag.TaskMessage = "Invalid image file.";
+                    return RedirectToAction("Dashboard", "Home");
+                }
+
+                try
+                {
+                    SQLStatusDto sQLStatus = _iInstitutionService.InstitutionCreate(instNameDto);
 
                     TempData["TaskStatus"] = sQLStatus.Status;
                     TempData["TaskMessage"] = sQLStatus.Message;
-                    ModelState.AddModelError("", "An institution with the same name already exists in the system");
 
+                    if (sQLStatus.Status != "00")
+                    {
+                        ModelState.AddModelError("", "An institution with the same name already exists in the system");
+                        ViewBag.TaskStatus = "Error";
+                        ViewBag.TaskMessage = sQLStatus.Message;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", "Error saving institution: " + ex.Message);
+                    ViewBag.TaskStatus = "Error";
+                    ViewBag.TaskMessage = "Error saving institution.";
                 }
             }
-            ViewBag.TaskStatus = TempData["TaskStatus"];
-            ViewBag.TaskMessage = TempData["TaskMessage"];
+            else
+            {
+                ViewBag.TaskStatus = "Error";
+                ViewBag.TaskMessage = "Model validation failed.";
+            }
+
             return RedirectToAction("Dashboard", "Home");
-            //return View();
         }
 
 
