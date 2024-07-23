@@ -175,6 +175,8 @@ namespace IncidentManagementSystem.Controllers
         public ActionResult Register()
         {
             Initialize();
+            ViewBag.TaskStatus = TempData["TaskStatus"];
+            ViewBag.TaskMessage = TempData["TaskMessage"];
             return View();
         }
 
@@ -199,8 +201,15 @@ namespace IncidentManagementSystem.Controllers
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                    // Set ViewBag for modal display
+                    //TempData["TaskStatus"] = "00"; // Example success status
+                    //TempData["TaskMessage"] = "User registered successfully.";
 
-                    return RedirectToAction("Index", "Home");
+                    //// Assign TempData values to ViewBag for the current request
+                    //ViewBag.TaskStatus = TempData["TaskStatus"];
+                    //ViewBag.TaskMessage = TempData["TaskMessage"];
+
+
                 }
                 AddErrors(result);
             }

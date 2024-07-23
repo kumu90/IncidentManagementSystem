@@ -72,111 +72,72 @@ namespace IncidentManagementSystem.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult InstitutionRegister(InstNameDto instNameDto, HttpPostedFileBase file)
         {
+            Init();
             instNameDto.CreatedBy = User.Identity.GetUserId();
-            if (ModelState.IsValid)
-            {
+
+            //if (ModelState.IsValid)
+            //{
                 if (file != null && file.ContentLength > 0)
                 {
-                    // Check file extension if needed
-                    var allowedExtensions = new string[] { ".jpg", ".jpeg", ".png", ".gif" };
-                    var fileExtension = Path.GetExtension(file.FileName).ToLower();
-                    if (!allowedExtensions.Contains(fileExtension))
-                    {
-                        ModelState.AddModelError("", "Only image files are allowed (.jpg, .jpeg, .png, .gif)");
-                        ViewBag.TaskStatus = "Error";
-                        ViewBag.TaskMessage = "Invalid image file.";
-                        return RedirectToAction("InstitutionRegister", "Institution");
-                    }
 
                     instNameDto.ImageUrl = Path.GetFileName(file.FileName);
                     instNameDto.contentType = file.ContentType;
-
                     using (var binaryReader = new BinaryReader(file.InputStream))
                     {
                         instNameDto.ImageData = binaryReader.ReadBytes(file.ContentLength);
                     }
+
+                    SQLStatusDto sQLStatus = _iInstitutionService.InstitutionCreate(instNameDto);
+
+
+                    if (sQLStatus.Status == "00")
+                    {
+                        TempData["TaskStatus"] = sQLStatus.Status;
+                        TempData["TaskMessage"] = sQLStatus.Message;
+
+                    }
+                    else
+                    {
+                        TempData["TaskStatus"] = sQLStatus.Status;
+                        TempData["TaskMessage"] = sQLStatus.Message;
+                    }
+                    ViewBag.TaskStatus = TempData["TaskStatus"];
+                    ViewBag.TaskMessage = TempData["TaskMessage"];
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Please upload an image file.");
-                    ViewBag.TaskStatus = "Error";
-                    ViewBag.TaskMessage = "Invalid image file.";
-                    return RedirectToAction("Dashboard", "Home");
+                    ViewBag.Message = "Invalid image file.";
                 }
 
-                try
-                {
-                    SQLStatusDto sQLStatus = _iInstitutionService.InstitutionCreate(instNameDto);
+                //try
+                //{
+                //    SQLStatusDto sQLStatus = _iInstitutionService.InstitutionCreate(instNameDto);
 
-                    TempData["TaskStatus"] = sQLStatus.Status;
-                    TempData["TaskMessage"] = sQLStatus.Message;
+                //    TempData["TaskStatus"] = sQLStatus.Status;
+                //    TempData["TaskMessage"] = sQLStatus.Message;
 
-                    if (sQLStatus.Status != "00")
-                    {
-                        ModelState.AddModelError("", "An institution with the same name already exists in the system");
-                        ViewBag.TaskStatus = "Error";
-                        ViewBag.TaskMessage = sQLStatus.Message;
-                    }
-                }
-                catch (Exception ex)
-                {
-                    ModelState.AddModelError("", "Error saving institution: " + ex.Message);
-                    ViewBag.TaskStatus = "Error";
-                    ViewBag.TaskMessage = "Error saving institution.";
-                }
-            }
-            else
-            {
-                ViewBag.TaskStatus = "Error";
-                ViewBag.TaskMessage = "Model validation failed.";
-            }
+                //    if (sQLStatus.Status != "00")
+                //    {
+                //        ModelState.AddModelError("", "An institution with the same name already exists in the system");
+                //        ViewBag.TaskStatus = "Error";
+                //        ViewBag.TaskMessage = sQLStatus.Message;
+                //    }
+                //}
+                //catch (Exception ex)
+                //{
+                //    ModelState.AddModelError("", "Error saving institution: " + ex.Message);
+                //    ViewBag.TaskStatus = "Error";
+                //    ViewBag.TaskMessage = "Error saving institution.";
+                //}
+            //}
+            //else
+            //{
+            //    ViewBag.TaskStatus = "Error";
+            //    ViewBag.TaskMessage = "Model validation failed.";
+            //}
 
-            return RedirectToAction("Dashboard", "Home");
+            return View();
         }
 
-
-        public string UploadImg(HttpPostedFileBase imgFile)
-        {
-            if (imgFile == null || imgFile.ContentLength <= 0)
-            {
-                // Returning an error code or message
-                return "99";
-            }
-
-            string[] validExtensions = { ".jpg", ".jpeg", ".png" };
-            string extension = Path.GetExtension(imgFile.FileName).ToLower();
-
-            if (!validExtensions.Contains(extension))
-            {
-                // Invalid file extension
-                return "99";
-            }
-
-            string randomFileName = $"{Guid.NewGuid()}{extension}";
-            string uploadsDir = Server.MapPath("~/Uploads");
-
-            // Ensure the uploads directory exists
-            if (!Directory.Exists(uploadsDir))
-            {
-                Directory.CreateDirectory(uploadsDir);
-            }
-
-            string filePath = Path.Combine(uploadsDir, randomFileName);
-
-            try
-            {
-                imgFile.SaveAs(filePath);
-                // Return the relative path to the saved file
-                return "~/Uploads/" + randomFileName;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-
-            }
-            return "99";
-        }
-
-        
     }
 }

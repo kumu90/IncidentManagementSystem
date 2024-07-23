@@ -221,7 +221,7 @@ namespace IncidentManagementSystem.DataAccess
         {
             TicketAssignDto ticketAssignDto = new TicketAssignDto();
             try
-            {
+         {
                 using (SqlConnection conn = new SqlConnection(conStr))
                 {
                     using (SqlCommand cmd = new SqlCommand(conStr, conn))

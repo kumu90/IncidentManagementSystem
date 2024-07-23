@@ -96,11 +96,16 @@
         </div>
     }
 </div>
-<div class="modal" tabindex="-1" role="dialog" id="modalTaskComplete">
+
+  
+<div class="modal" tabindex="-1" role="dialog" id="modalTaskComplete" aria-labelledby="modalTaskCompleteLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content col-lg-10 col-md-9">
             <div class="modal-header text-center">
-                <h4 class="modal-title">Member Branch Creation Status</h4>
+                <h4 class="modal-title" id="modalTaskCompleteLabel">Status</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
             <div class="modal-body text-center">
                 <h4 class="@(@ViewBag.TaskStatus=="00"?"text-success":"text-danger")">@ViewBag.TaskMessage</h4>
@@ -112,9 +117,11 @@
                 }
                 else
                 {
-                    <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal" data-target="#modalTaskComplete" onclick="location.href = '@Url.Action("Assign","Ticket")'">Okay</button>
+                    <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal" data-target="#modalTaskComplete" onclick="location.href = '@Url.Action("TicketDetail","Ticket")'">Okay</button>
                 }
+
             </div>
+
         </div>
     </div>
 </div>
@@ -124,9 +131,9 @@
         $(document).ready(function () {
             debugger;
             var status= '@ViewBag.TaskStatus';
-            if (status != null && status != '')
+            if (status !== null && status !== '')
             {
-                $("#modalTaskComplete").modal('show');
+                $("#modalTaskComplete").show();
             }
         });
     </script>
