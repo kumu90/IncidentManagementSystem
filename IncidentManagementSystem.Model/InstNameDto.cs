@@ -35,15 +35,21 @@ namespace IncidentManagementSystem.Model
         [DisplayName("ZipCode")]
         [Required]
         public string ZipCode { get; set; }
+
+        [DisplayName("Contact Admin")]
         public string ContactPersonAdmin { get; set; }
+
+        [DisplayName("Contact Technical")]
         public string ContactPersonTechnical { get; set; }
 
         [DisplayName("Contact Number")]
         [Required]
+        [Phone]
         public string ContactNumber { get; set; }
 
         [DisplayName("Email")]
         [Required]
+        [EmailAddress(ErrorMessage = "Invalid Email Address")]
         public string Email { get; set; }
 
         [DisplayName("Image")]

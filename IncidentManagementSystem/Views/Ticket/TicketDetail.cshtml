@@ -139,13 +139,23 @@
                 @*@Html.DisplayFor(model => model.ImageUrl)*@
             </dd>
 
-            <dt>
+            @*<dt class="col-2">
                 <input type="button" value="Assign" class="btn btn-success btn-width" onclick="assignTicket('@Model.TicketId')" , null />
             </dt>
-            <dd>
+            <dd class="col-2">
                 <input type="button" value="Reject" class="btn btn-danger btn-width" />
-            </dd>
+            </dd>*@
         </dl>
+    </div>
+    <div class="row">
+        <div class="col-md-6 ticket">
+            <div class="column-gap-sm-0">
+                <input type="button" value="Assign" class="btn btn-success btn-width" onclick="assignTicket('@Model.TicketId')" , null />
+            </div>
+            <div class="column-gap-sm-0">
+                <a href="@Url.Action("TicketReject", "Ticket", new RouteValueDictionary { { "TicketId", @Model.TicketId } }, null)" class="btn btn-danger btn-width">Reject</a>  
+            </div>
+        </div>
     </div>
 
 </div>

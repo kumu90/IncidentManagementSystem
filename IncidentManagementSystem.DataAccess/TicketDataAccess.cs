@@ -300,6 +300,80 @@ namespace IncidentManagementSystem.DataAccess
             }
             return _sQLStatus;
         }
+
+        public SQLStatusDto TicketReject(string TicketId)
+        {
+            SQLStatusDto _sQLStatus = new SQLStatusDto();
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(conStr))
+                {
+                    using (SqlCommand cmd = new SqlCommand(conStr, conn))
+                    {
+
+                        cmd.CommandText = "InstitutionTicketRejectUpdate";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = conn;
+                        cmd.Parameters.AddWithValue("@TicketId",TicketId);
+                       
+                        conn.Open();
+                        using (var rdr = cmd.ExecuteReader())
+                        {
+                            rdr.Read();
+                            {
+                                _sQLStatus.Status = rdr["Status"].ToString();
+                                _sQLStatus.Message = rdr["Message"].ToString();
+                            }
+                        }
+                    }
+                }
+
+                return _sQLStatus;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return _sQLStatus;
+        }
+
+        public SQLStatusDto TicketResolveBy(ResolvedByDto resolvedByDto)
+        {
+            SQLStatusDto _sQLStatus = new SQLStatusDto();
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(conStr))
+                {
+                    using (SqlCommand cmd = new SqlCommand(conStr, conn))
+                    {
+
+                        cmd.CommandText = "InstitutionTicketAssignUpdate";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = conn;
+                        cmd.Parameters.AddWithValue("@TicketId", resolvedByDto.TicketId);
+                        cmd.Parameters.AddWithValue("@AssignTo", resolvedByDto.AssignTo);
+                        cmd.Parameters.AddWithValue("@Resolve", resolvedByDto.Resolve);
+
+                        conn.Open();
+                        using (var rdr = cmd.ExecuteReader())
+                        {
+                            rdr.Read();
+                            {
+                                _sQLStatus.Status = rdr["Status"].ToString();
+                                _sQLStatus.Message = rdr["Message"].ToString();
+                            }
+                        }
+                    }
+                }
+
+                return _sQLStatus;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return _sQLStatus;
+        }
     }
 }
 public interface ITicketDataAccess
@@ -313,4 +387,8 @@ public interface ITicketDataAccess
     TicketAssignDto TicketAssign(string TicketId = "");
 
     SQLStatusDto TicketAssignTo(TicketAssignDto AssignDto);
+
+    SQLStatusDto TicketReject(string TicketId);
+
+    SQLStatusDto TicketResolveBy(ResolvedByDto resolvedByDto);
 }

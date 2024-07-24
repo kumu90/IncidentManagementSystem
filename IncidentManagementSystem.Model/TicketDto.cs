@@ -11,9 +11,13 @@ namespace IncidentManagementSystem.Model
     public class TicketDto
     {
         [Key]
+        [DisplayName("Ticket Id")]
         public string TicketId { get; set; }
 
+        [DisplayName("Date")]
         public DateTime date { get; set; }
+
+        [DisplayName("Status")]
         public string status { get; set; }
 
         [DisplayName("Institution Name")]

@@ -48,6 +48,7 @@
     <Compile Include="IssueDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegisterServiceDto.cs" />
+    <Compile Include="ResolvedByDto.cs" />
     <Compile Include="Roles.cs" />
     <Compile Include="ServiceDto.cs" />
     <Compile Include="SQLStatusDto.cs" />

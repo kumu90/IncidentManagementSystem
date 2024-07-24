@@ -71,10 +71,10 @@ namespace IncidentManagementSystem.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult InstitutionRegister(InstNameDto instNameDto, HttpPostedFileBase image)
-        {
-            instNameDto.CreatedBy = User.Identity.GetUserId();
+        {            
             if (ModelState.IsValid)
             {
+                instNameDto.CreatedBy = User.Identity.GetUserId();
                 //SQLStatusDto sQLStatus = new SQLStatusDto();
                 if (image != null && image.ContentLength > 0)
                 {
@@ -94,8 +94,6 @@ namespace IncidentManagementSystem.Controllers
                 {
                     TempData["TaskStatus"] = sQLStatus.Status;
                     TempData["TaskMessage"] = sQLStatus.Message;
-
-
                 }
                 else
                 {
@@ -108,7 +106,7 @@ namespace IncidentManagementSystem.Controllers
             }
             ViewBag.TaskStatus = TempData["TaskStatus"];
             ViewBag.TaskMessage = TempData["TaskMessage"];
-            return RedirectToAction("Dashboard", "Home");
+            return View();
             //return View();
         }
 
