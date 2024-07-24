@@ -120,20 +120,24 @@
 
 
 @section Scripts{
+    @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+
+        $(document).ready(function () {
+            debugger;
+            var status= '@ViewBag.TaskStatus';
+            if (status !== null && status !== '')
+            {
+                $("#modalTaskComplete").show();
+            }
+        });
+
+
+    </script>
+
 
 
 }
 
-<script>
-    $(document).ready(function () {
-        debugger;
-        var status= '@ViewBag.TaskStatus';
-        if (status !== null && status !== '')
-        {
-        $("#modalTaskComplete").show();
-        }
-    });
-
-
-</script>

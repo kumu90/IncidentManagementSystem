@@ -12,6 +12,7 @@ using Microsoft.AspNet.Identity;
 
 namespace IncidentManagementSystem.Controllers
 {
+    [Authorize]
     public class InstitutionController : Controller
     {
         readonly IInstitutionService _iInstitutionService;
@@ -42,13 +43,15 @@ namespace IncidentManagementSystem.Controllers
             var servId = _iproductService.GetServices(InstId);
             return Json(servId, JsonRequestBehavior.AllowGet);
         }
-       
+
+        [Authorize(Roles = "SuperAdmin, Admin, Developer")]
         public ActionResult Index(string search)
         {
             var clt = _iInstitutionService.InstitutionList(search);
             return View(clt);
         }
 
+        [Authorize(Roles = ",SuperAdmin, Admin, Developer")]
         public ActionResult Search(string search)
         {
             if (ModelState.IsValid)
@@ -60,6 +63,7 @@ namespace IncidentManagementSystem.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "SuperAdmin")]
         public ActionResult InstitutionRegister()
         {
             Init();
@@ -70,6 +74,7 @@ namespace IncidentManagementSystem.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "SuperAdmin")]
         public ActionResult InstitutionRegister(InstNameDto instNameDto, HttpPostedFileBase file)
         {
             Init();

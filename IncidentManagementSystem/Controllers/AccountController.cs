@@ -185,6 +185,7 @@ namespace IncidentManagementSystem.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "SuperAdmin")]
         public async Task<ActionResult> Register(RegisterViewModel model)
          {
             if (ModelState.IsValid)
@@ -202,12 +203,12 @@ namespace IncidentManagementSystem.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
                     // Set ViewBag for modal display
-                    //TempData["TaskStatus"] = "00"; // Example success status
-                    //TempData["TaskMessage"] = "User registered successfully.";
+                    TempData["TaskStatus"] = "00"; // Example success status
+                    TempData["TaskMessage"] = "User registered successfully.";
 
-                    //// Assign TempData values to ViewBag for the current request
-                    //ViewBag.TaskStatus = TempData["TaskStatus"];
-                    //ViewBag.TaskMessage = TempData["TaskMessage"];
+                    // Assign TempData values to ViewBag for the current request
+                    ViewBag.TaskStatus = TempData["TaskStatus"];
+                    ViewBag.TaskMessage = TempData["TaskMessage"];
 
 
                 }

@@ -12,6 +12,7 @@ using System.Web.UI.WebControls;
 
 namespace IncidentManagementSystem.Controllers
 {
+    [Authorize]
     public class TicketController : Controller
     {
         private readonly ITicketService _iTicketService;
@@ -69,8 +70,9 @@ namespace IncidentManagementSystem.Controllers
             return PartialView("Search", results);
         }
 
-
+        
         [HttpGet]
+        [AllowAnonymous]
         public ActionResult Create()
         {
             Init();
@@ -80,8 +82,9 @@ namespace IncidentManagementSystem.Controllers
             return View();
         }
 
-
+        
         [HttpPost]
+        [AllowAnonymous]
         public ActionResult Create(TicketDto ticketDto , HttpPostedFileBase file)
         {
             Init();
@@ -140,6 +143,7 @@ namespace IncidentManagementSystem.Controllers
             return View();
         }
 
+        [Authorize(Roles = "SuperAdmin, Admin, Developer")]
         public ActionResult  TicketDetail(string TicketId)
         {
             var ticketDetail = _iTicketService.GetTicketDetails(TicketId);
