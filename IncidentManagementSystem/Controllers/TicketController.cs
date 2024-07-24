@@ -12,6 +12,7 @@ using System.Web.UI.WebControls;
 
 namespace IncidentManagementSystem.Controllers
 {
+    [Authorize]
     public class TicketController : Controller
     {
         private readonly ITicketService _iTicketService;
@@ -69,8 +70,9 @@ namespace IncidentManagementSystem.Controllers
             return PartialView("Search", results);
         }
 
-
+        
         [HttpGet]
+        [AllowAnonymous]
         public ActionResult Create()
         {
             Init();
@@ -80,8 +82,9 @@ namespace IncidentManagementSystem.Controllers
             return View();
         }
 
-
+        
         [HttpPost]
+        [AllowAnonymous]
         public ActionResult Create(TicketDto ticketDto , HttpPostedFileBase file)
         {
             Init();
@@ -89,6 +92,18 @@ namespace IncidentManagementSystem.Controllers
             {
                 if (file != null && file.ContentLength > 0)
                 {
+
+                    // Check file extension if needed
+                    //var allowedExtensions = new string[] { ".jpg", ".jpeg", ".png", ".gif" };
+                    //var fileExtension = Path.GetExtension(file.FileName).ToLower();
+                    //if (!allowedExtensions.Contains(fileExtension))
+                    //{
+                    //    ModelState.AddModelError("", "Only image files are allowed (.jpg, .jpeg, .png, .gif)");
+                    //    ViewBag.TaskStatus = "Error";
+                    //    ViewBag.TaskMessage = "Invalid image file.";
+                    //    return RedirectToAction("Create", "Ticket");
+                    //}
+
                     ticketDto.ImageUrl = Path.GetFileName(file.FileName);
                     ticketDto.contentType = file.ContentType;
                     using (var binaryReader = new BinaryReader(file.InputStream))
@@ -97,11 +112,27 @@ namespace IncidentManagementSystem.Controllers
                     }
 
                     SQLStatusDto sQLStatus = _iTicketService.TicketCreate(ticketDto);
+
+
+                    if (sQLStatus.Status == "00")
+                    {
+                        TempData["TaskStatus"] = sQLStatus.Status;
+                        TempData["TaskMessage"] = sQLStatus.Message;
+
+                    }
+                    else
+                    {
+                        TempData["TaskStatus"] = sQLStatus.Status;
+                        TempData["TaskMessage"] = sQLStatus.Message;
+                    }
+                    ViewBag.TaskStatus = TempData["TaskStatus"];
+                    ViewBag.TaskMessage = TempData["TaskMessage"];
                 }
                 else
                 {
                     ViewBag.Message = "Invalid image file.";
                 }
+               
 
                 return View();
             }
@@ -112,11 +143,10 @@ namespace IncidentManagementSystem.Controllers
             return View();
         }
 
+        [Authorize(Roles = "SuperAdmin, Admin, Developer")]
         public ActionResult  TicketDetail(string TicketId)
         {
-
             var ticketDetail = _iTicketService.GetTicketDetails(TicketId);
-
             if (!string.IsNullOrEmpty(ticketDetail.ImageUrl))
             {
                 //// Assuming ImageData is a byte[] property in your Ticket model
@@ -139,10 +169,7 @@ namespace IncidentManagementSystem.Controllers
                     return View("ticketDetail");
                 }
             }
-            else
-            {
-                return HttpNotFound();
-            }
+            return View();
             //if (ticketDetail == null)
             //{
             //    return View();
@@ -155,8 +182,11 @@ namespace IncidentManagementSystem.Controllers
         {
             Init();
             var result = _iTicketService.TicketAssign(TicketId);
-            ViewBag.TaskStatus = TempData["TaskStatus"];
-            ViewBag.TaskMessage = TempData["TaskMessage"];
+            if (TempData["TaskStatus"] != null)
+            {
+                ViewBag.TaskStatus = TempData["TaskStatus"];
+                ViewBag.TaskMessage = TempData["TaskMessage"];
+            }
 
             return View(result);
         }
@@ -164,7 +194,7 @@ namespace IncidentManagementSystem.Controllers
         [HttpPost]
         public ActionResult Assign(TicketAssignDto ticketAssignDto)
         {
-            Init();
+            //Init();
             try
             {
                 SQLStatusDto sQLStatus = _iTicketService.TicketAssignTo(ticketAssignDto);
@@ -184,13 +214,14 @@ namespace IncidentManagementSystem.Controllers
                 }
                 ViewBag.TaskStatus = TempData["TaskStatus"];
                 ViewBag.TaskMessage = TempData["TaskMessage"];
-                return View("Index");
+
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
-            return View();
+            return RedirectToAction("Assign", "Ticket", new { TicketId = ticketAssignDto.TicketId });
+            //return View();
         }
 
         public ActionResult TicketReject(string TicketId) 

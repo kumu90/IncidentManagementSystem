@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using IncidentManagementSystem.Model.Annotation;
 
 namespace IncidentManagementSystem.Model
 {
@@ -46,6 +47,7 @@ namespace IncidentManagementSystem.Model
 
 
         [DisplayName("Upload Supporting Image")]
+        [Image]
         public string ImageUrl { get; set; }
 
         public byte[] ImageData { get; set; }

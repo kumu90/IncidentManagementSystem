@@ -1,4 +1,4 @@
-﻿using System;
+﻿    using System;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
@@ -6,6 +6,8 @@ using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
 using IncidentManagementSystem.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
+using System.Web.Services.Description;
 
 namespace IncidentManagementSystem
 {
@@ -63,6 +65,18 @@ namespace IncidentManagementSystem
             //    ClientId = "",
             //    ClientSecret = ""
             //});
+
+            //services.AddDbContext<ApplicationDbContext>(options =>
+            //options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            //services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            //    .AddRoles<IdentityRole>() // Add this line to enable roles
+            //    .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            //services.AddControllersWithViews();
+
+
+
         }
     }
 }

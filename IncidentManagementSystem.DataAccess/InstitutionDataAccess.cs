@@ -7,6 +7,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Net.Mime;
 
 namespace IncidentManagementSystem.DataAccess
 {
@@ -39,6 +40,10 @@ namespace IncidentManagementSystem.DataAccess
                         cmd.Parameters.AddWithValue("@imageUrl", _instNameDto.ImageUrl);
                         cmd.Parameters.AddWithValue("@userId", _instNameDto.CreatedBy ?? "");
                         cmd.Parameters.AddWithValue("@serviceIds", _instNameDto.ServiceIdList??"");
+
+                        cmd.Parameters.AddWithValue("@ImageData", _instNameDto.ImageData);
+                        cmd.Parameters.AddWithValue("@ContentType", _instNameDto.contentType);
+
 
 
                         conn.Open();

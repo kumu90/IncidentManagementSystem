@@ -12,6 +12,7 @@ using Microsoft.AspNet.Identity;
 
 namespace IncidentManagementSystem.Controllers
 {
+    [Authorize]
     public class InstitutionController : Controller
     {
         readonly IInstitutionService _iInstitutionService;
@@ -42,13 +43,15 @@ namespace IncidentManagementSystem.Controllers
             var servId = _iproductService.GetServices(InstId);
             return Json(servId, JsonRequestBehavior.AllowGet);
         }
-       
+
+        [Authorize(Roles = "SuperAdmin, Admin, Developer")]
         public ActionResult Index(string search)
         {
             var clt = _iInstitutionService.InstitutionList(search);
             return View(clt);
         }
 
+        [Authorize(Roles = ",SuperAdmin, Admin, Developer")]
         public ActionResult Search(string search)
         {
             if (ModelState.IsValid)
@@ -60,6 +63,7 @@ namespace IncidentManagementSystem.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "SuperAdmin")]
         public ActionResult InstitutionRegister()
         {
             Init();
@@ -70,89 +74,75 @@ namespace IncidentManagementSystem.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult InstitutionRegister(InstNameDto instNameDto, HttpPostedFileBase image)
-        {            
-            if (ModelState.IsValid)
-            {
-                instNameDto.CreatedBy = User.Identity.GetUserId();
-                //SQLStatusDto sQLStatus = new SQLStatusDto();
-                if (image != null && image.ContentLength > 0)
-                {
-                    string imagePath = UploadImg(image);
+        [Authorize(Roles = "SuperAdmin")]
+        public ActionResult InstitutionRegister(InstNameDto instNameDto, HttpPostedFileBase file)
+        {
+            Init();
+            instNameDto.CreatedBy = User.Identity.GetUserId();
 
-                    if (imagePath == "99")
+            //if (ModelState.IsValid)
+            //{
+                if (file != null && file.ContentLength > 0)
+                {
+
+                    instNameDto.ImageUrl = Path.GetFileName(file.FileName);
+                    instNameDto.contentType = file.ContentType;
+                    using (var binaryReader = new BinaryReader(file.InputStream))
                     {
-                        ModelState.AddModelError("", "Invalid image file. Only .jpg, .jpeg, and .png files are allowed.");
-                        return View(instNameDto);
+                        instNameDto.ImageData = binaryReader.ReadBytes(file.ContentLength);
                     }
 
-                    instNameDto.ImageUrl = Url.Content(imagePath);
-                }
-                SQLStatusDto sQLStatus = _iInstitutionService.InstitutionCreate(instNameDto);
+                    SQLStatusDto sQLStatus = _iInstitutionService.InstitutionCreate(instNameDto);
 
-                if (sQLStatus.Status == "00")
-                {
-                    TempData["TaskStatus"] = sQLStatus.Status;
-                    TempData["TaskMessage"] = sQLStatus.Message;
+
+                    if (sQLStatus.Status == "00")
+                    {
+                        TempData["TaskStatus"] = sQLStatus.Status;
+                        TempData["TaskMessage"] = sQLStatus.Message;
+
+                    }
+                    else
+                    {
+                        TempData["TaskStatus"] = sQLStatus.Status;
+                        TempData["TaskMessage"] = sQLStatus.Message;
+                    }
+                    ViewBag.TaskStatus = TempData["TaskStatus"];
+                    ViewBag.TaskMessage = TempData["TaskMessage"];
                 }
                 else
                 {
-
-                    TempData["TaskStatus"] = sQLStatus.Status;
-                    TempData["TaskMessage"] = sQLStatus.Message;
-                    ModelState.AddModelError("", "An institution with the same name already exists in the system");
-
+                    ViewBag.Message = "Invalid image file.";
                 }
-            }
-            ViewBag.TaskStatus = TempData["TaskStatus"];
-            ViewBag.TaskMessage = TempData["TaskMessage"];
+
+                //try
+                //{
+                //    SQLStatusDto sQLStatus = _iInstitutionService.InstitutionCreate(instNameDto);
+
+                //    TempData["TaskStatus"] = sQLStatus.Status;
+                //    TempData["TaskMessage"] = sQLStatus.Message;
+
+                //    if (sQLStatus.Status != "00")
+                //    {
+                //        ModelState.AddModelError("", "An institution with the same name already exists in the system");
+                //        ViewBag.TaskStatus = "Error";
+                //        ViewBag.TaskMessage = sQLStatus.Message;
+                //    }
+                //}
+                //catch (Exception ex)
+                //{
+                //    ModelState.AddModelError("", "Error saving institution: " + ex.Message);
+                //    ViewBag.TaskStatus = "Error";
+                //    ViewBag.TaskMessage = "Error saving institution.";
+                //}
+            //}
+            //else
+            //{
+            //    ViewBag.TaskStatus = "Error";
+            //    ViewBag.TaskMessage = "Model validation failed.";
+            //}
+
             return View();
-            //return View();
         }
 
-
-        public string UploadImg(HttpPostedFileBase imgFile)
-        {
-            if (imgFile == null || imgFile.ContentLength <= 0)
-            {
-                // Returning an error code or message
-                return "99";
-            }
-
-            string[] validExtensions = { ".jpg", ".jpeg", ".png" };
-            string extension = Path.GetExtension(imgFile.FileName).ToLower();
-
-            if (!validExtensions.Contains(extension))
-            {
-                // Invalid file extension
-                return "99";
-            }
-
-            string randomFileName = $"{Guid.NewGuid()}{extension}";
-            string uploadsDir = Server.MapPath("~/Uploads");
-
-            // Ensure the uploads directory exists
-            if (!Directory.Exists(uploadsDir))
-            {
-                Directory.CreateDirectory(uploadsDir);
-            }
-
-            string filePath = Path.Combine(uploadsDir, randomFileName);
-
-            try
-            {
-                imgFile.SaveAs(filePath);
-                // Return the relative path to the saved file
-                return "~/Uploads/" + randomFileName;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-
-            }
-            return "99";
-        }
-
-        
     }
 }

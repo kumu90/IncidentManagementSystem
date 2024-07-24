@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using IncidentManagementSystem.Model.Annotation;
 
 namespace IncidentManagementSystem.Model
 {
@@ -53,14 +54,18 @@ namespace IncidentManagementSystem.Model
         public string Email { get; set; }
 
         [DisplayName("Image")]
+        [Image]
         //[Required(ErrorMessage ="Uplode Image Less Then 200Kb")]
         public string ImageUrl { get; set; }
+        public byte[] ImageData {  get; set; }
+        public string contentType { get; set; }
         public string CreatedBy { get; set; }
         public string CreatedDate { get; set; }
         public string UpdatedBy { get; set; }
         public string Flag { get; set; }
-
         public string ServiceIdList { get; set; }
+
+        
     }
 
     //public class Roles

@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Annotation\ImageAttribute.cs" />
     <Compile Include="InstNameDto.cs" />
     <Compile Include="IssueDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -55,6 +56,7 @@
     <Compile Include="TicketAssignDto.cs" />
     <Compile Include="TicketDto.cs" />
     <Compile Include="UserDto.cs" />
+    <Compile Include="UserRole.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

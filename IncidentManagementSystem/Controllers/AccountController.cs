@@ -175,6 +175,8 @@ namespace IncidentManagementSystem.Controllers
         public ActionResult Register()
         {
             Initialize();
+            ViewBag.TaskStatus = TempData["TaskStatus"];
+            ViewBag.TaskMessage = TempData["TaskMessage"];
             return View();
         }
 
@@ -183,6 +185,7 @@ namespace IncidentManagementSystem.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "SuperAdmin")]
         public async Task<ActionResult> Register(RegisterViewModel model)
          {
             if (ModelState.IsValid)
@@ -192,15 +195,22 @@ namespace IncidentManagementSystem.Controllers
                 if (result.Succeeded)
                 {
                     await this.UserManager.AddToRoleAsync(user.Id, model.UserRole_Id);
-                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                    // Set ViewBag for modal display
+                    TempData["TaskStatus"] = "00"; // Example success status
+                    TempData["TaskMessage"] = "User registered successfully.";
 
-                    return RedirectToAction("Index", "Home");
+                    // Assign TempData values to ViewBag for the current request
+                    ViewBag.TaskStatus = TempData["TaskStatus"];
+                    ViewBag.TaskMessage = TempData["TaskMessage"];
+
+
                 }
                 AddErrors(result);
             }
