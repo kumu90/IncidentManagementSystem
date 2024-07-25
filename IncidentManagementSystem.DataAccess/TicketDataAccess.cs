@@ -337,6 +337,52 @@ namespace IncidentManagementSystem.DataAccess
             return _sQLStatus;
         }
 
+        public ResolvedByDto GetResolveDetails(string TicketId)
+        {
+            ResolvedByDto resolvedBylist = new ResolvedByDto();
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(conStr))
+                {
+                    using (SqlCommand cmd = new SqlCommand(conStr, conn))
+                    {
+                        cmd.CommandText = "GetInstiturionTicketResolve";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@Id", TicketId));
+                        cmd.Connection = conn;
+
+                        conn.Open();
+
+                        using (var sqlDataReader = cmd.ExecuteReader())
+                        {
+                            if (sqlDataReader.Read())
+                            {
+                                resolvedBylist = new ResolvedByDto()
+                                {
+                                    DateTime= Convert.ToDateTime(sqlDataReader["Date"].ToString()),
+                                    Username = sqlDataReader["UserName"].ToString(),
+                                    TicketId = sqlDataReader["TicketId"].ToString(),                                   
+                                    InstId = sqlDataReader["InstitutionName"].ToString(),                                    
+                                    IssueId = sqlDataReader["Issue"].ToString()                                   
+                                };
+
+                            }
+                        }
+                    }
+
+                    conn.Close();
+
+                }
+                return resolvedBylist;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return resolvedBylist;
+
+        }
+
         public SQLStatusDto TicketResolveBy(ResolvedByDto resolvedByDto)
         {
             SQLStatusDto _sQLStatus = new SQLStatusDto();
@@ -389,6 +435,8 @@ public interface ITicketDataAccess
     SQLStatusDto TicketAssignTo(TicketAssignDto AssignDto);
 
     SQLStatusDto TicketReject(string TicketId);
+
+    ResolvedByDto GetResolveDetails(string TicketId);
 
     SQLStatusDto TicketResolveBy(ResolvedByDto resolvedByDto);
 }
