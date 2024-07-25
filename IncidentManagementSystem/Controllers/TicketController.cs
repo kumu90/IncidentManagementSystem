@@ -225,9 +225,56 @@ namespace IncidentManagementSystem.Controllers
             //return View();
         }
 
-        public ActionResult Delete(string TicketId) 
+        public ActionResult TicketReject(string TicketId) 
         {
+            var result = _iTicketService.TicketReject(TicketId);
+            ViewBag.TaskStatus = TempData["TaskStatus"];
+            ViewBag.TaskMessage = TempData["TaskMessage"];
+
+            return RedirectToAction("Index",result);
+        }
+
+        public ActionResult TicketResolve(string TicketId)
+        {
+            Init();
+            //var result = _iTicketService.TicketAssign(TicketId);
+            ViewBag.TaskStatus = TempData["TaskStatus"];
+            ViewBag.TaskMessage = TempData["TaskMessage"];
+
             return View();
         }
+
+        [HttpPost]
+        public ActionResult TicketResolve(ResolvedByDto resolvedByDto)
+        {
+            Init();
+            try
+            {
+                SQLStatusDto sQLStatus = _iTicketService.TicketResolveBy(resolvedByDto);
+
+                if (sQLStatus.Status == "00")
+                {
+                    TempData["TaskStatus"] = sQLStatus.Status;
+                    TempData["TaskMessage"] = sQLStatus.Message;
+
+                }
+                else
+                {
+                    TempData["TaskStatus"] = sQLStatus.Status;
+                    TempData["TaskMessage"] = sQLStatus.Message;
+                    ModelState.AddModelError("", "An Ticket with the same name already AssignTo ");
+
+                }
+                ViewBag.TaskStatus = TempData["TaskStatus"];
+                ViewBag.TaskMessage = TempData["TaskMessage"];
+                return View("Index");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return View();
+        }
+
     }
 }

@@ -36,9 +36,7 @@
                     <td>@item.Email</td>
                     <td>@item.status</td>
                     <td>
-                        @Html.ActionLink("Details", "TicketDetail", "Ticket", new RouteValueDictionary { { "TicketId", item.TicketId } }, null)
-                    </td>
-                    <td>
+                        @Html.ActionLink("Details", "TicketDetail", "Ticket", new RouteValueDictionary { { "TicketId", item.TicketId } }, null) |              
                         @Html.ActionLink("Resolve", "TicketResolve", "Ticket", new RouteValueDictionary { { "TicketId", item.TicketId } }, null)
                     </td>
                 </tr>
