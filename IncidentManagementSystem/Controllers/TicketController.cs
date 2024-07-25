@@ -58,12 +58,15 @@ namespace IncidentManagementSystem.Controllers
             return Json(Issues, JsonRequestBehavior.AllowGet);
         }
 
+        [Authorize(Roles = "SuperAdmin, Admin, Developer")]
         public ActionResult Index(string search)
         {
             var TicketInfo = _iTicketService.TicketInfo(search);
             return View(TicketInfo);
         }
 
+
+        [Authorize(Roles = "SuperAdmin, Admin, Developer")]
         public ActionResult Search(string search)
         {
             var results = _iTicketService.TicketInfo(search);
@@ -72,7 +75,8 @@ namespace IncidentManagementSystem.Controllers
 
         
         [HttpGet]
-        [AllowAnonymous]
+        [Authorize(Roles = "SuperAdmin, User")]
+        //[AllowAnonymous]
         public ActionResult Create()
         {
             Init();
@@ -84,7 +88,7 @@ namespace IncidentManagementSystem.Controllers
 
         
         [HttpPost]
-        [AllowAnonymous]
+        //[AllowAnonymous]
         public ActionResult Create(TicketDto ticketDto , HttpPostedFileBase file)
         {
             Init();
@@ -143,7 +147,7 @@ namespace IncidentManagementSystem.Controllers
             return View();
         }
 
-        [Authorize(Roles = "SuperAdmin, Admin, Developer")]
+        [Authorize(Roles = "SuperAdmin, Admin, Developer, User")]
         public ActionResult  TicketDetail(string TicketId)
         {
             var ticketDetail = _iTicketService.GetTicketDetails(TicketId);
@@ -224,14 +228,14 @@ namespace IncidentManagementSystem.Controllers
             //return View();
         }
 
-        public ActionResult TicketReject(string TicketId) 
-        {
-            var result = _iTicketService.TicketReject(TicketId);
-            ViewBag.TaskStatus = TempData["TaskStatus"];
-            ViewBag.TaskMessage = TempData["TaskMessage"];
+        //public ActionResult TicketReject(string TicketId) 
+        //{
+        //    var result = _iTicketService.TicketReject(TicketId);
+        //    ViewBag.TaskStatus = TempData["TaskStatus"];
+        //    ViewBag.TaskMessage = TempData["TaskMessage"];
 
-            return RedirectToAction("Index",result);
-        }
+        //    return RedirectToAction("Index",result);
+        //}
 
         public ActionResult TicketResolve(string TicketId)
         {
@@ -243,37 +247,37 @@ namespace IncidentManagementSystem.Controllers
             return View(result);
         }
 
-        [HttpPost]
-        public ActionResult TicketResolve(ResolvedByDto resolvedByDto)
-        {
-            Init();
-            try
-            {
-                SQLStatusDto sQLStatus = _iTicketService.TicketResolveBy(resolvedByDto);
+        //[HttpPost]
+        //public ActionResult TicketResolve(ResolvedByDto resolvedByDto)
+        //{
+        //    Init();
+        //    try
+        //    {
+        //        SQLStatusDto sQLStatus = _iTicketService.TicketResolveBy(resolvedByDto);
 
-                if (sQLStatus.Status == "00")
-                {
-                    TempData["TaskStatus"] = sQLStatus.Status;
-                    TempData["TaskMessage"] = sQLStatus.Message;
+        //        if (sQLStatus.Status == "00")
+        //        {
+        //            TempData["TaskStatus"] = sQLStatus.Status;
+        //            TempData["TaskMessage"] = sQLStatus.Message;
 
-                }
-                else
-                {
-                    TempData["TaskStatus"] = sQLStatus.Status;
-                    TempData["TaskMessage"] = sQLStatus.Message;
-                    ModelState.AddModelError("", "An Ticket with the same name already AssignTo ");
+        //        }
+        //        else
+        //        {
+        //            TempData["TaskStatus"] = sQLStatus.Status;
+        //            TempData["TaskMessage"] = sQLStatus.Message;
+        //            ModelState.AddModelError("", "An Ticket with the same name already AssignTo ");
 
-                }
-                ViewBag.TaskStatus = TempData["TaskStatus"];
-                ViewBag.TaskMessage = TempData["TaskMessage"];
-                return View("Index");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-            return View();
-        }
+        //        }
+        //        ViewBag.TaskStatus = TempData["TaskStatus"];
+        //        ViewBag.TaskMessage = TempData["TaskMessage"];
+        //        return View("Index");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Console.WriteLine(ex.Message);
+        //    }
+        //    return View();
+        //}
 
     }
 }

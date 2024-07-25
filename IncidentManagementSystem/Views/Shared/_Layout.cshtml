@@ -28,17 +28,18 @@
                         @Html.Raw(Html.ActionLink("Dashboad", "Dashboard", "Home", new { area = "" }, new { @class = "nav-link" }).ToString().Replace("Dashboad", "<span class='bx bxs-dashboard icon'></span> Dashboard"))
                     </div>
 
-                    <div class="item">
-                        <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse" data-bs-target="#Detail" aria-expanded="false" aria-controls="Detail">
-                            <i class="bx bxs-collection icon"></i>
-                            <span>Detail</span>
-                            <i class='bx bx-chevron-down'></i>
-                        </a>
-                        <div id="Detail" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                    @if (User.IsInRole("SuperAdmin") || User.IsInRole("Admin") || User.IsInRole("Developer"))
+                    {
+                        <div class="item">
+                            <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse" data-bs-target="#Detail" aria-expanded="false" aria-controls="Detail">
+                                <i class="bx bxs-collection icon"></i>
+                                <span>Detail</span>
+                                <i class='bx bx-chevron-down'></i>
+                            </a>
+                            <div id="Detail" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
 
-                            <ul>
-                                @if (User.IsInRole("SuperAdmin") || User.IsInRole("Admin") || User.IsInRole("Developer"))
-                                {
+                                <ul>
+
 
                                     <li class="item">
                                         @Html.Raw(Html.ActionLink("UserDetail", "index", "User", new { area = "" }, new { @class = "nav-link" }).ToString().Replace("UserDetail", "<span class='bx bxs-user-detail icon'></span> User Detail"))
@@ -47,10 +48,11 @@
                                     <li class="item">
                                         @Html.Raw(Html.ActionLink("InstitutionDetail", "index", "Institution", new { area = "" }, new { @class = "nav-link" }).ToString().Replace("InstitutionDetail", "<span class='bx bxs-building-house icon'></span> Institution Detail"))
                                     </li>
-                                }
-                            </ul>
+
+                                </ul>
+                            </div>
                         </div>
-                    </div>
+                    }
                     @if (User.IsInRole("SuperAdmin"))
                     {
                         <div class="item" id="sidebar">
@@ -103,7 +105,7 @@
                     </div>
 
                     @*<div class="item">
-        </div>*@
+                        </div>*@
                 </div>
                 <footer class="sidebar-footer">
                     @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "sidebar-footer" }))

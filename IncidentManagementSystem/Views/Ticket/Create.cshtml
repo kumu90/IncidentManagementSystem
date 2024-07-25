@@ -143,9 +143,9 @@
                 <h4 class="@(@ViewBag.TaskStatus=="00"?"text-success":"text-danger")">@ViewBag.TaskMessage</h4>
             </div>
             <div class="modal-footer" style="padding:8px 8px 16px 8px;margin-top:0px">
-                @if (@ViewBag.TaskStatus == "00")
+                @if (@ViewBag.TaskStatus == "00")                                                                                
                 {
-                    <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal" data-target="#modalTaskComplete" onclick="location.href='@Url.Action("Index","Ticket")'">Okay</button>
+                    <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal" data-target="#modalTaskComplete" onclick="location.href='@Url.Action("TicketDetail","Ticket")'">Okay</button>
                 }
                 else
                 {
