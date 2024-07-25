@@ -72,7 +72,8 @@ namespace IncidentManagementSystem.Controllers
 
         
         [HttpGet]
-        [AllowAnonymous]
+        [Authorize(Roles = "Admin")]
+        //[AllowAnonymous]
         public ActionResult Create()
         {
             Init();
@@ -84,7 +85,7 @@ namespace IncidentManagementSystem.Controllers
 
         
         [HttpPost]
-        [AllowAnonymous]
+        //[AllowAnonymous]
         public ActionResult Create(TicketDto ticketDto , HttpPostedFileBase file)
         {
             Init();
