@@ -236,11 +236,11 @@ namespace IncidentManagementSystem.Controllers
         public ActionResult TicketResolve(string TicketId)
         {
             Init();
-            var result = _iTicketService.TicketAssign(TicketId);
+            //var result = _iTicketService.TicketAssign(TicketId);
             ViewBag.TaskStatus = TempData["TaskStatus"];
             ViewBag.TaskMessage = TempData["TaskMessage"];
 
-            return View(result);
+            return View();
         }
 
         [HttpPost]

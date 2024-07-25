@@ -1,0 +1,96 @@
+﻿@model IncidentManagementSystem.Model.ResolvedByDto
+
+<style>
+    .dl-horizontal {
+        background-color: #fff;
+        border-radius: 12px 12px 12px 12px;
+    }
+
+        .dl-horizontal dt {
+            text-align: right !important;
+            width: auto;
+            clear: left;
+            float: left;
+            margin-left: 12px;
+            margin-right: 10px;
+            font-family: Outfit;
+            font-weight: 600;
+            white-space: normal;
+        }
+
+        .dl-horizontal dd {
+            margin-right: 20px;
+            margin-left: 230px;
+            margin-bottom: 20px;
+        }
+
+    .resolve {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+    }
+</style>
+
+<div class="container-fluid ">
+    <div class="col-lg-12 header ">
+        <div class="header-text">
+        </div>
+        <div class="col text">
+            <span class="page input-icon">Ticket Resolve</span>
+
+            <span class="detail">Resolve By </span>
+        </div>
+    </div>
+
+    @using (Html.BeginForm("TicketResolve", "Ticket", FormMethod.Post, new { role = "form" }))
+    {
+        <div class="row">
+            <div class="col-md-6 resolve">
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Username)
+                    </dt>
+                    <dd>
+                        @Html.TextBoxFor(m => m.Username, new { @class = "form-control b-inst", @readonly = "readonly" })
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.TicketId)
+                    </dt>
+                    <dd>
+                        @Html.TextBoxFor(m => m.TicketId, new { @class = "form-control b-inst", @readonly = "readonly" })
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.AssignTo)
+                    </dt>
+                    <dd>
+                        @Html.TextBoxFor(m => m.AssignTo, new { @class = "form-control b-inst", @readonly = "readonly" })
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Resolve)
+                    </dt>
+                    <dd>
+                        @Html.TextBoxFor(m => m.Resolve, new { @class = "form-control b-inst", @readonly = "readonly" })
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Description)
+                    </dt>
+                    <dd>
+                        @Html.TextAreaFor(m => m.Description, new { @class = "form-select b-inst" })
+                    </dd>
+
+                    <dt>
+
+                        <input type="submit" value="Submit" class="btn btn-success btn-width" />
+
+                    </dt>
+                </dl>
+            </div>
+        </div>
+    }
+</div>
