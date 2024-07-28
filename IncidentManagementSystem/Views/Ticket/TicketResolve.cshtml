@@ -64,10 +64,17 @@
                     </dd>
 
                     <dt>
-                        @Html.DisplayNameFor(model => model.AssignTo)
+                        @Html.DisplayNameFor(model => model.InstId)
                     </dt>
                     <dd>
-                        @Html.TextBoxFor(m => m.AssignTo, new { @class = "form-control b-inst", @readonly = "readonly" })
+                        @Html.TextBoxFor(m => m.InstId, new { @class = "form-control b-inst", @readonly = "readonly" })
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.IssueId)
+                    </dt>
+                    <dd>
+                        @Html.TextBoxFor(m => m.IssueId, new { @class = "form-control b-inst", @readonly = "readonly" })
                     </dd>
 
                     <dt>
