@@ -136,9 +136,8 @@ namespace IncidentManagementSystem.Controllers
                 {
                     ViewBag.Message = "Invalid image file.";
                 }
-               
 
-                return View();
+                return View();              
             }
             catch (Exception ex)
             {
@@ -148,7 +147,7 @@ namespace IncidentManagementSystem.Controllers
         }
 
         [Authorize(Roles = "SuperAdmin, Admin, Developer, User")]
-        public ActionResult  TicketDetail(string TicketId)
+        public ActionResult TicketDetail(string TicketId)
         {
             var ticketDetail = _iTicketService.GetTicketDetails(TicketId);
             if (!string.IsNullOrEmpty(ticketDetail.ImageUrl))
@@ -203,7 +202,7 @@ namespace IncidentManagementSystem.Controllers
             {
                 SQLStatusDto sQLStatus = _iTicketService.TicketAssignTo(ticketAssignDto);
 
-                if (sQLStatus.Status == "00")
+                if (sQLStatus != null)
                 {
                     TempData["TaskStatus"] = sQLStatus.Status;
                     TempData["TaskMessage"] = sQLStatus.Message;
@@ -211,13 +210,10 @@ namespace IncidentManagementSystem.Controllers
                 }
                 else
                 {
-                    TempData["TaskStatus"] = sQLStatus.Status;
-                    TempData["TaskMessage"] = sQLStatus.Message;
-                    ModelState.AddModelError("", "An Ticket with the same name already AssignTo ");
+                    TempData["TaskStatus"] = "Error";
+                    TempData["TaskMessage"] = "Ticket Not Register";
 
                 }
-                ViewBag.TaskStatus = TempData["TaskStatus"];
-                ViewBag.TaskMessage = TempData["TaskMessage"];
 
             }
             catch (Exception ex)
@@ -225,17 +221,16 @@ namespace IncidentManagementSystem.Controllers
                 Console.WriteLine(ex.Message);
             }
             return RedirectToAction("Assign", "Ticket", new { TicketId = ticketAssignDto.TicketId });
-            //return View();
         }
 
-        //public ActionResult TicketReject(string TicketId) 
-        //{
-        //    var result = _iTicketService.TicketReject(TicketId);
-        //    ViewBag.TaskStatus = TempData["TaskStatus"];
-        //    ViewBag.TaskMessage = TempData["TaskMessage"];
+        public ActionResult TicketReject(string TicketId)
+        {
+            var result = _iTicketService.TicketReject(TicketId);
+            ViewBag.TaskStatus = TempData["TaskStatus"];
+            ViewBag.TaskMessage = TempData["TaskMessage"];
 
-        //    return RedirectToAction("Index",result);
-        //}
+            return RedirectToAction("Index", result);
+        }
 
         public ActionResult TicketResolve(string TicketId)
         {
@@ -247,37 +242,33 @@ namespace IncidentManagementSystem.Controllers
             return View(result);
         }
 
-        //[HttpPost]
-        //public ActionResult TicketResolve(ResolvedByDto resolvedByDto)
-        //{
-        //    Init();
-        //    try
-        //    {
-        //        SQLStatusDto sQLStatus = _iTicketService.TicketResolveBy(resolvedByDto);
+        [HttpPost]
+        public ActionResult TicketResolve(ResolvedByDto resolvedByDto)
+        {
+            Init();
+            try
+            {
+                SQLStatusDto sQLStatus = _iTicketService.TicketResolveBy(resolvedByDto);
 
-        //        if (sQLStatus.Status == "00")
-        //        {
-        //            TempData["TaskStatus"] = sQLStatus.Status;
-        //            TempData["TaskMessage"] = sQLStatus.Message;
+                if (sQLStatus != null)
+                {
+                    TempData["TaskStatus"] = sQLStatus.Status;
+                    TempData["TaskMessage"] = sQLStatus.Message;
 
-        //        }
-        //        else
-        //        {
-        //            TempData["TaskStatus"] = sQLStatus.Status;
-        //            TempData["TaskMessage"] = sQLStatus.Message;
-        //            ModelState.AddModelError("", "An Ticket with the same name already AssignTo ");
+                }
+                else
+                {
+                    TempData["TaskStatus"] = "Missing Ticket";
+                    TempData["TaskMessage"] = "Ticket Not Found.";
 
-        //        }
-        //        ViewBag.TaskStatus = TempData["TaskStatus"];
-        //        ViewBag.TaskMessage = TempData["TaskMessage"];
-        //        return View("Index");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Console.WriteLine(ex.Message);
-        //    }
-        //    return View();
-        //}
+                }                
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return View();
+        }
 
     }
 }

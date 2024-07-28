@@ -359,7 +359,7 @@ namespace IncidentManagementSystem.DataAccess
                             {
                                 resolvedBylist = new ResolvedByDto()
                                 {
-                                    DateTime= Convert.ToDateTime(sqlDataReader["Date"].ToString()),
+                                    TranDateTime = Convert.ToDateTime(sqlDataReader["Date"].ToString()),
                                     Username = sqlDataReader["UserName"].ToString(),
                                     TicketId = sqlDataReader["TicketId"].ToString(),                                   
                                     InstId = sqlDataReader["InstitutionName"].ToString(),                                    
@@ -392,14 +392,16 @@ namespace IncidentManagementSystem.DataAccess
                 {
                     using (SqlCommand cmd = new SqlCommand(conStr, conn))
                     {
-
-                        cmd.CommandText = "InstitutionTicketAssignUpdate";
+                        cmd.CommandText = "InstitutionTicketResolve";
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Connection = conn;
+                        cmd.Parameters.AddWithValue("@UserId", resolvedByDto.Username);
                         cmd.Parameters.AddWithValue("@TicketId", resolvedByDto.TicketId);
-                        cmd.Parameters.AddWithValue("@AssignTo", resolvedByDto.AssignTo);
-                        cmd.Parameters.AddWithValue("@Resolve", resolvedByDto.Resolve);
-
+                        cmd.Parameters.AddWithValue("@InstId", resolvedByDto.InstId);
+                        cmd.Parameters.AddWithValue("@IssueId", resolvedByDto.IssueId);
+                        cmd.Parameters.AddWithValue("@TranDateTime", resolvedByDto.TranDateTime);
+                        cmd.Parameters.AddWithValue("@ResolveId", resolvedByDto.Resolve);
+                        cmd.Parameters.AddWithValue("@Description", resolvedByDto.Description);
                         conn.Open();
                         using (var rdr = cmd.ExecuteReader())
                         {
@@ -411,7 +413,6 @@ namespace IncidentManagementSystem.DataAccess
                         }
                     }
                 }
-
                 return _sQLStatus;
             }
             catch (Exception ex)
