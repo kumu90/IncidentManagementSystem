@@ -38,6 +38,11 @@ namespace IncidentManagementSystem.Service
             return _iTicketDataAccess.TicketAssign(TicketId);
         }
 
+        public TicketDto GetInstDetail(string UserName = "")
+        {
+            return _iTicketDataAccess.GetInstDetail(UserName);
+        }
+
         public SQLStatusDto TicketAssignTo(TicketAssignDto AssignDto)
         {
             return _iTicketDataAccess.TicketAssignTo(AssignDto);
@@ -70,6 +75,7 @@ public interface ITicketService
     SQLStatusDto TicketAssignTo(TicketAssignDto AssignDto);
     SQLStatusDto TicketReject(string TicketId);
 
+    TicketDto GetInstDetail(string UserName = "");
     ResolvedByDto GetResolveDetails(string TicketId);
     SQLStatusDto TicketResolveBy(ResolvedByDto resolvedByDto);
 

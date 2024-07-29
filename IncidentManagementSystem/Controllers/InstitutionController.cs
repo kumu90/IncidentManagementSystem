@@ -9,6 +9,7 @@ using IncidentManagementSystem.DataAccess;
 using IncidentManagementSystem.Model;
 using IncidentManagementSystem.Service;
 using Microsoft.AspNet.Identity;
+using Microsoft.ReportingServices.ReportProcessing.ReportObjectModel;
 
 namespace IncidentManagementSystem.Controllers
 {
@@ -98,17 +99,47 @@ namespace IncidentManagementSystem.Controllers
                     TempData["TaskStatus"] = sQLStatus.Status;
                     TempData["TaskMessage"] = sQLStatus.Message;
 
+                    }
+                    else
+                    {
+                        TempData["TaskStatus"] = sQLStatus.Status;
+                        TempData["TaskMessage"] = sQLStatus.Message;
+                    }
+                    ViewBag.TaskStatus = TempData["TaskStatus"];
+                    ViewBag.TaskMessage = TempData["TaskMessage"];
                 }
                 else
                 {
-                    TempData["TaskStatus"] = "Error";
-                    TempData["TaskMessage"] = "Institution Register Fail";
+                    ViewBag.Message = "Invalid image file.";
                 }
-            }
-            else
-            {
-                ViewBag.Message = "Invalid image file.";
-            }
+          
+
+            //try
+            //{
+            //    SQLStatusDto sQLStatus = _iInstitutionService.InstitutionCreate(instNameDto);
+
+            //    TempData["TaskStatus"] = sQLStatus.Status;
+            //    TempData["TaskMessage"] = sQLStatus.Message;
+
+            //    if (sQLStatus.Status != "00")
+            //    {
+            //        ModelState.AddModelError("", "An institution with the same name already exists in the system");
+            //        ViewBag.TaskStatus = "Error";
+            //        ViewBag.TaskMessage = sQLStatus.Message;
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    ModelState.AddModelError("", "Error saving institution: " + ex.Message);
+            //    ViewBag.TaskStatus = "Error";
+            //    ViewBag.TaskMessage = "Error saving institution.";
+            //}
+            //}
+            //else
+            //{
+            //    ViewBag.TaskStatus = "Error";
+            //    ViewBag.TaskMessage = "Model validation failed.";
+            //}
 
             return View();
         }

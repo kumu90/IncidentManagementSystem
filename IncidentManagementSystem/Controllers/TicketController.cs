@@ -1,5 +1,6 @@
 ﻿using IncidentManagementSystem.Model;
 using IncidentManagementSystem.Service;
+using Microsoft.ReportingServices.ReportProcessing.ReportObjectModel;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -77,12 +78,38 @@ namespace IncidentManagementSystem.Controllers
         [HttpGet]
         [Authorize(Roles = "SuperAdmin, User")]
         //[AllowAnonymous]
-        public ActionResult Create()
+        public ActionResult Create(string UserName, string ticket)
         {
             Init();
+            // Debugging or logging
+            System.Diagnostics.Debug.WriteLine($"Received UserName parameter: {UserName}");
+
+            // Check if UserName is provided; if not, try to retrieve from session
+            if (string.IsNullOrEmpty(UserName))
+            {
+                UserName = Session["Username"] as string;
+            }
+
+            // If UserName is still null or empty, redirect to login or show an error
+            if (string.IsNullOrEmpty(UserName))
+            {
+                TempData["TaskStatus"] = "Error";
+                TempData["TaskMessage"] = "UserName is required. Please log in.";
+                return RedirectToAction("Login", "Account");
+            }
+
+            var instDetail  =_iTicketService.GetInstDetail(UserName);
+
+            if (instDetail == null)
+            {
+                TempData["TaskStatus"] = "Error";
+                TempData["TaskMessage"] = "No institution details found for the given UserName.";
+                return RedirectToAction("Index"); // Redirect to an appropriate action or view
+            }
             ViewBag.TaskStatus = TempData["TaskStatus"];
-            ViewBag.TaskMessage = TempData["TaskMessage"];            
-            return View();
+            ViewBag.TaskMessage = TempData["TaskMessage"];
+            
+            return View(instDetail);
         }
 
         
@@ -222,11 +249,12 @@ namespace IncidentManagementSystem.Controllers
         public ActionResult TicketResolve(string TicketId)
         {
             Init();
-            var result = _iTicketService.GetResolveDetails(TicketId);
+            //var result = _iTicketService.GetResolveDetails(TicketId);
             ViewBag.TaskStatus = TempData["TaskStatus"];
             ViewBag.TaskMessage = TempData["TaskMessage"];
 
-            return View(result);
+            //return View(result);
+            return View();
         }
 
         [HttpPost]

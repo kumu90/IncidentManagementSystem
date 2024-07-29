@@ -63,7 +63,7 @@ namespace IncidentManagementSystem.Model
         public string CreatedDate { get; set; }
         public string UpdatedBy { get; set; }
         public string Flag { get; set; }
-        public string ServiceIdList { get; set; }
+        public List<string> ServiceIdList { get; set; }
 
         
     }
