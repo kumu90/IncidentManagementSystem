@@ -57,6 +57,13 @@
                     </dd>
 
                     <dt>
+                        @Html.DisplayNameFor(model => model.TranDateTime)
+                    </dt>
+                    <dd>
+                        @Html.TextBoxFor(m => m.TranDateTime, new { @class = "form-control b-inst", @readonly = "readonly" })
+                    </dd>
+
+                    <dt>
                         @Html.DisplayNameFor(model => model.TicketId)
                     </dt>
                     <dd>
@@ -81,7 +88,7 @@
                         @Html.DisplayNameFor(model => model.Resolve)
                     </dt>
                     <dd>
-                        @Html.TextBoxFor(m => m.Resolve, new { @class = "form-control b-inst", @readonly = "readonly" })
+                        @Html.TextBoxFor(m => m.Resolve, new { @class = "form-control b-inst"})
                     </dd>
 
                     <dt>

@@ -53,8 +53,6 @@ namespace IncidentManagementSystem.Controllers
         public ActionResult Create()
         {
             Init();
-            //var model = new ServiceDto
-            //{ InstId = InstId };
             ViewBag.TaskStatus = TempData["TaskStatus"];
             ViewBag.TaskMessage = TempData["TaskMessage"];
 
@@ -69,20 +67,16 @@ namespace IncidentManagementSystem.Controllers
             Init();
             SQLStatusDto sQLStatus = _iproductService.ServiceCreate(service);
 
-            if (sQLStatus.Status == "00")
+            if (sQLStatus != null)
             {
                 TempData["TaskStatus"] = sQLStatus.Status;
                 TempData["TaskMessage"] = sQLStatus.Message;
-                return View();
-
 
             }
             else
             {
-
-                TempData["TaskStatus"] = sQLStatus.Status;
-                TempData["TaskMessage"] = sQLStatus.Message;
-                ModelState.AddModelError("", "An Service with the same name already exists in the system");
+                TempData["TaskStatus"] = "Error";
+                TempData["TaskMessage"] = "Service already Exists.";
 
             }
             ViewBag.TaskStatus = TempData["TaskStatus"];

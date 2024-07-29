@@ -94,7 +94,7 @@
 
                 <div class="row  buttom-ticket">
                     <div class="col-md-2">
-                        <input type="submit" value="Submit" class="btn btn-primary btn-lg" id="submit" />
+                        <input type="submit" value="Submit" class="btn btn-primary btn-lg" id="submit"/>
                     </div>
                 </div>
 
@@ -145,7 +145,7 @@
             <div class="modal-footer" style="padding:8px 8px 16px 8px;margin-top:0px">
                 @if (@ViewBag.TaskStatus == "00")                                                                                
                 {
-                    <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal" data-target="#modalTaskComplete" onclick="location.href='@Url.Action("TicketDetail","Ticket")'">Okay</button>
+                    <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal" data-target="#modalTaskComplete" onclick="location.href = '@Url.Action("TicketDetail","Ticket")'">Okay</button>
                 }
                 else
                 {
@@ -240,6 +240,10 @@
            }
         });
 
+        function assignTicket(ticketId) {
+        var url = '@Url.Action("TicketDetail", "Ticket")?TicketId=' + encodeURIComponent(ticketId);
+        window.location.href = url;
+        }
 
     </script>
 }

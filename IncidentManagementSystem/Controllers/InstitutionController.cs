@@ -35,7 +35,7 @@ namespace IncidentManagementSystem.Controllers
             ViewBag.Institution = new SelectList(institution, "InstId", "InstitutionName");
 
             var services = _iproductService.GetServices();
-            ViewBag.services = /*services;*/ new SelectList(services, "ServiceId", "serviceName");
+            ViewBag.services = new SelectList(services, "ServiceId", "serviceName");
         }
 
 
@@ -81,25 +81,23 @@ namespace IncidentManagementSystem.Controllers
             Init();
             instNameDto.CreatedBy = User.Identity.GetUserId();
 
-            //if (ModelState.IsValid)
-            //{
-                if (file != null && file.ContentLength > 0)
+            if (file != null && file.ContentLength > 0)
+            {
+
+                instNameDto.ImageUrl = Path.GetFileName(file.FileName);
+                instNameDto.contentType = file.ContentType;
+                using (var binaryReader = new BinaryReader(file.InputStream))
                 {
+                    instNameDto.ImageData = binaryReader.ReadBytes(file.ContentLength);
+                }
 
-                    instNameDto.ImageUrl = Path.GetFileName(file.FileName);
-                    instNameDto.contentType = file.ContentType;
-                    using (var binaryReader = new BinaryReader(file.InputStream))
-                    {
-                        instNameDto.ImageData = binaryReader.ReadBytes(file.ContentLength);
-                    }
-
-                    SQLStatusDto sQLStatus = _iInstitutionService.InstitutionCreate(instNameDto);
+                SQLStatusDto sQLStatus = _iInstitutionService.InstitutionCreate(instNameDto);
 
 
-                    if (sQLStatus.Status == "00")
-                    {
-                        TempData["TaskStatus"] = sQLStatus.Status;
-                        TempData["TaskMessage"] = sQLStatus.Message;
+                if (sQLStatus != null)
+                {
+                    TempData["TaskStatus"] = sQLStatus.Status;
+                    TempData["TaskMessage"] = sQLStatus.Message;
 
                     }
                     else
