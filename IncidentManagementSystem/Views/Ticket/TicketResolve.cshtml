@@ -88,7 +88,7 @@
                         @Html.DisplayNameFor(model => model.Resolve)
                     </dt>
                     <dd>
-                        @Html.TextBoxFor(m => m.Resolve, new { @class = "form-control b-inst"})
+                        @Html.TextBoxFor(m => m.Resolve, new { @class = "form-control b-inst" })
                     </dd>
 
                     <dt>
@@ -108,3 +108,45 @@
         </div>
     }
 </div>
+
+<div class="modal" tabindex="-1" role="dialog" id="modalTaskComplete" aria-labelledby="modalTaskCompleteLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content col-lg-10 col-md-9">
+            <div class="modal-header text-center">
+                <h4 class="modal-title" id="modalTaskCompleteLabel">Status</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body text-center">
+                <h4 class="@(@ViewBag.TaskStatus=="00"?"text-success":"text-danger")">@ViewBag.TaskMessage</h4>
+            </div>
+            <div class="modal-footer" style="padding:8px 8px 16px 8px;margin-top:0px">
+                @if (@ViewBag.TaskStatus == "00")
+                {
+                    <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal" data-target="#modalTaskComplete" onclick="location.href = '@Url.Action("Dashboard","Ticket")'">Okay</button>
+                }
+                else
+                {
+                    <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal" data-target="#modalTaskComplete" onclick="location.href = '@Url.Action("TicketDetail","Ticket")'">Okay</button>
+                }
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+           debugger;
+           var status= '@ViewBag.TaskStatus';
+           if (status !== null && status !== '')
+           {
+               $("#modalTaskComplete").show();
+           }
+        });
+    </script>
+}
