@@ -263,6 +263,51 @@ namespace IncidentManagementSystem.DataAccess
             return ticketAssignDto;
         }
 
+
+        public TicketDto GetInstDetail(string UserName = "")
+        {
+            TicketDto instNameDto = new TicketDto();
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(conStr))
+                {
+                    using (SqlCommand cmd = new SqlCommand(conStr, conn))
+                    {
+
+                        cmd.CommandText = "GetInstutionTicketCreate";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@Id", UserName));
+                        cmd.Connection = conn;
+
+                        conn.Open();
+
+                        using (var sqlDataReader = cmd.ExecuteReader())
+                        {
+                            if (sqlDataReader.Read())
+                            {
+                                instNameDto = new TicketDto()
+                                {
+                                    InstId = sqlDataReader["InstitutionName"].ToString(),                                    
+                                    Email = sqlDataReader["Email"].ToString(),
+                                    CellNumber = sqlDataReader["ContactNumber"].ToString()
+
+
+                                };
+
+
+                            }
+                        }
+                    }
+
+                }
+                return instNameDto;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return instNameDto;
+        }
         public SQLStatusDto TicketAssignTo(TicketAssignDto AssignDto)
         {
             SQLStatusDto _sQLStatus = new SQLStatusDto();
@@ -431,6 +476,8 @@ public interface ITicketDataAccess
 
     List<IssueDto> GetIssuesList(string ServiceId = "");
     TicketAssignDto TicketAssign(string TicketId = "");
+
+    TicketDto GetInstDetail(string UserName = "");
 
     SQLStatusDto TicketAssignTo(TicketAssignDto AssignDto);
 

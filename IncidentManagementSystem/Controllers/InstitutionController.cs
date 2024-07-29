@@ -9,6 +9,7 @@ using IncidentManagementSystem.DataAccess;
 using IncidentManagementSystem.Model;
 using IncidentManagementSystem.Service;
 using Microsoft.AspNet.Identity;
+using Microsoft.ReportingServices.ReportProcessing.ReportObjectModel;
 
 namespace IncidentManagementSystem.Controllers
 {
@@ -113,27 +114,28 @@ namespace IncidentManagementSystem.Controllers
                 {
                     ViewBag.Message = "Invalid image file.";
                 }
+          
 
-                //try
-                //{
-                //    SQLStatusDto sQLStatus = _iInstitutionService.InstitutionCreate(instNameDto);
+            //try
+            //{
+            //    SQLStatusDto sQLStatus = _iInstitutionService.InstitutionCreate(instNameDto);
 
-                //    TempData["TaskStatus"] = sQLStatus.Status;
-                //    TempData["TaskMessage"] = sQLStatus.Message;
+            //    TempData["TaskStatus"] = sQLStatus.Status;
+            //    TempData["TaskMessage"] = sQLStatus.Message;
 
-                //    if (sQLStatus.Status != "00")
-                //    {
-                //        ModelState.AddModelError("", "An institution with the same name already exists in the system");
-                //        ViewBag.TaskStatus = "Error";
-                //        ViewBag.TaskMessage = sQLStatus.Message;
-                //    }
-                //}
-                //catch (Exception ex)
-                //{
-                //    ModelState.AddModelError("", "Error saving institution: " + ex.Message);
-                //    ViewBag.TaskStatus = "Error";
-                //    ViewBag.TaskMessage = "Error saving institution.";
-                //}
+            //    if (sQLStatus.Status != "00")
+            //    {
+            //        ModelState.AddModelError("", "An institution with the same name already exists in the system");
+            //        ViewBag.TaskStatus = "Error";
+            //        ViewBag.TaskMessage = sQLStatus.Message;
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    ModelState.AddModelError("", "Error saving institution: " + ex.Message);
+            //    ViewBag.TaskStatus = "Error";
+            //    ViewBag.TaskMessage = "Error saving institution.";
+            //}
             //}
             //else
             //{

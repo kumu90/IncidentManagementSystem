@@ -12,6 +12,7 @@ using IncidentManagementSystem.Models;
 using System.Collections.Generic;
 using IncidentManagementSystem.Service;
 using IncidentManagementSystem.Model;
+using Microsoft.ReportingServices.ReportProcessing.ReportObjectModel;
 
 namespace IncidentManagementSystem.Controllers
 {
@@ -84,6 +85,7 @@ namespace IncidentManagementSystem.Controllers
         {
             if (!ModelState.IsValid)
             {
+                Session["Username"] = model.Username;
                 return View(model);
             }
 
@@ -93,6 +95,7 @@ namespace IncidentManagementSystem.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
+                    Session["Username"] = model.Username;
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
