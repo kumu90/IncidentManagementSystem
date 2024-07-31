@@ -20,9 +20,9 @@ namespace IncidentManagementSystem.Service
         {
             return _iTicketDataAccess.TicketCreate(_ticketDto);
         }
-        public List<TicketDto> TicketInfo(string search = "", string InstId = "",string status="")
+        public List<TicketDto> TicketInfo(string search = "", string InstId = "",string status="",int page=1,int offset=10)
         {
-            return _iTicketDataAccess.TicketInfo(search,InstId,status);
+            return _iTicketDataAccess.TicketInfo(search,InstId,status,page,offset);
         }
         public TicketDto GetTicketDetails(string TicketId)
         {
@@ -67,7 +67,7 @@ namespace IncidentManagementSystem.Service
 public interface ITicketService
 {
     SQLStatusDto TicketCreate(TicketDto ticketDto);
-    List<TicketDto> TicketInfo(string search = "", string InstId = "", string status="");
+    List<TicketDto> TicketInfo(string search = "", string InstId = "", string status="", int page = 1, int offset = 10);
 
     TicketDto GetTicketDetails(string TicketId);
     List<IssueDto> GetIssueList(string ServiceId="");

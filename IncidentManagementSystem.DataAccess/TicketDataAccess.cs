@@ -58,7 +58,7 @@ namespace IncidentManagementSystem.DataAccess
             }
             return _sQLStatus;
         }
-        public List<TicketDto> TicketInfo(string search = "",string InstId="",string status="")
+        public List<TicketDto> TicketInfo(string search = "",string InstId="",string status="", int page = 1, int offset = 10)
         {
             List<TicketDto> Ticketlist = new List<TicketDto>();
             try
@@ -73,6 +73,8 @@ namespace IncidentManagementSystem.DataAccess
                         cmd.Parameters.Add(new SqlParameter("@Search", search ?? ""));
                         cmd.Parameters.Add(new SqlParameter("@instId", InstId ?? ""));
                         cmd.Parameters.Add(new SqlParameter("@status", status ?? ""));
+                        cmd.Parameters.Add(new SqlParameter("@page", page));
+                        cmd.Parameters.Add(new SqlParameter("@offset", offset));
                         cmd.Connection = conn;
 
                         conn.Open();
@@ -472,7 +474,7 @@ namespace IncidentManagementSystem.DataAccess
 public interface ITicketDataAccess
 {
     SQLStatusDto TicketCreate(TicketDto ticketDto);
-    List<TicketDto> TicketInfo(string search = "", string InstId = "", string status="");
+    List<TicketDto> TicketInfo(string search = "", string InstId = "", string status="", int page = 1, int offset = 10);
 
     TicketDto GetTicketDetails(string TicketId);
 
