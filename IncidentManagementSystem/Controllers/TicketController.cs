@@ -34,7 +34,7 @@ namespace IncidentManagementSystem.Controllers
             List<Roles> role = _iInstitutionService.RoleList();
             ViewBag.UserRole = new SelectList(role, "Id", "Name");
 
-            var services = _iproductService.GetServices();
+            var services = _iproductService.GetServices();            
             ViewBag.services = new SelectList(services, "ServiceId", "serviceName");
 
             var Issues = _iTicketService.GetIssueList();
@@ -64,15 +64,16 @@ namespace IncidentManagementSystem.Controllers
         [Authorize(Roles = "SuperAdmin, Admin, Developer, User")]
         public ActionResult Index(string search)
         {
+            Init();
             var TicketInfo = _iTicketService.TicketInfo(search);
             return View(TicketInfo);
         }
 
 
         [Authorize(Roles = "SuperAdmin, Admin, Developer")]
-        public ActionResult Search(string search)
+        public ActionResult Search(string search,string InstId,string status)
         {
-            var results = _iTicketService.TicketInfo(search);
+            var results = _iTicketService.TicketInfo(search,InstId,status);
             return PartialView("Search", results);
         }
 
@@ -80,7 +81,7 @@ namespace IncidentManagementSystem.Controllers
         [HttpGet]
         [Authorize(Roles = "SuperAdmin, User")]
         //[AllowAnonymous]
-        public ActionResult Create(string UserName, string ticketId)
+        public ActionResult Create(string UserName)
         {
             Init();
             // Debugging or logging

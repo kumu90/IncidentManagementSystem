@@ -52,5 +52,13 @@ namespace IncidentManagementSystem.Model
 
         public byte[] ImageData { get; set; }
         public string contentType { get; set; }
+
+        public SearchDto Search { get; set; }
+    }
+
+    public class SearchDto
+    {
+        public string SearchById {  get; set; }
+        public string SearchByName { get; set; }
     }
 }
