@@ -58,7 +58,7 @@ namespace IncidentManagementSystem.DataAccess
             }
             return _sQLStatus;
         }
-        public List<TicketDto> TicketInfo(string search = "")
+        public List<TicketDto> TicketInfo(string search = "",string InstId="",string status="")
         {
             List<TicketDto> Ticketlist = new List<TicketDto>();
             try
@@ -68,9 +68,11 @@ namespace IncidentManagementSystem.DataAccess
                     using (SqlCommand cmd = new SqlCommand(conStr, conn))
                     {
 
-                        cmd.CommandText = @"TicketName";
+                        cmd.CommandText = @"GetTicketListDetails";
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Parameters.Add(new SqlParameter("@Search", search ?? ""));
+                        cmd.Parameters.Add(new SqlParameter("@instId", InstId ?? ""));
+                        cmd.Parameters.Add(new SqlParameter("@status", status ?? ""));
                         cmd.Connection = conn;
 
                         conn.Open();
@@ -471,7 +473,7 @@ namespace IncidentManagementSystem.DataAccess
 public interface ITicketDataAccess
 {
     SQLStatusDto TicketCreate(TicketDto ticketDto);
-    List<TicketDto> TicketInfo(string search = "");
+    List<TicketDto> TicketInfo(string search = "", string InstId = "", string status="");
 
     TicketDto GetTicketDetails(string TicketId);
 

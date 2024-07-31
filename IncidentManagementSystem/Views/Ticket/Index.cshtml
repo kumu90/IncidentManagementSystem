@@ -10,26 +10,57 @@
         </div>
     </div>
 
+    @{
+        var institutions = ViewBag.Institution as SelectList;
+    }
     @using (Html.BeginForm("Search", "Ticket", FormMethod.Get, new { id = "searchForm", enctype = "multipart/form-data" }))
     {
         <div class="container-fluid search-box">
             <div class=" row s-box">
 
 
-                <div class="col-lg-4 form-group s-dash">
-                    <input type="text" name="search" placeholder="Search..." class="form-control" } />
+                <div class="col-lg-3 form-group s-dash">
+                    <label>Search</label>
+                    <input type="text" name="search" placeholder="Search..." class="form-control" />
+                </div>
+                <div class="col-lg-3 form-group s-dash">
+                    <label>Status</label>
+                    <select name="status" class="form-control">
+                        <option value="">All</option>
+                        <option value="LO">Initial</option>
+                        <option value="00">Success</option>
+                        <option value="98">Pending</option>
+                        <option value="94">Rejected</option>
+                    </select>
+                </div>
+                <div class="col-lg-3 form-group s-dash">
+                    <label>Institution</label>
+                    <select id="InstDropDown" name="InstId" class="form-control">
+                        <option value="">-- Select an Institution --</option>
+                        @if (institutions != null)
+                        {
+                            foreach (var item in institutions)
+                            {
+                                <option value="@item.Value">@item.Text</option>
+                            }
+                        }
+                    </select>
                 </div>
 
-                <div class="col-lg-4 s-dash">
+                <div class="col-lg-1 s-dash">
                     <input type="submit" value="Search" class="btn btn-primary btn-width" />
                 </div>
+                <div class="col-lg-1 s-dash">
+                    <input type="button" value="Create" class="btn btn-success btn-width" onclick="location.href='@Url.Action("Create", "Ticket")'" id="createUser" />
+                </div>
+
 
             </div>
 
         </div>
 
         <hr />
-        <div id="partialTicketContainer">            
+        <div id="partialTicketContainer">
             @{
                 Html.Action("Search");
             }
@@ -42,6 +73,7 @@
     <script>
         $(document).ready(function () {
             $('#searchForm').submit(function (event) {
+                debugger;
                 event.preventDefault();
                 $.ajax({
                     url: $(this).attr('action'),

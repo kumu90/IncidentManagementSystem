@@ -1,6 +1,5 @@
 ﻿@using IncidentManagementSystem.Model
 @model List<TicketDto>
-
 @{
     int sno = 0; // Initialize serial number
 }
@@ -34,9 +33,28 @@
                     <td>@item.IssueId</td>
                     <td>@item.CellNumber</td>
                     <td>@item.Email</td>
-                    <td>@item.status</td>
                     <td>
-                        @Html.ActionLink("Details", "TicketDetail", "Ticket", new RouteValueDictionary { { "TicketId", item.TicketId } }, null) |              
+                        @{
+                            switch (item.status)
+                            {
+                                case "00":
+                                    <label style="color: green">Active</label>
+                                    break;
+                                case "98":
+                                    <label style="color: darkorange">Pending</label>
+                                    break;
+                                case "LO":
+                                    <label>Initial</label>
+                                    break;
+                                case "94":
+                                    <label style="color: red">Rejected</label>
+                                    break;
+                            }
+                        }
+                    </td>
+
+                    <td>
+                        @Html.ActionLink("Details", "TicketDetail", "Ticket", new RouteValueDictionary { { "TicketId", item.TicketId } }, null) |
                         @Html.ActionLink("Resolve", "TicketResolve", "Ticket", new RouteValueDictionary { { "TicketId", item.TicketId } }, null)
                     </td>
                 </tr>

@@ -16,6 +16,8 @@ namespace IncidentManagementSystem.Model
                 
         public string ServiceName { get; set; }
         public bool Flag { get; set; }
+
+        [DisplayName("Institute Name")]
         public string InstId { get; set; }
         public TicketDto ticket { get; set; }
     }

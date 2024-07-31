@@ -22,8 +22,9 @@
                     <div class="col-lg-4 inst-row-form">
                         @Html.LabelFor(m => m.InstId, new { @class = "col-md-4 col-form-label l_ticket" })
                         <div class="col">
-                            @Html.TextBoxFor(m => m.InstId, new { @class = "form-control b-inst" })
-                            @Html.ValidationMessageFor(m => m.InstId, "", new { @class = "text-danger" })
+                            @Html.ValidationMessageFor(m => m.InstId, "", new { @class = "text-danger" })                            
+                            @Html.DropDownListFor(m => m.InstId, ViewBag.Institution as SelectList, "-Select-", new { @class = "form-select u-box" })
+
                         </div>
                     </div>
                 </div>
@@ -49,7 +50,7 @@
                     <div class="col-lg-4 inst-row-form">
                         @Html.LabelFor(m => m.Email, new { @class = "col-md-4 col-form-label l_ticket" })
                         <div class="col-lg-12">
-                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control b-inst" })
+                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control b-inst"})
                             @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -100,32 +101,7 @@
 
             </div>
         }
-
-
-        <hr />
-        @*@if (ViewBag.PreviousTickets != null && ViewBag.PreviousTickets.Count > 0)
-        {
-            <h3>Previous Tickets</h3>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Description</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var prevTicket in ViewBag.PreviousTickets)
-                    {
-                        <tr>
-                            <td>@prevTicket.Description</td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        }
-        else
-        {
-            <p>No previous tickets found.</p>
-        }*@
+      
     </div>
 
 </div>
@@ -164,13 +140,14 @@
         $(document).ready(function () {
             $("#InstId").on("change", function () {
             debugger;
-            const InstId = $('#InstId').val();
+                const InstId = $('#InstId').val();
+                const userId = $('#UserId').val(); 
             $('#ServiceId').html("");
             $('#ServiceId').append($('<option disabled selected value>-Select Services-</option>'));
                 $.ajax({
                     method: "GET",
                     url: '@Url.Action("InstService")',
-                    data: { InstId: InstId },
+                    data: { InstId: InstId, userId: userId },
                     success: function (result) {
                         debugger;
                         //// Append the retrieved service to the dropdown
