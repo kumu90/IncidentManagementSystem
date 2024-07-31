@@ -1,5 +1,4 @@
 ﻿@model IncidentManagementSystem.Model.TicketDto
-
 <div class="container-fluid">
     <div class="col-lg-12 header ">
         <div class="header-text">
@@ -22,7 +21,14 @@
                     <div class="col-lg-4 inst-row-form">
                         @Html.LabelFor(m => m.InstId, new { @class = "col-md-4 col-form-label l_ticket" })
                         <div class="col">
-                            @Html.TextBoxFor(m => m.InstId, new { @class = "form-control b-inst" })
+                            @if (ViewBag.IsSuperAdmin)
+                            {
+                                @Html.DropDownListFor(m => m.InstId, ViewBag.Institution as SelectList, "-Select Institution-", new { @class = "form-select u-box" })
+                            }
+                            else
+                            {
+                                @Html.DropDownListFor(m => m.InstId, ViewBag.Institution as SelectList, "-Select Institution-", new { @class = "form-select u-box", @disabled = "disabled" })
+                            }
                             @Html.ValidationMessageFor(m => m.InstId, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -31,6 +37,7 @@
                     <div class="col-lg-4 inst-row-form">
                         @Html.LabelFor(m => m.ServiceId, new { @class = "col-md-4 col-form-label l_ticket" })
                         <div class="col-lg-12">
+                           @* @Html.DropDownList("ServiceId", new SelectList(Enumerable.Empty<SelectListItem>(), "Value", "Text"), "-Select Service-", new { @class = "form-select u-box", id = "servicesDropdown" })*@
                             @Html.DropDownListFor(m => m.ServiceId, ViewBag.services as SelectList, "-Select Service-", new { @class = "form-select u-box" })
                             @Html.ValidationMessageFor(m => m.ServiceId, "", new { @class = "text-danger" })
                         </div>
@@ -39,7 +46,7 @@
                 <div class="row">
                     <div class="col-lg-4 inst-row-form">
                         @Html.LabelFor(m => m.IssueId, new { @class = "col-md-4 col-form-label l_ticket" })
-                        <div class="col-lg-12">
+                        <div class="col-lg-12">                           
                             @Html.DropDownListFor(m => m.IssueId, ViewBag.Issues as SelectList, "-Select Issue-", new { @class = "form-select u-box" })
                             @Html.ValidationMessageFor(m => m.IssueId, "", new { @class = "text-danger" })
                         </div>
@@ -86,15 +93,15 @@
                                 </a>
                             </div>
 
-                            <input type="file" name="file" id="file" accept="image/*" onchange="previewImage(event)" class="form-control" style="width: 105px" required />
+                            <input type="file" name="file" id="file" accept="image/*" onchange="previewImage(event)" class="form-control" style="width: 105px" />
 
-                        </div>                       
+                        </div>
                     </div>
                 </div>
 
                 <div class="row  buttom-ticket">
                     <div class="col-md-2">
-                        <input type="submit" value="Submit" class="btn btn-primary btn-lg" id="submit"/>
+                        <input type="submit" value="Submit" class="btn btn-primary btn-lg" id="submit" />
                     </div>
                 </div>
 
@@ -145,7 +152,7 @@
             <div class="modal-footer" style="padding:8px 8px 16px 8px;margin-top:0px">
                 @if (@ViewBag.TaskStatus == "00")                                                                                
                 {
-                    <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal" data-target="#modalTaskComplete" onclick="location.href = '@Url.Action("TicketDetail","Ticket")'">Okay</button>
+                    <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal" data-target="#modalTaskComplete" onclick="location.href = '@Url.Action("Index","Ticket")'">Okay</button>
                 }
                 else
                 {
@@ -159,31 +166,47 @@
 </div>
 
 
+
 @section scripts{
     <script>
+      
+
         $(document).ready(function () {
-            $("#InstId").on("change", function () {
-            debugger;
-            const InstId = $('#InstId').val();
-            $('#ServiceId').html("");
-            $('#ServiceId').append($('<option disabled selected value>-Select Services-</option>'));
-                $.ajax({
-                    method: "GET",
-                    url: '@Url.Action("InstService")',
-                    data: { InstId: InstId },
-                    success: function (result) {
-                        debugger;
-                        //// Append the retrieved service to the dropdown
-                        $.each(result, function (i, service) {
-                            $('#ServiceId').append($('<option>', {
-                                value: service.ServiceId,
-                                text: service.ServiceName
-                            }));
-                        });
-                    }
+            /*$("#InstId").on("change", function () {*/
+                debugger;
+                function loadServices() {
+                    const InstId = $('#InstId').val();
+                    $('#ServiceId').html("");
+                    $('#ServiceId').append($('<option disabled selected value>-Select Services-</option>'));
+                    $.ajax({
+                        method: "GET",
+                        url: '@Url.Action("InstService")',
+                        data: { InstId: InstId },
+                        success: function (result) {
+                            debugger;
+                            //// Append the retrieved service to the dropdown
+                            $.each(result, function (i, service) {
+                                $('#ServiceId').append($('<option>', {
+                                    value: service.ServiceId,
+                                    text: service.ServiceName
+                                }));
+                            });
+                        }
+                    });
+                }
+
+                // Bind change event to the dropdown
+                $("#InstId").on("change", function () {
+                    loadServices();
                 });
-            });
-        });
+
+
+
+                     const selectedInstId = '@Model.InstId';
+                     if (selectedInstId) {
+                         $("#InstId").val(selectedInstId).change();
+                     }
+         });
 
         $(document).ready(function () {
             $("#ServiceId").on("change", function () {
@@ -232,7 +255,7 @@
 
 
         $(document).ready(function () {
-           debugger;
+
            var status= '@ViewBag.TaskStatus';
            if (status !== null && status !== '')
            {
@@ -246,4 +269,6 @@
         }
 
     </script>
+
+
 }

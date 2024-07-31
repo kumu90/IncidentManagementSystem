@@ -1,15 +1,10 @@
 ﻿using IncidentManagementSystem.Model;
 using IncidentManagementSystem.Service;
-using Microsoft.ReportingServices.ReportProcessing.ReportObjectModel;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Net.Sockets;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace IncidentManagementSystem.Controllers
 {
@@ -44,8 +39,15 @@ namespace IncidentManagementSystem.Controllers
 
             var Issues = _iTicketService.GetIssueList();
             ViewBag.Issues = new SelectList(Issues, "IssueId", "IssueName");
+
+
+            // Check if the current user is a SuperAdmin
+            bool isSuperAdmin = User.IsInRole("SuperAdmin");
+
+            ViewBag.IsSuperAdmin = isSuperAdmin;
         }
 
+        
         public JsonResult InstService(string InstId)
         {
             var servId = _iproductService.GetServices(InstId);
@@ -59,7 +61,7 @@ namespace IncidentManagementSystem.Controllers
             return Json(Issues, JsonRequestBehavior.AllowGet);
         }
 
-        [Authorize(Roles = "SuperAdmin, Admin, Developer")]
+        [Authorize(Roles = "SuperAdmin, Admin, Developer, User")]
         public ActionResult Index(string search)
         {
             var TicketInfo = _iTicketService.TicketInfo(search);
@@ -78,11 +80,12 @@ namespace IncidentManagementSystem.Controllers
         [HttpGet]
         [Authorize(Roles = "SuperAdmin, User")]
         //[AllowAnonymous]
-        public ActionResult Create(string UserName, string ticket)
+        public ActionResult Create(string UserName, string ticketId)
         {
             Init();
             // Debugging or logging
             System.Diagnostics.Debug.WriteLine($"Received UserName parameter: {UserName}");
+            
 
             // Check if UserName is provided; if not, try to retrieve from session
             if (string.IsNullOrEmpty(UserName))
@@ -99,16 +102,44 @@ namespace IncidentManagementSystem.Controllers
             }
 
             var instDetail  =_iTicketService.GetInstDetail(UserName);
-
+             
             if (instDetail == null)
             {
                 TempData["TaskStatus"] = "Error";
                 TempData["TaskMessage"] = "No institution details found for the given UserName.";
                 return RedirectToAction("Index"); // Redirect to an appropriate action or view
             }
+
+            // Determine if the user is a SuperAdmin
+            bool isSuperAdmin = User.IsInRole("SuperAdmin");
+
+
+            // Populate institution dropdown based on role
+            if (isSuperAdmin)
+            {
+                var institutions = _iInstitutionService.GetInstName();
+                ViewBag.Institution = new SelectList(institutions, "InstId", "InstitutionName");
+                ViewBag.SelectedInstId = "";
+            }
+            else
+            {
+                // For non-SuperAdmin users, only their institution is displayed
+                var institution = new List<SelectListItem>
+                {
+                    new SelectListItem
+                    {
+                        Value = instDetail.InstId.ToString(),
+                        Text = instDetail.InstId
+                    }
+                };
+                        ViewBag.Institution = new SelectList(institution, "Value", "Text");
+                     ViewBag.SelectedInstId = instDetail.InstId.ToString();
+            }
+
             ViewBag.TaskStatus = TempData["TaskStatus"];
             ViewBag.TaskMessage = TempData["TaskMessage"];
-            
+
+
             return View(instDetail);
         }
 
@@ -137,7 +168,7 @@ namespace IncidentManagementSystem.Controllers
                     {
                         TempData["TaskStatus"] = sQLStatus.Status;
                         TempData["TaskMessage"] = sQLStatus.Message;
-
+                 
                     }
                     else
                     {
@@ -150,7 +181,8 @@ namespace IncidentManagementSystem.Controllers
                 {
                     ViewBag.Message = "Invalid image file.";
                 }
-
+                ViewBag.TaskStatus = TempData["TaskStatus"];
+                ViewBag.TaskMessage = TempData["TaskMessage"];
                 return View();              
             }
             catch (Exception ex)

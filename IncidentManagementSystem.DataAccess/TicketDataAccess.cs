@@ -287,11 +287,9 @@ namespace IncidentManagementSystem.DataAccess
                             {
                                 instNameDto = new TicketDto()
                                 {
-                                    InstId = sqlDataReader["InstitutionName"].ToString(),                                    
+                                    InstId = sqlDataReader["InstId"].ToString(), 
                                     Email = sqlDataReader["Email"].ToString(),
                                     CellNumber = sqlDataReader["ContactNumber"].ToString()
-
-
                                 };
 
 

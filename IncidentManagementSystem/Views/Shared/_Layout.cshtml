@@ -106,12 +106,12 @@
                                 <li class="item">
                                     @Html.Raw(Html.ActionLink("TicketLink", "Create", "Ticket", new { UserName = User.Identity.Name }, new { @class = "nav-link" }).ToString().Replace("TicketLink", "<span class='bx bxs-plus-circle icon'></span> Create"))
                                 </li>
-                                @if (User.IsInRole("SuperAdmin") || User.IsInRole("Admin") || User.IsInRole("Developer"))
-                                {
+                                @*@if (User.IsInRole("SuperAdmin") || User.IsInRole("Admin") || User.IsInRole("Developer"))
+                                {*@
                                     <li class="item">
                                         @Html.Raw(Html.ActionLink("TicketIndexLink", "Index", "Ticket", new { area = "" }, new { @class = "nav-link" }).ToString().Replace("TicketIndexLink", "<span class='bx bx-search icon'></span> Search"))
                                     </li>
-                                }
+                                @*}*@
                             </ul>
                         </div>
                     </div>
