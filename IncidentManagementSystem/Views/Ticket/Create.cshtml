@@ -15,6 +15,7 @@
     <div class="col ticket">
         @using (Html.BeginForm("Create", "Ticket", FormMethod.Post, new { role = "form", enctype = "multipart/form-data" }))
         {
+            @Html.HiddenFor(m=>m.InstId)
             @Html.AntiForgeryToken()
             <div class="row">
                 <div class="row">
@@ -27,7 +28,8 @@
                             }
                             else
                             {
-                                @Html.DropDownListFor(m => m.InstId, ViewBag.Institution as SelectList, "-Select Institution-", new { @class = "form-select u-box", @disabled = "disabled" })
+                                @*@Html.DropDownListFor(m => m.InstId, ViewBag.Institution as SelectList, "-Select Institution-", new { @class = "form-control u-box", @disabled = "disabled" })*@
+                                @Html.TextBoxFor(m => m.InstitutionName, new { @class = "form-control b-inst", @disabled = "disabled" })
                             }
                             @Html.ValidationMessageFor(m => m.InstId, "", new { @class = "text-danger" })
                         </div>
@@ -144,32 +146,34 @@
 
 @section scripts{
     <script>
-      
+        function loadServices(instId) {
+            debugger;
+            if (instId == null || instId == "") { 
+            instId = $('#InstId').val();
+        }
+          $('#ServiceId').html("");
+          $('#ServiceId').append($('<option disabled selected value>-Select Services-</option>'));
+          $.ajax({
+              method: "GET",
+              url: '@Url.Action("InstService")',
+              data: { InstId: instId },
+              success: function (result) {
+                  debugger;
+                  //// Append the retrieved service to the dropdown
+                  $.each(result, function (i, service) {
+                      $('#ServiceId').append($('<option>', {
+                          value: service.ServiceId,
+                          text: service.ServiceName
+                      }));
+                  });
+              }
+          });
+      }
 
         $(document).ready(function () {
             /*$("#InstId").on("change", function () {*/
-                debugger;
-                function loadServices() {
-                    const InstId = $('#InstId').val();
-                    $('#ServiceId').html("");
-                    $('#ServiceId').append($('<option disabled selected value>-Select Services-</option>'));
-                    $.ajax({
-                        method: "GET",
-                        url: '@Url.Action("InstService")',
-                        data: { InstId: InstId },
-                        success: function (result) {
-                            debugger;
-                            //// Append the retrieved service to the dropdown
-                            $.each(result, function (i, service) {
-                                $('#ServiceId').append($('<option>', {
-                                    value: service.ServiceId,
-                                    text: service.ServiceName
-                                }));
-                            });
-                        }
-                    });
-                }
 
+            loadServices('@Model.InstId');
                 // Bind change event to the dropdown
                 $("#InstId").on("change", function () {
                     loadServices();
@@ -177,10 +181,11 @@
 
 
 
-                     const selectedInstId = '@Model.InstId';
-                     if (selectedInstId) {
-                         $("#InstId").val(selectedInstId).change();
-                     }
+                //      const selectedInstId = '@Model.InstId';
+                  //   if (selectedInstId) {
+                    //     $("#InstId").val(selectedInstId).change();
+                      //   $("#InstId").val(selectedInstId).display(@Model.InstitutionName)
+                     //}
          });
 
         $(document).ready(function () {

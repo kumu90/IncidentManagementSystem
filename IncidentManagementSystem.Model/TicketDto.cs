@@ -24,6 +24,7 @@ namespace IncidentManagementSystem.Model
         [DisplayName("Institution Name")]
         [Required]
         public string InstId { get; set; }
+        public string InstitutionName {  get; set; }
 
         [Required]
         [DisplayName("Service")]
