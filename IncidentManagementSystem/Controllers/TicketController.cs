@@ -71,9 +71,9 @@ namespace IncidentManagementSystem.Controllers
 
 
         [Authorize(Roles = "SuperAdmin, Admin, Developer")]
-        public ActionResult Search(string search,string InstId,string status)
+        public ActionResult Search(string search,string InstId,string status,int page=1,int offset=10)
         {
-            var results = _iTicketService.TicketInfo(search,InstId,status);
+            var results = _iTicketService.TicketInfo(search,InstId,status,page,offset);
             return PartialView("Search", results);
         }
 
