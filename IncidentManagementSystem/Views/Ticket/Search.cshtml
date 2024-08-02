@@ -3,6 +3,27 @@
 @{
     int sno = 0; // Initialize serial number
 }
+<style>
+    .pagination {
+        display: inline-block;
+    }
+
+        .pagination a {
+            color: black;
+            float: left;
+            padding: 8px 16px;
+            text-decoration: none;
+        }
+
+            .pagination a.active {
+                background-color: #4CAF50;
+                color: white;
+            }
+
+            .pagination a:hover:not(.active) {
+                background-color: #ddd;
+            }
+</style>
 
 <div class="panel panel-default overflow-auto" style="max-height:600px">
     <table class="table table-striped">
@@ -61,6 +82,51 @@
             }
         </tbody>
     </table>
+</div>
+<div>
+    <div class="pagination">
+        @if (ViewBag.CurrentPage > 1)
+        {
+            <a href="#" onclick="searchTickets(@(ViewBag.CurrentPage - 1)); return false;">&laquo; Previous</a>
+        }
+        else
+        {
+            <span>&laquo; Previous</span>
+        }
 
+        @for (int i = 1; i <= ViewBag.TotalPages; i++)
+        {
+            <a href="#" onclick="searchTickets(@i); return false;" class="@(i == ViewBag.CurrentPage ? "active" : "")">@i</a>
+        }
+
+        @if (ViewBag.CurrentPage < ViewBag.TotalPages)
+        {
+            <a href="#" onclick="searchTickets(@(ViewBag.CurrentPage + 1)); return false;">Next &raquo;</a>
+        }
+        else
+        {
+            <span>Next &raquo;</span>
+        }
+    </div>
 </div>
 
+<script>
+function searchTickets(page) {
+    $.ajax({
+        url: '@Url.Action("Search", "Ticket")',
+        type: 'GET',
+        data: {
+            search: $('#search').val(),
+            InstId: $('#InstId').val(),
+            status: $('#status').val(),
+            page: page
+        },
+        success: function (result) {
+            $('#partialTicketContainer').html(result);
+        },
+        error: function (xhr, status, error) {
+            console.error("An error occurred: " + status + " " + error);
+        }
+    });
+}
+</script>
