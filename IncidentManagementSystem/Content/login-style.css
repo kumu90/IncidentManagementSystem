@@ -86,31 +86,20 @@ body {
 
 
 .l-login {
-    /* margin-bottom: 8px;*/
+    
     font-family: Outfit;
     font-size: 16px;
-    font-weight: 300;
+    font-weight: 400;
     line-height: 24px;
     text-align: left;
 }
 
-.icon-user {
-    background-image: url('../image/user.png');
-    background-repeat: no-repeat;
-    background-position: left center;
-    padding-right: 30px;
-}
-
-.icon-pass {
-    background-image: url('../image/password.png');
-    background-repeat: no-repeat;
-    background-position: left center;
-    padding-right: 30px;
-}
 
 .b-login {
-    /*  margin-bottom: 24px;*/
+
+    padding-left: 2rem !important;
     border: 1px solid black;
+    border-radius: 0px 8px 8px 0px !important;
 }
 
 .l-btn {
@@ -179,38 +168,45 @@ body {
     margin-top: 20px;
     gap: 0;
     border-radius: 12px 12px 12px 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.gap {
+    
+    margin-left: 1rem !important;
+}
+.gap-c {
+    margin-left: 7rem !important;
 }
 
 .l-user {
-    /* width: 481.33px;
-    height: 24px;*/
     font-family: outfit;
     font-size: 16px;
     font-weight: 400;
-    /* line-height: 24px;*/
     text-align: right;
-    margin-bottom: 10px;
 }
 
 .u-box {
-    margin-bottom: 10px;
     border: 1px solid black;
 }
 
 /*-------------------------------------------------Instution registration style css------------------------------------------------------------------------------*/
 
-.reg-inst {
+/*.reg-inst {
     margin-top: 0px;
     width: 100%;
     height: 100%;
    
-}
+}*/
 
-.container-inst-style {
-    width: 100%;
-    height: 100%;
-    margin-top: 0;
-    
+#file-text {
+    height: 28px;
+    font-family: outfit;
+    font-size: 16px;
+    font-weight: 400;
+    margin-top: 20px;
 }
 
 .l-inst {
@@ -225,6 +221,7 @@ body {
 }
 
 .b-inst {
+    margin-bottom: 10px;
     border: 1px solid black;
 }
 
@@ -247,7 +244,7 @@ body {
 
 .inst-img {
     left: 0px;
-    margin-top: 55px;
+    /*margin-top: 55px;*/
     width: 100px;
     height: 100px;
 }
@@ -503,7 +500,7 @@ body {
 .navbar {
     position: fixed;
     color: #fff;
-    padding: 15px 20px;
+    padding: 10px 20px;
     font-size: 25px;
     background: Var(--primary-color);
     cursor: pointer;
@@ -603,11 +600,7 @@ body {
 }
 
 /*------------------------ticket---------------------------------------*/
-.ticket {
-    display: flex;
-    justify-content: center;
-    /* align-items:center;*/
-}
+
 
 .l_ticket {
     font-family: outfit;
@@ -620,6 +613,3 @@ body {
     height: 180px;
 }
 
-.buttom-ticket {
-    margin-bottom: 60px;
-}

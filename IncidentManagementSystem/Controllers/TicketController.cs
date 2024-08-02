@@ -70,7 +70,7 @@ namespace IncidentManagementSystem.Controllers
         }
 
 
-        [Authorize(Roles = "SuperAdmin, Admin, Developer")]
+        [Authorize(Roles = "SuperAdmin, Admin, Developer, User")]
         public ActionResult Search(string search,string InstId,string status,int page=1,int offset=10)
         {
             var results = _iTicketService.TicketInfo(search,InstId,status,page,offset);
@@ -184,13 +184,13 @@ namespace IncidentManagementSystem.Controllers
                 }
                 ViewBag.TaskStatus = TempData["TaskStatus"];
                 ViewBag.TaskMessage = TempData["TaskMessage"];
-                return View();              
+                return RedirectToAction("Create", "Ticket") ;              
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
-            return View();
+            return RedirectToAction("Create", "Ticket");
         }
 
         [Authorize(Roles = "SuperAdmin, Admin, Developer, User")]
