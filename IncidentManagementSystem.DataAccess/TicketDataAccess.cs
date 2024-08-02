@@ -60,57 +60,93 @@ namespace IncidentManagementSystem.DataAccess
         }
         public List<TicketDto> TicketInfo(string search = "",string InstId="",string status="", int page = 1, int offset = 10)
         {
-            List<TicketDto> Ticketlist = new List<TicketDto>();
-            try
+            //List<TicketDto> Ticketlist = new List<TicketDto>();
+            //try
+            //{
+            //    using (SqlConnection conn = new SqlConnection(conStr))
+            //    {
+            //        using (SqlCommand cmd = new SqlCommand(conStr, conn))
+            //        {
+
+            //            cmd.CommandText = @"GetTicketListDetails";
+            //            cmd.CommandType = CommandType.StoredProcedure;
+            //            cmd.Parameters.Add(new SqlParameter("@Search", search ?? ""));
+            //            cmd.Parameters.Add(new SqlParameter("@instId", InstId ?? ""));
+            //            cmd.Parameters.Add(new SqlParameter("@status", status ?? ""));
+            //            cmd.Parameters.Add(new SqlParameter("@page", page));
+            //            cmd.Parameters.Add(new SqlParameter("@offset", offset));
+            //            cmd.Connection = conn;
+
+            //            conn.Open();
+
+            //            using (var sqlDataReader = cmd.ExecuteReader())
+            //            {
+            //                while (sqlDataReader.Read())
+            //                {
+            //                    Ticketlist.Add(new TicketDto()
+            //                    {
+            //                        TicketId = sqlDataReader["TicketId"].ToString(),
+            //                        //Description = sqlDataReader["Description"].ToString(),
+            //                        status = sqlDataReader["Status"].ToString(),
+            //                        InstId = sqlDataReader["InstitutionName"].ToString(),
+            //                        ServiceId = sqlDataReader["ServiceName"].ToString(),
+            //                        IssueId = sqlDataReader["Issue"].ToString(),
+            //                        CellNumber = sqlDataReader["CellNumber"].ToString(),
+            //                        Email = sqlDataReader["Email"].ToString()
+
+            //                    });
+            //                }
+            //            }
+
+            //            conn.Close();
+
+            //        }
+            //    }
+
+            //    return Ticketlist;
+
+            //}
+            //catch (Exception ex)
+            //{
+            //    Console.WriteLine(ex.Message);
+            //}
+            //return new List<TicketDto>();
+            List<TicketDto> data = new List<TicketDto>();
+            using (SqlConnection con = new SqlConnection(conStr))
             {
-                using (SqlConnection conn = new SqlConnection(conStr))
+                using (SqlCommand cmd = new SqlCommand())
                 {
-                    using (SqlCommand cmd = new SqlCommand(conStr, conn))
+                    cmd.CommandText = @"GetTicketListDetails";
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(new SqlParameter("@Search", search ?? ""));
+                    cmd.Parameters.Add(new SqlParameter("@instId", InstId ?? ""));
+                    cmd.Parameters.Add(new SqlParameter("@status", status ?? ""));
+                    cmd.Parameters.Add(new SqlParameter("@page", page));
+                    cmd.Parameters.Add(new SqlParameter("@offset", offset));
+                    cmd.Connection = con;
+                    DataSet ds = new DataSet();
+                    SqlDataAdapter ads = new SqlDataAdapter(cmd);
+                    con.Open();
+                    ads.Fill(ds);
+                    foreach (DataRow row in ds.Tables[1].Rows)
                     {
-
-                        cmd.CommandText = @"GetTicketListDetails";
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Parameters.Add(new SqlParameter("@Search", search ?? ""));
-                        cmd.Parameters.Add(new SqlParameter("@instId", InstId ?? ""));
-                        cmd.Parameters.Add(new SqlParameter("@status", status ?? ""));
-                        cmd.Parameters.Add(new SqlParameter("@page", page));
-                        cmd.Parameters.Add(new SqlParameter("@offset", offset));
-                        cmd.Connection = conn;
-
-                        conn.Open();
-
-                        using (var sqlDataReader = cmd.ExecuteReader())
+                        TicketDto dto = new TicketDto();
+                        dto.TicketId = row["TicketId"].ToString();
+                        dto.status = row["Status"].ToString();
+                        dto.InstId = row["InstitutionName"].ToString();
+                        dto.ServiceId = row["ServiceName"].ToString();
+                        dto.IssueId = row["Issue"].ToString();
+                        dto.CellNumber =row["CellNumber"].ToString();
+                        dto.Email =row["Email"].ToString();                       
+                        foreach (DataRow row1 in ds.Tables[0].Rows)
                         {
-                            while (sqlDataReader.Read())
-                            {
-                                Ticketlist.Add(new TicketDto()
-                                {
-                                    TicketId = sqlDataReader["TicketId"].ToString(),
-                                    //Description = sqlDataReader["Description"].ToString(),
-                                    status = sqlDataReader["Status"].ToString(),
-                                    InstId = sqlDataReader["InstitutionName"].ToString(),
-                                    ServiceId = sqlDataReader["ServiceName"].ToString(),
-                                    IssueId = sqlDataReader["Issue"].ToString(),
-                                    CellNumber = sqlDataReader["CellNumber"].ToString(),
-                                    Email = sqlDataReader["Email"].ToString()
-
-                                });
-                            }
+                            dto.TotalCount = Convert.ToInt32(row1["TotalCount"]);
                         }
-
-                        conn.Close();
-
+                        data.Add(dto);
                     }
+                    return data;
                 }
-
-                return Ticketlist;
-
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-            return new List<TicketDto>();
         }
 
         public TicketDto GetTicketDetails(string TicketId)

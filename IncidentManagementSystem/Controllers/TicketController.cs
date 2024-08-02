@@ -3,6 +3,7 @@ using IncidentManagementSystem.Service;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
@@ -73,7 +74,24 @@ namespace IncidentManagementSystem.Controllers
         [Authorize(Roles = "SuperAdmin, Admin, Developer, User")]
         public ActionResult Search(string search,string InstId,string status,int page=1,int offset=10)
         {
-            var results = _iTicketService.TicketInfo(search,InstId,status,page,offset);
+            //page = page > 0 ? page - 1 : 0;
+            //offset = offset > 0 ? offset : 10;
+            //int start = page * offset;
+            ////int totalCount = _iTicketService.GetTotalTicketCount(search, InstId, status);
+            //int totalPage = (int)Math.Ceiling((double)100 / offset);
+            //var results = _iTicketService.TicketInfo(search, InstId, status, page, offset);
+            //ViewBag.TotalPage = totalPage;
+            //ViewBag.CurrentPage = page + 1; 
+            //ViewBag.Offset = offset;
+            if (page < 1) page = 1;
+           
+            var results = _iTicketService.TicketInfo(search, InstId, status, page, offset);
+            int totalCount = results[0].TotalCount;
+            int totalPages = (int)Math.Ceiling((double)totalCount / offset);
+
+            ViewBag.TotalPages = totalPages;
+            ViewBag.CurrentPage = page;
+            ViewBag.offset = offset;
             return PartialView("Search", results);
         }
 
