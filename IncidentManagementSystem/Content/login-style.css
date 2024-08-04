@@ -537,28 +537,7 @@ body {
 
 /*
 /------------------* dashboard css*------------------/*/
-.dashboard {
-    margin-top: 0px;
-    width: 100%;
-    height: 100%;
-}
 
-.search-box {
-    height: 100px;
-    background-color: #fff;
-}
-
-.s-box {
-    margin-top: 20px;
-}
-
-.s-dash {
-    margin-top: 30px;
-}
-
-.btn-width {
-    width: 100%;
-}
 
 
 /*----------------------------------------search table csss---------------------------------------------------------*/
@@ -613,3 +592,76 @@ body {
     height: 180px;
 }
 
+/*====================================Ticket index=======================================*/
+.dashboard {
+    margin-top: 0px;
+    width: 100%;
+    height: 100%;
+}
+
+.search-box {
+    height: auto;
+    background-color: #fff;
+}
+
+.s-box {
+    margin-top: 20px;
+}
+
+.s-dash {
+    margin-top: 15px;
+}
+
+.btn-width {
+    width: 100%;
+}
+
+.b_dash {
+    margin-top: 45px;
+}
+/* Styling for form elements */
+.form-group {
+    margin-bottom: 15px;
+}
+
+/* Styling for the hr element */
+hr {
+    border: 0;
+    border-top: 1px solid #ddd;
+    margin: 20px 0;
+}
+
+/* Styling for the container holding the partial view */
+#partialTicketContainer {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+/* Ensure buttons have appropriate spacing and are responsive */
+.btn-width {
+    width: 100%;
+}
+
+/* Utility class for spacing in the grid */
+.s-dash {
+    margin-bottom: 15px; /* Spacing between rows */
+}
+.search-box .s-box #text {
+    font-family: Outfit;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+}
+
+/* Adjustments for smaller screens */
+@media (max-width: 767px) {
+    .search-box .form-group {
+        margin-bottom: 10px;
+    }
+}
+
+.form-control {
+    border: 1px solid black;
+}

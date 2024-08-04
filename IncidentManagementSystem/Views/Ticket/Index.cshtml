@@ -1,14 +1,15 @@
 ﻿<div class="container-fluid dashboard">
-    <div class="col-lg-12 header ">
+    <div class="col-lg-12 col-md-12 col-sm-12 header ">
         <div class="header-text">
             Ticket
         </div>
-        <div class="col text">
+        <div class="col-lg-12 col-md-12 col-sm-12  text">
             <span class="page input-icon">Ticket</span>
 
-            <span class="detail">Ticket Details </span>
+            <span class="detail">Ticket Details</span>
         </div>
     </div>
+   
 
     @{
         var institutions = ViewBag.Institution as SelectList;
@@ -16,16 +17,16 @@
     @using (Html.BeginForm("Search", "Ticket", FormMethod.Get, new { id = "searchForm", enctype = "multipart/form-data" }))
     {
         <div class="container-fluid search-box">
-            <div class=" row s-box">
-
-
-                <div class="col-lg-2 form-group s-dash">
-                    <label>Search</label>
-                    <input type="text" name="search" placeholder="Search..." class="form-control" />
+            <div class="row s-box">
+                <!-- Search input -->
+                <div class="col-12 col-md-6 col-lg-2 form-group s-dash">
+                    <label for="searchInput" id="text">Search</label>
+                    <input id="searchInput" type="text" name="search" placeholder="Search..." class="form-control" />
                 </div>
-                <div class="col-lg-2 form-group s-dash">
-                    <label>Status</label>
-                    <select id="status" name="status" class="form-control">
+                <!-- Status dropdown -->
+                <div class="col-12 col-md-6 col-lg-2 form-group s-dash">
+                    <label for="statusSelect" id="text">Status</label>
+                    <select id="statusSelect" name="status" class="form-control">
                         <option value="">All</option>
                         <option value="LO">Initial</option>
                         <option value="00">Success</option>
@@ -33,18 +34,20 @@
                         <option value="94">Rejected</option>
                     </select>
                 </div>
-                <div class="col-lg-2 form-group s-dash">
-                    <label>Offset</label>
-                    <select id="offset" name="offset" class="form-control">
-                        <option value="500">All</option>
+                <!-- Offset dropdown -->
+                <div class="col-12 col-md-6 col-lg-2 form-group s-dash">
+                    <label for="offsetSelect" id="text">Offset</label>
+                    <select id="offsetSelect" name="offset" class="form-control">
+                        <option value="1">All</option>
                         <option value="10">10</option>
                         <option value="20">20</option>
                         <option value="30">30</option>
                         <option value="100">100</option>
                     </select>
                 </div>
-                <div class="col-lg-2 form-group s-dash">
-                    <label>Institution</label>
+                <!-- Institution dropdown -->
+                <div class="col-12 col-md-6 col-lg-2 form-group s-dash">
+                    <label for="InstDropDown" id="text">Institution</label>
                     <select id="InstDropDown" name="InstId" class="form-control">
                         <option value="">-- Select an Institution --</option>
                         @if (institutions != null)
@@ -56,24 +59,21 @@
                         }
                     </select>
                 </div>
-
-                <div class="col-lg-2 s-dash">
+                <!-- Search button -->
+                <div class="col-12 col-md-6 col-lg-2 b_dash">
                     <input type="submit" value="Search" class="btn btn-primary btn-width" />
                 </div>
-                <div class="col-lg-2 s-dash">
+                <!-- Create button -->
+                <div class="col-12 col-md-6 col-lg-2 b_dash">
                     <input type="button" value="Create" class="btn btn-success btn-width" onclick="location.href='@Url.Action("Create", "Ticket")'" id="createUser" />
                 </div>
-
-
             </div>
-
         </div>
 
         <hr />
+
         <div id="partialTicketContainer">
-            @{
-                Html.Action("Search");
-            }
+           Html.PartialAsync("Search")
         </div>
     }
 </div>
