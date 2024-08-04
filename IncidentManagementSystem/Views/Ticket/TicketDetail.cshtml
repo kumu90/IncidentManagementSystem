@@ -1,4 +1,5 @@
-﻿@model IncidentManagementSystem.Model.TicketDto
+﻿
+@model IncidentManagementSystem.Model.TicketDto
 
 @{
     ViewBag.Title = "TicketDetail";
@@ -6,159 +7,119 @@
 
 <h2>TicketDetail</h2>
 <style>
+
+
     .dl-horizontal {
         background-color: #fff;
-        border-radius: 12px 12px 12px 12px;
+        border-radius: 12px;
+        padding: 20px;
     }
 
         .dl-horizontal dt {
-            text-align: right !important;
+            text-align: right;
             width: auto;
             clear: left;
             float: left;
             margin-left: 12px;
             margin-right: 10px;
-            font-family: Outfit;
+            font-family: Outfit, sans-serif;
             font-weight: 600;
             white-space: normal;
         }
 
         .dl-horizontal dd {
-            margin-right: 20px;
             margin-left: 230px;
             margin-bottom: 20px;
         }
 
-    .ticket {
-        display: flex;
-        justify-content: center;
-        align-items: center;
+    /* Responsive adjustments */
+    @@media (max-width: 768px) {
+        .dl-horizontal dt, .dl-horizontal dd {
+            display: block;
+            float: none;
+            margin-left: 0;
+            margin-right: 0;
+        }
+
+        .dl-horizontal dd {
+            margin-left: 0;
+            padding-left: 0;
+        }
+    }
+
+    .ticket img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .btn-width {
         width: 100%;
-        height: 100%;
     }
 </style>
 
-<div class="row">
-
-    <div class="col-md-6 ticket">
-
-
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.TicketId)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.TicketId)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.InstId)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.InstId)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.ServiceId)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.ServiceId)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.IssueId)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.IssueId)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.Description)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Description)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.CellNumber)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.CellNumber)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.Email)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Email)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.date)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.date)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.status)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.status)
-            </dd>
-
-
-            <dt>
-                @Html.DisplayNameFor(model => model.ImageUrl)
-            </dt>
-
-            <dd>
-                <a href="#" id="imageAnchor">
-
-                    @if (!string.IsNullOrEmpty(Model.ImageUrl))
-                    {
-                        <img id="preview" src="@Model.ImageUrl" class="card-img-top" alt="Preview" style="width: 280px; height: 180px;" />
-
-                    }
-                    else
-                    {
-
-                        <img id="preview" class="card-img-top" alt="Preview" style="width: 280px; height: 180px;" />
-                    }
-                </a>
-
-                @*@Html.DisplayFor(model => model.ImageUrl)*@
-            </dd>
-
-            @*<dt class="col-2">
-                <input type="button" value="Assign" class="btn btn-success btn-width" onclick="assignTicket('@Model.TicketId')" , null />
-            </dt>
-            <dd class="col-2">
-                <input type="button" value="Reject" class="btn btn-danger btn-width" />
-            </dd>*@
-        </dl>
-    </div>
+<div class="container">
     <div class="row">
-        <div class="col-md-6 ticket">
-            <div class="column-gap-sm-0">
-                <input type="button" value="Assign" class="btn btn-success btn-width" onclick="assignTicket('@Model.TicketId')" , null />
-            </div>
-            <div class="column-gap-sm-0">
-                <a href="@Url.Action("TicketReject", "Ticket", new RouteValueDictionary { { "TicketId", @Model.TicketId } }, null)" class="btn btn-danger btn-width">Reject</a>  
-            </div>
+        <div class="col-md-6 ticket" style="margin-left:20.5rem;">
+            <dl class="dl-horizontal">
+                <dt>@Html.DisplayNameFor(model => model.TicketId)</dt>
+                <dd>@Html.DisplayFor(model => model.TicketId)</dd>
+
+                <dt>@Html.DisplayNameFor(model => model.InstId)</dt>
+                <dd>@Html.DisplayFor(model => model.InstId)</dd>
+
+                <dt>@Html.DisplayNameFor(model => model.ServiceId)</dt>
+                <dd>@Html.DisplayFor(model => model.ServiceId)</dd>
+
+                <dt>@Html.DisplayNameFor(model => model.IssueId)</dt>
+                <dd>@Html.DisplayFor(model => model.IssueId)</dd>
+
+                <dt>@Html.DisplayNameFor(model => model.Description)</dt>
+                <dd>@Html.DisplayFor(model => model.Description)</dd>
+
+                <dt>@Html.DisplayNameFor(model => model.CellNumber)</dt>
+                <dd>@Html.DisplayFor(model => model.CellNumber)</dd>
+
+                <dt>@Html.DisplayNameFor(model => model.Email)</dt>
+                <dd>@Html.DisplayFor(model => model.Email)</dd>
+
+                <dt>@Html.DisplayNameFor(model => model.date)</dt>
+                <dd>@Html.DisplayFor(model => model.date)</dd>
+
+                <dt>@Html.DisplayNameFor(model => model.status)</dt>
+                <dd>@Html.DisplayFor(model => model.status)</dd>
+
+                <dt>@Html.DisplayNameFor(model => model.ImageUrl)</dt>
+                <dd>
+                    <a href="#" id="imageAnchor">
+
+                        @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                        {
+                            <img id="preview" src="@Model.ImageUrl" class="card-img-top" alt="Preview" style="width: 280px; height: 180px;" />
+
+                        }
+                        else
+                        {
+
+                            <img id="preview" class="card-img-top" alt="Preview" style="width: 280px; height: 180px;" />
+                        }
+                    </a>
+
+                    @*@Html.DisplayFor(model => model.ImageUrl)*@
+                </dd>
+            </dl>
         </div>
     </div>
 
+    <div class="row mt-3" style="margin-left:19.5rem;">
+        <div class="col-md-2">
+            <input type="button" value="Assign" class="btn btn-success btn-width" onclick="assignTicket('@Model.TicketId')" />
+        </div>
+        <div class="col-md-2">
+            <a href="@Url.Action("TicketReject", "Ticket", new { TicketId = Model.TicketId })" class="btn btn-danger btn-width" style="margin-left:20.5rem;">Reject</a>
+        </div>
+    </div>
 </div>
+
 <script>
     function assignTicket(ticketId) {
         var url = '@Url.Action("Assign", "Ticket")?TicketId=' + ticketId;
@@ -166,4 +127,3 @@
     }
 </script>
 @Scripts.Render("~/bundles/bootstrap")
-
