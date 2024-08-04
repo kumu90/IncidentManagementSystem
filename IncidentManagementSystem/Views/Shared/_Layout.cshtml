@@ -109,7 +109,7 @@
                                 @*@if (User.IsInRole("SuperAdmin") || User.IsInRole("Admin") || User.IsInRole("Developer"))
                                 {*@
                                     <li class="item">
-                                        @Html.Raw(Html.ActionLink("TicketIndexLink", "Index", "Ticket", new { area = "" }, new { @class = "nav-link" }).ToString().Replace("TicketIndexLink", "<span class='bx bx-search icon'></span> Search"))
+                                        @Html.Raw(Html.ActionLink("TicketIndexLink", "Index", "Ticket", new { UserName = User.Identity.Name }, new { @class = "nav-link" }).ToString().Replace("TicketIndexLink", "<span class='bx bx-search icon'></span> Search"))
                                     </li>
                                 @*}*@
                             </ul>
