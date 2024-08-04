@@ -86,12 +86,14 @@ namespace IncidentManagementSystem.Controllers
             if (page < 1) page = 1;
            
             var results = _iTicketService.TicketInfo(search, InstId, status, page, offset);
-            int totalCount = results[0].TotalCount;
+            //int totalCount = results[0].TotalCount;
+            int totalCount = results.FirstOrDefault()?.TotalCount ?? 0;
             int totalPages = (int)Math.Ceiling((double)totalCount / offset);
 
             ViewBag.TotalPages = totalPages;
             ViewBag.CurrentPage = page;
             ViewBag.offset = offset;
+            ViewBag.TotalCount=totalCount;
             return PartialView("Search", results);
         }
 
@@ -300,12 +302,12 @@ namespace IncidentManagementSystem.Controllers
         public ActionResult TicketResolve(string TicketId)
         {
             Init();
-            //var result = _iTicketService.GetResolveDetails(TicketId);
+            var result = _iTicketService.GetResolveDetails(TicketId);
             ViewBag.TaskStatus = TempData["TaskStatus"];
             ViewBag.TaskMessage = TempData["TaskMessage"];
 
-            //return View(result);
-            return View();
+            return View(result);
+            //return View();
         }
 
         [HttpPost]
