@@ -21,6 +21,7 @@
                             <div class="col-md-12 inst-row-form">
                                @Html.LabelFor(m => m.InstId, new { @class = "col-md-4 col-form-label l_ticket" })
                                 <div class="col">
+                                   
                                     @if (ViewBag.IsSuperAdmin)
                                     {
                                         @Html.DropDownListFor(m => m.InstId, ViewBag.Institution as SelectList, "-Select Institution-", new { @class = "form-select u-box" })
