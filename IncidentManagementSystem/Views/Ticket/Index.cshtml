@@ -9,13 +9,16 @@
             <span class="detail">Ticket Details</span>
         </div>
     </div>
-   
+
 
     @{
+        bool isSuperAdmin = ViewBag.IsSuperAdmin ?? false;
         var institutions = ViewBag.Institution as SelectList;
     }
     @using (Html.BeginForm("Search", "Ticket", FormMethod.Get, new { id = "searchForm", enctype = "multipart/form-data" }))
     {
+
+
         <div class="container-fluid search-box">
             <div class="row s-box">
                 <!-- Search input -->
@@ -38,7 +41,7 @@
                 <div class="col-12 col-md-6 col-lg-2 form-group s-dash">
                     <label for="offsetSelect" id="text">Offset</label>
                     <select id="offsetSelect" name="offset" class="form-select">
-                        <option value="1">All</option>
+                        <option value="500">All</option>
                         <option value="10">10</option>
                         <option value="20">20</option>
                         <option value="30">30</option>
@@ -48,17 +51,34 @@
                 <!-- Institution dropdown -->
                 <div class="col-12 col-md-6 col-lg-2 form-group s-dash">
                     <label for="InstDropDown" id="text">Institution</label>
-                    <select id="InstDropDown" name="InstId" class="form-select" )
-                        value="@ViewBag.SelectedInstId">
-                        <option value="">-- Select an Institution --</option>
-                        @if (institutions != null)
+
+
+
+                    @{
+                        if (institutions.Count() == 1)
                         {
-                            foreach (var item in institutions)
+                            foreach (var items in institutions)
                             {
-                               <option value="@item.Value" @(item.Value == ViewBag.SelectedInstId ? "selected" : "")>@item.Text</option>
+                                <input type="hidden" name="instId" id="instId" value="@items.Value" />
+                                <input type="text" value="@items.Text" class="form-control" readonly />
                             }
                         }
-                    </select>
+                        else
+                        {
+                            <select id="InstDropDown" name="InstId" class="form-select">
+                                <option value="">-- Select an Institution --</option>
+                                @if (institutions != null)
+                                {
+                                    foreach (var item in institutions)
+                                    {
+                                        <option value="@item.Value" @(item.Value == ViewBag.SelectedInstId ? "selected" : "")>@item.Text</option>
+                                    }
+                                }
+                            </select>
+                        }
+                    }
+
+
                 </div>
                 <!-- Search button -->
                 <div class="col-12 col-md-6 col-lg-2 b_dash">
@@ -74,7 +94,7 @@
         <hr />
 
         <div id="partialTicketContainer">
-           Html.PartialAsync("Search")
+            Html.PartialAsync("Search")
         </div>
     }
 </div>
@@ -112,11 +132,7 @@
                 });
             });
 
-
-
-            //$('#createUser').onClick(function () {
-
-            //});
         });
+
     </script>
 }

@@ -58,7 +58,7 @@ namespace IncidentManagementSystem.DataAccess
             }
             return _sQLStatus;
         }
-        public List<TicketDto> TicketInfo(string search = "",string InstId="",string status="", int page = 1, int offset = 10)
+        public List<TicketDto> TicketInfo(string search = "",string InstId="",string status="", int page = 1, int offset = 10,string userId = "")
         {
             //List<TicketDto> Ticketlist = new List<TicketDto>();
             //try
@@ -121,8 +121,11 @@ namespace IncidentManagementSystem.DataAccess
                     cmd.Parameters.Add(new SqlParameter("@Search", search ?? ""));
                     cmd.Parameters.Add(new SqlParameter("@instId", InstId ?? ""));
                     cmd.Parameters.Add(new SqlParameter("@status", status ?? ""));
+                    cmd.Parameters.Add(new SqlParameter("@userId", ""));
                     cmd.Parameters.Add(new SqlParameter("@page", page));
                     cmd.Parameters.Add(new SqlParameter("@offset", offset));
+                    
+
                     cmd.Connection = con;
                     DataSet ds = new DataSet();
                     SqlDataAdapter ads = new SqlDataAdapter(cmd);
@@ -347,6 +350,48 @@ namespace IncidentManagementSystem.DataAccess
             }
             return instNameDto;
         }
+
+        //public TicketDto GetInstDetailSearch(string UserName = "")
+        //{
+        //    TicketDto instNameDto = new TicketDto();
+        //    try
+        //    {
+        //        using (SqlConnection conn = new SqlConnection(conStr))
+        //        {
+        //            using (SqlCommand cmd = new SqlCommand(conStr, conn))
+        //            {
+
+        //                cmd.CommandText = "GetInstutionTicketSearch";
+        //                cmd.CommandType = CommandType.StoredProcedure;
+        //                cmd.Parameters.Add(new SqlParameter("@Id", UserName));
+        //                cmd.Connection = conn;
+
+        //                conn.Open();
+
+        //                using (var sqlDataReader = cmd.ExecuteReader())
+        //                {
+        //                    if (sqlDataReader.Read())
+        //                    {
+        //                        instNameDto = new TicketDto()
+        //                        {
+        //                            InstId = sqlDataReader["InstId"].ToString(),
+        //                            InstitutionName = sqlDataReader["InstitutionName"].ToString()
+        //                        };
+
+
+        //                    }
+        //                }
+        //            }
+
+        //        }
+        //        return instNameDto;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Console.WriteLine(ex.Message);
+        //    }
+        //    return instNameDto;
+        //}
         public SQLStatusDto TicketAssignTo(TicketAssignDto AssignDto)
         {
             SQLStatusDto _sQLStatus = new SQLStatusDto();
@@ -510,7 +555,7 @@ namespace IncidentManagementSystem.DataAccess
 public interface ITicketDataAccess
 {
     SQLStatusDto TicketCreate(TicketDto ticketDto);
-    List<TicketDto> TicketInfo(string search = "", string InstId = "", string status="", int page = 1, int offset = 10);
+    List<TicketDto> TicketInfo(string search = "", string InstId = "", string status="", int page = 1, int offset = 10, string userId = "");
 
     TicketDto GetTicketDetails(string TicketId);
 
@@ -518,6 +563,7 @@ public interface ITicketDataAccess
     TicketAssignDto TicketAssign(string TicketId = "");
 
     TicketDto GetInstDetail(string UserName = "");
+    //TicketDto GetInstDetailSearch(string UserName = "");
 
     SQLStatusDto TicketAssignTo(TicketAssignDto AssignDto);
 

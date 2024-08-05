@@ -122,7 +122,7 @@ namespace IncidentManagementSystem.DataAccess
             return new List<InstNameDto>();
         }
 
-        public List<InstNameDto> GetInstName()
+        public List<InstNameDto> GetInstName(string userId)
         {
             List<InstNameDto> Instlist = new List<InstNameDto>();
             try
@@ -135,6 +135,7 @@ namespace IncidentManagementSystem.DataAccess
                         cmd.CommandText = @"InstName";
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Connection = conn;
+                        cmd.Parameters.AddWithValue("@userId", userId);
 
                         conn.Open();
 
@@ -214,7 +215,7 @@ namespace IncidentManagementSystem.DataAccess
     {
         SQLStatusDto InstitutionCreate(InstNameDto _instNameDto);
         List<InstNameDto> InstitutionList(string search);
-        List<InstNameDto> GetInstName();
+        List<InstNameDto> GetInstName(string userId);
         List<Roles> RoleList();
     }
     
