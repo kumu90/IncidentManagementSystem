@@ -32,8 +32,8 @@ namespace IncidentManagementSystem.Controllers
 
         public void Init()
         {
-            var institution = _iInstitutionService.GetInstName();
-            ViewBag.Institution = new SelectList(institution, "InstId", "InstitutionName");
+            //var institution = _iInstitutionService.GetInstName();
+            //ViewBag.Institution = new SelectList(institution, "InstId", "InstitutionName");
 
             var services = _iproductService.GetServices();
             ViewBag.services = new SelectList(services, "ServiceId", "serviceName");

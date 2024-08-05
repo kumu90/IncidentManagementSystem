@@ -25,9 +25,9 @@ namespace IncidentManagementSystem.Service
             return _iInstitutionDataAccess.InstitutionList(search, page,offset);
         }
 
-        public List<InstNameDto> GetInstName()
+        public List<InstNameDto> GetInstName(string userId)
         {
-            return _iInstitutionDataAccess.GetInstName();
+            return _iInstitutionDataAccess.GetInstName(userId);
         }
 
         public List<Roles> RoleList()
@@ -43,7 +43,7 @@ namespace IncidentManagementSystem.Service
 
         List<InstNameDto> InstitutionList(string search, int page = 1, int offset = 10);
 
-        List<InstNameDto> GetInstName();
+        List<InstNameDto> GetInstName(string userId);
 
         List<Roles> RoleList();
     }

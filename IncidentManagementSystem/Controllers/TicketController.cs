@@ -1,5 +1,7 @@
 ﻿using IncidentManagementSystem.Model;
 using IncidentManagementSystem.Service;
+using Microsoft.AspNet.Identity;
+using Microsoft.ReportingServices.ReportProcessing.ReportObjectModel;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -29,8 +31,11 @@ namespace IncidentManagementSystem.Controllers
 
         public void Init()
         {
-            var institution = _iInstitutionService.GetInstName();
+            string userId = User.Identity.GetUserId();
+            List<InstNameDto> institution = _iInstitutionService.GetInstName(userId);
             ViewBag.Institution = new SelectList(institution, "InstId", "InstitutionName");
+
+          
 
             List<Roles> role = _iInstitutionService.RoleList();
             ViewBag.UserRole = new SelectList(role, "Id", "Name");
@@ -42,10 +47,7 @@ namespace IncidentManagementSystem.Controllers
             ViewBag.Issues = new SelectList(Issues, "IssueId", "IssueName");
 
 
-            // Check if the current user is a SuperAdmin
-            bool isSuperAdmin = User.IsInRole("SuperAdmin");
-
-            ViewBag.IsSuperAdmin = isSuperAdmin;
+            
         }
 
 
@@ -63,91 +65,64 @@ namespace IncidentManagementSystem.Controllers
         }
 
         [Authorize(Roles = "SuperAdmin, Admin, Developer, User")]
-        public ActionResult Index(string search)
+        public ActionResult Index(string search, string userId)
         {
             Init();
-            var TicketInfo = _iTicketService.TicketInfo(search);
+             userId = User.Identity.GetUserId();
+
+            var TicketInfo = _iTicketService.TicketInfo(search, userId);
             return View(TicketInfo);
         }
 
 
         [Authorize(Roles = "SuperAdmin, Admin, Developer, User")]
-        public ActionResult Search(string search, string InstId, string status, int page = 1, int offset = 10)
+        public ActionResult Search(string search,string InstId,string status,int page=1,int offset=10, string userId = "")
         {
-            //Init();
-            //// Debugging or logging
-            //System.Diagnostics.Debug.WriteLine($"Received UserName parameter: {UserName}");
+            Init();
+
+            userId = User.Identity.GetUserId();
+            var Institution = _iInstitutionService.GetInstName(userId);
+            //List<InstNameDto> institution = _iInstitutionService.GetInstName(userId);
+           
+
+            bool isSuperAdmin = User.IsInRole("SuperAdmin");
+
+            // Populate institution dropdown based on role
+            if (isSuperAdmin)
+            {
+                ViewBag.Institution = Institution;
+                ViewBag.SelectedInstId = "";
+
+            }
+            else
+            {
+               
+ 
+                var institutionList = Institution.Select(i => new SelectListItem
+                {
+                    Value = i.InstId.ToString(),
+                    Text = i.InstitutionName
+                }).ToList();
+                var selectedInstitution = institutionList.FirstOrDefault();
+                ViewBag.Institution = new SelectList(institutionList, "Value", "Text", selectedInstitution?.Value);
+                ViewBag.Institution = Institution;
+                ViewBag.SelectedInstId = selectedInstitution?.Value;
 
 
-            //// Check if UserName is provided; if not, try to retrieve from session
-            //if (string.IsNullOrEmpty(UserName))
-            //{
-            //    UserName = Session["Username"] as string;
-            //}
+            }
 
-            //// If UserName is still null or empty, redirect to login or show an error
-            //if (string.IsNullOrEmpty(UserName))
-            //{
-            //    TempData["TaskStatus"] = "Error";
-            //    TempData["TaskMessage"] = "UserName is required. Please log in.";
-            //    return RedirectToAction("Login", "Account");
-            //}
-
-            //var instDetail = _iTicketService.GetInstDetail(UserName);
-
-            //if (instDetail == null)
-            //{
-            //    TempData["TaskStatus"] = "Error";
-            //    TempData["TaskMessage"] = "No institution details found for the given UserName.";
-            //    return RedirectToAction("Index"); // Redirect to an appropriate action or view
-            //}
-            //// Determine if the user is a SuperAdmin
-            //bool isSuperAdmin = User.IsInRole("SuperAdmin");
-
-            //// Populate institution dropdown based on role
-            //if (isSuperAdmin)
-            //{
-            //    var institutions = _iInstitutionService.GetInstName();
-            //    ViewBag.Institution = new SelectList(institutions, "InstId", "InstitutionName");
-            //    ViewBag.SelectedInstId = "";
-            //}
-            //else
-            //{
-
-            //    // For non-SuperAdmin users, only their institution is displayed
-            //    var institution = new List<SelectListItem>
-            //    {
-            //        new SelectListItem
-            //        {
-            //            Value = instDetail.InstId.ToString(),
-            //            Text = instDetail.InstId
-            //        }
-            //    };
-            //    ViewBag.Institution = new SelectList(institution, "Value", "Text");
-            //    ViewBag.SelectedInstId = instDetail.InstId.ToString();
-            //}
-
-            //}
-            //page = page > 0 ? page - 1 : 0;
-            //offset = offset > 0 ? offset : 10;
-            //int start = page * offset;
-            ////int totalCount = _iTicketService.GetTotalTicketCount(search, InstId, status);
-            //int totalPage = (int)Math.Ceiling((double)100 / offset);
-            //var results = _iTicketService.TicketInfo(search, InstId, status, page, offset);
-            //ViewBag.TotalPage = totalPage;
-            //ViewBag.CurrentPage = page + 1; 
-            //ViewBag.Offset = offset;
             if (page < 1) page = 1;
-            var results = _iTicketService.TicketInfo(search, InstId, status, page, offset);
-            //int totalCount = results[0].TotalCount;
-            int totalCount = results.FirstOrDefault()?.TotalCount ?? 0;
-            int totalPages = (int)Math.Ceiling((double)totalCount / offset);
+            var selectedInstId = string.IsNullOrEmpty(InstId) ? ViewBag.SelectedInstId : InstId;
 
+            var results = _iTicketService.TicketInfo(search, selectedInstId, status, page, offset, userId);
+            int totalCount = results[0].TotalCount;
+            int totalPages = (int)Math.Ceiling((double)totalCount / offset);
             ViewBag.TotalPages = totalPages;
             ViewBag.CurrentPage = page;
             ViewBag.offset = offset;
             ViewBag.TotalCount = totalCount;
             return PartialView("Search", results);
+            
         }
 
 
@@ -191,8 +166,8 @@ namespace IncidentManagementSystem.Controllers
             // Populate institution dropdown based on role
             if (isSuperAdmin)
             {
-                var institutions = _iInstitutionService.GetInstName();
-                ViewBag.Institution = new SelectList(institutions, "InstId", "InstitutionName");
+                //var institutions = _iInstitutionService.GetInstName();
+                //ViewBag.Institution = new SelectList(institutions, "InstId", "InstitutionName");
                 ViewBag.SelectedInstId = "";
             }
             else

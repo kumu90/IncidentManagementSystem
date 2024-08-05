@@ -170,7 +170,7 @@ namespace IncidentManagementSystem.DataAccess
             return new List<InstNameDto>();
         }
 
-        public List<InstNameDto> GetInstName()
+        public List<InstNameDto> GetInstName(string userId)
         {
             List<InstNameDto> Instlist = new List<InstNameDto>();
             try
@@ -183,6 +183,7 @@ namespace IncidentManagementSystem.DataAccess
                         cmd.CommandText = @"InstName";
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Connection = conn;
+                        cmd.Parameters.AddWithValue("@userId", userId);
 
                         conn.Open();
 
