@@ -40,7 +40,6 @@ namespace IncidentManagementSystem.DataAccess
                         cmd.Parameters.AddWithValue("@imageUrl", _instNameDto.ImageUrl);
                         cmd.Parameters.AddWithValue("@userId", _instNameDto.CreatedBy ?? "");
                         cmd.Parameters.AddWithValue("@serviceIds", serviceList ?? "");
-
                         cmd.Parameters.AddWithValue("@ImageData", _instNameDto.ImageData);
                         cmd.Parameters.AddWithValue("@ContentType", _instNameDto.contentType);
 
@@ -68,54 +67,103 @@ namespace IncidentManagementSystem.DataAccess
             return _SQLStatus;
         }
 
-        public List<InstNameDto> InstitutionList(string search)
+        public List<InstNameDto> InstitutionList(string search, int page = 1, int offset = 10)
         {
-            List<InstNameDto> list = new List<InstNameDto>();
+            //List<InstNameDto> list = new List<InstNameDto>();
+            //try
+            //{
+            //    using (SqlConnection conn = new SqlConnection(conStr))
+            //    {
+            //        using (SqlCommand cmd = new SqlCommand(conStr, conn))
+            //        {
+
+            //            cmd.CommandText = @"InstList";
+            //            cmd.CommandType = CommandType.StoredProcedure;
+            //            cmd.Connection = conn;
+            //            cmd.Parameters.Add(new SqlParameter("@Search", search ?? ""));
+            //            conn.Open();
+
+            //            using (var sqlDataReader = cmd.ExecuteReader())
+            //            {
+            //                while (sqlDataReader.Read())
+            //                {
+            //                    list.Add(new InstNameDto()
+            //                    {
+            //                        InstId = sqlDataReader["InstId"].ToString(),
+            //                        InstitutionName = sqlDataReader["InstitutionName"].ToString(),
+            //                        Country = sqlDataReader["Country"].ToString(),
+            //                        State = sqlDataReader["State"].ToString(),
+            //                        Address = sqlDataReader["Address"].ToString(),
+            //                        ZipCode = sqlDataReader["ZipCode"].ToString(),
+            //                        ContactNumber = sqlDataReader["ContactNumber"].ToString(),
+            //                        ContactPersonTechnical = sqlDataReader["ContactPersonTechnical"].ToString(),
+            //                        Email = sqlDataReader["ZipCode"].ToString(),
+            //                        CreatedBy = sqlDataReader["ContactNumber"].ToString(),
+            //                        Flag = sqlDataReader["Flag"].ToString(),
+            //                        ContactPersonAdmin = sqlDataReader["ContactPersonAdmin"].ToString(),
+            //                        CreatedDate = sqlDataReader["CreatedDate"].ToString()
+            //                    });
+            //                }
+            //            }
+
+            //            conn.Close();
+
+            //        }
+            //    }
+
+            //    return list;
+
+            //}
+            //catch (Exception ex)
+            //{
+            //    Console.WriteLine(ex.Message);
+            //}
+            //return new List<InstNameDto>();
+
+            List<InstNameDto> data = new List<InstNameDto>();
             try
             {
-                using (SqlConnection conn = new SqlConnection(conStr))
+                using (SqlConnection con = new SqlConnection(conStr))
                 {
-                    using (SqlCommand cmd = new SqlCommand(conStr, conn))
+                    using (SqlCommand cmd = new SqlCommand())
                     {
-
-                        cmd.CommandText = @"InstList";
+                        cmd.CommandText = @"GetInstitutionListDetails";
                         cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Connection = conn;
                         cmd.Parameters.Add(new SqlParameter("@Search", search ?? ""));
-                        conn.Open();
-
-                        using (var sqlDataReader = cmd.ExecuteReader())
+                        cmd.Parameters.Add(new SqlParameter("@page", page));
+                        cmd.Parameters.Add(new SqlParameter("@offset", offset));
+                        cmd.Connection = con;
+                        DataSet ds = new DataSet();
+                        SqlDataAdapter ads = new SqlDataAdapter(cmd);
+                        con.Open();
+                        ads.Fill(ds);
+                        foreach (DataRow row in ds.Tables[1].Rows)
                         {
-                            while (sqlDataReader.Read())
+                            InstNameDto dto = new InstNameDto();
+                            dto.InstId = row["InstId"].ToString();
+                            dto.InstitutionName = row["InstitutionName"].ToString();
+                            dto.Country = row["Country"].ToString();
+                            dto.State = row["State"].ToString();
+                            dto.Address = row["Address"].ToString();
+                            dto.ZipCode = row["ZipCode"].ToString();
+                            dto.ContactNumber = row["ContactNumber"].ToString();
+                            dto.ContactPersonTechnical = row["ContactPersonTechnical"].ToString();
+                            dto.Email = row["Email"].ToString();
+                            //dto.CreatedBy = row["CreatedBy"].ToString();
+                            dto.Flag = row["Flag"].ToString();
+                            dto.ContactPersonAdmin = row["ContactPersonAdmin"].ToString();
+                            dto.CreatedDate = row["CreatedDate"].ToString();
+                            foreach (DataRow row1 in ds.Tables[0].Rows)
                             {
-                                list.Add(new InstNameDto()
-                                {
-                                    InstId = sqlDataReader["InstId"].ToString(),
-                                    InstitutionName = sqlDataReader["InstitutionName"].ToString(),
-                                    Country = sqlDataReader["Country"].ToString(),
-                                    State = sqlDataReader["State"].ToString(),
-                                    Address = sqlDataReader["Address"].ToString(),
-                                    ZipCode = sqlDataReader["ZipCode"].ToString(),
-                                    ContactNumber = sqlDataReader["ContactNumber"].ToString(),
-                                    ContactPersonTechnical = sqlDataReader["ContactPersonTechnical"].ToString(),
-                                    Email = sqlDataReader["ZipCode"].ToString(),
-                                    CreatedBy = sqlDataReader["ContactNumber"].ToString(),
-                                    Flag = sqlDataReader["Flag"].ToString(),
-                                    ContactPersonAdmin = sqlDataReader["ContactPersonAdmin"].ToString(),
-                                    CreatedDate = sqlDataReader["CreatedDate"].ToString()
-                                });
+                                dto.TotalCount = Convert.ToInt32(row1["TotalCount"]);
                             }
+                            data.Add(dto);
                         }
-
-                        conn.Close();
-
+                        return data;
                     }
                 }
-
-                return list;
-
             }
-            catch (Exception ex)
+            catch (Exception ex) 
             {
                 Console.WriteLine(ex.Message);
             }
@@ -214,7 +262,7 @@ namespace IncidentManagementSystem.DataAccess
     public interface IInstitutionDataAccess
     {
         SQLStatusDto InstitutionCreate(InstNameDto _instNameDto);
-        List<InstNameDto> InstitutionList(string search);
+        List<InstNameDto> InstitutionList(string search, int page = 1, int offset = 10);
         List<InstNameDto> GetInstName(string userId);
         List<Roles> RoleList();
     }

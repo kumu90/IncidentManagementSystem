@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Net.Mime;
+using System.Web.UI.WebControls;
 
 namespace IncidentManagementSystem.DataAccess
 {
@@ -112,44 +113,49 @@ namespace IncidentManagementSystem.DataAccess
             //}
             //return new List<TicketDto>();
             List<TicketDto> data = new List<TicketDto>();
-            using (SqlConnection con = new SqlConnection(conStr))
+            try
             {
-                using (SqlCommand cmd = new SqlCommand())
+                using (SqlConnection con = new SqlConnection(conStr))
                 {
-                    cmd.CommandText = @"GetTicketListDetails";
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(new SqlParameter("@Search", search ?? ""));
-                    cmd.Parameters.Add(new SqlParameter("@instId", InstId ?? ""));
-                    cmd.Parameters.Add(new SqlParameter("@status", status ?? ""));
-                    cmd.Parameters.Add(new SqlParameter("@userId", ""));
-                    cmd.Parameters.Add(new SqlParameter("@page", page));
-                    cmd.Parameters.Add(new SqlParameter("@offset", offset));
-                    
-
-                    cmd.Connection = con;
-                    DataSet ds = new DataSet();
-                    SqlDataAdapter ads = new SqlDataAdapter(cmd);
-                    con.Open();
-                    ads.Fill(ds);
-                    foreach (DataRow row in ds.Tables[1].Rows)
+                    using (SqlCommand cmd = new SqlCommand())
                     {
-                        TicketDto dto = new TicketDto();
-                        dto.TicketId = row["TicketId"].ToString();
-                        dto.status = row["Status"].ToString();
-                        dto.InstId = row["InstitutionName"].ToString();
-                        dto.ServiceId = row["ServiceName"].ToString();
-                        dto.IssueId = row["Issue"].ToString();
-                        dto.CellNumber =row["CellNumber"].ToString();
-                        dto.Email =row["Email"].ToString();                       
-                        foreach (DataRow row1 in ds.Tables[0].Rows)
+                        cmd.CommandText = @"GetTicketListDetails";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@Search", search ?? ""));
+                        cmd.Parameters.Add(new SqlParameter("@instId", InstId ?? ""));
+                        cmd.Parameters.Add(new SqlParameter("@status", status ?? ""));
+                        cmd.Parameters.Add(new SqlParameter("@page", page));
+                        cmd.Parameters.Add(new SqlParameter("@offset", offset));
+                        cmd.Connection = con;
+                        DataSet ds = new DataSet();
+                        SqlDataAdapter ads = new SqlDataAdapter(cmd);
+                        con.Open();
+                        ads.Fill(ds);
+                        foreach (DataRow row in ds.Tables[1].Rows)
                         {
-                            dto.TotalCount = Convert.ToInt32(row1["TotalCount"]);
+                            TicketDto dto = new TicketDto();
+                            dto.TicketId = row["TicketId"].ToString();
+                            dto.status = row["Status"].ToString();
+                            dto.InstId = row["InstitutionName"].ToString();
+                            dto.ServiceId = row["ServiceName"].ToString();
+                            dto.IssueId = row["Issue"].ToString();
+                            dto.CellNumber = row["CellNumber"].ToString();
+                            dto.Email = row["Email"].ToString();
+                            foreach (DataRow row1 in ds.Tables[0].Rows)
+                            {
+                                dto.TotalCount = Convert.ToInt32(row1["TotalCount"]);
+                            }
+                            data.Add(dto);
                         }
-                        data.Add(dto);
+                        return data;
                     }
-                    return data;
                 }
             }
+            catch (Exception ex) 
+            { 
+                Console.WriteLine(ex.ToString());
+            }
+            return new List<TicketDto>();
         }
 
         public TicketDto GetTicketDetails(string TicketId)
