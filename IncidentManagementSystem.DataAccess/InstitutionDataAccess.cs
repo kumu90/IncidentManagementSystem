@@ -263,7 +263,7 @@ namespace IncidentManagementSystem.DataAccess
     {
         SQLStatusDto InstitutionCreate(InstNameDto _instNameDto);
         List<InstNameDto> InstitutionList(string search, int page = 1, int offset = 10);
-        List<InstNameDto> GetInstName();
+        List<InstNameDto> GetInstName(string userId);
         List<Roles> RoleList();
     }
     
