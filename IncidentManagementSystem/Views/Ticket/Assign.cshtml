@@ -113,7 +113,7 @@
             <div class="modal-footer" style="padding:8px 8px 16px 8px;margin-top:0px">
                 @if (@ViewBag.TaskStatus == "00")
                 {
-                    <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal" data-target="#modalTaskComplete" onclick="location.href='@Url.Action("Search","Ticket")'">Okay</button>
+                    <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal" data-target="#modalTaskComplete" onclick="location.href='@Url.Action("Index","Ticket")'">Okay</button>
                 }
                 else
                 {

@@ -120,6 +120,7 @@ namespace IncidentManagementSystem.Controllers
             ViewBag.TotalPages = totalPages;
             ViewBag.CurrentPage = page;
             ViewBag.offset = offset;
+            ViewBag.TotalCount=totalCount;
             return PartialView("Search", results);
             
         }
@@ -329,12 +330,12 @@ namespace IncidentManagementSystem.Controllers
         public ActionResult TicketResolve(string TicketId)
         {
             Init();
-            //var result = _iTicketService.GetResolveDetails(TicketId);
+            var result = _iTicketService.GetResolveDetails(TicketId);
             ViewBag.TaskStatus = TempData["TaskStatus"];
             ViewBag.TaskMessage = TempData["TaskMessage"];
 
-            //return View(result);
-            return View();
+            return View(result);
+            //return View();
         }
 
         [HttpPost]
