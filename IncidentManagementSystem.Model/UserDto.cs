@@ -31,6 +31,8 @@ namespace IncidentManagementSystem.Model
         [DisplayName("Role")]
         public string Roles { get; set; }
 
+        public int TotalCount { get; set; }
+
     }
 
 }

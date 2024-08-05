@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI;
 
 namespace IncidentManagementSystem.Controllers
 {
@@ -32,10 +33,21 @@ namespace IncidentManagementSystem.Controllers
         }
 
         [Authorize(Roles = "SuperAdmin, Admin, Developer")]
-        public ActionResult Search(string search)
+        public ActionResult Search(string search, int page = 1, int offset = 10)
         {
-            var results = _userService.UserDetail(search);
+            if (page < 1) page = 1;
+            var results = _userService.UserDetail(search,page, offset);
+            //int totalCount = results[0].TotalCount;
+            int totalCount = results.FirstOrDefault()?.TotalCount ?? 0;
+            int totalPages = (int)Math.Ceiling((double)totalCount / offset);
+
+            ViewBag.TotalPages = totalPages;
+            ViewBag.CurrentPage = page;
+            ViewBag.offset = offset;
+            ViewBag.TotalCount = totalCount;
             return PartialView("Search", results);
+            //var results = _userService.UserDetail(search);
+            //return PartialView("Search", results);
         }
 
     }

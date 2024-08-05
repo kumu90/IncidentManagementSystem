@@ -1,7 +1,5 @@
 ﻿@model IncidentManagementSystem.Models.RegisterViewModel
-@*@{
-        ViewBag.Title = "Register";
-    }*@
+
 <div class="container-fluid reg">
 
     <div class="col-lg-12 header ">
@@ -20,8 +18,6 @@
             @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { role = "form" }))
             {
                 @Html.AntiForgeryToken()
-                @Html.ValidationSummary(" ", new { @class = "text-danger" })
-
                 <div class="card p-4" style="border-radius: 12px;">
                     <div class="form-group row mb-3">
                         @Html.LabelFor(m => m.UserName, new { @class = "col-md-4 col-form-label l-user" })
@@ -73,8 +69,6 @@
             }
         </div>
     </div>
-
-
 </div>
 
 <div class="modal" tabindex="-1" role="dialog" id="modalTaskComplete" aria-labelledby="modalTaskCompleteLabel" aria-hidden="true">
@@ -92,11 +86,11 @@
             <div class="modal-footer" style="padding:8px 8px 16px 8px;margin-top:0px">
                 @if (@ViewBag.TaskStatus == "00")
                 {
-                    <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal" data-target="#modalTaskComplete" onclick="location.href='@Url.Action("Index","User")'">Okay</button>
+                    <button type="button" class="btn btn-success btn-sm" data-dismiss="modal" data-target="#modalTaskComplete" onclick="location.href='@Url.Action("Index","User")'">Okay</button>
                 }
                 else
                 {
-                    <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal" data-target="#modalTaskComplete" onclick="location.href = '@Url.Action("Create","Account")'">Okay</button>
+                    <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal" data-target="#modalTaskComplete" onclick="location.href = '@Url.Action("Register","Account")'">Okay</button>
                 }
 
             </div>
@@ -108,13 +102,10 @@
 
 
 @section Scripts{
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/jqueryval")
-
     <script>
 
         $(document).ready(function () {
-            
+
             var status= '@ViewBag.TaskStatus';
             if (status !== null && status !== '')
             {
@@ -124,8 +115,8 @@
 
 
     </script>
-
-
-
 }
+
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryval")
 

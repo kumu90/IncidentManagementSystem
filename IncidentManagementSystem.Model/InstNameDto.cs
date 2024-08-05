@@ -65,6 +65,8 @@ namespace IncidentManagementSystem.Model
         public string Flag { get; set; }
         public List<string> ServiceIdList { get; set; }
 
+        public int TotalCount { get; set; }
+
         
     }
 

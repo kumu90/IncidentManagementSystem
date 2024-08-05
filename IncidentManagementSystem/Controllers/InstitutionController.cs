@@ -1,4 +1,5 @@
-﻿using System;
+﻿//using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -53,14 +54,23 @@ namespace IncidentManagementSystem.Controllers
         }
 
         [Authorize(Roles = ",SuperAdmin, Admin, Developer")]
-        public ActionResult Search(string search)
+        public ActionResult Search(string search, int page = 1, int offset = 10)
         {
-            if (ModelState.IsValid)
-            {
-                var result = _iInstitutionService.InstitutionList(search);
-                return PartialView("search", result);
-            }
-            return View();
+            //var result = _iInstitutionService.InstitutionList(search);
+            //return PartialView("search", result);
+
+            if (page < 1) page = 1;
+            var results = _iInstitutionService.InstitutionList(search, page, offset);
+            //int totalCount = results[0].TotalCount;
+            int totalCount = results.FirstOrDefault()?.TotalCount ?? 0;
+            int totalPages = (int)Math.Ceiling((double)totalCount / offset);
+
+            ViewBag.TotalPages = totalPages;
+            ViewBag.CurrentPage = page;
+            ViewBag.offset = offset;
+            ViewBag.TotalCount = totalCount;
+            return PartialView("Search", results);
+
         }
 
         [HttpGet]
@@ -80,8 +90,13 @@ namespace IncidentManagementSystem.Controllers
         {
             Init();
             instNameDto.CreatedBy = User.Identity.GetUserId();
-
-            if (file != null && file.ContentLength > 0)
+            if (!ModelState.IsValid)
+            {
+                TempData["TaskStatus"] = "ERROR";
+                TempData["TaskMessage"] = "FIELD REQUIRED";
+                return View(instNameDto);
+            }
+            else if (file != null && file.ContentLength > 0)
             {
 
                 instNameDto.ImageUrl = Path.GetFileName(file.FileName);
@@ -99,20 +114,19 @@ namespace IncidentManagementSystem.Controllers
                     TempData["TaskStatus"] = sQLStatus.Status;
                     TempData["TaskMessage"] = sQLStatus.Message;
 
-                    }
-                    else
-                    {
-                        TempData["TaskStatus"] = sQLStatus.Status;
-                        TempData["TaskMessage"] = sQLStatus.Message;
-                    }
-                    ViewBag.TaskStatus = TempData["TaskStatus"];
-                    ViewBag.TaskMessage = TempData["TaskMessage"];
                 }
                 else
                 {
-                    ViewBag.Message = "Invalid image file.";
+                    TempData["TaskStatus"] = "Error";
+                    TempData["TaskMessage"] = " Institution Details are not Filled Correctly.";
+
                 }
-          
+            }
+            else
+            {
+                ViewBag.Message = "Invalid image file.";
+            }
+
 
             //try
             //{

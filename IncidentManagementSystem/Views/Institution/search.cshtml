@@ -1,27 +1,76 @@
 ﻿
 @model IEnumerable<IncidentManagementSystem.Model.InstNameDto>
 @{
-    int sno = 0; // Initialize serial number
+    //int sno = 0; // Initialize serial number
+    int sno = (ViewBag.CurrentPage - 1) * ViewBag.Offset;
 }
+
+<style>
+    .pagination {
+        display: inline-block;
+        padding: 0;
+        margin: 0;
+        border-radius: 5px;
+    }
+
+        .pagination a,
+        .pagination span {
+            display: inline-block;
+            padding: 8px 16px;
+            margin: 0 4px;
+            text-decoration: none;
+            color: #007bff;
+            border: 1px solid #dee2e6;
+            border-radius: 3px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+            .pagination a.active {
+                background-color: #007bff;
+                color: white;
+                border: 1px solid #007bff;
+            }
+
+            .pagination a:hover:not(.active) {
+                background-color: #f1f1f1;
+            }
+
+        .pagination span {
+            color: #6c757d;
+            border: 1px solid #dee2e6;
+            cursor: default;
+        }
+
+        .pagination .disabled {
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+
+        .pagination .prev,
+        .pagination .next {
+            font-weight: bold;
+        }
+</style>
 @if (Model != null && Model.Any())
 {
-    <div class="panel panel-default overflow-auto"  style="max-height:600px">
+    <div class="panel panel-default overflow-auto" style="max-height:600px">
         <table class="table table-striped">
             <thead class="whitespace-nowrap">
                 <tr>
                     <th>S No.</th>
-                    <th>InstId</th>
-                    <th>InstitutionName</th>
+                    <th>Institution Id</th>
+                    <th>Institution Name</th>
                     <th>Country</th>
                     <th>State</th>
                     <th>Address</th>
                     <th>ZipCode</th>
-                    <th>ContactPersonAdmin</th>
-                    <th>ContactPersonTechnical</th>
-                    <th>ContactNumber</th>
+                    <th>Admin</th>
+                    <th>Technical</th>
+                    <th>Cell Number</th>
                     <th>Email</th>
-                    <th>CreatedBy</th>
-                    <th>CreatedDate</th>
+                    @*<th>Created By</th>*@
+                    <th>Created Date</th>
                     <th>Flag</th>
                 </tr>
             </thead>
@@ -41,7 +90,7 @@
                         <td>@item.ContactPersonTechnical</td>
                         <td>@item.ContactNumber</td>
                         <td>@item.Email</td>
-                        <td>@item.CreatedBy</td>
+                        @*<td>@item.CreatedBy</td>*@
                         <td>@item.CreatedDate</td>
                         <td>@item.Flag</td>
                         <td>
@@ -52,12 +101,53 @@
             </tbody>
 
         </table>
-        @*}
-        else
-        {
-        <p>No data available.</p>*@
-       
-        @Scripts.Render("~/bundles/bootstrap")
 
     </div>
 }
+
+<div>
+    <div class="pagination">
+        @if (ViewBag.CurrentPage > 1)
+        {
+            <a href="#" onclick="searchInstitution(@(ViewBag.CurrentPage - 1)); return false;">&laquo; Previous</a>
+        }
+        else
+        {
+            <span>&laquo; Previous</span>
+        }
+
+        @for (int i = 1; i <= ViewBag.TotalPages; i++)
+        {
+            <a href="#" onclick="searchInstitution(@i); return false;" class="@(i == ViewBag.CurrentPage ? "active" : "")">@i</a>
+        }
+
+        @if (ViewBag.CurrentPage < ViewBag.TotalPages)
+        {
+            <a href="#" onclick="searchInstitution(@(ViewBag.CurrentPage + 1)); return false;">Next &raquo;</a>
+        }
+        else
+        {
+            <span>Next &raquo;</span>
+        }
+    </div>
+</div>
+
+<script>
+    function searchInstitution(page) {
+        $.ajax({
+            url: '@Url.Action("Search", "Institution")',
+            type: 'GET',
+            data: {
+                search: $('#search').val(),
+                page: page,
+                offset: $('#offset').val()
+            },
+            success: function (result) {
+                $('#partialInstitutionContainer').html(result);
+            },
+            error: function (xhr, status, error) {
+                console.error("An error occurred: " + status + " " + error);
+            }
+        });
+    }
+</script>

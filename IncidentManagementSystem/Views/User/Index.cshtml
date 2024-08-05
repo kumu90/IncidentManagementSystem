@@ -21,16 +21,27 @@
         <div class="container-fluid search-box">
             <div class=" row s-box">
 
-
-                <div class="col-lg-4 form-group s-dash">                    
+                <div class="col-12 col-md-6 col-lg-2 form-group s-dash">
+                    <label for="searchInput" id="text">Search</label>
                     <input type="text" name="search" placeholder="Search..." class="form-control" } />
                 </div>
 
-                <div class="col-lg-4 s-dash">
+                <div class="col-12 col-md-6 col-lg-2 form-group s-dash">
+                    <label for="offsetSelect" id="text">Offset</label>
+                    <select id="offsetSelect" name="offset" class="form-select">
+                        <option value="500">All</option>
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="30">30</option>
+                        <option value="100">100</option>
+                    </select>
+                </div>
+
+                <div class="col-12 col-md-6 col-lg-2 form-group s-dash">
                     <input type="submit" value="Search" class="btn btn-primary btn-width" />
                 </div>
 
-                <div class="col-lg-4 s-dash">
+                <div class="col-12 col-md-6 col-lg-2 form-group s-dash">
                     <input type="button" value="Create" class="btn btn-success btn-width" onclick="location.href='@Url.Action("Register", "Account")'" id="createUser" />
                 </div>
             </div>
