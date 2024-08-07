@@ -124,6 +124,7 @@ namespace IncidentManagementSystem.DataAccess
                         cmd.Parameters.Add(new SqlParameter("@Search", search ?? ""));
                         cmd.Parameters.Add(new SqlParameter("@instId", InstId ?? ""));
                         cmd.Parameters.Add(new SqlParameter("@status", status ?? ""));
+                        cmd.Parameters.Add(new SqlParameter("@userId", userId ?? ""));
                         cmd.Parameters.Add(new SqlParameter("@page", page));
                         cmd.Parameters.Add(new SqlParameter("@offset", offset));
                         cmd.Parameters.Add(new SqlParameter("@userId", userId ?? ""));

@@ -35,7 +35,7 @@ namespace IncidentManagementSystem.Controllers
             List<InstNameDto> institution = _iInstitutionService.GetInstName(userId);
             ViewBag.Institution = new SelectList(institution, "InstId", "InstitutionName");
 
-          
+
 
             List<Roles> role = _iInstitutionService.RoleList();
             ViewBag.UserRole = new SelectList(role, "Id", "Name");
@@ -77,14 +77,14 @@ namespace IncidentManagementSystem.Controllers
 
 
         [Authorize(Roles = "SuperAdmin, Admin, Developer, User")]
-        public ActionResult Search(string search,string InstId,string status,int page=1,int offset=10, string userId = "")
+        public ActionResult Search(string search, string InstId, string status, int page = 1, int offset = 10, string userId = "")
         {
             Init();
 
             userId = User.Identity.GetUserId();
             var Institution = _iInstitutionService.GetInstName(userId);
             //List<InstNameDto> institution = _iInstitutionService.GetInstName(userId);
-           
+
 
             bool isSuperAdmin = User.IsInRole("SuperAdmin");
 
@@ -97,8 +97,6 @@ namespace IncidentManagementSystem.Controllers
             }
             else
             {
-               
- 
                 var institutionList = Institution.Select(i => new SelectListItem
                 {
                     Value = i.InstId.ToString(),
