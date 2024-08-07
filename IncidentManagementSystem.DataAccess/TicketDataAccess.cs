@@ -127,8 +127,6 @@ namespace IncidentManagementSystem.DataAccess
                         cmd.Parameters.Add(new SqlParameter("@userId", userId ?? ""));
                         cmd.Parameters.Add(new SqlParameter("@page", page));
                         cmd.Parameters.Add(new SqlParameter("@offset", offset));
-                        cmd.Parameters.Add(new SqlParameter("@userId", userId ?? ""));
-                        cmd.Connection = con;
                         DataSet ds = new DataSet();
                         SqlDataAdapter ads = new SqlDataAdapter(cmd);
                         con.Open();
