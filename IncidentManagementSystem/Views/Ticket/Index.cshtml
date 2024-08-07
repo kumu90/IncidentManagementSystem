@@ -59,13 +59,13 @@
                         {
                             foreach (var items in institutions)
                             {
-                                <input type="hidden" name="instId" id="instId" value="@items.Value" />
+                                <input type="hidden" name="instId" id="InstId" value="@items.Value" />
                                 <input type="text" value="@items.Text" class="form-control" readonly />
                             }
                         }
                         else
                         {
-                            <select id="InstDropDown" name="InstId" class="form-select">
+                            <select id="InstId" name="InstId" class="form-select">
                                 <option value="">-- Select an Institution --</option>
                                 @if (institutions != null)
                                 {
@@ -134,5 +134,30 @@
 
         });
 
+    </script>
+    <script>
+        function searchTickets(page) {
+      
+    $.ajax({
+        
+        url: '@Url.Action("Search", "Ticket")',
+        type: 'GET',
+        data: {
+            search: $('#searchInput').val(),
+            InstId: $('#InstId').val(),
+            status: $('#statusSelect').val(),
+            page: page,
+            offset: $('#offsetSelect').val()
+        },
+        success: function (result) {
+          
+            $('#partialTicketContainer').html(result);
+        },
+        error: function (xhr, status, error) {
+          
+            console.error("An error occurred: " + status + " " + error);
+        }
+    });
+}
     </script>
 }
