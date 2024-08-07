@@ -140,7 +140,8 @@ namespace IncidentManagementSystem.Controllers
 
             if (isSuperAdmin)
             {
-                ViewBag.Institution = instDetail;
+                List<InstNameDto> institution = _iInstitutionService.GetInstName(userId);
+                ViewBag.Institution = new SelectList(institution, "InstId", "InstitutionName");
                 ViewBag.SelectedInstId = "";
             }
             else

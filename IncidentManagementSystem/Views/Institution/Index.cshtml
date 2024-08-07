@@ -23,13 +23,14 @@
             <div class=" row s-box">
 
 
-                <div class="col-12 col-md-6 col-lg-2 form-group s-dash">
+                <div class="col-12 col-md-6 col-lg-3 form-group s-dash">
                     <label for="searchInput" id="text">Search</label>
-                    <input type="text" name="search" placeholder="Search..." class="form-control" } />
+                    <input  id="searchInput" type="text" name="search" placeholder="Search..." class="form-control" } />
+                   
                 </div>
 
                 <!-- Offset dropdown -->
-                <div class="col-12 col-md-6 col-lg-2 form-group s-dash">
+                <div class="col-12 col-md-6 col-lg-3 form-group s-dash">
                     <label for="offsetSelect" id="text">Offset</label>
                     <select id="offsetSelect" name="offset" class="form-select">
                         <option value="500">All</option>
@@ -40,11 +41,11 @@
                     </select>
                 </div>
 
-                <div class="col-12 col-md-6 col-lg-2 form-group s-dash">
+                <div class="col-12 col-md-6 col-lg-3 form-group b_dash">
                     <input type="submit" value="Search" class="btn btn-primary btn-width" />
                 </div>
 
-                <div class="col-12 col-md-6 col-lg-2 form-group s-dash">
+                <div class="col-12 col-md-6 col-lg-3 form-group b_dash">
                     <input type="button" value="Create" class="btn btn-success btn-width" onclick="location.href='@Url.Action("InstitutionRegister", "Institution")'" id="createUser" />
                 </div>
 
@@ -52,9 +53,7 @@
         </div>
         <hr />
         <div id="partialInstitutionContainer">
-            @{
-                Html.Action("Search");
-            }
+            Html.PartialAsync("Search")
 
         </div>
     }
@@ -96,5 +95,25 @@
 
             //});
         });
+    </script>
+
+    <script>
+    function searchInstitution(page) {
+        $.ajax({
+            url: '@Url.Action("Search", "Institution")',
+            type: 'GET',
+            data: {
+                search: $('#searchInput').val(),
+                page: page,
+                offset: $('#offsetSelect').val()
+            },
+            success: function (result) {
+                $('#partialInstitutionContainer').html(result);
+            },
+            error: function (xhr, status, error) {
+                console.error("An error occurred: " + status + " " + error);
+            }
+        });
+    }
     </script>
 }

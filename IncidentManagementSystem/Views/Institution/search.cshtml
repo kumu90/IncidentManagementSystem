@@ -73,6 +73,7 @@
                     @*<th>Created By</th>*@
                     <th>Created Date</th>
                     @*<th>Flag</th>*@
+                    <th>Add</th>
                 </tr>
             </thead>
             <tbody class="whitespace-nowrap">
@@ -106,7 +107,7 @@
     </div>
 }
 
-<div class="position-fixed">
+<div>
     <div class="pagination">
         @if (ViewBag.CurrentPage > 1)
         {
@@ -133,22 +134,3 @@
     </div>
 </div>
 
-<script>
-    function searchInstitution(page) {
-        $.ajax({
-            url: '@Url.Action("Search", "Institution")',
-            type: 'GET',
-            data: {
-                search: $('#search').val(),
-                page: page,
-                offset: $('#offset').val()
-            },
-            success: function (result) {
-                $('#partialInstitutionContainer').html(result);
-            },
-            error: function (xhr, status, error) {
-                console.error("An error occurred: " + status + " " + error);
-            }
-        });
-    }
-</script>

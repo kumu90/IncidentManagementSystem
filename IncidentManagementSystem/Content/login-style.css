@@ -58,7 +58,7 @@ body {
 
 .text-header {
     font-family: Outfit;
-    font-size: 44px;
+    font-size: 25px;
     font-weight: 600;
     line-height: 64px;
     text-align: left;
@@ -123,7 +123,7 @@ body {
 
 .header-text {
     width: 183px;
-    height: 40px;
+    height: 25px;
     gap: 8px;
     font-size: 20px;
     font-weight: bold;
@@ -443,18 +443,32 @@ body {
     transform: rotate(45deg);
     transition: all .2s ease-out;
 }
+.sidebar-link {
+    position: relative;
+}
 
+    .sidebar-link .bx-chevron-down {
+        position: absolute;
+        right: 15px;
+        font-size: 25px;
+    }
 
 .sidebar-link.collapsed .bx-chevron-down {
+        position: absolute;
+        font-size: 25px;
+        transform: rotate(-180deg);
+}
+
+/*.sidebar-link.collapsed .bx-chevron-down {
     position: relative;
     font-size: 25px;
     transform: rotate(-180deg);
-}
+}*/
 
-.sidebar-link .bx-chevron-down {
+/*.sidebar-link .bx-chevron-down {
     position: relative;
     font-size: 25px;
-}
+}*/
     .sidebar-footer {
     position: fixed;
     font-family: outfit;
@@ -543,7 +557,7 @@ body {
 /*----------------------------------------search table csss---------------------------------------------------------*/
 
 
-.table-striped tbody tr:nth-of-type(odd) {
+/*.table-striped tbody tr:nth-of-type(odd) {
     background-color: #E3F8F3 !important;
 }
 
@@ -567,7 +581,7 @@ body {
     background-color: #C9CDD0;
     color: #000000;
 }
-
+*/
 
 /*------------------------------------------------------------- Service css------------------------------------ */
 
@@ -593,6 +607,14 @@ body {
 }
 
 /*====================================Ticket index=======================================*/
+
+#searchForm {
+    padding: 15px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
 .dashboard {
     margin-top: 0px;
     width: 100%;
@@ -604,9 +626,9 @@ body {
     background-color: #fff;
 }
 
-.s-box {
+/*.s-box {
     margin-top: 20px;
-}
+}*/
 
 .s-dash {
     margin-top: 15px;
@@ -639,6 +661,20 @@ hr {
     border-radius: 5px;
 }
 
+#partialUserContainer {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+#partialInstitutionContainer {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
 /* Ensure buttons have appropriate spacing and are responsive */
 .btn-width {
     width: 100%;
@@ -663,5 +699,9 @@ hr {
 }
 
 .form-control {
+    border: 1px solid black;
+}
+
+.form-select {
     border: 1px solid black;
 }
