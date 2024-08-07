@@ -74,7 +74,7 @@
         }
 </style>
 
-<div class="panel panel-default overflow-auto" style="max-height:600px">
+<div class="panel panel-default overflow-auto" style="max-height:550px">
     <table class="table table-striped">
         <thead class="whitespace-nowrap">
             <tr>
@@ -159,24 +159,3 @@
     </div>
 </div>
 
-<script>
-function searchTickets(page) {
-    $.ajax({
-        url: '@Url.Action("Search", "Ticket")',
-        type: 'GET',
-        data: {
-            search: $('#search').val(),
-            InstId: $('#InstId').val(),
-            status: $('#status').val(),
-            page: page,
-            offset: $('#offset').val() 
-        },
-        success: function (result) {
-            $('#partialTicketContainer').html(result);
-        },
-        error: function (xhr, status, error) {
-            console.error("An error occurred: " + status + " " + error);
-        }
-    });
-}
-</script>
