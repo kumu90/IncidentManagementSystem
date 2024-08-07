@@ -156,9 +156,9 @@ namespace IncidentManagementSystem.Controllers
         /// </summary>
         public void Initialize()
         {
-           
-            //var InsId = _iInstitutionService.GetInstName();
-            //ViewBag.Institution = new SelectList(InsId, "InstId", "InstitutionName");
+            string userId = User.Identity.GetUserId();
+            var InsId = _iInstitutionService.GetInstName(userId);
+            ViewBag.Institution = new SelectList(InsId, "InstId", "InstitutionName");
 
             List<Roles> role = _iInstitutionService.RoleList();
             ViewBag.UserRole = new SelectList(role, "Name", "Name");

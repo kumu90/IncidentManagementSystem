@@ -90,13 +90,13 @@ namespace IncidentManagementSystem.Controllers
         {
             Init();
             instNameDto.CreatedBy = User.Identity.GetUserId();
-            if (!ModelState.IsValid)
-            {
-                TempData["TaskStatus"] = "ERROR";
-                TempData["TaskMessage"] = "FIELD REQUIRED";
-                return View(instNameDto);
-            }
-            else if (file != null && file.ContentLength > 0)
+            //if (!ModelState.IsValid)
+            //{
+            //    TempData["TaskStatus"] = "ERROR";
+            //    TempData["TaskMessage"] = "FIELD REQUIRED";
+            //    return View(instNameDto);
+            //}
+            if (file != null && file.ContentLength > 0)
             {
 
                 instNameDto.ImageUrl = Path.GetFileName(file.FileName);
@@ -121,6 +121,8 @@ namespace IncidentManagementSystem.Controllers
                     TempData["TaskMessage"] = " Institution Details are not Filled Correctly.";
 
                 }
+                ViewBag.TaskStatus = TempData["TaskStatus"];
+                ViewBag.TaskMessage = TempData["TaskMessage"];
             }
             else
             {
