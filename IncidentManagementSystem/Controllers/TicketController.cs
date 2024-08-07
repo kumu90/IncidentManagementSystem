@@ -35,7 +35,7 @@ namespace IncidentManagementSystem.Controllers
             List<InstNameDto> institution = _iInstitutionService.GetInstName(userId);
             ViewBag.Institution = new SelectList(institution, "InstId", "InstitutionName");
 
-          
+
 
             List<Roles> role = _iInstitutionService.RoleList();
             ViewBag.UserRole = new SelectList(role, "Id", "Name");
@@ -47,7 +47,7 @@ namespace IncidentManagementSystem.Controllers
             ViewBag.Issues = new SelectList(Issues, "IssueId", "IssueName");
 
 
-            
+
         }
 
 
@@ -68,7 +68,7 @@ namespace IncidentManagementSystem.Controllers
         public ActionResult Index(string search, string userId)
         {
             Init();
-             userId = User.Identity.GetUserId();
+            userId = User.Identity.GetUserId();
 
             var TicketInfo = _iTicketService.TicketInfo(search, userId);
             return View(TicketInfo);
@@ -76,14 +76,14 @@ namespace IncidentManagementSystem.Controllers
 
 
         [Authorize(Roles = "SuperAdmin, Admin, Developer, User")]
-        public ActionResult Search(string search,string InstId,string status,int page=1,int offset=10, string userId = "")
+        public ActionResult Search(string search, string InstId, string status, int page = 1, int offset = 10, string userId = "")
         {
             Init();
 
             userId = User.Identity.GetUserId();
             var Institution = _iInstitutionService.GetInstName(userId);
             //List<InstNameDto> institution = _iInstitutionService.GetInstName(userId);
-           
+
 
             bool isSuperAdmin = User.IsInRole("SuperAdmin");
 
@@ -96,8 +96,6 @@ namespace IncidentManagementSystem.Controllers
             }
             else
             {
-               
- 
                 var institutionList = Institution.Select(i => new SelectListItem
                 {
                     Value = i.InstId.ToString(),
@@ -112,7 +110,10 @@ namespace IncidentManagementSystem.Controllers
             }
 
             if (page < 1) page = 1;
-            var selectedInstId = string.IsNullOrEmpty(InstId) ? ViewBag.SelectedInstId : InstId;
+            var selectedInstId = isSuperAdmin
+                ? (string.IsNullOrEmpty(InstId) || InstId == "000" ? null : InstId)
+                : (string.IsNullOrEmpty(InstId) ? ViewBag.SelectedInstId : InstId);
+                    /////var selectedInstId = string.IsNullOrEmpty(InstId) ? ViewBag.SelectedInstId : InstId;
 
             var results = _iTicketService.TicketInfo(search, selectedInstId, status, page, offset, userId);
             int totalCount = results[0].TotalCount;
@@ -122,7 +123,7 @@ namespace IncidentManagementSystem.Controllers
             ViewBag.offset = offset;
             ViewBag.TotalCount = totalCount;
             return PartialView("Search", results);
-            
+
         }
 
 
