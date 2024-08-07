@@ -46,8 +46,12 @@ namespace IncidentManagementSystem.Controllers
             var Issues = _iTicketService.GetIssueList();
             ViewBag.Issues = new SelectList(Issues, "IssueId", "IssueName");
 
+            // Check if the current user is a SuperAdmin
+            bool isSuperAdmin = User.IsInRole("SuperAdmin");
 
-            
+            ViewBag.IsSuperAdmin = isSuperAdmin;
+
+
         }
 
 
@@ -65,13 +69,10 @@ namespace IncidentManagementSystem.Controllers
         }
 
         [Authorize(Roles = "SuperAdmin, Admin, Developer, User")]
-        public ActionResult Index(string search, string userId)
+        public ActionResult Index()
         {
             Init();
-             userId = User.Identity.GetUserId();
-
-            var TicketInfo = _iTicketService.TicketInfo(search, userId);
-            return View(TicketInfo);
+            return View();
         }
 
 
@@ -103,76 +104,49 @@ namespace IncidentManagementSystem.Controllers
                     Value = i.InstId.ToString(),
                     Text = i.InstitutionName
                 }).ToList();
-                var selectedInstitution = institutionList.FirstOrDefault();
-                ViewBag.Institution = new SelectList(institutionList, "Value", "Text", selectedInstitution?.Value);
+                var selectedInstitution = institutionList.FirstOrDefault()?.Value;
+                ViewBag.Institution = new SelectList(institutionList, "Value", "Text", selectedInstitution);
                 ViewBag.Institution = Institution;
-                ViewBag.SelectedInstId = selectedInstitution?.Value;
+                ViewBag.SelectedInstId = selectedInstitution;
 
 
             }
 
             if (page < 1) page = 1;
             var selectedInstId = string.IsNullOrEmpty(InstId) ? ViewBag.SelectedInstId : InstId;
+            SearchDto results = _iTicketService.TicketInfo(search, selectedInstId, status, page, offset, userId);
+            //int totalCount = results.FirstOrDefault()?.TotalCount ?? 0;
+            //int totalCount = (results != null && results.Any()) ? results.FirstOrDefault().TotalCount : 0;
+            int totalPages = (int)Math.Ceiling((double)results.TotalCount / offset);
 
-            var results = _iTicketService.TicketInfo(search, selectedInstId, status, page, offset, userId);
-            int totalCount = results[0].TotalCount;
-            int totalPages = (int)Math.Ceiling((double)totalCount / offset);
+            //int totalCount = results[0].TotalCount;
+            //int totalPages = (int)Math.Ceiling((double)totalCount / offset);
+
             ViewBag.TotalPages = totalPages;
             ViewBag.CurrentPage = page;
             ViewBag.offset = offset;
-            ViewBag.TotalCount = totalCount;
-            return PartialView("Search", results);
-            
-        }
+            ViewBag.TotalCount = results.TotalCount;
+            return PartialView("Search", results.ticketDtos);
 
+        }
 
         [HttpGet]
         [Authorize(Roles = "SuperAdmin, User")]
         //[AllowAnonymous]
-        public ActionResult Create(string UserName)
+        public ActionResult Create(string userId = "")
         {
             Init();
-            // Debugging or logging
-            System.Diagnostics.Debug.WriteLine($"Received UserName parameter: {UserName}");
-
-
-            // Check if UserName is provided; if not, try to retrieve from session
-            if (string.IsNullOrEmpty(UserName))
-            {
-                UserName = Session["Username"] as string;
-            }
-
-            // If UserName is still null or empty, redirect to login or show an error
-            if (string.IsNullOrEmpty(UserName))
-            {
-                TempData["TaskStatus"] = "Error";
-                TempData["TaskMessage"] = "UserName is required. Please log in.";
-                return RedirectToAction("Login", "Account");
-            }
-
-            var instDetail = _iTicketService.GetInstDetail(UserName);
-
-            if (instDetail == null)
-            {
-                TempData["TaskStatus"] = "Error";
-                TempData["TaskMessage"] = "No institution details found for the given UserName.";
-                return RedirectToAction("Index"); // Redirect to an appropriate action or view
-            }
-
-            // Determine if the user is a SuperAdmin
+            userId = User.Identity.GetUserId();
+            var instDetail = _iTicketService.GetInstDetailSearch(userId);
             bool isSuperAdmin = User.IsInRole("SuperAdmin");
 
-
-            // Populate institution dropdown based on role
             if (isSuperAdmin)
             {
-                //var institutions = _iInstitutionService.GetInstName();
-                //ViewBag.Institution = new SelectList(institutions, "InstId", "InstitutionName");
+                ViewBag.Institution = instDetail;
                 ViewBag.SelectedInstId = "";
             }
             else
             {
-                // For non-SuperAdmin users, only their institution is displayed
                 var institution = new List<SelectListItem>
                 {
                     new SelectListItem
@@ -191,6 +165,7 @@ namespace IncidentManagementSystem.Controllers
 
             return View(instDetail);
         }
+       
 
 
         [HttpPost]
@@ -198,12 +173,12 @@ namespace IncidentManagementSystem.Controllers
         public ActionResult Create(TicketDto ticketDto, HttpPostedFileBase file)
         {
             Init();
-            if (!ModelState.IsValid)
-            {
-                TempData["TaskStatus"] = "ERROR";
-                TempData["TaskMessage"] = "FIELD REQUIRED";
-                return View(ticketDto);
-            }
+            //if (!ModelState.IsValid)
+            //{
+            //    TempData["TaskStatus"] = "ERROR";
+            //    TempData["TaskMessage"] = "FIELD REQUIRED";
+            //    return View(ticketDto);
+            //}
 
             try
             {
@@ -235,16 +210,17 @@ namespace IncidentManagementSystem.Controllers
                 }
                 else
                 {
-                    ViewBag.TaskStatus = "ERROR";
-                    ViewBag.Message = "Failed to create ticket. Please try again.";
+                    ViewBag.Message = "Invalid image file.";
                 }
-                return View();
+                ViewBag.TaskStatus = TempData["TaskStatus"];
+                ViewBag.TaskMessage = TempData["TaskMessage"];
+                return RedirectToAction("Create", "Ticket");
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
-            return View();
+            return RedirectToAction("Create", "Ticket");
 
         }
 

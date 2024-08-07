@@ -20,7 +20,7 @@ namespace IncidentManagementSystem.Service
         {
             return _iTicketDataAccess.TicketCreate(_ticketDto);
         }
-        public List<TicketDto> TicketInfo(string search = "", string InstId = "",string status="",int page=1,int offset=10, string userId = "")
+        public SearchDto TicketInfo(string search = "", string InstId = "",string status="",int page=1,int offset=10, string userId = "")
         {
             return _iTicketDataAccess.TicketInfo(search,InstId,status,page,offset, userId );
         }
@@ -42,10 +42,10 @@ namespace IncidentManagementSystem.Service
         {
             return _iTicketDataAccess.GetInstDetail(UserName);
         }
-        //public TicketDto GetInstDetailSearch(string UserName = "")
-        //{
-        //    return _iTicketDataAccess.GetInstDetailSearch(UserName);
-        //}
+        public TicketDto GetInstDetailSearch(string userId = "")
+        {
+            return _iTicketDataAccess.GetInstDetailSearch(userId);
+        }
 
         public SQLStatusDto TicketAssignTo(TicketAssignDto AssignDto)
         {
@@ -71,7 +71,7 @@ namespace IncidentManagementSystem.Service
 public interface ITicketService
 {
     SQLStatusDto TicketCreate(TicketDto ticketDto);
-    List<TicketDto> TicketInfo(string search = "", string InstId = "", string status="", int page = 1, int offset = 10, string userId = "");
+    SearchDto TicketInfo(string search = "", string InstId = "", string status="", int page = 1, int offset = 10, string userId = "");
 
     TicketDto GetTicketDetails(string TicketId);
     List<IssueDto> GetIssueList(string ServiceId="");
@@ -80,7 +80,7 @@ public interface ITicketService
     SQLStatusDto TicketReject(string TicketId);
 
     TicketDto GetInstDetail(string UserName = "");
-    //TicketDto GetInstDetailSearch(string UserName = "");
+    TicketDto GetInstDetailSearch(string userId = "");
     ResolvedByDto GetResolveDetails(string TicketId);
     SQLStatusDto TicketResolveBy(ResolvedByDto resolvedByDto);
 
