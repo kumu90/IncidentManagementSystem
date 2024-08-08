@@ -55,7 +55,7 @@
 </style>
 @if (Model != null && Model.Any())
 {
-    <div class="panel panel-default overflow-auto" style="max-height:600px">
+    <div class="panel panel-default overflow-auto" style="max-height: 490px; height:490px;">
         <table class="table table-striped">
             <thead class="whitespace-nowrap">
                 <tr>
@@ -107,7 +107,7 @@
     </div>
 }
 
-<div>
+<div class="text-end">
     <div class="pagination">
         @if (ViewBag.CurrentPage > 1)
         {

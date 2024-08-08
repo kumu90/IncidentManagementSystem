@@ -51,15 +51,15 @@
                             <div id="Detail" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
 
                                 <ul>
-
+                                    <li class="item">
+                                        @Html.Raw(Html.ActionLink("InstitutionDetail", "index", "Institution", new { area = "" }, new { @class = "nav-link" }).ToString().Replace("InstitutionDetail", "<span class='bx bxs-building-house icon'></span> Institution Detail"))
+                                    </li>
 
                                     <li class="item">
                                         @Html.Raw(Html.ActionLink("UserDetail", "index", "User", new { area = "" }, new { @class = "nav-link" }).ToString().Replace("UserDetail", "<span class='bx bxs-user-detail icon'></span> User Detail"))
                                     </li>
 
-                                    <li class="item">
-                                        @Html.Raw(Html.ActionLink("InstitutionDetail", "index", "Institution", new { area = "" }, new { @class = "nav-link" }).ToString().Replace("InstitutionDetail", "<span class='bx bxs-building-house icon'></span> Institution Detail"))
-                                    </li>
+
 
                                 </ul>
                             </div>
@@ -75,19 +75,19 @@
                             </a>
                             <div id="auth" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar" @*style=" border: 0.5px solid #000000;style=" background: #D1FFBD;*@>
                                 <ul>
-
-                                    <li class="item">
-                                        @Html.Raw(Html.ActionLink("User Register", "Register", "Account", new { area = "" }, new { @class = "nav-link" }).ToString().Replace("User Register", "<span class=' bx bxs-user-plus icon'></span> User Register"))
-                                    </li>
-
                                     <li class="item">
                                         @Html.Raw(Html.ActionLink("Institution Register", "InstitutionRegister", "Institution", new { area = "" }, new { @class = "nav-link" }).ToString().Replace("Institution Register", "<span class='bx bxs-institution icon'></span> Institution Register"))
 
                                     </li>
-
-                                    <li>
-                                        @Html.Raw(Html.ActionLink("ServiceLink", "Create", "Product", new { area = "" }, new { @class = "nav-link" }).ToString().Replace("ServiceLink", "<span class='bx bxs-cog icon'></span> Service"))
+                                    <li class="item">
+                                        @Html.Raw(Html.ActionLink("User Register", "Register", "Account", new { area = "" }, new { @class = "nav-link" }).ToString().Replace("User Register", "<span class=' bx bxs-user-plus icon'></span> User Register"))
                                     </li>
+
+
+
+                                    @*<li>
+                                        @Html.Raw(Html.ActionLink("ServiceLink", "Create", "Product", new { area = "" }, new { @class = "nav-link" }).ToString().Replace("ServiceLink", "<span class='bx bxs-cog icon'></span> Service"))
+                                    </li>*@
 
                                 </ul>
                             </div>

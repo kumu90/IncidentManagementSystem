@@ -42,10 +42,10 @@ body {
         height: 54px;
     }
 
-.header {
+/*.header {
     margin-bottom: 12px;
 }
-
+*/
 .form-header {
     margin-bottom: 32px;
 }
@@ -56,13 +56,13 @@ body {
     margin-bottom: 32px;
 }
 
-.text-header {
+/*.text-header {
     font-family: Outfit;
     font-size: 25px;
     font-weight: 600;
     line-height: 64px;
     text-align: left;
-}
+}*/
 
 .text-subheader {
     font-family: Outfit;
@@ -121,16 +121,18 @@ body {
     position from left gap: 12px;
 }
 
-.header-text {
+/*.header-text {
     width: 183px;
     height: 25px;
     gap: 8px;
     font-size: 20px;
     font-weight: bold;
-}
+}*/
 
 .text {
-    width: 403px;
+   /* width: 403px;*/
+  /* text-align:right;
+   margin-right:16px;*/
     height: 36px;
     padding: 4px 0 0 0;
     gap: 4px;
@@ -140,9 +142,8 @@ body {
         width: 50px;
         height: 28px;
         font-family: outfit;
-        font-size: 20px;
+        font-size: 16px;
         font-weight: 400;
-        line-height: 28px;
         text-align: left;
     }
 
@@ -151,7 +152,7 @@ body {
         height: 28px;
         font-family: outfit;
         font-weight: 600;
-        font-size: 20px;
+        font-size: 16px;
     }
 
 .input-icon {
@@ -175,11 +176,11 @@ body {
 
 .gap {
     
-    margin-left: 1rem !important;
+    margin-right: 2.5rem !important;
 }
-.gap-c {
+/*.gap-c {
     margin-left: 7rem !important;
-}
+}*/
 
 .l-user {
     font-family: outfit;
@@ -485,17 +486,6 @@ body {
         width: 300px;
     }
 
-/*#logoutForm .item a {
-    font-family: outfit;
-    padding: 16px;
-    display: inline-block;
-    width: 100%;
-    border-radius: 12px;
-    display: flex;
-}*/
-/*.sidebar-footer #logoutForm .icon {
-            font-family: outfit;
-        }*/
 
 .navbar,
 .main {
@@ -548,40 +538,6 @@ body {
     height: 54px;
 }
 
-
-/*
-/------------------* dashboard css*------------------/*/
-
-
-
-/*----------------------------------------search table csss---------------------------------------------------------*/
-
-
-/*.table-striped tbody tr:nth-of-type(odd) {
-    background-color: #E3F8F3 !important;
-}
-
-.table-striped tbody tr:nth-of-type(even) {
-    background-color: white;
-}
-
-.table-striped tbody tr:hover {
-    background-color: #d3f4ec;
-}
-
-.table-bordered {
-}
-
-    .table-bordered th,
-    .table-bordered td {
-        border: 1px solid #000000;
-    }
-
-.table-dark th {
-    background-color: #C9CDD0;
-    color: #000000;
-}
-*/
 
 /*------------------------------------------------------------- Service css------------------------------------ */
 

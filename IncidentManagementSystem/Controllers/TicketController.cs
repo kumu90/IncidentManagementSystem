@@ -77,7 +77,7 @@ namespace IncidentManagementSystem.Controllers
 
 
         [Authorize(Roles = "SuperAdmin, Admin, Developer, User")]
-        public ActionResult Search(string search, string InstId, string status, int page = 1, int offset = 10, string userId = "")
+        public ActionResult Search(string search, string InstId, string status, int page = 1, int offset= 10, string userId = "")
         {
             Init();
 
@@ -218,6 +218,7 @@ namespace IncidentManagementSystem.Controllers
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
+                //Extentio,.AddErrorlogs("ControllerName","Action" "ex.Message"):
             }
             return RedirectToAction("Create", "Ticket");
 

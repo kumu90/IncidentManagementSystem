@@ -5,23 +5,23 @@
 @using IncidentManagementSystem.Model
 
 <div class="container-fluid dashboard">
-    <div class="col-lg-12 col-md-12 col-sm-12 header ">
-        <div class="header-text">
+    @*<div class="col-lg-12  header ">*@
+        @*<div class="header-text">
             Details
-        </div>
+        </div>*@
         <div class="col-lg-12 col-md-12 col-sm-12  text">
             <span class="page input-icon">Details</span>
 
             <span class="detail">Users</span>
         </div>
-    </div>
+    @*</div>*@
 
     @using (Html.BeginForm("Search", "User", FormMethod.Get, new { id = "searchForm", enctype = "multipart/form-data" }))
     {
         <div class="container-fluid search-box">
-            <div class=" row s-box">
+            <div class="row s-box">
 
-                <div class="col-12 col-md-6 col-lg-3 form-group s-dash">
+                <div class="col-12 col-md-6 col-lg-3 form-group  s-dash">
                     <label for="searchInput" id="text">Search</label>
                     <input type="text" name="search" placeholder="Search..." class="form-control" } />
                 </div>
