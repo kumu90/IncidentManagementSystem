@@ -20,7 +20,7 @@ namespace IncidentManagementSystem.Controllers
         public ProductController(IProductService iproductService, IInstitutionService iInstitutionService)
         {
             _iproductService = iproductService;
-            _iInstitutionService= iInstitutionService;
+            _iInstitutionService = iInstitutionService;
 
 
         }
@@ -58,7 +58,7 @@ namespace IncidentManagementSystem.Controllers
 
             return View();
         }
-        
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]

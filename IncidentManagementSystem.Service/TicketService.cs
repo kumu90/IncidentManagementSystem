@@ -66,6 +66,7 @@ namespace IncidentManagementSystem.Service
         {
             return _iTicketDataAccess.TicketResolveBy(resolvedByDto);
         }
+
     }
 }
 public interface ITicketService
@@ -83,5 +84,5 @@ public interface ITicketService
     TicketDto GetInstDetailSearch(string userId = "");
     ResolvedByDto GetResolveDetails(string TicketId);
     SQLStatusDto TicketResolveBy(ResolvedByDto resolvedByDto);
-
+   
 }

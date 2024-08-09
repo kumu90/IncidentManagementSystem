@@ -32,6 +32,7 @@
                 <div class="col-12 col-md-6 col-lg-2 form-group s-dash">
                     <label for="offsetSelect" id="text">Offset</label>
                     <select id="offsetSelect" name="offset" class="form-select">
+                        <option value="10" hidden="hidden">All</option>
                         <option value="500">All</option>
                         <option value="10">10</option>
                         <option value="20">20</option>
@@ -96,5 +97,24 @@
 
             //});
         });
+    </script>
+    <script>
+    function searchInstitution(page) {
+        $.ajax({
+            url: '@Url.Action("Search", "Institution")',
+            type: 'GET',
+            data: {
+                search: $('#search').val(),
+                page: page,
+                offset: $('#offsetSelect').val()
+            },
+            success: function (result) {
+                $('#partialInstitutionContainer').html(result);
+            },
+            error: function (xhr, status, error) {
+                console.error("An error occurred: " + status + " " + error);
+            }
+        });
+    }
     </script>
 }

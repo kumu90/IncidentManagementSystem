@@ -25,7 +25,7 @@ namespace IncidentManagementSystem.DataAccess
                     using (SqlCommand cmd = new SqlCommand(conStr, conn))
                     {
 
-                        cmd.CommandText = @"InstitutionClientCreate";
+                        cmd.CommandText = "InstitutionClientCreate";
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Connection = conn;
                         cmd.Parameters.AddWithValue("@institutionName", _instNameDto.InstitutionName);
@@ -127,7 +127,7 @@ namespace IncidentManagementSystem.DataAccess
                 {
                     using (SqlCommand cmd = new SqlCommand())
                     {
-                        cmd.CommandText = @"GetInstitutionListDetails";
+                        cmd.CommandText = "GetInstitutionListDetails";
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Parameters.Add(new SqlParameter("@Search", search ?? ""));
                         cmd.Parameters.Add(new SqlParameter("@page", page));
@@ -180,7 +180,7 @@ namespace IncidentManagementSystem.DataAccess
                     using (SqlCommand cmd = new SqlCommand(conStr, conn))
                     {
 
-                        cmd.CommandText = @"InstName";
+                        cmd.CommandText = "GetInstNameDropDown";
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Connection = conn;
                         cmd.Parameters.AddWithValue("@userId", userId);
@@ -225,7 +225,7 @@ namespace IncidentManagementSystem.DataAccess
                     using (SqlCommand cmd = new SqlCommand(conStr, conn))
                     {
 
-                        cmd.CommandText = @"RoleList";
+                        cmd.CommandText = "GetRoleListDropDown";
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Connection = conn;
 

@@ -110,23 +110,5 @@
     </div>
 </div>
 
-<script>
-    function searchUsers(page) {
-    $.ajax({
-        url: '@Url.Action("Search", "User")',
-        type: 'GET',
-        data: {
-            search: $('#search').val(),
-            page: page,
-            offset: $('#offset').val()
-        },
-        success: function (result) {
-            $('#partialUserContainer').html(result);
-        },
-        error: function (xhr, status, error) {
-            console.error("An error occurred: " + status + " " + error);
-        }
-    });
-}
-</script>
+
 @Scripts.Render("~/bundles/bootstrap")

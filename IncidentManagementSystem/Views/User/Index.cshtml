@@ -23,12 +23,13 @@
 
                 <div class="col-12 col-md-6 col-lg-2 form-group s-dash">
                     <label for="searchInput" id="text">Search</label>
-                    <input type="text" name="search" placeholder="Search..." class="form-control" } />
+                    <input id="searchInput" type="text" name="search" placeholder="Search..." class="form-control" } />
                 </div>
 
                 <div class="col-12 col-md-6 col-lg-2 form-group s-dash">
                     <label for="offsetSelect" id="text">Offset</label>
                     <select id="offsetSelect" name="offset" class="form-select">
+                        <option hidden="hidden" value="10">All</option>
                         <option value="500">All</option>
                         <option value="10">10</option>
                         <option value="20">20</option>
@@ -49,7 +50,7 @@
         </div>
 
         <hr />
-        <div id="partialUserContainer">           
+        <div id="partialUserContainer">
             @{
                 Html.Action("Search");
             }
@@ -93,6 +94,25 @@
 
             //});
         });
+    </script>
+    <script>
+    function searchUsers(page) {
+    $.ajax({
+        url: '@Url.Action("Search", "User")',
+        type: 'GET',
+        data: {
+            search: $('#searchInput').val(),
+            page: page,
+            offset: $('#offsetSelect').val()
+        },
+        success: function (result) {
+            $('#partialUserContainer').html(result);
+        },
+        error: function (xhr, status, error) {
+            console.error("An error occurred: " + status + " " + error);
+        }
+    });
+}
     </script>
 }
 
