@@ -32,8 +32,9 @@ namespace IncidentManagementSystem.Controllers
 
         public void Init()
         {
-            //var institution = _iInstitutionService.GetInstName();
-            //ViewBag.Institution = new SelectList(institution, "InstId", "InstitutionName");
+            string userId = User.Identity.GetUserId();
+            List<InstNameDto> institution = _iInstitutionService.GetInstName(userId);
+            ViewBag.Institution = new SelectList(institution, "InstId", "InstitutionName");
 
             var services = _iproductService.GetServices();
             ViewBag.services = new SelectList(services, "ServiceId", "serviceName");
@@ -47,29 +48,36 @@ namespace IncidentManagementSystem.Controllers
         }
 
         [Authorize(Roles = "SuperAdmin, Admin, Developer")]
-        public ActionResult Index(string search)
+        public ActionResult Index(/*string search*/)
         {
-            var clt = _iInstitutionService.InstitutionList(search);
-            return View(clt);
+            //var clt = _iInstitutionService.InstitutionList(search);
+            //return View(clt);
+            Init();
+            return View();
         }
 
         [Authorize(Roles = ",SuperAdmin, Admin, Developer")]
-        public ActionResult Search(string search, int page = 1, int offset = 10)
+        public ActionResult Search(string search, int page = 1, int offset = 10, string userId = "")
         {
             //var result = _iInstitutionService.InstitutionList(search);
             //return PartialView("search", result);
+            Init();
+
+            userId = User.Identity.GetUserId();
+            var Institution = _iInstitutionService.GetInstName(userId);
+            ViewBag.Institution = Institution;
 
             if (page < 1) page = 1;
-            var results = _iInstitutionService.InstitutionList(search, page, offset);
+            InstListDto results = _iInstitutionService.InstitutionList(search, page, offset);
             //int totalCount = results[0].TotalCount;
-            int totalCount = results.FirstOrDefault()?.TotalCount ?? 0;
-            int totalPages = (int)Math.Ceiling((double)totalCount / offset);
+            //int totalCount = results.FirstOrDefault()?.TotalCount ?? 0;
+            int totalPages = (int)Math.Ceiling((double)results.TotalCount / offset);
 
             ViewBag.TotalPages = totalPages;
             ViewBag.CurrentPage = page;
             ViewBag.offset = offset;
-            ViewBag.TotalCount = totalCount;
-            return PartialView("Search", results);
+            ViewBag.TotalCount = results.TotalCount;
+            return PartialView("Search", results.InstList);
 
         }
 

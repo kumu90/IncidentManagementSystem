@@ -2,23 +2,24 @@
 
 <div class="container-fluid reg">
 
-    <div class="col-lg-12 header ">
-        <div class="header-text">
-            Register
-        </div>
-        <div class="col text">
+    <div class="row ">
+        <div class="col-md-6 text">
             <span class="page input-icon">Register</span>
 
             <span class="detail">Users</span>
         </div>
+        <div class="col-md-6 col-sm-12 text-end">
+            <button type="button" class="btn btn-success btn-sm" onclick="location.href='@Url.Action("Index","User")'">List</button>
+        </div>
     </div>
+
 
     <div class="row justify-content-center">
         <div class="col-md-8 col-lg-6">
             @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { role = "form" }))
             {
                 @Html.AntiForgeryToken()
-                <div class="card p-4" style="border-radius: 12px;">
+                <div class="card p-4" style="border-radius: 8px;">
                     <div class="form-group row mb-3">
                         @Html.LabelFor(m => m.UserName, new { @class = "col-md-4 col-form-label l-user" })
                         <div class="col-md-8">

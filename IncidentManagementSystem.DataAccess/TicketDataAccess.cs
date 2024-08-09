@@ -76,15 +76,16 @@ namespace IncidentManagementSystem.DataAccess
                         cmd.Parameters.Add(new SqlParameter("@userId", userId ?? ""));
                         cmd.Parameters.Add(new SqlParameter("@page", page));
                         cmd.Parameters.Add(new SqlParameter("@offset", offset));
+                        //cmd.Parameters.Add(new SqlParameter("@userId", userId ?? ""));
                         cmd.Connection = con;
                         DataSet ds = new DataSet();
                         SqlDataAdapter ads = new SqlDataAdapter(cmd);
                         con.Open();
                         ads.Fill(ds);
-                        //foreach (DataRow row1 in ds.Tables[0].Rows)
-                        //{
-                        //    data.TotalCount = Convert.ToInt32(row1["TotalCount"]);
-                        //}
+                        foreach (DataRow row1 in ds.Tables[0].Rows)
+                        {
+                            data.TotalCount = Convert.ToInt32(row1["TotalCount"]);
+                        }
                         foreach (DataRow row in ds.Tables[1].Rows)
                         {
                             TicketDto dto = new TicketDto();
@@ -95,12 +96,7 @@ namespace IncidentManagementSystem.DataAccess
                             dto.IssueId = row["Issue"].ToString();
                             dto.CellNumber = row["CellNumber"].ToString();
                             dto.Email = row["Email"].ToString();
-                            foreach (DataRow row1 in ds.Tables[0].Rows)
-                            {
-                                data.TotalCount = Convert.ToInt32(row1["TotalCount"]);
-                            }
                             data.ticketDtos.Add(dto);
-
                         }
                         return data;
                     }

@@ -77,7 +77,7 @@ namespace IncidentManagementSystem.Controllers
 
 
         [Authorize(Roles = "SuperAdmin, Admin, Developer, User")]
-        public ActionResult Search(string search, string InstId, string status, int page = 1, int offset = 10, string userId = "")
+        public ActionResult Search(string search, string InstId, string status, int page = 1, int offset= 10, string userId = "")
         {
             Init();
 
@@ -140,7 +140,8 @@ namespace IncidentManagementSystem.Controllers
 
             if (isSuperAdmin)
             {
-                ViewBag.Institution = instDetail;
+                List<InstNameDto> institution = _iInstitutionService.GetInstName(userId);
+                ViewBag.Institution = new SelectList(institution, "InstId", "InstitutionName");
                 ViewBag.SelectedInstId = "";
             }
             else
@@ -217,6 +218,7 @@ namespace IncidentManagementSystem.Controllers
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
+                //Extentio,.AddErrorlogs("ControllerName","Action" "ex.Message"):
             }
             return RedirectToAction("Create", "Ticket");
 
