@@ -20,7 +20,7 @@ namespace IncidentManagementSystem.Service
             return _iInstitutionDataAccess.InstitutionCreate(_instNameDto);
         }
 
-        public List<InstNameDto> InstitutionList(string search, int page = 1, int offset = 10)
+        public InstListDto InstitutionList(string search, int page = 1, int offset = 10)
         {
             return _iInstitutionDataAccess.InstitutionList(search, page,offset);
         }
@@ -41,7 +41,7 @@ namespace IncidentManagementSystem.Service
     {
         SQLStatusDto InstitutionCreate(InstNameDto _instNameDto);
 
-        List<InstNameDto> InstitutionList(string search, int page = 1, int offset = 10);
+        InstListDto InstitutionList(string search, int page = 1, int offset = 10);
 
         List<InstNameDto> GetInstName(string userId);
 

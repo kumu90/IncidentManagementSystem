@@ -67,7 +67,7 @@ namespace IncidentManagementSystem.DataAccess
             return _SQLStatus;
         }
 
-        public List<InstNameDto> InstitutionList(string search, int page = 1, int offset = 10)
+        public InstListDto InstitutionList(string search, int page = 1, int offset = 10)
         {
             //List<InstNameDto> list = new List<InstNameDto>();
             //try
@@ -120,7 +120,7 @@ namespace IncidentManagementSystem.DataAccess
             //}
             //return new List<InstNameDto>();
 
-            List<InstNameDto> data = new List<InstNameDto>();
+            InstListDto data = new InstListDto();
             try
             {
                 using (SqlConnection con = new SqlConnection(conStr))
@@ -137,6 +137,10 @@ namespace IncidentManagementSystem.DataAccess
                         SqlDataAdapter ads = new SqlDataAdapter(cmd);
                         con.Open();
                         ads.Fill(ds);
+                        foreach (DataRow row1 in ds.Tables[0].Rows)
+                        {
+                            data.TotalCount = Convert.ToInt32(row1["TotalCount"]);
+                        }
                         foreach (DataRow row in ds.Tables[1].Rows)
                         {
                             InstNameDto dto = new InstNameDto();
@@ -153,11 +157,8 @@ namespace IncidentManagementSystem.DataAccess
                             dto.Flag = row["Flag"].ToString();
                             dto.ContactPersonAdmin = row["ContactPersonAdmin"].ToString();
                             dto.CreatedDate = row["CreatedDate"].ToString();
-                            foreach (DataRow row1 in ds.Tables[0].Rows)
-                            {
-                                dto.TotalCount = Convert.ToInt32(row1["TotalCount"]);
-                            }
-                            data.Add(dto);
+                            
+                            data.InstList.Add(dto);
                         }
                         return data;
                     }
@@ -167,7 +168,7 @@ namespace IncidentManagementSystem.DataAccess
             {
                 Console.WriteLine(ex.Message);
             }
-            return new List<InstNameDto>();
+            return new InstListDto();
         }
 
         public List<InstNameDto> GetInstName(string userId)
@@ -262,7 +263,7 @@ namespace IncidentManagementSystem.DataAccess
     public interface IInstitutionDataAccess
     {
         SQLStatusDto InstitutionCreate(InstNameDto _instNameDto);
-        List<InstNameDto> InstitutionList(string search, int page = 1, int offset = 10);
+        InstListDto InstitutionList(string search, int page = 1, int offset = 10);
         List<InstNameDto> GetInstName(string userId);
         List<Roles> RoleList();
     }

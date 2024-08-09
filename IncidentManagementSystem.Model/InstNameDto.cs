@@ -70,9 +70,15 @@ namespace IncidentManagementSystem.Model
         
     }
 
-    //public class Roles
-    //{
-    //    public string Id { get; set; }
-    //    public string Name { get; set; }
-    //}
+    public class InstListDto
+    {
+        public InstListDto()
+        {
+            InstList = new List<InstNameDto>();
+        }
+
+        public List<InstNameDto> InstList { get; set; }
+        public int TotalCount { get; set; }
+    }
+   
 }
