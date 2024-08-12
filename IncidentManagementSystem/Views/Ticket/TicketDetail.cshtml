@@ -88,7 +88,20 @@
                 <dd>@Html.DisplayFor(model => model.date)</dd>
 
                 <dt>@Html.DisplayNameFor(model => model.status)</dt>
-                <dd>@Html.DisplayFor(model => model.status)</dd>
+                @*<dd>@Html.DisplayFor(model => model.status)</dd>*@
+                <dd>
+                    @{
+                        var status = Model.status;
+                        string statusMessage = status switch
+                        {
+                            "00" => "Success",
+                            "98" => "Pending",
+                            "94" => "Rejected",
+                            "LO" => "Initial"
+                        };
+                    }
+                    @statusMessage
+                </dd>
 
                 <dt>@Html.DisplayNameFor(model => model.ImageUrl)</dt>
                 <dd>
@@ -118,6 +131,9 @@
         </div>
         <div class="col-lg-1 col-md-2">
             <a href="@Url.Action("TicketReject", "Ticket", new { TicketId = Model.TicketId })" class="btn btn-danger btn-width" >Reject</a>
+        </div>
+        <div class="col-md-2">
+            <a href="@Url.Action("DownloadTicketPdf", "Ticket", new { ticketId = Model.TicketId })" class="btn btn-info btn-width" style="margin-left:20.5rem;">Download</a>
         </div>
     </div>
 </div>

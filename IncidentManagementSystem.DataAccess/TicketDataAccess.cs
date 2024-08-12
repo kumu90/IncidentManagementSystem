@@ -60,58 +60,7 @@ namespace IncidentManagementSystem.DataAccess
             return _sQLStatus;
         }
         public SearchDto TicketInfo(string search = "",string InstId="",string status="", int page = 1, int offset = 10,string userId = "")
-        {
-            //List<TicketDto> Ticketlist = new List<TicketDto>();
-            //try
-            //{
-            //    using (SqlConnection conn = new SqlConnection(conStr))
-            //    {
-            //        using (SqlCommand cmd = new SqlCommand(conStr, conn))
-            //        {
-
-            //            cmd.CommandText = @"GetTicketListDetails";
-            //            cmd.CommandType = CommandType.StoredProcedure;
-            //            cmd.Parameters.Add(new SqlParameter("@Search", search ?? ""));
-            //            cmd.Parameters.Add(new SqlParameter("@instId", InstId ?? ""));
-            //            cmd.Parameters.Add(new SqlParameter("@status", status ?? ""));
-            //            cmd.Parameters.Add(new SqlParameter("@page", page));
-            //            cmd.Parameters.Add(new SqlParameter("@offset", offset));
-            //            cmd.Connection = conn;
-
-            //            conn.Open();
-
-            //            using (var sqlDataReader = cmd.ExecuteReader())
-            //            {
-            //                while (sqlDataReader.Read())
-            //                {
-            //                    Ticketlist.Add(new TicketDto()
-            //                    {
-            //                        TicketId = sqlDataReader["TicketId"].ToString(),
-            //                        //Description = sqlDataReader["Description"].ToString(),
-            //                        status = sqlDataReader["Status"].ToString(),
-            //                        InstId = sqlDataReader["InstitutionName"].ToString(),
-            //                        ServiceId = sqlDataReader["ServiceName"].ToString(),
-            //                        IssueId = sqlDataReader["Issue"].ToString(),
-            //                        CellNumber = sqlDataReader["CellNumber"].ToString(),
-            //                        Email = sqlDataReader["Email"].ToString()
-
-            //                    });
-            //                }
-            //            }
-
-            //            conn.Close();
-
-            //        }
-            //    }
-
-            //    return Ticketlist;
-
-            //}
-            //catch (Exception ex)
-            //{
-            //    Console.WriteLine(ex.Message);
-            //}
-            //return new List<TicketDto>();
+        {            
             SearchDto data = new SearchDto();
             try
             {
@@ -234,7 +183,7 @@ namespace IncidentManagementSystem.DataAccess
                     using (SqlCommand cmd = new SqlCommand(conStr, conn))
                     {
 
-                        cmd.CommandText = "IssueList";
+                        cmd.CommandText = "GetIssueListDropDown";
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Parameters.AddWithValue("@ServiceId", ServiceId ?? "");
                         cmd.Connection = conn;
@@ -560,6 +509,8 @@ namespace IncidentManagementSystem.DataAccess
             }
             return _sQLStatus;
         }
+
+                
     }
 }
 public interface ITicketDataAccess
@@ -582,4 +533,5 @@ public interface ITicketDataAccess
     ResolvedByDto GetResolveDetails(string TicketId);
 
     SQLStatusDto TicketResolveBy(ResolvedByDto resolvedByDto);
+
 }

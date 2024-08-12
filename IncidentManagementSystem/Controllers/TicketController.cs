@@ -1,6 +1,7 @@
 ﻿using IncidentManagementSystem.Model;
 using IncidentManagementSystem.Service;
 using Microsoft.AspNet.Identity;
+using Microsoft.ReportingServices.ReportProcessing.OnDemandReportObjectModel;
 using Microsoft.ReportingServices.ReportProcessing.ReportObjectModel;
 using System;
 using System.Collections.Generic;
@@ -8,6 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace IncidentManagementSystem.Controllers
 {
@@ -34,8 +36,6 @@ namespace IncidentManagementSystem.Controllers
             string userId = User.Identity.GetUserId();
             List<InstNameDto> institution = _iInstitutionService.GetInstName(userId);
             ViewBag.Institution = new SelectList(institution, "InstId", "InstitutionName");
-
-
 
             List<Roles> role = _iInstitutionService.RoleList();
             ViewBag.UserRole = new SelectList(role, "Id", "Name");
@@ -164,7 +164,7 @@ namespace IncidentManagementSystem.Controllers
 
             return View(instDetail);
         }
-       
+
 
 
         [HttpPost]
@@ -349,5 +349,6 @@ namespace IncidentManagementSystem.Controllers
             return View();
         }
 
+               
     }
 }
