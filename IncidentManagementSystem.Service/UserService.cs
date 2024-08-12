@@ -16,14 +16,20 @@ namespace IncidentManagementSystem.Service
             _iUserdataAccess = userDataAccess;
         }
 
-        public List<UserInfo> UserDetail(string search, int page = 1, int offset = 10)
+        public UserListDto UserDetail(string search, int page = 1, int offset = 10, string userId = "")
         {
-            return _iUserdataAccess.UserDetail(search,page,offset);
+            return _iUserdataAccess.UserDetail(search,page,offset, userId);
+
+        }
+        public List<UserInfo> UserList(string userId)
+        {
+            return _iUserdataAccess.UserList(userId);
         }
     }
 
     public interface IUserService
     {
-        List<UserInfo> UserDetail(string search, int page = 1, int offset = 10);
+        UserListDto UserDetail(string search, int page = 1, int offset = 10, string userId = "");
+        List<UserInfo> UserList(string userId);
     }
 }

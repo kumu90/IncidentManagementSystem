@@ -249,6 +249,15 @@
     <Content Include="Scripts\bootstrap.esm.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Font\Outfit-Black.ttf" />
+    <Content Include="Font\Outfit-Bold.ttf" />
+    <Content Include="Font\Outfit-ExtraBold.ttf" />
+    <Content Include="Font\Outfit-ExtraLight.ttf" />
+    <Content Include="Font\Outfit-Light.ttf" />
+    <Content Include="Font\Outfit-Medium.ttf" />
+    <Content Include="Font\Outfit-Regular.ttf" />
+    <Content Include="Font\Outfit-SemiBold.ttf" />
+    <Content Include="Font\Outfit-Thin.ttf" />
     <None Include="Scripts\jquery-3.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.1.js" />
     <Content Include="Scripts\jquery-3.7.1.min.js" />

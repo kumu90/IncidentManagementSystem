@@ -1,6 +1,20 @@
-﻿@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300&display=swap');
+﻿/*@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@600&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Outfit&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit&display=swap');*/
+
+
+@font-face {
+    font-family: 'outfit-black';
+    src:  url('../font/outfit-light.ttf') format('truetype'),
+         url('../font/outfit-regular.ttf') format('truetype'),
+         url('../font/outfit-semibold.ttf') format('truetype');
+         
+
+    font-weight: 300,400,600;
+   
+
+}
+
 
 
 
@@ -65,7 +79,7 @@ body {
 }*/
 
 .text-subheader {
-    font-family: Outfit;
+    font-family: outfit-black;
     font-size: 24px;
     font-weight: 300;
     line-height: 36px;
@@ -86,8 +100,7 @@ body {
 
 
 .l-login {
-    
-    font-family: Outfit;
+    font-family: outfit-black;
     font-size: 16px;
     font-weight: 400;
     line-height: 24px;
@@ -141,7 +154,7 @@ body {
     .text .page {
         width: 50px;
         height: 28px;
-        font-family: outfit;
+        font-family: outfit-black;
         font-size: 16px;
         font-weight: 400;
         text-align: left;
@@ -150,7 +163,7 @@ body {
     .text .detail {
         width: 151px;
         height: 28px;
-        font-family: outfit;
+        font-family: outfit-black;
         font-weight: 600;
         font-size: 16px;
     }
@@ -183,7 +196,7 @@ body {
 }*/
 
 .l-user {
-    font-family: outfit;
+    font-family: outfit-black;
     font-size: 16px;
     font-weight: 400;
     text-align: right;
@@ -204,7 +217,7 @@ body {
 
 #file-text {
     height: 28px;
-    font-family: outfit;
+    font-family: outfit-black;
     font-size: 16px;
     font-weight: 400;
     margin-top: 20px;
@@ -215,7 +228,7 @@ body {
     /*  height: 24px;*/
     height: auto;
     text-align: left;
-    font-family: outfit;
+    font-family: outfit-black;
     font-size: 16px;
     font-weight: 400;
     line-height: 24px;
@@ -312,16 +325,16 @@ body {
     align-items: center;
 }
 
-.sidebar  li .icon {
-    color: var(--text-color);
-    display: flex;
-    align-items: center;
-    /* justify-content: center;*/
+    .sidebar li .icon {
+        color: var(--text-color);
+        display: flex;
+        align-items: center;
+        /* justify-content: center;*/
 
-    font-size: 20px !important;
-    margin-right: 5px;
-    font-family: outfit;
-}
+        font-size: 20px !important;
+        margin-right: 5px;
+        font-family: outfit-black;
+    }
 
 
 
@@ -342,13 +355,14 @@ body {
 
 .item a,
 .submenu-item {
-    font-family: outfit;
+    font-family: outfit-black;
     padding: 16px;
     display: inline-block;
     width: 100%;
     border-radius: 12px;
     display: flex;
-    font-size:16px;
+    font-size: 16px;
+    font-weight: 600;
 }
 
 
@@ -359,7 +373,7 @@ body {
     /* justify-content: center;*/
     font-size: 20px;
     margin-right: 5px;
-    font-family: outfit;
+    font-family: outfit-black;
     font-size: 20px !important;
 }
 
@@ -369,7 +383,7 @@ body {
     /* justify-content: center;*/
     font-size: 20px !important;
     margin-right: 5px;
-    font-family: outfit;
+    font-family: outfit-black;
 }
 
 /*#logoutForm {
@@ -470,9 +484,9 @@ body {
     position: relative;
     font-size: 25px;
 }*/
-    .sidebar-footer {
+.sidebar-footer {
     position: fixed;
-    font-family: outfit;
+    font-family: outfit-black;
     /* padding: 16px;*/
     display: inline-block;
     width: 270px !important;
@@ -552,7 +566,7 @@ body {
 
 
 .l_ticket {
-    font-family: outfit;
+    font-family: outfit-black;
     font-size: 16px;
     font-weight: 400;
 }
@@ -641,7 +655,7 @@ hr {
     margin-bottom: 15px; /* Spacing between rows */
 }
 .search-box .s-box #text {
-    font-family: Outfit;
+    font-family: outfit-black;
     font-size: 16px;
     font-weight: 400;
     line-height: 24px;

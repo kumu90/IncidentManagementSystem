@@ -67,6 +67,7 @@ namespace IncidentManagementSystem.Controllers
             var Institution = _iInstitutionService.GetInstName(userId);
             ViewBag.Institution = Institution;
 
+
             if (page < 1) page = 1;
             InstListDto results = _iInstitutionService.InstitutionList(search, page, offset);
             //int totalCount = results[0].TotalCount;

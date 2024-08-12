@@ -35,4 +35,15 @@ namespace IncidentManagementSystem.Model
 
     }
 
+    public class UserListDto
+    {
+        public UserListDto()
+        {
+            UserList = new List<UserInfo>();
+        }
+
+        public List<UserInfo> UserList { get; set; }
+        public int TotalCount { get; set; }
+    }
+
 }

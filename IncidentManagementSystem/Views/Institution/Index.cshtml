@@ -28,7 +28,7 @@
                 foreach (var items in institutions)
                 {
                     <input type="hidden" name="instId" id="InstId" value="@items.Value" />
-                    <input type="text" value="@items.Text" class="form-control" readonly />
+                    <input type="hidden" value="@items.Text" class="form-control" readonly />
                     
                 }
             }
