@@ -67,6 +67,7 @@ namespace IncidentManagementSystem.App_Start
             kernel.Bind<IUserService>().To<UserService>();
             kernel.Bind<ITicketService>().To<TicketService>();
             kernel.Bind<IProductService>().To<ProductService>();
+            kernel.Bind<IAdminDashboardService>().To<AdminDashboardService>();
             
 
             //DataAccess
@@ -74,6 +75,7 @@ namespace IncidentManagementSystem.App_Start
             kernel.Bind<IUserDataAccess>().To<UserDataAccess>();
             kernel.Bind<ITicketDataAccess>().To<TicketDataAccess>();
             kernel.Bind<IProductDataAccess>().To<ProductDataAccess>();
+            kernel.Bind<IAdminDashboadDataAccess>().To<AdminDashboadDataAccess>();
 
         }
     }

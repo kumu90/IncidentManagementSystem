@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdminDashboardDto.cs" />
     <Compile Include="Annotation\ImageAttribute.cs" />
     <Compile Include="InstNameDto.cs" />
     <Compile Include="IssueDto.cs" />

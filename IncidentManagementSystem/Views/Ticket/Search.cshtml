@@ -103,31 +103,32 @@
                             }
                         </td>
 
-                    <td>
-                        @Html.ActionLink("Details", "TicketDetail", "Ticket", new RouteValueDictionary { { "TicketId", item.TicketId } }, null) |
-                        @*@Html.ActionLink("Resolve", "TicketResolve", "Ticket", new RouteValueDictionary { { "TicketId", item.TicketId } }, null)*@
+                        <td>
+                            @Html.ActionLink("Details", "TicketDetail", "Ticket", new RouteValueDictionary { { "TicketId", item.TicketId } }, null) |
+                            @*@Html.ActionLink("Resolve", "TicketResolve", "Ticket", new RouteValueDictionary { { "TicketId", item.TicketId } }, null)*@
 
-                        @{                           
-                            var status = item.status; 
-                            bool isEnabled = status != "94";
-                        }
+                            @{                           
+                                var status = item.status;
+                                bool isEnabled = status != "94";
+                            }
 
                         
-                        @if (isEnabled)
-                        {
-                            @Html.ActionLink("Resolve", "TicketResolve", "Ticket", new { TicketId = item.TicketId }, null)
-                        }
-                        else
-                        {
-                            <span>Resolve</span> 
-                        }
+                            @if (isEnabled)
+                            {
+                                @Html.ActionLink("Resolve", "TicketResolve", "Ticket", new { TicketId = item.TicketId }, null)
+                            }
+                            else
+                            {
+                                <span>Resolve</span> 
+                            }
 
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-</div>
+                        </td>
+                    </tr>
+                 }
+            </tbody>
+        </table>
+    </div>
+ }
 <div>
     <div class="pagination">
         @if (ViewBag.CurrentPage > 1)
