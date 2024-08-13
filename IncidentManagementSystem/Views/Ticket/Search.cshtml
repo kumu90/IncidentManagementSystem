@@ -103,9 +103,9 @@
                             }
                         </td>
 
-                        <td>
-                            @Html.ActionLink("Details", "TicketDetail", "Ticket", new RouteValueDictionary { { "TicketId", item.TicketId } }, null) |
-                            @*@Html.ActionLink("Resolve", "TicketResolve", "Ticket", new RouteValueDictionary { { "TicketId", item.TicketId } }, null)*@
+                    <td>
+                        @Html.ActionLink("Details", "TicketDetail", "Ticket", new RouteValueDictionary { { "TicketId", item.TicketId } }, null) |
+                        @*@Html.ActionLink("Resolve", "TicketResolve", "Ticket", new RouteValueDictionary { { "TicketId", item.TicketId } }, null)*@
 
                             @{
                                 var status = item.status;
