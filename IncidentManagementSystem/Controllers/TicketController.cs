@@ -1,6 +1,7 @@
 ﻿using IncidentManagementSystem.Model;
 using IncidentManagementSystem.Service;
 using Microsoft.AspNet.Identity;
+using Microsoft.Extensions.Logging;
 using Microsoft.ReportingServices.ReportProcessing.OnDemandReportObjectModel;
 using Microsoft.ReportingServices.ReportProcessing.ReportObjectModel;
 using System;
@@ -16,19 +17,21 @@ namespace IncidentManagementSystem.Controllers
     [Authorize]
     public class TicketController : Controller
     {
-        private readonly ITicketService _iTicketService;
-        private readonly IInstitutionService _iInstitutionService;
-        private readonly IProductService _iproductService;
+        readonly ITicketService _iTicketService;
+        readonly IInstitutionService _iInstitutionService;
+        readonly IProductService _iproductService;
+        readonly IErrorLogService _iErrorLogService;
 
         public TicketController()
         {
 
         }
-        public TicketController(ITicketService iTicketService, IProductService iproductService, IInstitutionService institutionService)
+        public TicketController(ITicketService iTicketService, IProductService iproductService, IInstitutionService institutionService, IErrorLogService iErrorLogService)
         {
             _iTicketService = iTicketService;
             _iInstitutionService = institutionService;
             _iproductService = iproductService;
+            _iErrorLogService = iErrorLogService;
         }
 
         public void Init()
@@ -219,6 +222,16 @@ namespace IncidentManagementSystem.Controllers
             {
                 Console.WriteLine(ex.Message);
                 //Extentio,.AddErrorlogs("ControllerName","Action" "ex.Message"):
+
+                var exceptionLog = new ErrorLogDto
+                {
+                    Message = ex.Message,
+                    StackTrace = ex.StackTrace,
+                    ControllerName = this.ControllerContext.RouteData.Values["controller"].ToString(),
+                    ActionName = this.ControllerContext.RouteData.Values["action"].ToString(),
+                    userId = User.Identity.IsAuthenticated ? User.Identity.GetUserId() : null
+                };
+                _iErrorLogService.LogError(exceptionLog);
             }
             return RedirectToAction("Create", "Ticket");
 

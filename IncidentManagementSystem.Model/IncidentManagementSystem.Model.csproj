@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Annotation\ImageAttribute.cs" />
+    <Compile Include="ErrorLogDto.cs" />
     <Compile Include="InstNameDto.cs" />
     <Compile Include="IssueDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
