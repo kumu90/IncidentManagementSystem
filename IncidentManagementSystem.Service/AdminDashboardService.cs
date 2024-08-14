@@ -20,10 +20,27 @@ namespace IncidentManagementSystem.Service
         {
             return _iAdminDashboadDataAccess.GetTicketList(userId);
         }
+        public List<TicketDto> GetTicketPandingStatusList(string userId)
+        {
+            return _iAdminDashboadDataAccess.GetTicketPandingStatusList(userId);
+
+        }
+        public List<ResolvedByDto> GetResolveList(string userId)
+        {
+            return _iAdminDashboadDataAccess.GetResolveList(userId);
+        }
+        public List<TicketDto> GetTicketRejectStatusList(string userId)
+        {
+            return _iAdminDashboadDataAccess.GetTicketRejectStatusList(userId);
+
+        }
     }
 }
 
 public interface IAdminDashboardService
 {
     List<TicketDto> GetTicketList(string userId);
+    List<TicketDto> GetTicketPandingStatusList(string userId);
+    List<ResolvedByDto> GetResolveList(string userId);
+    List<TicketDto> GetTicketRejectStatusList(string userId);
 }

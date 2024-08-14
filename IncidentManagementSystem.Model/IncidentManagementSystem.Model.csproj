@@ -35,6 +35,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -46,6 +47,8 @@
   <ItemGroup>
     <Compile Include="AdminDashboardDto.cs" />
     <Compile Include="Annotation\ImageAttribute.cs" />
+    <Compile Include="DataPoint.cs" />
+    <Compile Include="DataPointUser.cs" />
     <Compile Include="InstNameDto.cs" />
     <Compile Include="IssueDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
