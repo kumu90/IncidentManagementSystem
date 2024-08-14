@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdminDashboardService.cs" />
+    <Compile Include="ErrorLogService.cs" />
     <Compile Include="InstitutionService.cs" />
     <Compile Include="ProductService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -50,10 +51,6 @@
     <Compile Include="UserService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\IncidentManagementSystem.DataAccess\IncidentManagementSystem.DataAccess.csproj">
-      <Project>{446d8d4c-71b8-47a1-a4bd-42cc7f538ad5}</Project>
-      <Name>IncidentManagementSystem.DataAccess</Name>
-    </ProjectReference>
     <ProjectReference Include="..\IncidentManagementSystem.Model\IncidentManagementSystem.Model.csproj">
       <Project>{92d42e8a-8388-469c-84b5-a312895d7e79}</Project>
       <Name>IncidentManagementSystem.Model</Name>

@@ -104,32 +104,32 @@
                             }
                         </td>
 
-                        <td>
-                            @Html.ActionLink("Details", "TicketDetail", "Ticket", new RouteValueDictionary { { "TicketId", item.TicketId } }, null) |
-                            @*@Html.ActionLink("Resolve", "TicketResolve", "Ticket", new RouteValueDictionary { { "TicketId", item.TicketId } }, null)*@
+                    <td>
+                        @Html.ActionLink("Details", "TicketDetail", "Ticket", new RouteValueDictionary { { "TicketId", item.TicketId } }, null) |
+                        @*@Html.ActionLink("Resolve", "TicketResolve", "Ticket", new RouteValueDictionary { { "TicketId", item.TicketId } }, null)*@
 
-                            @{                           
+                            @{
                                 var status = item.status;
                                 bool isEnabled = status != "94";
                             }
 
-                        
+
                             @if (isEnabled)
                             {
                                 @Html.ActionLink("Resolve", "TicketResolve", "Ticket", new { TicketId = item.TicketId }, null)
                             }
                             else
                             {
-                                <span>Resolve</span> 
+                                <span>Resolve</span>
                             }
 
                         </td>
                     </tr>
-                 }
+                }
             </tbody>
         </table>
     </div>
- }
+}
 <div>
     <div class="pagination">
         @if (ViewBag.CurrentPage > 1)
@@ -141,19 +141,19 @@
             <span>&laquo; Previous</span>
         }
 
-            @for (int i = 1; i <= ViewBag.TotalPages; i++)
-            {
-                <a href="#" onclick="searchTickets(@i); return false;" class="@(i == ViewBag.CurrentPage ? "active" : "")">@i</a>
-            }
+        @for (int i = 1; i <= ViewBag.TotalPages; i++)
+        {
+            <a href="#" onclick="searchTickets(@i); return false;" class="@(i == ViewBag.CurrentPage ? "active" : "")">@i</a>
+        }
 
-            @if (ViewBag.CurrentPage < ViewBag.TotalPages)
-            {
-                <a href="#" onclick="searchTickets(@(ViewBag.CurrentPage + 1)); return false;">Next &raquo;</a>
-            }
-            else
-            {
-                <span>Next &raquo;</span>
-            }
-        </div>
+        @if (ViewBag.CurrentPage < ViewBag.TotalPages)
+        {
+            <a href="#" onclick="searchTickets(@(ViewBag.CurrentPage + 1)); return false;">Next &raquo;</a>
+        }
+        else
+        {
+            <span>Next &raquo;</span>
+        }
     </div>
+</div>
 
