@@ -465,10 +465,6 @@ namespace IncidentManagementSystem.Controllers
             table.AddCell(valueCell);
         }
     
-
-        public ActionResult TicketPdf()
-        {
-            return View();
-        }
+                
     }
 }

@@ -366,7 +366,6 @@
     <Content Include="Views\Product\Create.cshtml" />
     <Content Include="Views\Ticket\Assign.cshtml" />
     <Content Include="Views\Ticket\TicketResolve.cshtml" />
-    <Content Include="Views\Ticket\TicketPdf.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
