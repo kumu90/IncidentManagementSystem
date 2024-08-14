@@ -1,0 +1,68 @@
+﻿@model IncidentManagementSystem.Model.TicketDto
+
+<style>
+    .dl-horizontal {
+        background-color: #fff;
+        border-radius: 8px;
+        padding: 20px;
+    }
+
+    .dl-horizontal dt {
+        text-align: right;
+        font-family: Outfit, sans-serif;
+        font-weight: 600;
+        white-space: normal;
+    }
+
+    .dl-horizontal dd {
+        margin-bottom: 20px;
+    }
+
+    /* Responsive adjustments */
+    @@media (max-width: 768px) {
+        .dl-horizontal dt, .dl-horizontal dd {
+            display: block;
+            float: none;
+            margin-left: 0;
+            margin-right: 0;
+        }
+
+        .dl-horizontal dd {
+            margin-left: 0;
+            padding-left: 0;
+        }
+    }
+
+    .ticket img {
+        max-width: 100%;
+        height: auto;
+    }
+</style>
+
+<div class="dl-horizontal">
+    <dl>
+        <dt>@Model.TicketId:</dt>
+        <dd>@Model.TicketId</dd>
+        <dt>Date:</dt>
+        <dd>@Model.date.ToShortDateString()</dd>
+        <dt>Status:</dt>
+        <dd>@Model.status</dd>
+        <dt>Institution Name:</dt>
+        <dd>@Model.InstId</dd>
+        <dt>Service Name:</dt>
+        <dd>@Model.ServiceId</dd>
+        <dt>Issue:</dt>
+        <dd>@Model.IssueId</dd>
+        <dt>Cell Number:</dt>
+        <dd>@Model.CellNumber</dd>
+        <dt>Email:</dt>
+        <dd>@Model.Email</dd>
+        <dt>Description:</dt>
+        <dd>@Model.Description</dd>
+    </dl>
+    @if (Model.ImageData != null && Model.ImageData.Length > 0)
+    {
+        var base64Image = Convert.ToBase64String(Model.ImageData);
+        <img src="data:@Model.contentType;base64,@base64Image" />
+    }
+</div>

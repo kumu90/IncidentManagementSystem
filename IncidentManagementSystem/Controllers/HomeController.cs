@@ -65,14 +65,18 @@ namespace IncidentManagementSystem.Controllers
             var TicketList = _iadminDashboadDataAccess.GetTicketList(userId);
             //var TotalTicket = TicketList;
 
-            var model = new AdminDashboardDto
-            {
-                TotalUsers = totalUsers,
-                TotalInstitution = TotalInstitution,
-                TotalTicket = TicketList.Count()
-            };
+            //var model = new AdminDashboardDto
+            //{
+            //    TotalUsers = totalUsers,
+            //    TotalInstitution = TotalInstitution,
+            //    TotalTicket = TicketList.Count()
+            //};
 
-            return View(model);
+            ViewBag.TotalUsers = totalUsers;
+            ViewBag.TotalInstitution = TotalInstitution;
+            ViewBag.TotalTicket = TicketList.Count();
+
+            return View();
             
         }
         

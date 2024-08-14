@@ -1,5 +1,7 @@
 ﻿using IncidentManagementSystem.Model;
 using IncidentManagementSystem.Service;
+using iTextSharp.text.pdf;
+using iTextSharp.text;
 using Microsoft.AspNet.Identity;
 using Microsoft.Extensions.Logging;
 using Microsoft.ReportingServices.ReportProcessing.OnDemandReportObjectModel;
@@ -80,7 +82,7 @@ namespace IncidentManagementSystem.Controllers
 
 
         [Authorize(Roles = "SuperAdmin, Admin, Developer, User")]
-        public ActionResult Search(string search, string InstId, string status, int page = 1, int offset= 10, string userId = "")
+        public ActionResult Search(string search, string InstId, string status, int page = 1, int offset = 10, string userId = "")
         {
             Init();
 
@@ -362,6 +364,111 @@ namespace IncidentManagementSystem.Controllers
             return View();
         }
 
-               
+        public ActionResult DownloadTicketPdf(string ticketId)
+        {
+            // Fetch ticket details from the database
+            TicketDto ticket = _iTicketService.GetTicketDetails(ticketId);
+
+            if (ticket == null)
+            {
+                return HttpNotFound();
+            }            
+            byte[] pdfBytes;
+            using (var memoryStream = new MemoryStream())
+            {
+                using (var document = new Document(PageSize.A4))
+                {
+                    PdfWriter.GetInstance(document, memoryStream);
+                    document.Open();
+
+                    // Define custom fonts
+                    var font = FontFactory.GetFont("Helvetica", 12, Font.NORMAL, BaseColor.BLACK);
+                    var headerFont = FontFactory.GetFont("Helvetica", 16, Font.BOLD, BaseColor.BLACK);
+
+                    // Add content to the PDF
+                    document.Add(new iTextSharp.text.Paragraph("Ticket Details", headerFont) { Alignment = Element.ALIGN_CENTER });
+
+                    // Create a table with 2 columns
+                    var table = new PdfPTable(2)
+                    {
+                        WidthPercentage = 100,
+                        SpacingBefore = 20f,
+                        SpacingAfter = 20f
+                    };
+
+                    // Define styles for table cells
+                    var headerCell = new PdfPCell(new Phrase("Field", headerFont))
+                    {
+                        BackgroundColor = BaseColor.LIGHT_GRAY,
+                        Border = Rectangle.NO_BORDER,
+                        Padding = 5f
+                    };
+                    var valueCell = new PdfPCell(new Phrase("Value", headerFont))
+                    {
+                        BackgroundColor = BaseColor.LIGHT_GRAY,
+                        Border = Rectangle.NO_BORDER,
+                        Padding = 5f
+                    };
+
+                    table.AddCell(headerCell);
+                    table.AddCell(valueCell);
+
+                    // Add rows to the table
+                    AddStyledCell(table, "Ticket ID", ticket.TicketId, font);
+                    AddStyledCell(table, "Date", ticket.date.ToShortDateString(), font);
+                    AddStyledCell(table, "Status", ticket.status, font);
+                    AddStyledCell(table, "Institution Name", ticket.InstId, font);
+                    AddStyledCell(table, "Service Name", ticket.ServiceId, font);
+                    AddStyledCell(table, "Issue", ticket.IssueId, font);
+                    AddStyledCell(table, "Cell Number", ticket.CellNumber, font);
+                    AddStyledCell(table, "Email", ticket.Email, font);
+                    AddStyledCell(table, "Description", ticket.Description, font);
+                    AddStyledCell(table,"ImageUrl",ticket.ImageUrl, font);
+                    // Add the table to the document
+                    document.Add(table);
+
+                    // Add an image if present
+                    if (ticket.ImageData != null && ticket.ImageData.Length > 0)
+                    {
+                        var image = iTextSharp.text.Image.GetInstance(ticket.ImageData);
+                        image.ScaleToFit(140f, 120f); // Adjust size as needed
+                        image.Alignment = Element.ALIGN_CENTER;
+                        document.Add(image);
+                    }
+
+                    document.Close();
+                }
+
+                pdfBytes = memoryStream.ToArray();
+            }
+
+            // Return the PDF as a file download
+            return File(pdfBytes, "application/pdf", $"Ticket_{ticketId}.pdf");
+        }
+
+        private void AddStyledCell(PdfPTable table, string headerText, string valueText, Font font)
+        {
+            // Add the header cell
+            var headerCell = new PdfPCell(new Phrase(headerText, font))
+            {
+                Border = Rectangle.NO_BORDER,
+                Padding = 5f
+            };
+            table.AddCell(headerCell);
+
+            // Add the value cell
+            var valueCell = new PdfPCell(new Phrase(valueText, font))
+            {
+                Border = Rectangle.NO_BORDER,
+                Padding = 5f
+            };
+            table.AddCell(valueCell);
+        }
+    
+
+        public ActionResult TicketPdf()
+        {
+            return View();
+        }
     }
 }
