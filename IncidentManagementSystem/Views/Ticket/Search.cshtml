@@ -1,5 +1,6 @@
 ﻿@using IncidentManagementSystem.Model
 @model List<TicketDto>
+
 @{
     //int sno = 0; // Initialize serial number
     int sno = (ViewBag.CurrentPage - 1) * ViewBag.Offset;
@@ -88,7 +89,7 @@
                                 switch (item.status)
                                 {
                                     case "00":
-                                        <label style="color: green">Active</label>
+                                        <label style="color: green">Success</label>
                                         break;
                                     case "98":
                                         <label style="color: darkorange">Pending</label>

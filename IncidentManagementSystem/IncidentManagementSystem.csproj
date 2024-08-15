@@ -308,6 +308,8 @@
     <Content Include="Font\Outfit-SemiBold.ttf" />
     <Content Include="Font\Outfit-Thin.ttf" />
     <None Include="Scripts\jquery-3.7.1.intellisense.js" />
+    <Content Include="Scripts\chart.js" />
+    <Content Include="Scripts\chart.min.js" />
     <Content Include="Scripts\jquery-3.7.1.js" />
     <Content Include="Scripts\jquery-3.7.1.min.js" />
     <Content Include="Scripts\jquery-3.7.1.slim.js" />

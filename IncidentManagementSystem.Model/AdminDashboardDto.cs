@@ -12,6 +12,10 @@ namespace IncidentManagementSystem.Model
         public int TotalInstitution{ get; set; }
         
         public int TotalTicket { get; set; }
-       
+        public int TotalPandinglist { get; set; }
+       public int TotalTicketResolve { get; set; }
+        public int TotalTicketReject { get; set; }
+        public string DataPoint {  get; set; }
+        //public string DataPointUser {  get; set; }
     }
 }
