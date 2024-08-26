@@ -616,12 +616,7 @@ body {
     margin-bottom: 15px;
 }
 
-/* Styling for the hr element */
-hr {
-    border: 0;
-    border-top: 1px solid #ddd;
-    margin: 20px 0;
-}
+
 
 /* Styling for the container holding the partial view */
 #partialTicketContainer {
@@ -675,3 +670,5 @@ hr {
 .form-select {
     border: 1px solid black;
 }
+
+/*============================================================Admin DashBoard================================================================*/

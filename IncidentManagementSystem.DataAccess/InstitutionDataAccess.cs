@@ -1,5 +1,4 @@
-﻿using IncidentManagementSystem.Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
@@ -8,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Net.Mime;
+using IncidentManagementSystem.Model;
+
 
 namespace IncidentManagementSystem.DataAccess
 {

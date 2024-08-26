@@ -1,9 +1,11 @@
 ﻿using IncidentManagementSystem.Model;
 using IncidentManagementSystem.Service;
 using Microsoft.AspNet.Identity;
+using Microsoft.Reporting.Map.WebForms.BingMaps;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -11,6 +13,7 @@ using System.Web.UI;
 
 namespace IncidentManagementSystem.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly IInstitutionService _iInstitutionService;
@@ -49,17 +52,35 @@ namespace IncidentManagementSystem.Controllers
 
             List<TicketDto> Rejectlist = _iadminDashboardService.GetTicketRejectStatusList(userId);
             ViewBag.Rejectlist = new SelectList(Rejectlist, "TicketId");
+
+            List<TicketDetailByMonthDto> ticketDetails = _iadminDashboardService.GetMonthlyTicketDetails(userId);
+            ViewBag.TicketDetailByMonth = new SelectList(ticketDetails, "MonthName", "TicketCount");
+            
+
         }
 
 
         public ActionResult Index()
         {
-            Init();
+            //Init();
             string userId = User.Identity.GetUserId();
-            return View("Dashboard");
+            if (User.IsInRole("SuperAdmin"))
+            {
+                return RedirectToAction("Dashboard");
+            }
+            else if(User.IsInRole("User"))
+            {
+                return RedirectToAction("Dashboard");
+            }
+            else
+            {
+                return RedirectToAction("AccessDenied");
+            }
         }
 
+
         [HttpGet]
+        //[Authorize(Roles = "SuperAdmin")]
         public ActionResult Dashboard(string userId = "")
         {
             Init();
@@ -73,16 +94,19 @@ namespace IncidentManagementSystem.Controllers
             ViewBag.TotalInstitution = InstitutionList.Count();
 
             var TicketList = _iadminDashboardService.GetTicketList(userId);
-            ViewBag.TotalTicket =TicketList.Count();
+            ViewBag.TotalTicket = TicketList.Count();
 
             var Pandinglist = _iadminDashboardService.GetTicketPandingStatusList(userId);
             ViewBag.TotalPandinglist = Pandinglist.Count();
 
-            var  ResolveList = _iadminDashboardService.GetResolveList(userId);
+            var ResolveList = _iadminDashboardService.GetResolveList(userId);
             ViewBag.TotalTicketResolve = ResolveList.Count();
 
             var Rejectlist = _iadminDashboardService.GetTicketRejectStatusList(userId);
             ViewBag.TicketReject = Rejectlist.Count();
+
+            var TicketDetailByMonth = _iadminDashboardService.GetMonthlyTicketDetails(userId);
+            ViewBag.TicketDetailByMonth = TicketDetailByMonth.Count();
 
             var dataPoints = new List<DataPoint>
             {
@@ -93,17 +117,13 @@ namespace IncidentManagementSystem.Controllers
             };
             ViewBag.DataPoints = JsonConvert.SerializeObject(dataPoints);
 
-            var userDataPoint = new List<DataPointUser>
-            {
-                 new DataPointUser("Total User", ViewBag.totalUsers),
-                new DataPointUser("System User", 3),
-                new DataPointUser("Users", 2),
-                new DataPointUser("Active User", 5),
-                new DataPointUser("Inactive User", 0),
-                new DataPointUser("Active Insutitution", 2),
-                new DataPointUser("Inactive Insutitution", 0)
-            };
-             ViewBag.UserDataPoint = JsonConvert.SerializeObject(userDataPoint);
+            ViewBag.TicketDetailByMonth = JsonConvert.SerializeObject(TicketDetailByMonth);
+
+            var dataPointServicesBase = _iadminDashboardService.GetServiceTicketCounts(userId);
+            ViewBag.DataServicesBase = JsonConvert.SerializeObject(dataPointServicesBase);
+
+            var dataInstitutionBase = _iadminDashboardService.GetInstitutionTicketCounts(userId);
+            ViewBag.DataInstitutionBase = JsonConvert.SerializeObject(dataInstitutionBase);
 
             var model = new AdminDashboardDto
             {
@@ -113,7 +133,10 @@ namespace IncidentManagementSystem.Controllers
                 TotalPandinglist = ViewBag.TotalPandinglist,
                 TotalTicketResolve = ViewBag.TotalTicketResolve,
                 TotalTicketReject = ViewBag.TicketReject,
-                DataPoint = ViewBag.DataPoints
+                DataPoint = ViewBag.DataPoints,
+                TicketDetailByMonth = ViewBag.TicketDetailByMonth,
+                DataServicesBase = ViewBag.DataServicesBase,
+                DataInstitutionBase = ViewBag.DataInstitutionBase
                 //DataPointUser = ViewBag.DataPointsUser
             };
 
@@ -121,7 +144,10 @@ namespace IncidentManagementSystem.Controllers
             return View(model);
             
         }
-        
+
+
+       
+       
         public ActionResult Contact()
         {
             return View();
