@@ -15,6 +15,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IncidentManagementSystem.Model", "IncidentManagementSystem.Model\IncidentManagementSystem.Model.csproj", "{F95C39DE-3737-46D4-AD28-91F4DA7782B2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IncidentManagementSystem.Service", "IncidentManagementSystem.Service\IncidentManagementSystem.Service.csproj", "{892E768E-F0E4-42B2-A022-1115DBA33479}"
+	ProjectSection(ProjectDependencies) = postProject
+		{446D8D4C-71B8-47A1-A4BD-42CC7F538AD5} = {446D8D4C-71B8-47A1-A4BD-42CC7F538AD5}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

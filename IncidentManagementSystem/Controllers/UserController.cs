@@ -2,6 +2,7 @@
 using IncidentManagementSystem.Service;
 using Microsoft.Ajax.Utilities;
 using Microsoft.AspNet.Identity;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,16 +17,18 @@ namespace IncidentManagementSystem.Controllers
     {
         ///private readonly IInstitutionService _iInstitutionService;
         private readonly IUserService _userService;
+        private readonly IAdminDashboardService _iadminDashboardService;
 
         public UserController()
         {
 
         }
 
-        public UserController(/*IInstitutionService iInstitutionService,*/ IUserService userService)
+        public UserController( IUserService userService, IAdminDashboardService iadminDashboardService)
         {
             ///_iInstitutionService = iInstitutionService;
             _userService = userService;
+            _iadminDashboardService = iadminDashboardService;
         }
 
         public void Init()
@@ -33,6 +36,15 @@ namespace IncidentManagementSystem.Controllers
             string userId = User.Identity.GetUserId();
             List<UserInfo> UserList = _userService.UserList(userId);
             ViewBag.UserList = new SelectList(UserList, "Id", "UserName");
+
+            List<TicketDto> Pandinglist = _iadminDashboardService.GetTicketPandingStatusList(userId);
+            ViewBag.Pandinglist = new SelectList(Pandinglist, "TicketId");
+
+            List<ResolvedByDto> ResolveList = _iadminDashboardService.GetResolveList(userId);
+            ViewBag.ResolveList = new SelectList(ResolveList, "TicketId");
+
+            List<TicketDto> Rejectlist = _iadminDashboardService.GetTicketRejectStatusList(userId);
+            ViewBag.Rejectlist = new SelectList(Rejectlist, "TicketId");
         }
 
 

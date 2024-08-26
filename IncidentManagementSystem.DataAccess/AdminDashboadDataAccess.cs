@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
+using Newtonsoft.Json;
 
 namespace IncidentManagementSystem.DataAccess
 {
@@ -191,8 +192,117 @@ namespace IncidentManagementSystem.DataAccess
             }
             return Rejectlist;
         }
+
+        public List<TicketDetailByMonthDto> GetMonthlyTicketDetails(string userId)
+        {
+            List<TicketDetailByMonthDto> ticketDetails = new List<TicketDetailByMonthDto>();
+
+
+            using (SqlConnection conn = new SqlConnection(conStr))
+            {
+                using (SqlCommand cmd = new SqlCommand(conStr, conn))
+                {
+
+                    cmd.CommandText = @"GetTicketDetailByDateAndService";
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Connection = conn;
+                    cmd.Parameters.AddWithValue("@userId", userId);
+
+                    conn.Open();
+
+                    using (var sqlDataReader = cmd.ExecuteReader())
+                    {
+                        while (sqlDataReader.Read())
+                        {
+                           
+
+                            var dto = new TicketDetailByMonthDto
+                            {
+                                Label = sqlDataReader["label"].ToString(),
+                                Y = sqlDataReader["y"] != DBNull.Value ? Convert.ToDouble(sqlDataReader["y"]) : (double?)null
+                            };
+                            ticketDetails.Add(dto);
+                        }
+
+                       
+                    }
+                }
+            }
+            return ticketDetails;
+        }
+
+        public List<DataPointServicesBase> GetServiceTicketCounts(string userId)
+        {
+            List<DataPointServicesBase> results = new List<DataPointServicesBase>();
+         
+
+            using (SqlConnection conn = new SqlConnection(conStr))
+            {
+                using (SqlCommand cmd = new SqlCommand(conStr, conn))
+                {
+                    cmd.CommandText = @"GetMostGeneratedTickets";
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Connection = conn;
+                    cmd.Parameters.AddWithValue("@userId", userId);
+
+                    conn.Open();
+
+                    using (var sqlDataReader = cmd.ExecuteReader())
+                    {
+                        while (sqlDataReader.Read())
+                        {
+                            var dto = new DataPointServicesBase
+                            {
+
+                                Label = sqlDataReader["label"].ToString(),
+                                Y = sqlDataReader["y"] != DBNull.Value ? Convert.ToDouble(sqlDataReader["y"]) : (double?)null
+                            };
+                            results.Add(dto);
+                        }
+                    }
+                }
+            }
+
+            return results;
+        }
+
+        public List<DataPointInstitutionBase> GetInstitutionTicketCounts(string userId)
+        {
+            List<DataPointInstitutionBase> results = new List<DataPointInstitutionBase>();
+
+
+            using (SqlConnection conn = new SqlConnection(conStr))
+            {
+                using (SqlCommand cmd = new SqlCommand(conStr, conn))
+                {
+                    cmd.CommandText = @"GetMostGeneratedTicketsByInst";
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Connection = conn;
+                    cmd.Parameters.AddWithValue("@userId", userId);
+
+                    conn.Open();
+
+                    using (var sqlDataReader = cmd.ExecuteReader())
+                    {
+                        while (sqlDataReader.Read())
+                        {
+                            var dto = new DataPointInstitutionBase
+                            {
+
+                                Label = sqlDataReader["label"].ToString(),
+                                Y = sqlDataReader["y"] != DBNull.Value ? Convert.ToDouble(sqlDataReader["y"]) : (double?)null
+                            };
+                            results.Add(dto);
+                        }
+                    }
+                }
+            }
+
+            return results;
+        }
     }
 }
+
 
 public interface IAdminDashboadDataAccess 
 {
@@ -200,4 +310,7 @@ public interface IAdminDashboadDataAccess
     List<TicketDto> GetTicketPandingStatusList(string userId);
     List<ResolvedByDto> GetResolveList(string userId);
     List<TicketDto> GetTicketRejectStatusList(string userId);
+    List<TicketDetailByMonthDto> GetMonthlyTicketDetails(string userId);
+    List<DataPointServicesBase> GetServiceTicketCounts(string userId);
+    List<DataPointInstitutionBase> GetInstitutionTicketCounts(string userId);
 }

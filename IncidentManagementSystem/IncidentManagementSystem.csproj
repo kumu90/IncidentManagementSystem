@@ -398,9 +398,17 @@
     <Content Include="Scripts\jquery-3.7.1.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\IncidentManagementSystem.DataAccess\IncidentManagementSystem.DataAccess.csproj">
+      <Project>{446d8d4c-71b8-47a1-a4bd-42cc7f538ad5}</Project>
+      <Name>IncidentManagementSystem.DataAccess</Name>
+    </ProjectReference>
     <ProjectReference Include="..\IncidentManagementSystem.Model\IncidentManagementSystem.Model.csproj">
       <Project>{92d42e8a-8388-469c-84b5-a312895d7e79}</Project>
       <Name>IncidentManagementSystem.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\IncidentManagementSystem.Service\IncidentManagementSystem.Service.csproj">
+      <Project>{892e768e-f0e4-42b2-a022-1115dba33479}</Project>
+      <Name>IncidentManagementSystem.Service</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

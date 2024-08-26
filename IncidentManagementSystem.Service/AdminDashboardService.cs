@@ -34,6 +34,18 @@ namespace IncidentManagementSystem.Service
             return _iAdminDashboadDataAccess.GetTicketRejectStatusList(userId);
 
         }
+        public List<TicketDetailByMonthDto> GetMonthlyTicketDetails(string userId)
+        {
+            return _iAdminDashboadDataAccess.GetMonthlyTicketDetails(userId);
+        }
+        public List<DataPointServicesBase> GetServiceTicketCounts(string userId)
+        {
+            return _iAdminDashboadDataAccess.GetServiceTicketCounts(userId);
+        }
+        public List<DataPointInstitutionBase> GetInstitutionTicketCounts(string userId)
+        {
+            return _iAdminDashboadDataAccess.GetInstitutionTicketCounts(userId);
+        }
     }
 }
 
@@ -43,4 +55,7 @@ public interface IAdminDashboardService
     List<TicketDto> GetTicketPandingStatusList(string userId);
     List<ResolvedByDto> GetResolveList(string userId);
     List<TicketDto> GetTicketRejectStatusList(string userId);
+    List<TicketDetailByMonthDto> GetMonthlyTicketDetails(string userId);
+    List<DataPointServicesBase> GetServiceTicketCounts(string userId);
+    List<DataPointInstitutionBase> GetInstitutionTicketCounts(string userId);
 }

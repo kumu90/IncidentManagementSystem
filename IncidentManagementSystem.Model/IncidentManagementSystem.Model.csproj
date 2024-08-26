@@ -48,6 +48,8 @@
     <Compile Include="AdminDashboardDto.cs" />
     <Compile Include="Annotation\ImageAttribute.cs" />
     <Compile Include="DataPoint.cs" />
+    <Compile Include="DataPointInstitutionBase.cs" />
+    <Compile Include="DataPointServicesBase.cs" />
     <Compile Include="DataPointUser.cs" />
     <Compile Include="ErrorLogDto.cs" />
     <Compile Include="InstNameDto.cs" />
@@ -59,6 +61,7 @@
     <Compile Include="ServiceDto.cs" />
     <Compile Include="SQLStatusDto.cs" />
     <Compile Include="TicketAssignDto.cs" />
+    <Compile Include="TicketDetailByMonthDto.cs" />
     <Compile Include="TicketDto.cs" />
     <Compile Include="UserDto.cs" />
     <Compile Include="UserRole.cs" />
