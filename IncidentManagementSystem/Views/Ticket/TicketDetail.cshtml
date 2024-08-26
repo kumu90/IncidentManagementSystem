@@ -3,6 +3,8 @@
 
 @{
     ViewBag.Title = "TicketDetail";
+    var status = Model.status;
+    bool showButtons = status == "LO"; // Show buttons only if status is "94" or "LO"
 }
 
 <div class="col-lg-12 col-md-12 col-sm-12  text">
@@ -91,7 +93,7 @@
                 @*<dd>@Html.DisplayFor(model => model.status)</dd>*@
                 <dd>
                     @{
-                        var status = Model.status;
+                        ///   var status = Model.status;
                         string statusMessage = status switch
                         {
                             "00" => "Success",
@@ -124,24 +126,39 @@
             </dl>
         </div>
     </div>
-
     <div class="row mt-3">
+        @if (showButtons)
+        {
+            <div class="col-lg-1 col-md-2">
+                <input type="button" value="Assign" class="btn btn-success btn-width" onclick="assignTicket('@Model.TicketId')" />
+            </div>
+            <div class="col-lg-1 col-md-2">
+                <a href="@Url.Action("TicketReject", "Ticket", new { TicketId = Model.TicketId })" class="btn btn-danger btn-width">Reject</a>
+            </div>
+        }
+
+
         <div class="col-lg-1 col-md-2">
-            <input type="button" value="Assign" class="btn btn-success btn-width" onclick="assignTicket('@Model.TicketId')" />
+            <input type="button" value="Back" class="btn btn-secondary btn-width" onclick="goBack()" />
         </div>
+
+
         <div class="col-lg-1 col-md-2">
-            <a href="@Url.Action("TicketReject", "Ticket", new { TicketId = Model.TicketId })" class="btn btn-danger btn-width" >Reject</a>
-        </div>
-        <div class="col-md-2">
             <a href="@Url.Action("DownloadTicketPdf", "Ticket", new { ticketId = Model.TicketId })" class="btn btn-info btn-width" style="margin-left:20.5rem;">Download</a>
         </div>
     </div>
+
 </div>
 
 <script>
     function assignTicket(ticketId) {
         var url = '@Url.Action("Assign", "Ticket")?TicketId=' + ticketId;
         window.location.href = url;
+    }
+
+
+    function goBack() {
+        window.history.back();
     }
 </script>
 @Scripts.Render("~/bundles/bootstrap")

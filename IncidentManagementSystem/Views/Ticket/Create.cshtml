@@ -12,102 +12,103 @@
     </div>
 
 
-        @using (Html.BeginForm("Create", "Ticket", FormMethod.Post, new { role = "form", enctype = "multipart/form-data" }))
-        {
-                     @Html.HiddenFor(m=>m.InstId)
-                     @Html.AntiForgeryToken()
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="col-md-12 inst-row-form">
-                               @Html.LabelFor(m => m.InstId, new { @class = "col-md-4 col-form-label l_ticket" })
-                                <div class="col">
-                                   
-                                    @if (ViewBag.IsSuperAdmin)
-                                    {
-                                        @Html.DropDownListFor(m => m.InstId, ViewBag.Institution as SelectList, "-Select Institution-", new { @class = "form-select u-box" })
-                                    }
-                                    else
-                                    {
-                                        @*@Html.DropDownListFor(m => m.InstId, ViewBag.Institution as SelectList, "-Select Institution-", new { @class = "form-control u-box", @disabled = "disabled" })*@
-                                        @Html.TextBoxFor(m => m.InstitutionName, new { @class = "form-control b-inst", @disabled = "disabled" })
-                                    }
-                                    @Html.ValidationMessageFor(m => m.InstId, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-                            <div class="col-md-12 inst-row-form">
-                                @Html.LabelFor(m => m.ServiceId, new { @class = "col-md-4 col-form-label l_ticket" })
-                                <div class="col-lg-12">
-                                    @* @Html.DropDownList("ServiceId", new SelectList(Enumerable.Empty<SelectListItem>(), "Value", "Text"), "-Select Service-", new { @class = "form-select u-box", id = "servicesDropdown" })*@
-                                    @Html.DropDownListFor(m => m.ServiceId, ViewBag.services as SelectList, "-Select Service-", new { @class = "form-select  u-box" })
-                                    @Html.ValidationMessageFor(m => m.ServiceId, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
+    @using (Html.BeginForm("Create", "Ticket", FormMethod.Post, new { role = "form", enctype = "multipart/form-data" }))
+    {
+        @Html.HiddenFor(m => m.InstId)
+        @Html.AntiForgeryToken()
+        <div class="row">
+            <div class="col-md-4">
+                <div class="col-md-12 inst-row-form">
+                    @Html.LabelFor(m => m.InstId, new { @class = "col-md-4 col-form-label l_ticket" })
+                    <div class="col">
 
-                            <div class="col-md-12 inst-row-form">
-                                @Html.LabelFor(m => m.IssueId, new { @class = "col-md-4 col-form-label l_ticket" })
-                                <div class="col-lg-12">
-                                    @Html.DropDownListFor(m => m.IssueId, ViewBag.Issues as SelectList, "-Select Issue-", new { @class = "form-select u-box" })
-                                    @Html.ValidationMessageFor(m => m.IssueId, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
+                        @if (ViewBag.IsSuperAdmin)
+                        {
+                            @Html.DropDownListFor(m => m.InstId, ViewBag.Institution as SelectList, "-Select Institution-", new { @class = "form-select u-box" })
+                        }
+                        else
+                        {
+                            @*@Html.DropDownListFor(m => m.InstId, ViewBag.Institution as SelectList, "-Select Institution-", new { @class = "form-control u-box", @disabled = "disabled" })*@
+                            @Html.TextBoxFor(m => m.InstitutionName, new { @class = "form-control b-inst", @disabled = "disabled" })
+                        }
+                        @Html.ValidationMessageFor(m => m.InstId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-md-12 inst-row-form">
+                    @Html.LabelFor(m => m.ServiceId, new { @class = "col-md-4 col-form-label l_ticket" })
+                    <div class="col-lg-12">
+                        @* @Html.DropDownList("ServiceId", new SelectList(Enumerable.Empty<SelectListItem>(), "Value", "Text"), "-Select Service-", new { @class = "form-select u-box", id = "servicesDropdown" })*@
+                        @Html.DropDownListFor(m => m.ServiceId, ViewBag.services as SelectList, "-Select Service-", new { @class = "form-select  u-box" })
+                        @Html.ValidationMessageFor(m => m.ServiceId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="col-md-12 inst-row-form">
+                    @Html.LabelFor(m => m.IssueId, new { @class = "col-md-4 col-form-label l_ticket" })
+                    <div class="col-lg-12">
+                        @Html.DropDownListFor(m => m.IssueId, ViewBag.Issues as SelectList, "-Select Issue-", new { @class = "form-select u-box" })
+                        @Html.ValidationMessageFor(m => m.IssueId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
 
 
+            </div>
+            <div class="col-md-4">
+                <div class="col-md-12 inst-row-form">
+                    @Html.LabelFor(m => m.Email, new { @class = "col-md-4 col-form-label l_ticket" })
+                    <div class="col-lg-12">
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control b-inst" })
+                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="col-md-12 inst-row-form">
+                    @Html.LabelFor(m => m.CellNumber, new { @class = "col-md-4 col-form-label l_ticket" })
+                    <div class="col-lg-12">
+                        @Html.TextBoxFor(m => m.CellNumber, new { @class = "form-control b-inst" })
+                        @Html.ValidationMessageFor(m => m.CellNumber, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-lg-12 inst-row-form">
+                    @Html.LabelFor(m => m.Description, new { @class = "col-md-4 col-form-label l_ticket" })
+                    <div class="col-lg-12">
+                        @Html.TextAreaFor(m => m.Description, new { @class = "form-control b-inst" })
+                        @Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+
+
+                <div class="col-md-12 inst-row-form img-upload">
+                    <div>
+                        <label for="file">Upload Image:</label>
+
+                        <div class="tik-img " style="background-color:lightgray;">
+                            <a href="#" id="imageAnchor">
+                                <img id="preview" src="~/Image/photo-album-regular-24.png" class="card-img-top" alt="Preview" style=" width: 280px; height:180px " />
+                            </a>
                         </div>
-                                <div class="col-md-4">
-                                    <div class="col-md-12 inst-row-form">
-                                        @Html.LabelFor(m => m.Email, new { @class = "col-md-4 col-form-label l_ticket" })
-                                        <div class="col-lg-12">
-                                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control b-inst" })
-                                            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
-                                        </div>
-                                    </div>
 
-                                    <div class="col-md-12 inst-row-form">
-                                        @Html.LabelFor(m => m.CellNumber, new { @class = "col-md-4 col-form-label l_ticket" })
-                                        <div class="col-lg-12">
-                                            @Html.TextBoxFor(m => m.CellNumber, new { @class = "form-control b-inst" })
-                                            @Html.ValidationMessageFor(m => m.CellNumber, "", new { @class = "text-danger" })
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12 inst-row-form">
-                                        @Html.LabelFor(m => m.Description, new { @class = "col-md-4 col-form-label l_ticket" })
-                                        <div class="col-lg-12">
-                                            @Html.TextAreaFor(m => m.Description, new { @class = "form-control b-inst" })
-                                            @Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger" })
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-4">
-
-
-                                    <div class="col-md-12 inst-row-form img-upload">
-                                        <div>
-                                            <label for="file">Upload Image:</label>
-
-                                            <div class="tik-img " style="background-color:lightgray;">
-                                                <a href="#" id="imageAnchor">
-                                                    <img id="preview" src="~/Image/photo-album-regular-24.png" class="card-img-top" alt="Preview" style=" width: 280px; height:180px " />
-                                                </a>
-                                            </div>
-
-                                            <input type="file" name="file" id="file" accept="image/*" onchange="previewImage(event)" class="form-control" style="width: 280px; margin-top: 5px;" />
-
-                                        </div>
-                                    </div>
-
-                                </div>
-
-
-                                <div class="col-md-4">
-                                    <div class="col-md-12" style="margin-left:16px;">
-                                        <input type="submit" value="Submit" class="btn btn-primary btn-lg" id="submit" />
-                                    </div>
-                                </div>
-
+                        <input type="file" name="file" id="file" accept="image/*" onchange="previewImage(event)" class="form-control" style="width: 280px; margin-top: 5px;" />
 
                     </div>
-         }
+                </div>
+
+            </div>
+
+
+            <div class="col-md-4">
+                <div class="col-md-12" style="margin-left:16px;">
+                    <input type="submit" value="Submit" class="btn btn-primary btn-lg" id="submit" />
+                    <input type="button" value="Back" class="btn btn-secondary btn-lg" onclick="goBack()" />
+                </div>               
+            </div>
+
+
+        </div>
+    }
 
 
 
@@ -145,28 +146,33 @@
 
 @section scripts{
     <script>
-        function loadServices(instId) {
-            if (instId == null || instId == "") {
-            instId = $('#InstId').val();
+        function goBack() {
+        window.history.back();
         }
-          $('#ServiceId').html("");
-          $('#ServiceId').append($('<option disabled selected value>-Select Services-</option>'));
-          $.ajax({
-              method: "GET",
-              url: '@Url.Action("InstService")',
-              data: { InstId: instId },
-              success: function (result) {
-                  debugger;
-                  //// Append the retrieved service to the dropdown
-                  $.each(result, function (i, service) {
-                      $('#ServiceId').append($('<option>', {
-                          value: service.ServiceId,
-                          text: service.ServiceName
-                      }));
-                  });
-              }
-          });
-      }
+
+        function loadServices(instId) {
+            if (instId == null || instId == "")
+            {
+            instId = $('#InstId').val();
+            }
+            $('#ServiceId').html("");
+            $('#ServiceId').append($('<option disabled selected value>-Select Services-</option>'));
+            $.ajax({
+                method: "GET",
+                url: '@Url.Action("InstService")',
+                data: { InstId: instId },
+                success: function (result) {
+                    debugger;
+                    //// Append the retrieved service to the dropdown
+                    $.each(result, function (i, service) {
+                        $('#ServiceId').append($('<option>', {
+                            value: service.ServiceId,
+                            text: service.ServiceName
+                        }));
+                    });
+                }
+            });
+        }
 
         $(document).ready(function () {
             /*$("#InstId").on("change", function () {*/
@@ -179,7 +185,7 @@
 
 
 
-              
+
          });
 
         $(document).ready(function () {

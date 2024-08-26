@@ -24,144 +24,149 @@
 
 
 <div class="container-fluid reg-inst">
-   
+
     <div class="row ">
         <div class="col-md-6 text">
             <span class="page input-icon">Register</span>
             <span class="detail">Institution</span>
         </div>
 
-        <div class="col-md-6 col-sm-12 text-end" >
-            <button type="button" class="btn btn-success btn-sm"   onclick="location.href='@Url.Action("Index","Institution")'">List</button>
+        <div class="col-md-6 col-sm-12 text-end">
+            <button type="button" class="btn btn-success btn-sm" onclick="location.href='@Url.Action("Index","Institution")'">List</button>
         </div>
     </div>
-      
 
-        @using (Html.BeginForm("InstitutionRegister", "Institution", FormMethod.Post, new { enctype = "multipart/form-data", role = "form", id = "ins_form" }))
-        {
-            <div class="row" style="background-color: #ffffff; border-radius: 8px; ">
-                <div class="col-xs-12">
 
-                    <div class="row ins-row">
-                        <div class="col-md-10">
-                            @Html.AntiForgeryToken()
-                            <div class="row">
-                                <div class="col-md-4 col-sm-12 ">
-                                    <div class="col-md-12 col-sm-12 col-sx-12  inst-row-form">
-                                        @Html.LabelFor(m => m.InstitutionName, new { @class = "col-md-6 col-form-label l-inst" })
-                                        <div class="col-lg-12">
-                                            @Html.TextBoxFor(m => m.InstitutionName, new { @class = "form-control b-inst" })
-                                            @Html.ValidationMessageFor(m => m.InstitutionName, "", new { @class = "text-danger" })
+    @using (Html.BeginForm("InstitutionRegister", "Institution", FormMethod.Post, new { enctype = "multipart/form-data", role = "form", id = "ins_form" }))
+    {
+        <div class="row" style="background-color: #ffffff; border-radius: 8px; ">
+            <div class="col-xs-12">
 
-                                        </div>
-                                    </div>
-                                    <div class=" col-md-12 col-sm-12">
-                                        @Html.LabelFor(m => m.ServiceIdList, "Services", new { @class = "col-md-4 col-form-label l-inst" })
+                <div class="row ins-row">
+                    <div class="col-md-10">
+                        @Html.AntiForgeryToken()
+                        <div class="row">
+                            <div class="col-md-4 col-sm-12 ">
+                                <div class="col-md-12 col-sm-12 col-sx-12  inst-row-form">
+                                    @Html.LabelFor(m => m.InstitutionName, new { @class = "col-md-6 col-form-label l-inst" })
+                                    <div class="col-lg-12">
+                                        @Html.TextBoxFor(m => m.InstitutionName, new { @class = "form-control b-inst" })
+                                        @Html.ValidationMessageFor(m => m.InstitutionName, "", new { @class = "text-danger" })
 
-                                        <div class="col-md-12 ">
-
-                                            @Html.DropDownListFor(m => m.ServiceIdList, ViewBag.services as SelectList, "Select Services", new { @class = " form-select ui  multiple search selection dropdown selectService u-box", @multiple = "", id = "ServiceId" })
-
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12  col-sm-12 col-sx-12  inst-row-form">
-                                        @Html.LabelFor(m => m.Email, new { @class = "col-md-4 col-form-label l-inst" })
-                                        <div class="col-md-12">
-                                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control b-inst" })
-                                            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12  col-sm-12 col-sx-12  inst-row-form">
-                                        @Html.LabelFor(m => m.ContactPersonAdmin, new { @class = "col-md-6 col-form-label l-inst" })
-                                        <div class="col-md-12">
-                                            @Html.TextBoxFor(m => m.ContactPersonAdmin, new { @class = "form-control b-inst" })
-                                            @Html.ValidationMessageFor(m => m.ContactPersonAdmin, "", new { @class = "text-danger" })
-                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-4 col-sm-12 ">
-                                    <div class="col-md-12 col-sm-12 col-sx-12  inst-row-form">
-                                        @Html.LabelFor(m => m.ContactNumber, new { @class = "col-md-6 col-form-label l-inst" })
-                                        <div class="col-md-12">
-                                            @Html.TextBoxFor(m => m.ContactNumber, new { @class = "form-control b-inst" })
-                                            @Html.ValidationMessageFor(m => m.ContactNumber, "", new { @class = "text-danger" })
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12  col-sm-12  inst-row-form">
-                                        @Html.LabelFor(m => m.Country, new { @class = "col-md-4 col-form-label l-inst" })
-                                        <div class="col-lg-12">
-                                            @Html.TextBoxFor(m => m.Country, new { @class = "form-control b-inst" })
-                                            @Html.ValidationMessageFor(m => m.Country, "", new { @class = "text-danger" })
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12  col-sm-12  inst-row-form">
-                                        @Html.LabelFor(m => m.State, new { @class = "col-md-4 col-form-label l-inst" })
-                                        <div class="col-lg-12">
-                                            @Html.TextBoxFor(m => m.State, new { @class = "form-control b-inst" })
-                                            @Html.ValidationMessageFor(m => m.State, "", new { @class = "text-danger" })
-                                        </div>
+                                <div class=" col-md-12 col-sm-12">
+                                    @Html.LabelFor(m => m.ServiceIdList, "Services", new { @class = "col-md-4 col-form-label l-inst" })
+
+                                    <div class="col-md-12 ">
+
+                                        @Html.DropDownListFor(m => m.ServiceIdList, ViewBag.services as SelectList, "Select Services", new { @class = " form-select ui  multiple search selection dropdown selectService u-box", @multiple = "", id = "ServiceId" })
+
                                     </div>
                                 </div>
-                                <div class="col-md-4 col-sm-12 ">
-                                    <div class="col-md-12 col-sm-12  inst-row-form">
-                                        @Html.LabelFor(m => m.Address, new { @class = "col-md-4  col-form-label l-inst" })
-                                        <div class="col-md-12">
-                                            @Html.TextBoxFor(m => m.Address, new { @class = "form-control b-inst" })
-                                            @Html.ValidationMessageFor(m => m.Address, "", new { @class = "text-danger" })
-                                        </div>
+                                <div class="col-md-12  col-sm-12 col-sx-12  inst-row-form">
+                                    @Html.LabelFor(m => m.Email, new { @class = "col-md-4 col-form-label l-inst" })
+                                    <div class="col-md-12">
+                                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control b-inst" })
+                                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
                                     </div>
-
-                                    <div class="col-md-12   col-sm-12 inst-row-form">
-                                        @Html.LabelFor(m => m.ZipCode, new { @class = "col-md-4 col-form-label l-inst" })
-                                        <div class="col-md-12">
-                                            @Html.TextBoxFor(m => m.ZipCode, new { @class = "form-control b-inst" })
-                                            @Html.ValidationMessageFor(m => m.ZipCode, "", new { @class = "text-danger" })
-                                        </div>
+                                </div>
+                                <div class="col-md-12  col-sm-12 col-sx-12  inst-row-form">
+                                    @Html.LabelFor(m => m.ContactPersonAdmin, new { @class = "col-md-6 col-form-label l-inst" })
+                                    <div class="col-md-12">
+                                        @Html.TextBoxFor(m => m.ContactPersonAdmin, new { @class = "form-control b-inst" })
+                                        @Html.ValidationMessageFor(m => m.ContactPersonAdmin, "", new { @class = "text-danger" })
                                     </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-12 ">
+                                <div class="col-md-12 col-sm-12 col-sx-12  inst-row-form">
+                                    @Html.LabelFor(m => m.ContactNumber, new { @class = "col-md-6 col-form-label l-inst" })
+                                    <div class="col-md-12">
+                                        @Html.TextBoxFor(m => m.ContactNumber, new { @class = "form-control b-inst" })
+                                        @Html.ValidationMessageFor(m => m.ContactNumber, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="col-md-12  col-sm-12  inst-row-form">
+                                    @Html.LabelFor(m => m.Country, new { @class = "col-md-4 col-form-label l-inst" })
+                                    <div class="col-lg-12">
+                                        @Html.TextBoxFor(m => m.Country, new { @class = "form-control b-inst" })
+                                        @Html.ValidationMessageFor(m => m.Country, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="col-md-12  col-sm-12  inst-row-form">
+                                    @Html.LabelFor(m => m.State, new { @class = "col-md-4 col-form-label l-inst" })
+                                    <div class="col-lg-12">
+                                        @Html.TextBoxFor(m => m.State, new { @class = "form-control b-inst" })
+                                        @Html.ValidationMessageFor(m => m.State, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-12 ">
+                                <div class="col-md-12 col-sm-12  inst-row-form">
+                                    @Html.LabelFor(m => m.Address, new { @class = "col-md-4  col-form-label l-inst" })
+                                    <div class="col-md-12">
+                                        @Html.TextBoxFor(m => m.Address, new { @class = "form-control b-inst" })
+                                        @Html.ValidationMessageFor(m => m.Address, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
 
-                                    <div class="col-md-12  col-sm-12 col-sx-12  inst-row-form">
-                                        @Html.LabelFor(m => m.ContactPersonTechnical, new { @class = "col-md-6 col-sm-12  col-form-label l-inst" })
-                                        <div class="col-md-12">
-                                            @Html.TextBoxFor(m => m.ContactPersonTechnical, new { @class = "form-control b-inst" })
-                                            @Html.ValidationMessageFor(m => m.ContactPersonTechnical, "", new { @class = "text-danger" })
-                                        </div>
+                                <div class="col-md-12   col-sm-12 inst-row-form">
+                                    @Html.LabelFor(m => m.ZipCode, new { @class = "col-md-4 col-form-label l-inst" })
+                                    <div class="col-md-12">
+                                        @Html.TextBoxFor(m => m.ZipCode, new { @class = "form-control b-inst" })
+                                        @Html.ValidationMessageFor(m => m.ZipCode, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12  col-sm-12 col-sx-12  inst-row-form">
+                                    @Html.LabelFor(m => m.ContactPersonTechnical, new { @class = "col-md-6 col-sm-12  col-form-label l-inst" })
+                                    <div class="col-md-12">
+                                        @Html.TextBoxFor(m => m.ContactPersonTechnical, new { @class = "form-control b-inst" })
+                                        @Html.ValidationMessageFor(m => m.ContactPersonTechnical, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-                        <div class="col-md-2 col-sm-12 file-upload">
-                            <div class="col-lg-12 file-upload justify-content-center" style="margin-left: 17px;">
-                                <label for="file" id="file-text">Upload Image:</label>
-                                <div class="inst-img" style="background-color:lightgray;">
-                                    <a href="#" id="imageAnchor">
-                                        <img id="preview" src="~/Image/photo-album-regular-24.png" class="card-img-top" alt="Preview" />
-                                    </a>
-                                </div>
-                                <input type="file" name="file" id="file" accept="image/*" onchange="previewImage(event)" class="form-control" style="width: 94px; margin-top:5px;" />
-                            </div>
-                        </div>
-
-
-
                     </div>
 
-                    <div class="row" style="margin-top:10px">
-                        <div class="col-md-6 col-sm-12 col-sx-12" style="margin-left:31px; margin-bottom:20px;">
-                            <input type="submit" value="Register" class="btn btn-success btn-lg" id="submit" />
-                            <input type="reset" value="Clear" class="btn btn-secondary btn-lg " style="margin-left:20px;" onclick="clearForm();" />
+                    <div class="col-md-2 col-sm-12 file-upload">
+                        <div class="col-lg-12 file-upload justify-content-center" style="margin-left: 17px;">
+                            <label for="file" id="file-text">Upload Image:</label>
+                            <div class="inst-img" style="background-color:lightgray;">
+                                <a href="#" id="imageAnchor">
+                                    <img id="preview" src="~/Image/photo-album-regular-24.png" class="card-img-top" alt="Preview" />
+                                </a>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <input type="file" name="file" id="file" accept="image/*" onchange="previewImage(event)" class="form-control" style="width: 94px; margin-top:10px;" />
+
+                            <input type="reset" value="Clear" class="btn btn-secondary btn-lg " style="width: 75px; margin-top: 10px; " onclick="clearForm();" />
                         </div>
                     </div>
 
 
 
                 </div>
+
+                <div class="row" style="margin-top:10px">
+                    <div class="col-md-6 col-sm-12 col-sx-12" style="margin-left:31px; margin-bottom:20px;">
+                        <input type="submit" value="Register" class="btn btn-success btn-lg" id="submit" />
+                        @*<input type="reset" value="Clear" class="btn btn-secondary btn-lg " style="margin-left:20px;" onclick="clearForm();" />*@
+                        <input type="button" value="Back" class="btn btn-secondary btn-lg" onclick="goBack()" />
+                    </div>
+                </div>
+
+
+
             </div>
-        }
+        </div>
+    }
 
 
 
-    </div>
+</div>
 <div class="modal" tabindex="-1" role="dialog" id="modalTaskComplete" style="margin-top:12rem;">
     <div class="modal-dialog" role="document">
         <div class="modal-content col-lg-10 col-md-9">
@@ -293,6 +298,9 @@
             }
          });
 
+        function goBack() {
+            window.history.back();
+        }
 
     </script>
 }

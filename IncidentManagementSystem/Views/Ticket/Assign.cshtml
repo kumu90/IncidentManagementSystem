@@ -100,6 +100,9 @@
             <div class="col-lg-1 col-md-2">
                 <input type="submit" value="Submit" class="btn btn-success btn-width" />
             </div>
+            <div class="col-lg-1 col-md-2">
+                <input type="button" value="Back" class="btn btn-secondary btn-width" onclick="goBack()" />
+            </div>
         </div>
 
     }
@@ -144,6 +147,10 @@
                 $("#modalTaskComplete").show();
             }
         });
+
+        function goBack() {
+            window.history.back();
+        }
     </script>
 }
 
