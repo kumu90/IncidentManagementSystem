@@ -1,4 +1,5 @@
-﻿using IncidentManagementSystem.Model;
+﻿using IncidentManagementSystem.DataAccess;
+using IncidentManagementSystem.Model;
 using IncidentManagementSystem.Service;
 using Microsoft.AspNet.Identity;
 using Microsoft.Reporting.Map.WebForms.BingMaps;
@@ -144,10 +145,36 @@ namespace IncidentManagementSystem.Controllers
             return View(model);
             
         }
+        [HttpGet]
+        public ActionResult RecentTicketActivity(string userId)
+        {
+            userId = User.Identity.GetUserId(); 
+            var activity =_iadminDashboardService.GetRecentTicketActivityLog(userId);
+            ViewBag.Log = activity;
 
+            return PartialView("RecentTicketActivity", activity);
+        }
 
-       
-       
+        [HttpGet]
+        public ActionResult RecentTicketStatus(string userId)
+        {
+            userId = User.Identity.GetUserId();
+            bool isSuperAdmin = User.IsInRole("SuperAdmin") || User.IsInRole("Admin") || User.IsInRole("Developer");
+            if (isSuperAdmin)
+            {
+                var activity = _iadminDashboardService.GetRecentTicketStatusActivityLog(userId);
+                ViewBag.Log = activity;
+                return PartialView("RecentTicketStatus", activity);
+            }
+            else
+            {
+                var activity = _iadminDashboardService.GetRecentTicketStatusActivityLogUser(userId);
+                ViewBag.Log = activity;
+                return PartialView("RecentTicketStatus", activity);
+            }
+
+                //return PartialView("RecentTicketStatus", activity);
+        }
         public ActionResult Contact()
         {
             return View();

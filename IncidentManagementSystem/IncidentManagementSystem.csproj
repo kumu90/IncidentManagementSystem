@@ -262,6 +262,136 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="canva\canvasjs-chart-3.10.5\canvasjs.min.js" />
+    <Content Include="canva\canvasjs-chart-3.10.5\canvasjs.react.js" />
+    <Content Include="canva\canvasjs-chart-3.10.5\examples\01-overview\animated-chart.html" />
+    <Content Include="canva\canvasjs-chart-3.10.5\examples\01-overview\chart-from-json-data.html" />
+    <Content Include="canva\canvasjs-chart-3.10.5\examples\01-overview\chart-with-axis-scale-breaks.html" />
+    <Content Include="canva\canvasjs-chart-3.10.5\examples\01-overview\chart-with-crosshair.html" />
+    <Content Include="canva\canvasjs-chart-3.10.5\examples\01-overview\chart-with-custom-legend-chart.html" />
+    <Content Include="canva\canvasjs-chart-3.10.5\examples\01-overview\chart-with-image-overlay.html" />
+    <Content Include="canva\canvasjs-chart-3.10.5\examples\01-overview\chart-with-index-data-label.html" />
+    <Content Include="canva\canvasjs-chart-3.10.5\examples\01-overview\chart-with-inverted-reversed-axis.html" />
+    <Content Include="canva\canvasjs-chart-3.10.5\examples\01-overview\chart-with-logarithmic-axis.html" />
+    <Content Include="canva\canvasjs-chart-3.10.5\examples\01-overview\chart-with-secondary-axis.html" />
+    <Content Include="canva\canvasjs-chart-3.10.5\examples\01-overview\chart-with-zoom-pan.html" />
+    <Content Include="canva\canvasjs-chart-3.10.5\examples\01-overview\dynamic-chart.html" />
+    <Content Include="canva\canvasjs-chart-3.10.5\examples\01-overview\interactive-draggable-chart.html" />
+    <Content Include="canva\canvasjs-chart-3.10.5\examples\01-overview\multi-series-chart.html" />
+    <Content Include="canva\canvasjs-chart-3.10.5\examples\01-overview\null-data-chart.html" />
+    <Content Include="canva\canvasjs-chart-3.10.5\examples\01-overview\performance-demo.html" />
+    <Content Include="canva\canvasjs-chart-3.10.5\examples\02-line-spline-step-line-charts\dashed-line-chart.html" />
+    <Content Include="canva\canvasjs-chart-3.10.5\examples\02-line-spline-step-line-charts\dynamic-spline-chart.html" />
+    <Content Include="canva\canvasjs-chart-3.10.5\examples\02-line-spline-step-line-charts\line-chart-with-axis-scale-breaks.html" />
+    <Content Include="canva\canvasjs-chart-3.10.5\examples\02-line-spline-step-line-charts\line-chart-with-data-markers.html" />
+    <Content Include="canva\canvasjs-chart-3.10.5\examples\02-line-spline-step-line-charts\line-chart-with-logarithmic-axis.html" />
+    <Content Include="canva\canvasjs-chart-3.10.5\examples\02-line-spline-step-line-charts\line-chart-with-multiple-axis.html" />
+    <Content Include="canva\canvasjs-chart-3.10.5\examples\02-line-spline-step-line-charts\line-chart-with-zoom-pan.html" />
+    <Content Include="canva\canvasjs-chart-3.10.5\examples\02-line-spline-step-line-charts\line-chart.html" />
+    <Content Include="canva\canvasjs-chart-3.10.5\examples\02-line-spline-step-line-charts\multi-series-line-chart.html" />
+    <Content Include="canva\canvasjs-chart-3.10.5\examples\02-line-spline-step-line-charts\multi-series-spline-chart.html" />
+    <Content Include="canva\canvasjs-chart-3.10.5\examples\02-line-spline-step-line-charts\multi-series-step-line-chart.html" />
+    <Content Include="canva\canvasjs-chart-3.10.5\examples\02-line-spline-step-line-charts\spline-chart-with-legends.html" />
+    <Content Include="canva\canvasjs-chart-3.10.5\examples\02-line-spline-step-line-charts\spline-chart-with-secondary-axis.html" />
+    <Content Include="canva\canvasjs-chart-3.10.5\examples\02-line-spline-step-line-charts\spline-chart.html" />
+    <Content Include="canva\canvasjs-chart-3.10.5\examples\02-line-spline-step-line-charts\step-line-chart.html" />
+    <Content Include="canva\canvasjs-chart-3.10.5\examples\03-stacked-spline-range-area-charts\area-chart.html" />
+    <Content Include="canva\canvasjs-chart-3.10.5\examples\03-stacked-spline-range-area-charts\multi-series-area-chart.html" />
+    <Content Include="canva\canvasjs-chart-3.10.5\examples\03-stacked-spline-range-area-charts\multi-series-range-area-chart.html" />
+    <Content Include="canva\canvasjs-chart-3.10.5\examples\03-stacked-spline-range-area-charts\multi-series-spline-area-chart.html" />
+    <Content Include="canva\canvasjs-chart-3.10.5\examples\03-stacked-spline-range-area-charts\range-area-chart.html" />
+    <Content Include="canva\canvasjs-chart-3.10.5\examples\03-stacked-spline-range-area-charts\range-spline-area-chart.html" />
+    <Content Include="canva\canvasjs-chart-3.10.5\examples\03-stacked-spline-range-area-charts\spline-area-chart.html" />
+    <Content Include="canva\canvasjs-chart-3.10.5\examples\03-stacked-spline-range-area-charts\stacked-area-100-chart-with-date-time-axis.html" />
+    <Content Include="canva\canvasjs-chart-3.10.5\examples\03-stacked-spline-range-area-charts\stacked-area-100-chart.html" />
+    <Content Include="canva\canvasjs-chart-3.10.5\examples\03-stacked-spline-range-area-charts\stacked-area-chart.html" />
+    <Content Include="canva\canvasjs-chart-3.10.5\examples\03-stacked-spline-range-area-charts\step-area-chart.html" />
+    <Content Include="canva\canvasjs-chart-3.10.5\examples\04-column-stacked-range-waterfall-charts\bar-chart-with-axis-scale-break.html" />
+    <Content Include="canva\canvasjs-chart-3.10.5\examples\04-column-stacked-range-waterfall-charts\bar-chart.html" />
+    <Content Include="canva\canvasjs-chart-3.10.5\examples\04-column-stacked-range-waterfall-charts\column-chart-with-multiple-axis.html" />
+    <Content Include="canva\canvasjs-chart-3.10.5\examples\04-column-stacked-range-waterfall-charts\column-chart.html" />
+    <Content Include="canva\canvasjs-chart-3.10.5\examples\04-column-stacked-range-waterfall-charts\multi-series-bar-chart.html" />
+    <Content Include="canva\canvasjs-chart-3.10.5\examples\04-column-stacked-range-waterfall-charts\multi-series-range-column-chart.html" />
+    <Content Include="canva\canvasjs-chart-3.10.5\examples\04-column-stacked-range-waterfall-charts\multi-series-waterfall-chart.html" />
+    <Content Include="canva\canvasjs-chart-3.10.5\examples\04-column-stacked-range-waterfall-charts\range-bar-chart.html" />
+    <Content Include="canva\canvasjs-chart-3.10.5\examples\04-column-stacked-range-waterfall-charts\range-column-chart.html" />
+    <Content Include="canva\canvasjs-chart-3.10.5\examples\04-column-stacked-range-waterfall-charts\stacked-bar-100-chart.html" />
+    <Content Include="canva\canvasjs-chart-3.10.5\examples\04-column-stacked-range-waterfall-charts\stacked-bar-chart.html" />
+    <Content Include="canva\canvasjs-chart-3.10.5\examples\04-column-stacked-range-waterfall-charts\stacked-column-100-chart.html" />
+    <Content Include="canva\canvasjs-chart-3.10.5\examples\04-column-stacked-range-waterfall-charts\stacked-column-chart.html" />
+    <Content Include="canva\canvasjs-chart-3.10.5\examples\04-column-stacked-range-waterfall-charts\waterfall-chart-with-custom-color.html" />
+    <Content Include="canva\canvasjs-chart-3.10.5\examples\04-column-stacked-range-waterfall-charts\waterfall-chart.html" />
+    <Content Include="canva\canvasjs-chart-3.10.5\examples\05-pie-doughnut-funnel-pyramid-charts\doughnut-chart-with-custom-inner-radius.html" />
+    <Content Include="canva\canvasjs-chart-3.10.5\examples\05-pie-doughnut-funnel-pyramid-charts\doughnut-Chart.html" />
+    <Content Include="canva\canvasjs-chart-3.10.5\examples\05-pie-doughnut-funnel-pyramid-charts\funnel-chart-with-custom-neck.html" />
+    <Content Include="canva\canvasjs-chart-3.10.5\examples\05-pie-doughnut-funnel-pyramid-charts\funnel-chart.html" />
+    <Content Include="canva\canvasjs-chart-3.10.5\examples\05-pie-doughnut-funnel-pyramid-charts\inverted-reversed-funnel-chart.html" />
+    <Content Include="canva\canvasjs-chart-3.10.5\examples\05-pie-doughnut-funnel-pyramid-charts\pie-chart-with-custom-radius.html" />
+    <Content Include="canva\canvasjs-chart-3.10.5\examples\05-pie-doughnut-funnel-pyramid-charts\pie-chart-with-legends.html" />
+    <Content Include="canva\canvasjs-chart-3.10.5\examples\05-pie-doughnut-funnel-pyramid-charts\pie-chart.html" />
+    <Content Include="canva\canvasjs-chart-3.10.5\examples\05-pie-doughnut-funnel-pyramid-charts\pyramid-chart-where-area-represents-value.html" />
+    <Content Include="canva\canvasjs-chart-3.10.5\examples\05-pie-doughnut-funnel-pyramid-charts\pyramid-chart-with-index-label-placed-Inside.html" />
+    <Content Include="canva\canvasjs-chart-3.10.5\examples\05-pie-doughnut-funnel-pyramid-charts\pyramid-chart.html" />
+    <Content Include="canva\canvasjs-chart-3.10.5\examples\06-candlestick-ohlc-charts\candlestick-line-chart.html" />
+    <Content Include="canva\canvasjs-chart-3.10.5\examples\06-candlestick-ohlc-charts\multi-series-candlestick-chart.html" />
+    <Content Include="canva\canvasjs-chart-3.10.5\examples\06-candlestick-ohlc-charts\ohlc-chart-from-json-data.html" />
+    <Content Include="canva\canvasjs-chart-3.10.5\examples\06-candlestick-ohlc-charts\ohlc-stock-chart.html" />
+    <Content Include="canva\canvasjs-chart-3.10.5\examples\07-scatter-bubble-charts\bubble-chart-with-data-marker.html" />
+    <Content Include="canva\canvasjs-chart-3.10.5\examples\07-scatter-bubble-charts\bubble-chart-with-zoom-pan.html" />
+    <Content Include="canva\canvasjs-chart-3.10.5\examples\07-scatter-bubble-charts\bubble-chart.html" />
+    <Content Include="canva\canvasjs-chart-3.10.5\examples\07-scatter-bubble-charts\multi-series-scatter-point-chart.html" />
+    <Content Include="canva\canvasjs-chart-3.10.5\examples\07-scatter-bubble-charts\scatter-point-chart-with-custom-marker.html" />
+    <Content Include="canva\canvasjs-chart-3.10.5\examples\07-scatter-bubble-charts\scatter-point-chart.html" />
+    <Content Include="canva\canvasjs-chart-3.10.5\examples\08-box-and-whisker-charts\box-and-whisker-chart-with-custom-color.html" />
+    <Content Include="canva\canvasjs-chart-3.10.5\examples\08-box-and-whisker-charts\box-and-whisker-chart-with-outliers.html" />
+    <Content Include="canva\canvasjs-chart-3.10.5\examples\08-box-and-whisker-charts\box-and-whisker-chart.html" />
+    <Content Include="canva\canvasjs-chart-3.10.5\examples\09-combination-charts\column-line-area-chart.html" />
+    <Content Include="canva\canvasjs-chart-3.10.5\examples\09-combination-charts\error-bar-chart.html" />
+    <Content Include="canva\canvasjs-chart-3.10.5\examples\09-combination-charts\error-chart.html" />
+    <Content Include="canva\canvasjs-chart-3.10.5\examples\09-combination-charts\error-line-chart.html" />
+    <Content Include="canva\canvasjs-chart-3.10.5\examples\09-combination-charts\ohlc-line-chart.html" />
+    <Content Include="canva\canvasjs-chart-3.10.5\examples\09-combination-charts\pareto-chart-with-index-data-label.html" />
+    <Content Include="canva\canvasjs-chart-3.10.5\examples\09-combination-charts\pareto-chart.html" />
+    <Content Include="canva\canvasjs-chart-3.10.5\examples\09-combination-charts\range-area-line-chart.html" />
+    <Content Include="canva\canvasjs-chart-3.10.5\examples\10-dynamic-charts\dynamic-column-chart.html" />
+    <Content Include="canva\canvasjs-chart-3.10.5\examples\10-dynamic-charts\dynamic-line-chart.html" />
+    <Content Include="canva\canvasjs-chart-3.10.5\examples\10-dynamic-charts\dynamic-multi-series-chart.html" />
+    <Content Include="canva\canvasjs-chart-3.10.5\examples\11-integration\jquery-charts.html" />
+    <Content Include="canva\canvasjs-chart-3.10.5\examples\11-integration\jquery-line-chart-with-zoom-pan.html" />
+    <Content Include="canva\canvasjs-chart-3.10.5\examples\11-integration\jquery-resizable-chart.html" />
+    <Content Include="canva\canvasjs-chart-3.10.5\examples\11-integration\jquery-spline-area-chart-in-tab.html" />
+    <Content Include="canva\canvasjs-chart-3.10.5\examples\11-integration\jquery-spline-chart-with-image-export.html" />
+    <Content Include="canva\canvasjs-chart-3.10.5\instruction.txt" />
+    <Content Include="canva\canvasjs-chart-3.10.5\jquery.canvasjs.min.js" />
+    <Content Include="canva\canvasjs-chart-3.10.5\license.txt" />
+    <Content Include="canva\canvasjs-stockchart-1.10.5\canvasjs.stock.min.js" />
+    <Content Include="canva\canvasjs-stockchart-1.10.5\canvasjs.stock.react.js" />
+    <Content Include="canva\canvasjs-stockchart-1.10.5\examples\01-overview\dynamic-stockchart-navigator.html" />
+    <Content Include="canva\canvasjs-stockchart-1.10.5\examples\01-overview\dynamic-stockchart-stripline.html" />
+    <Content Include="canva\canvasjs-stockchart-1.10.5\examples\01-overview\multiseries-stockchart-navigator.html" />
+    <Content Include="canva\canvasjs-stockchart-1.10.5\examples\01-overview\stockchart-annotation-indexlabel.html" />
+    <Content Include="canva\canvasjs-stockchart-1.10.5\examples\01-overview\stockchart-async-data.html" />
+    <Content Include="canva\canvasjs-stockchart-1.10.5\examples\01-overview\stockchart-combination-charts-navigator.html" />
+    <Content Include="canva\canvasjs-stockchart-1.10.5\examples\01-overview\stockchart-date-time-axis.html" />
+    <Content Include="canva\canvasjs-stockchart-1.10.5\examples\01-overview\stockchart-jquery-datepicker.html" />
+    <Content Include="canva\canvasjs-stockchart-1.10.5\examples\01-overview\stockchart-numeric-axis.html" />
+    <Content Include="canva\canvasjs-stockchart-1.10.5\examples\01-overview\stockchart-price-volume.html" />
+    <Content Include="canva\canvasjs-stockchart-1.10.5\examples\01-overview\stockchart-print-export-image.html" />
+    <Content Include="canva\canvasjs-stockchart-1.10.5\examples\01-overview\stockchart-tooltip-crosshair-syncing.html" />
+    <Content Include="canva\canvasjs-stockchart-1.10.5\examples\02-chart-types\area-stockchart.html" />
+    <Content Include="canva\canvasjs-stockchart-1.10.5\examples\02-chart-types\candlestick-stockchart-range-selector.html" />
+    <Content Include="canva\canvasjs-stockchart-1.10.5\examples\02-chart-types\line-stockchart-json.html" />
+    <Content Include="canva\canvasjs-stockchart-1.10.5\examples\02-chart-types\ohlc-stockchart-json-data-api-ajax.html" />
+    <Content Include="canva\canvasjs-stockchart-1.10.5\examples\02-chart-types\range-spline-area-stockchart-slider.html" />
+    <Content Include="canva\canvasjs-stockchart-1.10.5\examples\02-chart-types\spline-area-stockchart-navigator.html" />
+    <Content Include="canva\canvasjs-stockchart-1.10.5\examples\02-chart-types\spline-stockchart.html" />
+    <Content Include="canva\canvasjs-stockchart-1.10.5\examples\03-technical-indicators\exponential-moving-average-stockchart.html" />
+    <Content Include="canva\canvasjs-stockchart-1.10.5\examples\03-technical-indicators\moving-average-convergence-divergence-stockchart.html" />
+    <Content Include="canva\canvasjs-stockchart-1.10.5\examples\03-technical-indicators\simple-moving-average-stockchart.html" />
+    <Content Include="canva\canvasjs-stockchart-1.10.5\examples\03-technical-indicators\technical-financial-indicators.html" />
+    <Content Include="canva\canvasjs-stockchart-1.10.5\instruction.txt" />
+    <Content Include="canva\canvasjs-stockchart-1.10.5\jquery.canvasjs.stock.min.js" />
+    <Content Include="canva\canvasjs-stockchart-1.10.5\license.txt" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-grid.rtl.css" />
@@ -307,6 +437,9 @@
     <Content Include="Font\Outfit-Regular.ttf" />
     <Content Include="Font\Outfit-SemiBold.ttf" />
     <Content Include="Font\Outfit-Thin.ttf" />
+    <Content Include="canva\canvasjs-chart-3.10.5\CanvasJSVueComponent.vue" />
+    <Content Include="canva\canvasjs-stockchart-1.10.5\CanvasJSStockVueComponent.vue" />
+    <Content Include="canva\canvasjs-stockchart-1.10.5\CanvasJSVueComponent.vue" />
     <None Include="Scripts\jquery-3.7.1.intellisense.js" />
     <Content Include="Scripts\chart.js" />
     <Content Include="Scripts\chart.min.js" />
@@ -368,6 +501,8 @@
     <Content Include="Views\Product\Create.cshtml" />
     <Content Include="Views\Ticket\Assign.cshtml" />
     <Content Include="Views\Ticket\TicketResolve.cshtml" />
+    <Content Include="Views\Home\RecentTicketActivity.cshtml" />
+    <Content Include="Views\Home\RecentTicketStatus.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -413,6 +548,14 @@
       <Project>{892e768e-f0e4-42b2-a022-1115dba33479}</Project>
       <Name>IncidentManagementSystem.Service</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="canva\canvasjs-chart-3.10.5\canvasjs.angular.component.ts" />
+    <TypeScriptCompile Include="canva\canvasjs-stockchart-1.10.5\canvasjs.angular.component.ts" />
+    <TypeScriptCompile Include="canva\canvasjs-stockchart-1.10.5\canvasjs.stock.angular.component.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

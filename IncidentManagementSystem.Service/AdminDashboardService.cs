@@ -46,6 +46,18 @@ namespace IncidentManagementSystem.Service
         {
             return _iAdminDashboadDataAccess.GetInstitutionTicketCounts(userId);
         }
+        public List<TicketDto> GetRecentTicketActivityLog(string userId)
+        {
+            return _iAdminDashboadDataAccess.GetRecentTicketActivityLog(userId);
+        }
+        public List<TicketDto> GetRecentTicketStatusActivityLog(string userId)
+        {
+            return _iAdminDashboadDataAccess.GetRecentTicketStatusActivityLog(userId);
+        }
+        public List<TicketDto> GetRecentTicketStatusActivityLogUser(string userId)
+        {
+            return _iAdminDashboadDataAccess.GetRecentTicketStatusActivityLogUser(userId);
+        }
     }
 }
 
@@ -58,4 +70,7 @@ public interface IAdminDashboardService
     List<TicketDetailByMonthDto> GetMonthlyTicketDetails(string userId);
     List<DataPointServicesBase> GetServiceTicketCounts(string userId);
     List<DataPointInstitutionBase> GetInstitutionTicketCounts(string userId);
+    List<TicketDto> GetRecentTicketActivityLog(string userId);
+    List<TicketDto> GetRecentTicketStatusActivityLog(string userId);
+    List<TicketDto> GetRecentTicketStatusActivityLogUser(string userId);
 }

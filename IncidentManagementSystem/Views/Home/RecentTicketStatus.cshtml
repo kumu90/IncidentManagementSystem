@@ -1,0 +1,110 @@
+﻿@using IncidentManagementSystem.Model
+@model List<TicketDto>
+
+@{
+    int sno = 0; // Initialize serial number
+                 //int sno = (ViewBag.CurrentPage - 1) * ViewBag.Offset;
+}
+
+
+<style>
+    .table {
+        border: 1px solid #dee2e6 !important;
+    }
+    .table td {
+        padding:0.5rem !important;
+    }
+    .status-box {
+        text-align: center;
+        font-weight: bold;
+        padding: 10px;
+        border-radius: 5px;
+        display: inline-block;
+        min-width: 100px;
+    }
+    .text-green-500 {
+        color: #fff;
+        background: #008000;
+        padding:5px;
+        border-radius:5px;
+     /*   color: #008000;*/
+    }
+
+    .text-yellow-500 {
+        color: #fff;
+        background: #FF8C00;
+        padding: 5px;
+        border-radius: 5px;
+    
+    }
+
+    .text-red-500 {
+        color: #fff;
+        background: #FF0000;
+        padding: 5px;
+        border-radius: 5px;
+       
+    }
+</style>
+
+@if (Model != null && Model.Any())
+{
+    <div class="panel panel-default overflow-auto" style="max-height: 300px; height:auto; background-color:white;">
+        <table class="table ">
+            <thead class="whitespace-nowrap">
+                <tr>
+                    <th>S No.</th>
+                    <th>Date</th>
+                    @if (User.IsInRole("SuperAdmin") || User.IsInRole("Admin") || User.IsInRole("Developer"))
+                    {
+                        <th>Instution Name</th>
+                    }
+                        <th>Status</th>
+                    </tr>
+            </thead>
+            <tbody class="whitespace-nowrap">
+                @foreach (var item in Model)
+                {
+                    sno++;
+                    <tr>
+                        <td>@sno</td>
+                        <td>@item.date.ToString("yyyy-MM-dd")</td>
+                        @if (User.IsInRole("SuperAdmin") || User.IsInRole("Admin") || User.IsInRole("Developer"))
+                        {
+                            <td>@item.InstitutionName</td>
+                        }
+                            <td>
+                                @{
+                                    string statusText;
+                                    string statusClass;
+
+                                    switch (item.status)
+                                    {
+                                        case "00":
+                                            statusText = "Success";
+                                            statusClass = "text-green-500";
+                                            break;
+                                        case "98":
+                                            statusText = "Pending";
+                                            statusClass = "text-yellow-500";
+                                            break;
+                                        case "94":
+                                            statusText = "Reject";
+                                            statusClass = "text-red-500";
+                                            break;
+                                        default:
+                                            statusText = "Unknown";
+                                            statusClass = "text-gray-500";
+                                            break;
+                                    }
+                                }
+                                <span class="status-box @statusClass">@statusText</span>
+                            </td>
+
+                        </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+

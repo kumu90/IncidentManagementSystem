@@ -300,6 +300,115 @@ namespace IncidentManagementSystem.DataAccess
 
             return results;
         }
+
+        public List<TicketDto> GetRecentTicketActivityLog(string userId)
+        {
+            List<TicketDto> results = new List<TicketDto>();
+
+
+            using (SqlConnection conn = new SqlConnection(conStr))
+            {
+                using (SqlCommand cmd = new SqlCommand(conStr, conn))
+                {
+                    cmd.CommandText = @"GetRecentTicketActivities";
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Connection = conn;
+                    cmd.Parameters.AddWithValue("@userId", userId);
+
+                    conn.Open();
+
+                    using (var sqlDataReader = cmd.ExecuteReader())
+                    {
+                        while (sqlDataReader.Read())
+                        {
+                            var dto = new TicketDto
+                            {
+                                date = Convert.ToDateTime(sqlDataReader["TicketDate"].ToString()),
+                                //ServiceId = sqlDataReader["ServiceId"].ToString(),
+                                ServiceName = sqlDataReader["ServiceName"].ToString()
+                                
+
+                            };
+                            results.Add(dto);
+                        }
+                    }
+                }
+            }
+
+            return results;
+        }
+
+        public List<TicketDto> GetRecentTicketStatusActivityLog(string userId)
+        {
+            List<TicketDto> results = new List<TicketDto>();
+
+
+            using (SqlConnection conn = new SqlConnection(conStr))
+            {
+                using (SqlCommand cmd = new SqlCommand(conStr, conn))
+                {
+                    cmd.CommandText = @"GetRecentTicketStatus";
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Connection = conn;
+                    cmd.Parameters.AddWithValue("@userId", userId);
+
+                    conn.Open();
+
+                    using (var sqlDataReader = cmd.ExecuteReader())
+                    {
+                        while (sqlDataReader.Read())
+                        {
+                            var dto = new TicketDto
+                            {
+                                date = Convert.ToDateTime(sqlDataReader["TicketDate"].ToString()),
+                                InstitutionName = sqlDataReader["InstitutionName"].ToString(),
+                                ServiceName = sqlDataReader["ServiceName"].ToString(),
+                                status = sqlDataReader["Status"].ToString()
+                            };
+                            results.Add(dto);
+                        }
+                    }
+                }
+            }
+
+            return results;
+        }
+
+
+        public List<TicketDto> GetRecentTicketStatusActivityLogUser(string userId)
+        {
+            List<TicketDto> results = new List<TicketDto>();
+
+
+            using (SqlConnection conn = new SqlConnection(conStr))
+            {
+                using (SqlCommand cmd = new SqlCommand(conStr, conn))
+                {
+                    cmd.CommandText = @"GetRecentTicketStatus";
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Connection = conn;
+                    cmd.Parameters.AddWithValue("@userId", userId);
+
+                    conn.Open();
+
+                    using (var sqlDataReader = cmd.ExecuteReader())
+                    {
+                        while (sqlDataReader.Read())
+                        {
+                            var dto = new TicketDto
+                            {
+                                date = Convert.ToDateTime(sqlDataReader["TicketDate"].ToString()),
+                                ServiceName = sqlDataReader["ServiceName"].ToString(),
+                                status = sqlDataReader["Status"].ToString()
+                            };
+                            results.Add(dto);
+                        }
+                    }
+                }
+            }
+
+            return results;
+        }
     }
 }
 
@@ -313,4 +422,7 @@ public interface IAdminDashboadDataAccess
     List<TicketDetailByMonthDto> GetMonthlyTicketDetails(string userId);
     List<DataPointServicesBase> GetServiceTicketCounts(string userId);
     List<DataPointInstitutionBase> GetInstitutionTicketCounts(string userId);
+    List<TicketDto> GetRecentTicketActivityLog(string userId);
+    List<TicketDto> GetRecentTicketStatusActivityLog(string userId);
+    List<TicketDto> GetRecentTicketStatusActivityLogUser(string userId);
 }
