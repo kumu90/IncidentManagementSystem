@@ -1,0 +1,43 @@
+﻿@using IncidentManagementSystem.Model
+@model List<TicketDto>
+
+@{
+    int sno = 0; // Initialize serial number
+                 //int sno = (ViewBag.CurrentPage - 1) * ViewBag.Offset;
+}
+
+
+<style>
+    .table {
+        border: 1px solid #dee2e6 !important;
+    }
+
+
+</style>
+
+@if (Model != null && Model.Any())
+{
+    <div class="panel panel-default overflow-auto" style="max-height: 300px; height:auto; background-color:white;">
+        <table class="table ">
+            <thead class="whitespace-nowrap">
+                <tr>
+                    <th>S No.</th>
+                    <th>Date</th>
+                    <th>Service Name</th> 
+                </tr>
+            </thead>
+            <tbody class="whitespace-nowrap">
+                @foreach (var item in Model)
+                {
+                    sno++;
+                    <tr>
+                        <td>@sno</td>
+                        <td>@item.date.ToString("yyyy-MM-dd")</td>
+                        <td>@item.ServiceName</td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}

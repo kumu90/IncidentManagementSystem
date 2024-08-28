@@ -16,6 +16,7 @@ namespace IncidentManagementSystem.Model
         public string TicketId { get; set; }
 
         [DisplayName("Date")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime date { get; set; }
 
         [DisplayName("Status")]
@@ -29,6 +30,7 @@ namespace IncidentManagementSystem.Model
         [Required]
         [DisplayName("Service")]
         public string ServiceId { get; set; }
+        public string ServiceName { get; set; }
 
         [Required]
         [DisplayName("Issue")]
