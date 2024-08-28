@@ -222,7 +222,7 @@ namespace IncidentManagementSystem.Controllers
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                //Console.WriteLine(ex.Message);
                 //Extentio,.AddErrorlogs("ControllerName","Action" "ex.Message"):
 
                 var exceptionLog = new ErrorLogDto
