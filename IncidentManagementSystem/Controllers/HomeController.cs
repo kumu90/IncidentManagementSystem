@@ -126,6 +126,7 @@ namespace IncidentManagementSystem.Controllers
             var dataInstitutionBase = _iadminDashboardService.GetInstitutionTicketCounts(userId);
             ViewBag.DataInstitutionBase = JsonConvert.SerializeObject(dataInstitutionBase);
 
+           
             var model = new AdminDashboardDto
             {
                 TotalUsers = ViewBag.totalUsers,
@@ -137,11 +138,11 @@ namespace IncidentManagementSystem.Controllers
                 DataPoint = ViewBag.DataPoints,
                 TicketDetailByMonth = ViewBag.TicketDetailByMonth,
                 DataServicesBase = ViewBag.DataServicesBase,
-                DataInstitutionBase = ViewBag.DataInstitutionBase
+                DataInstitutionBase = ViewBag.DataInstitutionBase,
+                
                 //DataPointUser = ViewBag.DataPointsUser
             };
-
-
+           
             return View(model);
             
         }
@@ -173,7 +174,7 @@ namespace IncidentManagementSystem.Controllers
                 return PartialView("RecentTicketStatus", activity);
             }
 
-                //return PartialView("RecentTicketStatus", activity);
+               
         }
         public ActionResult Contact()
         {

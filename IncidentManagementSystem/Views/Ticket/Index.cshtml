@@ -12,11 +12,11 @@
         <div class="header-text">
             Ticket
         </div>*@
-        <div class="col-lg-12 col-md-12 col-sm-12  text">
-            <span class="page input-icon">Ticket</span>
+    <div class="col-lg-12 col-md-12 col-sm-12  text">
+        <span class="page input-icon">Ticket</span>
 
-            <span class="detail">Ticket Details</span>
-        </div>
+        <span class="detail">Ticket Details</span>
+    </div>
     @*</div>*@
     @{
         bool isSuperAdmin = ViewBag.IsSuperAdmin ?? false;
@@ -36,19 +36,26 @@
                 <!-- Status dropdown -->
                 <div class="col-12 col-md-6 col-lg-2 form-group s-dash">
                     <label for="statusSelect" id="text">Status</label>
+                    @*<select id="statusSelect" name="status" class="form-select">
+                            <option value="">All</option>
+                            <option value="LO">Initial</option>
+                            <option value="00">Success</option>
+                            <option value="98">Pending</option>
+                            <option value="94">Rejected</option>
+                        </select>*@
                     <select id="statusSelect" name="status" class="form-select">
                         <option value="">All</option>
-                        <option value="LO">Initial</option>
-                        <option value="00">Success</option>
-                        <option value="98">Pending</option>
-                        <option value="94">Rejected</option>
+                        <option value="LO" @(ViewBag.Status == "LO" ? "selected" : "")>Initial</option>
+                        <option value="00" @(ViewBag.Status == "00" ? "selected" : "")>Success</option>
+                        <option value="98" @(ViewBag.Status == "98" ? "selected" : "")>Pending</option>
+                        <option value="94" @(ViewBag.Status == "94" ? "selected" : "")>Rejected</option>
                     </select>
                 </div>
                 <!-- Offset dropdown -->
                 <div class="col-12 col-md-6 col-lg-2 form-group s-dash">
                     <label for="offsetSelect" id="text">Offset</label>
                     <select id="offsetSelect" name="offset" class="form-select">
-                        <option value="@institutions.Count() == "results.ticketDtos">All</option>
+                        <option value="@institutions.Count() == " results.ticketDtos">All</option>
                         <option value="10">10</option>
                         <option value="20">20</option>
                         <option value="30">30</option>
@@ -99,10 +106,21 @@
         </div>
 
         <hr />
+        @*<div id="partialTicketContainer">
+        </div>*@
 
-        <div id="partialTicketContainer">
-            Html.PartialAsync("Search")
-        </div>
+<div id="partialTicketContainer">
+    @Html.Action("Search", "Ticket", new
+    {
+search = "",
+instId = "",
+status = ViewBag.Status,
+page = 1,
+offset = 10,
+userId = ""
+})
+    @*Html.PartialAsync("Search",Search = "",InstId = "",Status = @ViewBag.status,Page = 1,Offset = 10,UserId = "")*@
+</div>
     }
 </div>
 
@@ -112,16 +130,16 @@
     <script>
 
         $(document).ready(function () {
-            $.ajax({
-                url: $('#searchForm').attr('action'),
-                type: 'GET',
-                success: function (result) {
-                    $('#partialTicketContainer').html(result);
-                },
-                error: function (xhr, status, error) {
-                    alert('Error: ' + error);
-                }
-            });
+            //$.ajax({
+            //    url: $('#searchForm').attr('action'),
+            //    type: 'GET',
+            //    success: function (result) {
+            //        $('#partialTicketContainer').html(result);
+            //    },
+            //    error: function (xhr, status, error) {
+            //        alert('Error: ' + error);
+            //    }
+            //});
 
             $('#searchForm').submit(function (event) {
                 debugger;
@@ -144,9 +162,9 @@
     </script>
     <script>
         function searchTickets(page) {
-      
+
     $.ajax({
-        
+
         url: '@Url.Action("Search", "Ticket")',
         type: 'GET',
         data: {
@@ -157,11 +175,11 @@
             offset: $('#offsetSelect').val()
         },
         success: function (result) {
-          
+
             $('#partialTicketContainer').html(result);
         },
         error: function (xhr, status, error) {
-          
+
             console.error("An error occurred: " + status + " " + error);
         }
     });

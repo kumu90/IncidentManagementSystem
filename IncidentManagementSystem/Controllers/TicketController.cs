@@ -74,19 +74,19 @@ namespace IncidentManagementSystem.Controllers
         }
 
         [Authorize(Roles = "SuperAdmin, Admin, Developer, User")]
-        public ActionResult Index()
+        public ActionResult Index(string status)
         {
             Init();
+            ViewBag.Status = status;
             return View();
         }
 
 
         [Authorize(Roles = "SuperAdmin, Admin, Developer, User")]
         public ActionResult Search(string search, string InstId, string status, int page = 1, int offset = 10, string userId = "")
-        {
+         {
             Init();
-
-            userId = User.Identity.GetUserId();
+             userId = User.Identity.GetUserId();
             var Institution = _iInstitutionService.GetInstName(userId);
             //List<InstNameDto> institution = _iInstitutionService.GetInstName(userId);
 
@@ -118,12 +118,10 @@ namespace IncidentManagementSystem.Controllers
             if (page < 1) page = 1;
             var selectedInstId = string.IsNullOrEmpty(InstId) ? ViewBag.SelectedInstId : InstId;
             SearchDto results = _iTicketService.TicketInfo(search, selectedInstId, status, page, offset, userId);
-            //int totalCount = results.FirstOrDefault()?.TotalCount ?? 0;
-            //int totalCount = (results != null && results.Any()) ? results.FirstOrDefault().TotalCount : 0;
+          
             int totalPages = (int)Math.Ceiling((double)results.TotalCount / offset);
 
-            //int totalCount = results[0].TotalCount;
-            //int totalPages = (int)Math.Ceiling((double)totalCount / offset);
+           
 
             ViewBag.TotalPages = totalPages;
             ViewBag.CurrentPage = page;
@@ -245,12 +243,7 @@ namespace IncidentManagementSystem.Controllers
             var ticketDetail = _iTicketService.GetTicketDetails(TicketId);
             if (!string.IsNullOrEmpty(ticketDetail.ImageUrl))
             {
-                //// Assuming ImageData is a byte[] property in your Ticket model
-                //if (ticketDetail.ImageUrl != null && ticketDetail.ImageUrl.Length > 0)
-                //{
-                //    // Return the image data
-                //    return View (ticketDetail);
-                //}
+              
                 if (ticketDetail.ImageData != null && ticketDetail.ImageData.Length > 0)
                 {
                     string base64String = Convert.ToBase64String(ticketDetail.ImageData);
@@ -260,17 +253,12 @@ namespace IncidentManagementSystem.Controllers
 
                 else
                 {
-                    // Handle case where image data is null or empty
-                    // For example, return a placeholder image or handle appropriately
+                    
                     return View("ticketDetail");
                 }
             }
             return View();
-            //if (ticketDetail == null)
-            //{
-            //    return View();
-            //}
-            //return View(ticketDetail);            
+                   
         }
 
         [HttpGet]
