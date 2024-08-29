@@ -3,26 +3,30 @@
 <style>
     .dl-horizontal {
         background-color: #fff;
-        border-radius: 12px 12px 12px 12px;
+        font-family: outfit-black;
+        border-radius: 8px;
+        padding: 20px;
+    }
     }
 
-        .dl-horizontal dt {
-            text-align: right !important;
-            width: auto;
-            clear: left;
-            float: left;
-            margin-left: 12px;
-            margin-right: 10px;
-            font-family: Outfit;
-            font-weight: 600;
-            white-space: normal;
-        }
+    .dl-horizontal dt {
+        text-align: right !important;
+        width: auto;
+        clear: left;
+        float: left;
+        margin-left: 12px;
+        margin-right: 10px;
+        font-family: outfit-black;
+        font-weight: 600;
+        white-space: normal;
+    }
 
-        .dl-horizontal dd {
-            margin-right: 20px;
-            margin-left: 230px;
-            margin-bottom: 20px;
-        }
+    .dl-horizontal dd {
+        margin-top: -30px;
+        margin-right: 20px;
+        margin-left: 230px;
+        margin-bottom: 20px;
+    }
 
     .resolve {
         display: flex;
@@ -47,7 +51,7 @@
     @using (Html.BeginForm("TicketResolve", "Ticket", FormMethod.Post, new { role = "form" }))
     {
         <div class="row">
-            <div class="col-md-6 resolve">
+            <div class="col-sm-12 col-md-12 col-lg-12 ticket">
                 <dl class="dl-horizontal">
                     <dt>
                         @Html.DisplayNameFor(model => model.Username)
@@ -95,19 +99,23 @@
                         @Html.DisplayNameFor(model => model.Description)
                     </dt>
                     <dd>
-                        @Html.TextAreaFor(m => m.Description, new { @class = "form-select b-inst" })
+                        @Html.TextAreaFor(m => m.Description, new { @class = "form-control b-inst" })
                     </dd>
 
-                    <dt>
 
+                </dl>
+            </div>
+            <div class="row mt-3" style="margin-left:5px;">
+                <div class="col-lg-1 col-md-2">
+                    <dt>
                         <input type="submit" value="Submit" class="btn btn-success btn-width" />
 
                     </dt>
-                </dl>
+                </div>
             </div>
         </div>
-    }
-</div>
+     }
+ </div>
 
 <div class="modal" tabindex="-1" role="dialog" id="modalTaskComplete" aria-labelledby="modalTaskCompleteLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">

@@ -20,19 +20,10 @@ namespace IncidentManagementSystem.Model
         public string DataServicesBase { get; set; }
         public string DataInstitutionBase {  get; set; }
 
-        //public string Month { get; set; }
-        //public int TicketCount { get; set; }
+        public string status { get; set; }
 
 
 
-        //public AdminDashboardDto(string month, int ticketCount)
-        //{
-        //    Month = month;
-        //    TicketCount = ticketCount;
-        //}
-        //public AdminDashboardDto()
-        //{
-        //}
-        //public string DataPointUser { get; set; }
+
     }
 }

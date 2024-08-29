@@ -62,7 +62,8 @@
 
             <hr />
             <div id="partialUserContainer">
-                Html.PartialAsync("Search")
+                @Html.Action("Search")
+                @*Html.PartialAsync("Search")*@
             </div>
         }
     </div>
@@ -72,16 +73,16 @@
     <script>
         $(document).ready(function () {
 
-            $.ajax({
-                url: $('#searchForm').attr('action'),
-                type: 'GET',
-                success: function (result) {
-                    $('#partialUserContainer').html(result);
-                },
-                error: function (xhr, status, error) {
-                    alert('Error: ' + error);
-                }
-            });
+            //$.ajax({
+            //    url: $('#searchForm').attr('action'),
+            //    type: 'GET',
+            //    success: function (result) {
+            //        $('#partialUserContainer').html(result);
+            //    },
+            //    error: function (xhr, status, error) {
+            //        alert('Error: ' + error);
+            //    }
+            //});
 
 
             $('#searchForm').submit(function (event) {
