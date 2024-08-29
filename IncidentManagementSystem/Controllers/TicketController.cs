@@ -13,6 +13,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using static System.Net.Mime.MediaTypeNames;
+using IncidentManagementSystem.Common;
 
 namespace IncidentManagementSystem.Controllers
 {
@@ -23,6 +24,7 @@ namespace IncidentManagementSystem.Controllers
         readonly IInstitutionService _iInstitutionService;
         readonly IProductService _iproductService;
         readonly IErrorLogService _iErrorLogService;
+       
 
         public TicketController()
         {
@@ -177,12 +179,12 @@ namespace IncidentManagementSystem.Controllers
         public ActionResult Create(TicketDto ticketDto, HttpPostedFileBase file)
         {
             Init();
-            //if (!ModelState.IsValid)
-            //{
-            //    TempData["TaskStatus"] = "ERROR";
-            //    TempData["TaskMessage"] = "FIELD REQUIRED";
-            //    return View(ticketDto);
-            //}
+            if (ticketDto == null)
+            {
+                TempData["TaskStatus"] = "ERROR";
+                TempData["TaskMessage"] = "Ticket information is missing.";
+                return View();
+            }
 
             try
             {
@@ -191,6 +193,7 @@ namespace IncidentManagementSystem.Controllers
 
                     ticketDto.ImageUrl = Path.GetFileName(file.FileName);
                     ticketDto.contentType = file.ContentType;
+                    //int number = int.Parse(ticketDto.CellNumber);
                     using (var binaryReader = new BinaryReader(file.InputStream))
                     {
                         ticketDto.ImageData = binaryReader.ReadBytes(file.ContentLength);
@@ -227,13 +230,13 @@ namespace IncidentManagementSystem.Controllers
 
                 var exceptionLog = new ErrorLogDto
                 {
-                    Message = ex.Message,
+                   ExceptionMessage = ex.Message,
                     StackTrace = ex.StackTrace,
                     ControllerName = this.ControllerContext.RouteData.Values["controller"].ToString(),
                     ActionName = this.ControllerContext.RouteData.Values["action"].ToString(),
                     userId = User.Identity.IsAuthenticated ? User.Identity.GetUserId() : null
                 };
-                _iErrorLogService.LogError(exceptionLog);
+                ex.LogError(exceptionLog);
             }
             return RedirectToAction("Create", "Ticket");
 

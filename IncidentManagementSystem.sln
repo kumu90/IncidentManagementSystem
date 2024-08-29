@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IncidentManagementSystem.Se
 		{446D8D4C-71B8-47A1-A4BD-42CC7F538AD5} = {446D8D4C-71B8-47A1-A4BD-42CC7F538AD5}
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IncidentManagementSystem.Common", "IncidentManagementSystem.Common\IncidentManagementSystem.Common.csproj", "{7AB4A3A3-8A8B-439F-843C-517DE4AAE7CC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +43,10 @@ Global
 		{892E768E-F0E4-42B2-A022-1115DBA33479}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{892E768E-F0E4-42B2-A022-1115DBA33479}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{892E768E-F0E4-42B2-A022-1115DBA33479}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7AB4A3A3-8A8B-439F-843C-517DE4AAE7CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7AB4A3A3-8A8B-439F-843C-517DE4AAE7CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7AB4A3A3-8A8B-439F-843C-517DE4AAE7CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7AB4A3A3-8A8B-439F-843C-517DE4AAE7CC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
