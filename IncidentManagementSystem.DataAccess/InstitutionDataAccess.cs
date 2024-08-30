@@ -69,7 +69,7 @@ namespace IncidentManagementSystem.DataAccess
                 {
                     ExceptionMessage = ex.Message,
                     StackTrace = ex.StackTrace,
-                    ControllerName = "Unknown",
+                    ControllerName = "Unknown" + "Institution",
                     ActionName = "Unknown",    
                     userId = null              
                 };

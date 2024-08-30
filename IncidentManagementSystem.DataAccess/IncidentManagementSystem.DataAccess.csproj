@@ -48,7 +48,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdminDashboadDataAccess.cs" />
-    <Compile Include="ErrorLogDataAccess.cs" />
     <Compile Include="InstitutionDataAccess.cs" />
     <Compile Include="ProductDataAccess.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

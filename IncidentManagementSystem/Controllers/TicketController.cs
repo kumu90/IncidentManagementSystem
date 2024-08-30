@@ -23,19 +23,18 @@ namespace IncidentManagementSystem.Controllers
         readonly ITicketService _iTicketService;
         readonly IInstitutionService _iInstitutionService;
         readonly IProductService _iproductService;
-        readonly IErrorLogService _iErrorLogService;
        
 
         public TicketController()
         {
 
         }
-        public TicketController(ITicketService iTicketService, IProductService iproductService, IInstitutionService institutionService, IErrorLogService iErrorLogService)
+        public TicketController(ITicketService iTicketService, IProductService iproductService, IInstitutionService institutionService)
         {
             _iTicketService = iTicketService;
             _iInstitutionService = institutionService;
             _iproductService = iproductService;
-            _iErrorLogService = iErrorLogService;
+            
         }
 
         public void Init()
@@ -177,13 +176,12 @@ namespace IncidentManagementSystem.Controllers
         public ActionResult Create(TicketDto ticketDto, HttpPostedFileBase file)
         {
             Init();
-            if (ticketDto == null)
-            {
-                TempData["TaskStatus"] = "ERROR";
-                TempData["TaskMessage"] = "Ticket information is missing.";
-                return View();
-            }
-
+            //if (!ModelState.IsValid)
+            //{
+            //    ViewBag.TaskStatus = "Error";
+            //    ViewBag.TaskMessage = "Please correct the errors and try again.";
+            //    return View(ticketDto);
+            //}
             try
             {
                 if (file != null && file.ContentLength > 0)
@@ -302,7 +300,15 @@ namespace IncidentManagementSystem.Controllers
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                var exceptionLog = new ErrorLogDto
+                {
+                    ExceptionMessage = ex.Message,
+                    StackTrace = ex.StackTrace,
+                    ControllerName = this.ControllerContext.RouteData.Values["controller"].ToString(),
+                    ActionName = this.ControllerContext.RouteData.Values["action"].ToString(),
+                    userId = User.Identity.IsAuthenticated ? User.Identity.GetUserId() : null
+                };
+                ex.LogError(exceptionLog);
             }
             return RedirectToAction("Assign", "Ticket", new { TicketId = ticketAssignDto.TicketId });
         }
@@ -350,7 +356,15 @@ namespace IncidentManagementSystem.Controllers
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                var exceptionLog = new ErrorLogDto
+                {
+                    ExceptionMessage = ex.Message,
+                    StackTrace = ex.StackTrace,
+                    ControllerName = this.ControllerContext.RouteData.Values["controller"].ToString(),
+                    ActionName = this.ControllerContext.RouteData.Values["action"].ToString(),
+                    userId = User.Identity.IsAuthenticated ? User.Identity.GetUserId() : null
+                };
+                ex.LogError(exceptionLog);
             }
             return View();
         }

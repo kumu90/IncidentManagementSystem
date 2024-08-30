@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
 using Newtonsoft.Json;
+using IncidentManagementSystem.Common;
 
 namespace IncidentManagementSystem.DataAccess
 {
@@ -56,7 +57,15 @@ namespace IncidentManagementSystem.DataAccess
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                var exceptionLog = new ErrorLogDto
+                {
+                    ExceptionMessage = ex.Message,
+                    StackTrace = ex.StackTrace,
+                    ControllerName = "Unknown" + "AdminDashBoard",
+                    ActionName = "Unknown",
+                    userId = null
+                };
+                ex.LogError(exceptionLog);
             }
             return Ticketlist;
         }

@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Net.Mime;
 using System.Web.UI.WebControls;
+using IncidentManagementSystem.Common;
 
 namespace IncidentManagementSystem.DataAccess
 {
@@ -168,7 +169,15 @@ namespace IncidentManagementSystem.DataAccess
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                var exceptionLog = new ErrorLogDto
+                {
+                    ExceptionMessage = ex.Message,
+                    StackTrace = ex.StackTrace,
+                    ControllerName = "Unknown" + "Ticket",
+                    ActionName = "Unknown",
+                    userId = null
+                };
+                ex.LogError(exceptionLog);
             }
             return Ticketlist;
         }
@@ -212,7 +221,15 @@ namespace IncidentManagementSystem.DataAccess
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                var exceptionLog = new ErrorLogDto
+                {
+                    ExceptionMessage = ex.Message,
+                    StackTrace = ex.StackTrace,
+                    ControllerName = "Ticket",
+                    ActionName = "Unknown",
+                    userId = null
+                };
+                ex.LogError(exceptionLog);
             }
             return new List<IssueDto>();
         }
@@ -258,7 +275,15 @@ namespace IncidentManagementSystem.DataAccess
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                var exceptionLog = new ErrorLogDto
+                {
+                    ExceptionMessage = ex.Message,
+                    StackTrace = ex.StackTrace,
+                    ControllerName = "Ticket" ,
+                    ActionName = "Unknown",
+                    userId = null
+                };
+                ex.LogError(exceptionLog);
             }
             return ticketAssignDto;
         }
@@ -303,7 +328,15 @@ namespace IncidentManagementSystem.DataAccess
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                var exceptionLog = new ErrorLogDto
+                {
+                    ExceptionMessage = ex.Message,
+                    StackTrace = ex.StackTrace,
+                    ControllerName = "Ticket",
+                    ActionName = "Unknown",
+                    userId = null
+                };
+                ex.LogError(exceptionLog);
             }
             return instNameDto;
         }
@@ -347,7 +380,15 @@ namespace IncidentManagementSystem.DataAccess
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                var exceptionLog = new ErrorLogDto
+                {
+                    ExceptionMessage = ex.Message,
+                    StackTrace = ex.StackTrace,
+                    ControllerName = "Ticket",
+                    ActionName = "Unknown",
+                    userId = null
+                };
+                ex.LogError(exceptionLog);
             }
             return instNameDto;
         }
@@ -384,7 +425,15 @@ namespace IncidentManagementSystem.DataAccess
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                var exceptionLog = new ErrorLogDto
+                {
+                    ExceptionMessage = ex.Message,
+                    StackTrace = ex.StackTrace,
+                    ControllerName = "Ticket",
+                    ActionName = "Unknown",
+                    userId = null
+                };
+                ex.LogError(exceptionLog);
             }
             return _sQLStatus;
         }
@@ -420,7 +469,15 @@ namespace IncidentManagementSystem.DataAccess
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                var exceptionLog = new ErrorLogDto
+                {
+                    ExceptionMessage = ex.Message,
+                    StackTrace = ex.StackTrace,
+                    ControllerName = "Ticket",
+                    ActionName = "Unknown",
+                    userId = null
+                };
+                ex.LogError(exceptionLog);
             }
             return _sQLStatus;
         }
@@ -465,7 +522,15 @@ namespace IncidentManagementSystem.DataAccess
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                var exceptionLog = new ErrorLogDto
+                {
+                    ExceptionMessage = ex.Message,
+                    StackTrace = ex.StackTrace,
+                    ControllerName = "Ticket" ,
+                    ActionName = "Unknown",
+                    userId = null
+                };
+                ex.LogError(exceptionLog);
             }
             return resolvedBylist;
 
@@ -505,7 +570,15 @@ namespace IncidentManagementSystem.DataAccess
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                var exceptionLog = new ErrorLogDto
+                {
+                    ExceptionMessage = ex.Message,
+                    StackTrace = ex.StackTrace,
+                    ControllerName = "Ticket",
+                    ActionName = "Unknown",
+                    userId = null
+                };
+                ex.LogError(exceptionLog);
             }
             return _sQLStatus;
         }

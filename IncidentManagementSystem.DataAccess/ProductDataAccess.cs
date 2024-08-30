@@ -7,6 +7,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using IncidentManagementSystem.Common;
 
 namespace IncidentManagementSystem.DataAccess
 {
@@ -47,7 +48,15 @@ namespace IncidentManagementSystem.DataAccess
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                var exceptionLog = new ErrorLogDto
+                {
+                    ExceptionMessage = ex.Message,
+                    StackTrace = ex.StackTrace,
+                    ControllerName = "Unknown" + "Product",
+                    ActionName = "Unknown",
+                    userId = null
+                };
+                ex.LogError(exceptionLog);
             }
             return _SQLStatus;
         }

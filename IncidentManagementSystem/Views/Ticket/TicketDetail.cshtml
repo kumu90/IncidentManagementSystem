@@ -111,7 +111,7 @@
                     @*<dd>@Html.DisplayFor(model => model.status)</dd>*@
                     <dd>
                         @{
-                            var status = Model.status;
+                            status = Model.status;
                             string statusMessage = status switch
                             {
                                 "00" => "Success",

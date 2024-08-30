@@ -83,7 +83,7 @@
                                 <div class="col-md-12 col-sm-12 col-sx-12  inst-row-form">
                                     @Html.LabelFor(m => m.ContactNumber, new { @class = "col-md-6 col-form-label l-inst" })
                                     <div class="col-md-12">
-                                        @Html.TextBoxFor(m => m.ContactNumber, new { @class = "form-control b-inst" })
+                                        @Html.TextBoxFor(m => m.ContactNumber, new { @class = "form-control b-inst", type = "text", maxlength = "10", pattern = @"\d*" })
                                         @Html.ValidationMessageFor(m => m.ContactNumber, "", new { @class = "text-danger" })
                                     </div>
                                 </div>

@@ -65,7 +65,7 @@
                 <div class="col-md-12 inst-row-form">
                     @Html.LabelFor(m => m.CellNumber, new { @class = "col-md-4 col-form-label l_ticket" })
                     <div class="col-lg-12">
-                        @Html.TextBoxFor(m => m.CellNumber, new { @class = "form-control b-inst" })
+                        @Html.TextBoxFor(m => m.CellNumber, new { @class = "form-control b-inst", type = "text", maxlength = "10", pattern = @"\d*" })
                         @Html.ValidationMessageFor(m => m.CellNumber, "", new { @class = "text-danger" })
                     </div>
                 </div>
