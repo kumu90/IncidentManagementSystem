@@ -8,17 +8,19 @@
 
 
 <style>
-    .table {
+    .table.one {
         border: 1px solid #dee2e6 !important;
     }
-
+        .table.one td {
+            padding: 0.5rem !important;
+        }
 
 </style>
 
 @if (Model != null && Model.Any())
 {
-    <div class="panel panel-default overflow-auto" style="max-height: 300px; height:auto; background-color:white;">
-        <table class="table ">
+    <div class="panel panel-default overflow-auto" style=" font-family: outfit-black !important;">
+        <table class="table one">
             <thead class="whitespace-nowrap">
                 <tr>
                     <th>S No.</th>

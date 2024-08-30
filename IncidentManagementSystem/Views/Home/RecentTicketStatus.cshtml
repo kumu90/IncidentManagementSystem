@@ -12,15 +12,16 @@
         border: 1px solid #dee2e6 !important;
     }
     .table td {
-        padding:0.5rem !important;
+        padding:0.3rem !important;
     }
     .status-box {
         text-align: center;
-        font-weight: bold;
+        font-family: outfit-black;
+        font-weight: 400;
         padding: 10px;
         border-radius: 5px;
         display: inline-block;
-        min-width: 100px;
+        min-width: 80px;
     }
     .text-green-500 {
         color: #fff;
@@ -49,7 +50,7 @@
 
 @if (Model != null && Model.Any())
 {
-    <div class="panel panel-default overflow-auto" style="max-height: 300px; height:auto; background-color:white;">
+    <div class="panel panel-default overflow-auto" style=" font-family: outfit-black;">
         <table class="table ">
             <thead class="whitespace-nowrap">
                 <tr>

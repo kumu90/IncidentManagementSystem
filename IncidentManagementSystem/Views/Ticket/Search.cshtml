@@ -57,7 +57,7 @@
 
 @if (Model != null && Model.Any())
 {
-    <div class="panel panel-default overflow-auto" style="max-height: 560px; height: 560px;">
+    <div class="panel panel-default overflow-auto" style="max-height: 560px; height: 560px; font-family: outfit-black;">
         <table class="table table-striped">
             <thead class="whitespace-nowrap">
                 <tr>
@@ -130,8 +130,8 @@
         </table>
     </div>
 }
-<div>
-    <div class="pagination">
+<div class="text-end">
+    <div class="pagination" style="font-family: outfit-black;">
         @if (ViewBag.CurrentPage > 1)
         {
             <a href="#" onclick="searchTickets(@(ViewBag.CurrentPage - 1)); return false;">&laquo; Previous</a>

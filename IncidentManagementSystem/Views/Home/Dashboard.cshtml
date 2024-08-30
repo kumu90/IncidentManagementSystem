@@ -7,7 +7,20 @@
 </div>
 
 <style>
-    .txt {
+
+
+    @@font-face {
+        font-family: 'outfit-black';
+        src:  url('../font/outfit-light.ttf') format('truetype'),
+             url('../font/outfit-regular.ttf') format('truetype'),
+             url('../font/outfit-semibold.ttf') format('truetype');
+
+
+        font-weight: 300,400,600;
+
+
+    }
+        .txt {
         font-family: outfit-black;
         font-size: 16px;
         font-weight: 600;
@@ -102,11 +115,13 @@
     }
 
     .Font {
-        font-size: 24px;
+        font-size: 16px;
         font-family: outfit-black;
         font-weight: 400;
     }
-
+    #chartContainerTicket {
+        font-family: 'Outfit-Black' !important;
+    }
     /* Hide CanvasJS credit link */
     .canvasjs-chart-credit {
         display: none !important;
@@ -119,11 +134,17 @@
     .canvasjs-chart-canvas {
         width: 100%;
         height: 300px;
+        font-Family: "outfit- black"!important;
     }
-    /*.container-fluid .row{
-        margin-left:-30px;
-        margin-right:-30px;
+
+   /* .toolTipContent {
+        font-Family: "outfit-black"
+    }
+    .canvasjs-chart-tooltip {
+        font-family: "outfit-black" !important;
+        font-size: 16px;
     }*/
+    
 </style>
 @using (Html.BeginForm("RecentTicketActivity", "Home", FormMethod.Get, new { id = "TicketActivityForm", enctype = "multipart/form-data" }))
 {
@@ -133,7 +154,7 @@
                 <div class="small-box bg-info">
                     <div class="inner">
                         <span class="Font">User</span>
-                        <h3>@ViewBag.TotalUsers</h3>
+                        <h4>@ViewBag.TotalUsers</h4>
                     </div>
                     <div class="icon">
                         <i class='bx bxs-user'></i>
@@ -149,7 +170,7 @@
                     <div class="inner">
                         <span class="Font">Institution</span>
 
-                        <h3>@ViewBag.TotalInstitution</h3>
+                        <h4>@ViewBag.TotalInstitution</h4>
                     </div>
                     <div class="icon">
                         <i class='bx bxs-bank'></i>
@@ -166,7 +187,7 @@
                     <div class="inner">
                         <span class="Font">Ticket Panding</span>
 
-                        <h3>@ViewBag.TotalPandinglist</h3>
+                        <h4>@ViewBag.TotalPandinglist</h4>
                     </div>
                     <div class="icon">
                         <i class='bx bxs-timer'></i>
@@ -185,7 +206,7 @@
                     <div class="inner">
                         <span class="Font">Ticket Resolved</span>
 
-                        <h3>@ViewBag.TotalTicketResolve</h3>
+                        <h4>@ViewBag.TotalTicketResolve</h4>
                     </div>
                     <div class="icon">
                         <i class='bx bxs-check-circle'></i>
@@ -204,7 +225,7 @@
         <div class="row">
             <!-- Chart Containers -->
             <div class="col-md-4 col-sm-12 mb-4">
-                <div id="chartContainerTicket" style="height: 300px; width: 100%;">
+                <div id="chartContainerTicket" style="height: 300px; width: 100%; ">
                     <canvas class="canvasjs-chart-canvas"></canvas>
                 </div>
             </div>
@@ -225,7 +246,7 @@
         <div class="row">
             <!-- Recent Activity -->
             <div class="col-md-4 col-sm-12 mb-4">
-                <div class="bg-white p-2">
+                <div class="bg-white p-2" style="height: 300px; width: 100%;">
                     <div class="txt">
                         <span>Recent Activity</span>
                     </div>
@@ -237,11 +258,11 @@
 
             <!-- Recent Status -->
             <div class="col-md-4 col-sm-12 mb-4">
-                <div class="bg-white p-2">
+                <div class="bg-white p-2" style="height: 300px; width: 100%;">
                     <div class="txt">
                         <span>Recent Status</span>
                     </div>
-                    <div id="partialTicketActivityContainer1">
+                    <div id="partialTicketActivityContainer1" >
                         @Html.Action("RecentTicketStatus")
                     </div>
                 </div>
@@ -259,9 +280,7 @@
 
 
 
-    <div type="hidden" id="partialTicketContainer">
-        Html.PartialAsync("Search")
-    </div>
+    
 
 }
 
@@ -272,22 +291,34 @@
         var canvas = document.querySelector('.canvasjs-chart-canvas');
         canvas.width = canvas.offsetWidth
 
+
                 var chartT = new CanvasJS.Chart("chartContainerTicket", {
 	            theme: "light2", // "light1", "light2", "dark1", "dark2"
 	            exportEnabled: true,
 	            animationEnabled: true,
 	            title: {
 		            text: "Ticket Status",
-		            fontSize: 21
-	            },
+                    fontSize: 16,
+                    fontFamily: "outfit-black"
+                    },
+                    toolTip: {
+                        fontSize: 14,
+                        fontFamily: "outfit-black"
+                    },
+                    legend: {
+                        fontSize: 12,
+                        fontFamily: "outfit-black"
+                    },
 	            data: [{
 		            type: "pie",
                     startAngle: 160,
-                    toolTipContent: "<b>{label}</b>: {y}%",
                     showInLegend: "true",
                     legendText: "{label}",
-		            toolTipContent: "<b>{label}</b>: {y}",
+                    toolTipContent: "<b>{label}</b>: {y}",
                     indexLabel: "{label} - {y}",
+                    indexLabelFontSize: 12,
+                    indexLabelFontFamily: "outfit-black",
+                    toolTipFontFamily: "outfit-black",
 		            dataPoints:  @Html.Raw(ViewBag.DataPoints)
 	            }]
              });
@@ -301,15 +332,28 @@
 	            animationEnabled: true,
 	            title: {
                     text: "Ticket Generated in Month",
-                    fontSize: 21
+                    fontSize: 16,
+                    fontFamily: "outfit-black",
+                    fontWeight: "bold"
 	            },
 	            toolTip: {
-		            shared: true
-	            },
+                    shared: true,
+                    fontSize: 14,
+                    fontFamily: "outfit-black",
+                },
+                legend: {
+                    fontFamily: "outfit-black",
+                },
+                axisX: {
+                    labelFontSize: 20,
+                    labelFontStyle: "outfit-black"
+                },
 	            data: [{
 		            type: "line",
-		            name: "Tickets",
-		            showInLegend: true,
+                    legendText: "Tickets",
+                    
+                    showInLegend: true,
+
 		            dataPoints:chartData.map(function (item) {
                             return { label: item.label, y: item.y };
                     })
@@ -323,14 +367,26 @@
 	                animationEnabled: true,
 	                title: {
                         text: "In Which Service Most Ticket Created",
-                         fontSize: 21
-	                },
+                        fontSize: 16,
+                        fontFamily: "outfit-black",
+                        fontWeight: "bold"
+                        
+                },
+                toolTip: {
+                    fontSize: 14,
+                    fontFamily: "outfit-black"
+                },
+
 	                data: [{
 		                type: "doughnut",
 		                startAngle: 60,
-		                indexLabelFontSize: 16,
-		                indexLabel: "{label} - {y}%",
-		                toolTipContent: "<b>{label}:</b> {y}%",
+                        indexLabelFontSize: 12,
+                        indexLabelFontFamily: "outfit-black",
+		                indexLabel: "{label} - {y}",
+                        toolTipContent: "<b>{label}:</b> {y}%",
+                        //toolTipFontSize: 40, 
+                        //toolTipFontFamily: "outfit-black", 
+                        //toolTipFontWeight: "400",
 		                dataPoints: @Html.Raw(ViewBag.DataServicesBase)
 	                }]
                 });
@@ -342,11 +398,26 @@
 	            exportEnabled: true,
 	            title: {
                     text: "Number of ticket Generate by Institution",
-                    fontSize: 21
-	            },
+                    fontSize: 16,
+                    fontFamily: "outfit-black",
+                      fontWeight: "bold"
+                },
+                toolTip: {
+                    fontSize: 12,
+                    fontFamily: "outfit-black"
+                },
+                axisX: {
+                  
+                    labelFontStyle: "outfit-black"
+                 
+                    /*labelFontSize: 14*/
+                    
+                },
 	            data: [{
-		            type: "column",
-		            dataPoints:  @Html.Raw(ViewBag.dataInstitutionBase)
+                    type: "column",
+                  
+                    dataPoints:  @Html.Raw(ViewBag.dataInstitutionBase)
+
 	            }]
             });
             chart.render();

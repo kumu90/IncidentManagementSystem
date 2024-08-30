@@ -349,7 +349,7 @@ namespace IncidentManagementSystem.Controllers
             {
                 Console.WriteLine(ex.Message);
             }
-            return View();
+            return RedirectToAction("TicketResolve", "Ticket");
         }
 
         public ActionResult DownloadTicketPdf(string ticketId)
