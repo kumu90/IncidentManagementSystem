@@ -147,33 +147,27 @@
                             </div>
                         </div>
                         <div class="d-flex align-items-center">
-                            <input type="file" name="file" id="file" accept="image/*" onchange="previewImage(event)" class="form-control" style="width: 94px; margin-top:10px;" />
+                            <input type="file" name="file" id="file" accept="image/*" onchange="previewImage(event)" class="form-control" style="width: 94px; margin-top:5px; margin-left:35px" />
 
-                            <input type="reset" value="Clear" class="btn btn-secondary btn-lg " style="width: 75px; margin-top: 10px; " onclick="clearForm();" />
+                           
                         </div>
                     </div>
-
-
-
                 </div>
-
-                <div class="row" style="margin-top:10px">
-                    <div class="col-md-6 col-sm-12 col-sx-12" style="margin-left:31px; margin-bottom:20px;">
-                        <input type="submit" value="Register" class="btn btn-success btn-lg" id="submit" />
-                        @*<input type="reset" value="Clear" class="btn btn-secondary btn-lg " style="margin-left:20px;" onclick="clearForm();" />*@
-                        <input type="button" value="Back" class="btn btn-secondary btn-lg" onclick="goBack()" />
-                    </div>
-                </div>
-
-
-
+            </div>
+        </div>
+        <div class="row" style="margin-top:10px">
+            <div class="col-md-12 col-sm-12 col-sx-12" style="margin-left:31px; margin-bottom:20px;">
+                <input type="submit" value="Register" class="btn btn-success btn-lg" id="submit" />
+                @*<input type="reset" value="Clear" class="btn btn-secondary btn-lg " style="margin-left:20px;" onclick="clearForm();" />*@
+                <input type="button" value="Back" class="btn btn-secondary btn-lg" onclick="goBack()" />
+                <input type="reset" value="Clear" class="btn btn-secondary btn-lg offset-10"  onclick="clearForm();" />
             </div>
         </div>
     }
 
 
 
-    </div>
+</div>
 <div class="modal" tabindex="-1" role="dialog" id="modalTaskComplete" style="margin-top:12rem; margin-left:40rem;">
     <div class="modal-dialog" role="document">
         <div class="modal-content col-md-4">
@@ -288,10 +282,11 @@
             document.getElementById("ins-form").reset();
 
             // Reset the file input
-            document.getElementById("imageUpload").value = "";
+            document.getElementById("file").value = "";
 
             // Reset the image preview
-            document.getElementById("preview").src = "#";
+            document.getElementById("preview").src = "~/Image/photo-album-regular-24.png";
+
             document.getElementById("preview").style.display = "block";
         }
 

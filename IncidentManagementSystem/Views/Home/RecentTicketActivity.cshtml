@@ -11,10 +11,10 @@
     .table.one {
         border: 1px solid #dee2e6 !important;
     }
+
         .table.one td {
             padding: 0.5rem !important;
         }
-
 </style>
 
 @if (Model != null && Model.Any())
@@ -25,7 +25,7 @@
                 <tr>
                     <th>S No.</th>
                     <th>Date</th>
-                    <th>Service Name</th> 
+                    <th>Service Name</th>
                 </tr>
             </thead>
             <tbody class="whitespace-nowrap">
@@ -43,3 +43,16 @@
         </table>
     </div>
 }
+else
+{ <table class="table one">
+        <thead class="whitespace-nowrap">
+            <tr>
+                <th>S No.</th>
+                <th>Date</th>
+                <th>Service Name</th>
+            </tr>
+        </thead>
+    </table>
+     
+        <h5>No Recent Activity</h5>
+        }
