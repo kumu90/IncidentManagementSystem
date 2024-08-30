@@ -73,7 +73,7 @@
                     <div class="form-group row mb-3">
                         <div class="col-md-12 text-center">
                             <input type="submit" value="Register" class="btn btn-success gap" />
-                            <input type="reset" value="Cancel" class="btn btn-danger gap-c" />
+                            <input type="reset" value="Cancel" class="btn btn-danger gap-c" onclick="goBack()" />
                         </div>
                     </div>
                 </div>
@@ -124,6 +124,10 @@
             }
         });
 
+
+        function goBack() {
+            window.history.back();
+        }
 
     </script>
 }

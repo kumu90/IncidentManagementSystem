@@ -13,6 +13,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using static System.Net.Mime.MediaTypeNames;
+using IncidentManagementSystem.Common;
 
 namespace IncidentManagementSystem.Controllers
 {
@@ -22,18 +23,18 @@ namespace IncidentManagementSystem.Controllers
         readonly ITicketService _iTicketService;
         readonly IInstitutionService _iInstitutionService;
         readonly IProductService _iproductService;
-        readonly IErrorLogService _iErrorLogService;
+       
 
         public TicketController()
         {
 
         }
-        public TicketController(ITicketService iTicketService, IProductService iproductService, IInstitutionService institutionService, IErrorLogService iErrorLogService)
+        public TicketController(ITicketService iTicketService, IProductService iproductService, IInstitutionService institutionService)
         {
             _iTicketService = iTicketService;
             _iInstitutionService = institutionService;
             _iproductService = iproductService;
-            _iErrorLogService = iErrorLogService;
+            
         }
 
         public void Init()
@@ -177,11 +178,10 @@ namespace IncidentManagementSystem.Controllers
             Init();
             //if (!ModelState.IsValid)
             //{
-            //    TempData["TaskStatus"] = "ERROR";
-            //    TempData["TaskMessage"] = "FIELD REQUIRED";
+            //    ViewBag.TaskStatus = "Error";
+            //    ViewBag.TaskMessage = "Please correct the errors and try again.";
             //    return View(ticketDto);
             //}
-
             try
             {
                 if (file != null && file.ContentLength > 0)
@@ -189,6 +189,7 @@ namespace IncidentManagementSystem.Controllers
 
                     ticketDto.ImageUrl = Path.GetFileName(file.FileName);
                     ticketDto.contentType = file.ContentType;
+                    //int number = int.Parse(ticketDto.CellNumber);
                     using (var binaryReader = new BinaryReader(file.InputStream))
                     {
                         ticketDto.ImageData = binaryReader.ReadBytes(file.ContentLength);
@@ -220,18 +221,18 @@ namespace IncidentManagementSystem.Controllers
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                //Console.WriteLine(ex.Message);
                 //Extentio,.AddErrorlogs("ControllerName","Action" "ex.Message"):
 
                 var exceptionLog = new ErrorLogDto
                 {
-                    Message = ex.Message,
+                   ExceptionMessage = ex.Message,
                     StackTrace = ex.StackTrace,
                     ControllerName = this.ControllerContext.RouteData.Values["controller"].ToString(),
                     ActionName = this.ControllerContext.RouteData.Values["action"].ToString(),
                     userId = User.Identity.IsAuthenticated ? User.Identity.GetUserId() : null
                 };
-                _iErrorLogService.LogError(exceptionLog);
+                ex.LogError(exceptionLog);
             }
             return RedirectToAction("Create", "Ticket");
 
@@ -299,7 +300,15 @@ namespace IncidentManagementSystem.Controllers
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                var exceptionLog = new ErrorLogDto
+                {
+                    ExceptionMessage = ex.Message,
+                    StackTrace = ex.StackTrace,
+                    ControllerName = this.ControllerContext.RouteData.Values["controller"].ToString(),
+                    ActionName = this.ControllerContext.RouteData.Values["action"].ToString(),
+                    userId = User.Identity.IsAuthenticated ? User.Identity.GetUserId() : null
+                };
+                ex.LogError(exceptionLog);
             }
             return RedirectToAction("Assign", "Ticket", new { TicketId = ticketAssignDto.TicketId });
         }
@@ -347,7 +356,15 @@ namespace IncidentManagementSystem.Controllers
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                var exceptionLog = new ErrorLogDto
+                {
+                    ExceptionMessage = ex.Message,
+                    StackTrace = ex.StackTrace,
+                    ControllerName = this.ControllerContext.RouteData.Values["controller"].ToString(),
+                    ActionName = this.ControllerContext.RouteData.Values["action"].ToString(),
+                    userId = User.Identity.IsAuthenticated ? User.Identity.GetUserId() : null
+                };
+                ex.LogError(exceptionLog);
             }
             return RedirectToAction("TicketResolve", "Ticket");
         }
@@ -453,6 +470,6 @@ namespace IncidentManagementSystem.Controllers
             table.AddCell(valueCell);
         }
     
-                
+                 
     }
 }

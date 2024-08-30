@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IncidentManagementSystem.Model;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
@@ -6,16 +7,16 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using IncidentManagementSystem.Model;
+using System.Runtime.CompilerServices;
 
-namespace IncidentManagementSystem.DataAccess
+namespace IncidentManagementSystem.Common
 {
-    public class ErrorLogDataAccess : IErrorLogDataAccess
+    public static class ExceptionLogs
     {
-        private readonly string conStr = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
-        public void LogError(ErrorLogDto errorLog)
+        ///private readonly string conStr = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+        public  static void LogError(this Exception exception, ErrorLogDto errorLog)
         {
-            using (var connection = new SqlConnection(conStr))
+            using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString))
             {
                 using (var command = new SqlCommand("InsertErrorLog", connection))
                 {
@@ -31,9 +32,4 @@ namespace IncidentManagementSystem.DataAccess
             }
         }
     }
-}
-
-public interface IErrorLogDataAccess
-{
-    void LogError(ErrorLogDto errorLog);
 }

@@ -3,6 +3,8 @@
 
 @{
     ViewBag.Title = "TicketDetail";
+    var status = Model.status;
+    bool showButtons = status == "LO"; // Show buttons only if status is "94" or "LO"
 }
 
 
@@ -109,7 +111,7 @@
                     @*<dd>@Html.DisplayFor(model => model.status)</dd>*@
                     <dd>
                         @{
-                            var status = Model.status;
+                            status = Model.status;
                             string statusMessage = status switch
                             {
                                 "00" => "Success",
@@ -180,6 +182,11 @@
     function assignTicket(ticketId) {
         var url = '@Url.Action("Assign", "Ticket")?TicketId=' + ticketId;
         window.location.href = url;
+    }
+
+
+    function goBack() {
+        window.history.back();
     }
 </script>
 @Scripts.Render("~/bundles/bootstrap")

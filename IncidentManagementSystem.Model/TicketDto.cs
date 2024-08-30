@@ -23,7 +23,7 @@ namespace IncidentManagementSystem.Model
         public string status { get; set; }
 
         [DisplayName("Institution Name")]
-        [Required]
+        ///[Required]
         public string InstId { get; set; }
         public string InstitutionName {  get; set; }
 
@@ -40,12 +40,14 @@ namespace IncidentManagementSystem.Model
         [DisplayName("Description")]
         public string Description { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Contact number is required.")]
+        [RegularExpression(@"^\d{10}$", ErrorMessage = "Phone number must be exactly 10 digits.")]
         [DisplayName("Cell Number")]
         public string CellNumber { get; set; }
 
         [Required]
         [DisplayName("Email")]
+        [EmailAddress(ErrorMessage = "Invalid Email Address")]
         public string Email { get; set; }
 
 

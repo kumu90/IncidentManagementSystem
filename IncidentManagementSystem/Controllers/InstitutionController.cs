@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
+using IncidentManagementSystem.Common;
 using IncidentManagementSystem.DataAccess;
 using IncidentManagementSystem.Model;
 using IncidentManagementSystem.Service;
@@ -100,71 +101,59 @@ namespace IncidentManagementSystem.Controllers
             Init();
             instNameDto.CreatedBy = User.Identity.GetUserId();
             //if (!ModelState.IsValid)
-            //{
-            //    TempData["TaskStatus"] = "ERROR";
-            //    TempData["TaskMessage"] = "FIELD REQUIRED";
+            //{                
+            //    ViewBag.TaskStatus = "Error";
+            //    ViewBag.TaskMessage = "Please correct the errors and try again.";
             //    return View(instNameDto);
             //}
-            if (file != null && file.ContentLength > 0)
+            try
             {
-
-                instNameDto.ImageUrl = Path.GetFileName(file.FileName);
-                instNameDto.contentType = file.ContentType;
-                using (var binaryReader = new BinaryReader(file.InputStream))
+                if (file != null && file.ContentLength > 0)
                 {
-                    instNameDto.ImageData = binaryReader.ReadBytes(file.ContentLength);
-                }
 
-                SQLStatusDto sQLStatus = _iInstitutionService.InstitutionCreate(instNameDto);
+                    instNameDto.ImageUrl = Path.GetFileName(file.FileName);
+                    instNameDto.contentType = file.ContentType;
+                    using (var binaryReader = new BinaryReader(file.InputStream))
+                    {
+                        instNameDto.ImageData = binaryReader.ReadBytes(file.ContentLength);
+                    }
 
+                    SQLStatusDto sQLStatus = _iInstitutionService.InstitutionCreate(instNameDto);
 
-                if (sQLStatus != null)
-                {
-                    TempData["TaskStatus"] = sQLStatus.Status;
-                    TempData["TaskMessage"] = sQLStatus.Message;
+                    if (sQLStatus != null)
+                    {
+                        TempData["TaskStatus"] = sQLStatus.Status;
+                        TempData["TaskMessage"] = sQLStatus.Message;
 
+                    }
+                    else
+                    {
+                        TempData["TaskStatus"] = "Error";
+                        TempData["TaskMessage"] = "Institution Details are not Filled Correctly.";
+
+                    }
+                    ViewBag.TaskStatus = TempData["TaskStatus"];
+                    ViewBag.TaskMessage = TempData["TaskMessage"];
                 }
                 else
                 {
-                    TempData["TaskStatus"] = "Error";
-                    TempData["TaskMessage"] = " Institution Details are not Filled Correctly.";
-
+                    ViewBag.Message = "Invalid image file.";
                 }
-                ViewBag.TaskStatus = TempData["TaskStatus"];
-                ViewBag.TaskMessage = TempData["TaskMessage"];
+
             }
-            else
+            catch (Exception ex) 
             {
-                ViewBag.Message = "Invalid image file.";
+                var exceptionLog = new ErrorLogDto
+                {
+                    ExceptionMessage = ex.Message,
+                    StackTrace = ex.StackTrace,
+                    ControllerName = this.ControllerContext.RouteData.Values["controller"].ToString(),
+                    ActionName = this.ControllerContext.RouteData.Values["action"].ToString(),
+                    userId = User.Identity.IsAuthenticated ? User.Identity.GetUserId() : null
+                };
+                ex.LogError(exceptionLog);
             }
-
-
-            //try
-            //{
-            //    SQLStatusDto sQLStatus = _iInstitutionService.InstitutionCreate(instNameDto);
-
-            //    TempData["TaskStatus"] = sQLStatus.Status;
-            //    TempData["TaskMessage"] = sQLStatus.Message;
-
-            //    if (sQLStatus.Status != "00")
-            //    {
-            //        ModelState.AddModelError("", "An institution with the same name already exists in the system");
-            //        ViewBag.TaskStatus = "Error";
-            //        ViewBag.TaskMessage = sQLStatus.Message;
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    ModelState.AddModelError("", "Error saving institution: " + ex.Message);
-            //    ViewBag.TaskStatus = "Error";
-            //    ViewBag.TaskMessage = "Error saving institution.";
-            //}
-            //}
-            //else
-            //{
-            //    ViewBag.TaskStatus = "Error";
-            //    ViewBag.TaskMessage = "Model validation failed.";
-            //}
+            
 
             return View();
         }

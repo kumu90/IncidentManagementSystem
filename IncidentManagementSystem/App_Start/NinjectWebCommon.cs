@@ -69,14 +69,13 @@ namespace IncidentManagementSystem.App_Start
             kernel.Bind<IProductService>().To<ProductService>();
             kernel.Bind<IAdminDashboardService>().To<AdminDashboardService>();
             
-            kernel.Bind<IErrorLogService>().To<ErrorLogService>();
+            
 
             //DataAccess
             kernel.Bind<IInstitutionDataAccess>().To<InstitutionDataAccess>();
             kernel.Bind<IUserDataAccess>().To<UserDataAccess>();
             kernel.Bind<ITicketDataAccess>().To<TicketDataAccess>();
-            kernel.Bind<IProductDataAccess>().To<ProductDataAccess>();
-            kernel.Bind<IErrorLogDataAccess>().To<ErrorLogDataAccess>();
+            kernel.Bind<IProductDataAccess>().To<ProductDataAccess>();            
             kernel.Bind<IAdminDashboadDataAccess>().To<AdminDashboadDataAccess>();
 
         }

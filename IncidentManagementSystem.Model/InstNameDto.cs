@@ -44,8 +44,8 @@ namespace IncidentManagementSystem.Model
         public string ContactPersonTechnical { get; set; }
 
         [DisplayName("Contact Number")]
-        [Required]
-        [Phone]
+        [Required(ErrorMessage = "Contact number is required.")]
+        [RegularExpression(@"^\d{10}$", ErrorMessage = "Phone number must be exactly 10 digits.")]
         public string ContactNumber { get; set; }
 
         [DisplayName("Email")]
