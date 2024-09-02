@@ -11,28 +11,29 @@
 
 
 
-    <div class="col-lg-12 col-md-12 col-sm-12  text">
-        <span class="page" ">Ticket Detail</span>
+<div class="col-lg-12 col-md-12 col-sm-12  text">
+    <span class="page">Ticket Detail</span>
 
-    </div>
-   
+</div>
+
 
 
 <style>
 
     .ticket {
-         background-color: #fff;
+        background-color: #fff;
         font-family: outfit-black;
         border-radius: 8px;
         padding: 20px;
     }
+
     .dl-horizontal {
         /* background-color: #fff;*/
         font-family: outfit-black;
         border-radius: 8px;
         padding: 20px;
     }
- 
+
 
         .dl-horizontal dt {
             text-align: right;
@@ -79,103 +80,106 @@
 <div class="container-fluid">
     <div class="row ticket">
         @*<div class="col-sm-12 col-md-12 col-lg-12 ticket">*@
-            <div class="col-sm-12 col-md-6  ">
+        <div class="col-sm-12 col-md-6  ">
 
 
-                <dl class="dl-horizontal">
-                    <dt>@Html.DisplayNameFor(model => model.TicketId)</dt>
-                    <dd>@Html.DisplayFor(model => model.TicketId)</dd>
+            <dl class="dl-horizontal">
+                <dt>@Html.DisplayNameFor(model => model.TicketId)</dt>
+                <dd>@Html.DisplayFor(model => model.TicketId)</dd>
 
-                    <dt>@Html.DisplayNameFor(model => model.InstId)</dt>
-                    <dd>@Html.DisplayFor(model => model.InstId)</dd>
+                <dt>@Html.DisplayNameFor(model => model.InstId)</dt>
+                <dd>@Html.DisplayFor(model => model.InstId)</dd>
 
-                    <dt>@Html.DisplayNameFor(model => model.ServiceId)</dt>
-                    <dd>@Html.DisplayFor(model => model.ServiceId)</dd>
+                <dt>@Html.DisplayNameFor(model => model.ServiceId)</dt>
+                <dd>@Html.DisplayFor(model => model.ServiceId)</dd>
 
-                    <dt>@Html.DisplayNameFor(model => model.IssueId)</dt>
-                    <dd>@Html.DisplayFor(model => model.IssueId)</dd>
+                <dt>@Html.DisplayNameFor(model => model.IssueId)</dt>
+                <dd>@Html.DisplayFor(model => model.IssueId)</dd>
 
-                    <dt>@Html.DisplayNameFor(model => model.Description)</dt>
-                    <dd>@Html.DisplayFor(model => model.Description)</dd>
+                <dt>@Html.DisplayNameFor(model => model.Description)</dt>
+                <dd>@Html.DisplayFor(model => model.Description)</dd>
 
-                    <dt>@Html.DisplayNameFor(model => model.CellNumber)</dt>
-                    <dd>@Html.DisplayFor(model => model.CellNumber)</dd>
+                <dt>@Html.DisplayNameFor(model => model.CellNumber)</dt>
+                <dd>@Html.DisplayFor(model => model.CellNumber)</dd>
 
-                    <dt>@Html.DisplayNameFor(model => model.Email)</dt>
-                    <dd>@Html.DisplayFor(model => model.Email)</dd>
+                <dt>@Html.DisplayNameFor(model => model.Email)</dt>
+                <dd>@Html.DisplayFor(model => model.Email)</dd>
 
-                    <dt>@Html.DisplayNameFor(model => model.date)</dt>
-                    <dd>@Html.DisplayFor(model => model.date)</dd>
+                <dt>@Html.DisplayNameFor(model => model.date)</dt>
+                <dd>@Html.DisplayFor(model => model.date)</dd>
 
-                    <dt>@Html.DisplayNameFor(model => model.status)</dt>
-                    @*<dd>@Html.DisplayFor(model => model.status)</dd>*@
-                    <dd>
-                        @{
-                            status = Model.status;
-                            string statusMessage = status switch
-                            {
-                                "00" => "Success",
-                                "98" => "Pending",
-                                "94" => "Rejected",
-                                "LO" => "Initial"
-                            };
-                        }
-                        @statusMessage
-                    </dd>
-                </dl>
-            </div>
-            <div class="col-md-6 ">
-                <div class="row">
-                    <div class="col-md-10">
-                        <dl class="dl-horizontal">
+                <dt>@Html.DisplayNameFor(model => model.status)</dt>
+                @*<dd>@Html.DisplayFor(model => model.status)</dd>*@
+                <dd>
+                    @{
+                        status = Model.status;
+                        string statusMessage = status switch
+                        {
+                            "00" => "Success",
+                            "98" => "Pending",
+                            "94" => "Rejected",
+                            "LO" => "Initial"
+                        };
+                    }
+                    @statusMessage
+                </dd>
+            </dl>
+        </div>
+        <div class="col-md-6 ">
+            <div class="row">
+                <div class="col-md-10">
+                    <dl class="dl-horizontal">
 
-                            <dt>@Html.DisplayNameFor(model => model.ImageUrl)</dt>
-                            <dd style="margin-top: 2rem; margin-left: 1rem;">
-                                <a href="#" id="imageAnchor">
+                        <dt>@Html.DisplayNameFor(model => model.ImageUrl)</dt>
+                        <dd style="margin-top: 2rem; margin-left: 1rem;">
+                            <a href="#" id="imageAnchor">
 
-                                    @if (!string.IsNullOrEmpty(Model.ImageUrl))
-                                    {
-                                        <img id="preview" src="@Model.ImageUrl" class="card-img-top" alt="Preview" style="width: 600px; height: 300px;" />
+                                @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                                {
+                                    <img id="preview" src="@Model.ImageUrl" class="card-img-top" alt="Preview" style="width: 600px; height: 300px;" />
 
-                                    }
-                                    else
-                                    {
+                                }
+                                else
+                                {
 
-                                        <img id="preview" class="card-img-top" alt="Preview" style="width: 280px; height: 180px;" />
-                                    }
-                                </a>
+                                    <img id="preview" class="card-img-top" alt="Preview" style="width: 280px; height: 180px;" />
+                                }
+                            </a>
 
-                                @*@Html.DisplayFor(model => model.ImageUrl)*@
-                            </dd>
-                        </dl>
-                    </div>
-                    <div class="col-md-2">
-                        <a href="@Url.Action("DownloadTicketPdf", "Ticket", new { ticketId = Model.TicketId })" class="btn btn-secondary btn-sm offset-11"><i class='bx bxs-downvote'></i></a>
-                    </div>
+                            @*@Html.DisplayFor(model => model.ImageUrl)*@
+                        </dd>
+                    </dl>
+                </div>
+                <div class="col-md-2">
+                    <a href="@Url.Action("DownloadTicketPdf", "Ticket", new { ticketId = Model.TicketId })" class="btn btn-secondary btn-sm offset-11"><i class='bx bxs-downvote'></i></a>
                 </div>
             </div>
-                  
         </div>
-   
+
     </div>
+
+</div>
 
 
 
 <div class="row mt-3">
-    @if (User.IsInRole("SuperAdmin"))
+    @if (User.IsInRole("SuperAdmin") && !(Model.status == "98" || Model.status == "00" || Model.status == "94"))
     {
 
         <div class="col-lg-1 col-md-2">
             <input type="button" value="Assign" class="btn btn-success btn-width" onclick="assignTicket('@Model.TicketId')" />
         </div>
     }
+    @if (!( Model.status == "00" || Model.status == "94"))
+    {
         <div class="col-lg-1 col-md-2">
             <a href="@Url.Action("TicketReject", "Ticket", new { TicketId = Model.TicketId })" class="btn btn-danger btn-width">Reject</a>
         </div>
         @*<div class="col-md-2">
                 <a href="@Url.Action("DownloadTicketPdf", "Ticket", new { ticketId = Model.TicketId })" class="btn btn-info btn-width" style="margin-left:20.5rem;">Download</a>
             </div>*@
-    </div>
+    }
+</div>
 @*</div>*@
 
 <script>
