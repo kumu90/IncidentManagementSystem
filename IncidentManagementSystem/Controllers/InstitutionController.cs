@@ -48,16 +48,29 @@ namespace IncidentManagementSystem.Controllers
             return Json(servId, JsonRequestBehavior.AllowGet);
         }
 
-        [Authorize(Roles = "SuperAdmin, Admin, Developer")]
+        [Authorize(Roles = "SuperAdmin, Admin, Developer, User")]
         public ActionResult Index(/*string search*/)
         {
             //var clt = _iInstitutionService.InstitutionList(search);
             //return View(clt);
             Init();
-            return View();
+            string userId = User.Identity.GetUserId();
+            if (User.IsInRole("SuperAdmin") || User.IsInRole("Admin") || User.IsInRole("Developer"))
+            {
+                return View();
+            }
+            else if (User.IsInRole("User"))
+            {
+                return RedirectToAction("Dashboard","Home");
+            }
+            else
+            {
+                return RedirectToAction("AccessDenied");
+            }
+            
         }
 
-        [Authorize(Roles = ",SuperAdmin, Admin, Developer")]
+        [Authorize(Roles = ",SuperAdmin, Admin, Developer, User")]
         public ActionResult Search(string search, int page = 1, int offset = 10, string userId = "")
         {
             //var result = _iInstitutionService.InstitutionList(search);

@@ -1,6 +1,7 @@
 ﻿@using IncidentManagementSystem.Model
 @model List<TicketDto>
 
+
 @{
     //int sno = 0; // Initialize serial number
     int sno = (ViewBag.CurrentPage - 1) * ViewBag.Offset;
@@ -68,8 +69,25 @@
                     <th>Issue</th>
                     <th>CellNumber</th>
                     <th>Email</th>
-                    <th>Status</th>
                     <th>Detail</th>
+                    @if (User.IsInRole("SuperAdmin") || User.IsInRole("Admin") || User.IsInRole("Developer"))
+                    {
+                        <th>Status</th>
+
+
+
+
+                        <th>
+                            Update
+                        </th>
+                    }
+                    @*@if (User.IsInRole("User"))
+        {
+            <th>
+
+            </th>
+        }*@
+
                 </tr>
             </thead>
             <tbody class="whitespace-nowrap">
@@ -85,77 +103,120 @@
                         <td>@item.CellNumber</td>
                         <td>@item.Email</td>
                         <td>
-                            @{
-                                switch (item.status)
-                                {
-                                    case "00":
-                                        <label style="color: green">Success</label>
-                                        break;
-                                    case "98":
-                                        <label style="color: darkorange">Pending</label>
-                                        break;
-                                    case "LO":
-                                        <label>Initial</label>
-                                        break;
-                                    case "94":
-                                        <label style="color: red">Rejected</label>
-                                        break;
+                            @Html.ActionLink("Details", "TicketDetail", "Ticket", new RouteValueDictionary { { "TicketId", item.TicketId } }, null)
+                            @*@Html.ActionLink("Resolve", "TicketResolve", "Ticket", new RouteValueDictionary { { "TicketId", item.TicketId } }, null)*@
+
+                        </td>
+                        @if (User.IsInRole("SuperAdmin") || User.IsInRole("Admin") || User.IsInRole("Developer"))
+                        {
+                            <td>
+                                @{
+                                    switch (item.status)
+                                    {
+                                        case "00":
+                                            <label style="color: green">Success</label>
+                                            break;
+                                        case "98":
+                                            <label style="color: darkorange">Pending</label>
+                                            break;
+                                        case "LO":
+                                            <label>Initial</label>
+                                            break;
+                                        case "94":
+                                            <label style="color: red">Rejected</label>
+                                            break;
+                                    }
                                 }
+                            </td>
+                        }
+
+
+                        @if (User.IsInRole("SuperAdmin") || User.IsInRole("Admin") || User.IsInRole("Developer"))
+                        {
+                            <td>
+                                @{
+                                    var status = item.status;
+                                    bool isEnabled = status != "94" && status != "00" && status != "LO";
+                                }
+
+
+                                @if (status != "00" && status != "LO" && status == "98")
+                                {
+                                    @Html.ActionLink("Resolve", "TicketResolve", "Ticket", new { TicketId = item.TicketId }, new { @class = "Hidden" })
+      
+                                        
+
+                                   
+                                    {
+                                        <p style="font:bold;">Assigned To: @item.UserName</p>
+                                    }
+                                 }
+                                    else if (status == "00")
+                                    {
+                                        <span style="color: green">Closed Successfully</span>
+                                    }
+                                    else if (status == "LO")
+
+                                    {
+
+                                        @Html.ActionLink("Assign", "TicketDetail", "Ticket", new RouteValueDictionary { { "TicketId", item.TicketId } }, null)
+                                    }
+
+                            </td>
                             }
-                        </td>
-
-                    <td>
-                        @Html.ActionLink("Details", "TicketDetail", "Ticket", new RouteValueDictionary { { "TicketId", item.TicketId } }, null) |
-                        @*@Html.ActionLink("Resolve", "TicketResolve", "Ticket", new RouteValueDictionary { { "TicketId", item.TicketId } }, null)*@
-
-                            @{
-                                var status = item.status;
-                                bool isEnabled = status != "94" && status != "00" && status != "LO"; 
-                            }
-
-
-                            @if (isEnabled)
-                            {
-                                @Html.ActionLink("Resolve", "TicketResolve", "Ticket", new { TicketId = item.TicketId }, null)
-                            }
-                            else
-                            {
-                                <span>Resolve</span>
-                            }
-
-                        </td>
-                    </tr>
-                }
+                        </tr>
+                    }
             </tbody>
         </table>
     </div>
-}
-<div class="text-end">
-    <div class="pagination" style="font-family: outfit-black;">
-        @if (ViewBag.CurrentPage > 1)
-        {
-            <a href="#" onclick="searchTickets(@(ViewBag.CurrentPage - 1)); return false;">&laquo; Previous</a>
-        }
-        else
-        {
-            <span>&laquo; Previous</span>
-        }
 
-        @for (int i = 1; i <= ViewBag.TotalPages; i++)
-        {
-            <a href="#" onclick="searchTickets(@i); return false;" class="@(i == ViewBag.CurrentPage ? "active" : "")">@i</a>
-        }
 
-        @if (ViewBag.CurrentPage < ViewBag.TotalPages)
-        {
-            <a href="#" onclick="searchTickets(@(ViewBag.CurrentPage + 1)); return false;">Next &raquo;</a>
-        }
-        else
-        {
-            <span>Next &raquo;</span>
-        }
+    <div class="text-end">
+        <div class="pagination" style="font-family: outfit-black;">
+            @if (ViewBag.CurrentPage > 1)
+            {
+                <a href="#" onclick="searchTickets(@(ViewBag.CurrentPage - 1)); return false;">&laquo; Previous</a>
+            }
+            else
+            {
+                <span>&laquo; Previous</span>
+            }
+
+            @for (int i = 1; i <= ViewBag.TotalPages; i++)
+            {
+                <a href="#" onclick="searchTickets(@i); return false;" class="@(i == ViewBag.CurrentPage ? "active" : "")">@i</a>
+            }
+
+            @if (ViewBag.CurrentPage < ViewBag.TotalPages)
+            {
+                <a href="#" onclick="searchTickets(@(ViewBag.CurrentPage + 1)); return false;">Next &raquo;</a>
+            }
+            else
+            {
+                <span>Next &raquo;</span>
+            }
+        </div>
     </div>
-</div>
+}
+else
+{
+        <table class="table one">
+            <thead class="whitespace-nowrap">
+                <tr>
+                    <th>S No.</th>
+                    <th>Ticket Id</th>
+                    <th>Institution Name </th>
+                    <th>Service Name</th>
+                    <th>Issue</th>
+                    <th>CellNumber</th>
+                    <th>Email</th>
+                    <th>Status</th>
+                    <th>Detail</th>
+                </tr>
+            </thead>
+        </table>
 
+    <h5>No Data Found</h5>
+}
 
 

@@ -1,0 +1,69 @@
+﻿@model IncidentManagementSystem.Models.EditProfileViewModel
+@{
+    ViewBag.Title = "ProfileEdit";
+}
+
+<div class="container reg">
+    <div class="row ">
+        <div class="col-md-6 text">
+            <span class="page input-icon">Profile</span>
+            <span class="detail">Edit Profile</span>
+        </div>
+    </div>
+    @using (Html.BeginForm("EditUser", "Manage", FormMethod.Post, new { id = "loadupdate", enctype = "multipart/form-data" }))
+    {
+        @*@Html.AntiForgeryToken()
+            @Html.ValidationSummary("", new { @class = "text-danger" })*@
+
+        <div class="row">
+            <div class="col-md-12 col-lg-12" style="padding:8px; border-radius:8px; background:white;">
+
+                <div class="form-group row mb-3 mt-2">
+                    @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 col-form-label l-user" })
+                    <div class="col-md-4">
+                        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control u-box" })
+                    </div>
+                </div>
+                <div class="form-group row mb-3">
+                    @Html.LabelFor(m => m.UserRole_Id, new { @class = "col-md-2 col-form-label l-user" })
+                    <div class="col-md-4">
+                        @*@Html.TextBoxFor(m => m.UserRole_Id, new { @class = "form-control u-box" })*@
+                        @Html.DropDownListFor(m => m.UserRole_Id, ViewBag.UserRole as SelectList, "-Select Role-", new { @class = "form-select u-box" })
+                        @*<input type="text" name="UserName" value="@ViewBag.SelectedRoleId" class="form-control u-box" />*@
+                    </div>
+                </div>
+                <div class="form-group row mb-3">
+                    <div class="col-md-2">
+                        <input type="checkbox" id="showPartialView" />
+                        <label for="showPartialView">Update User Password</label>
+                    </div>
+                </div>
+                <div id="partialupdateContainer" style="display: none;">
+                    @*@Html.Action("EditUser", "Manage")*@
+                    @Html.Partial("EditUser")
+                    @*EditUser*@
+                </div>
+            </div>
+
+        </div>
+
+    }
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#showPartialView').change(function () {
+            if (this.checked) {
+                // Show the container
+                $('#partialupdateContainer').show();
+            } else {
+                // Hide the container
+                $('#partialupdateContainer').hide();
+            }
+        });
+
+        // Optional: Trigger the change event on page load to set the initial state
+        $('#showPartialView').trigger('change');
+    });
+</script>

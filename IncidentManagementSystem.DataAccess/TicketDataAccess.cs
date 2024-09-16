@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Net.Mime;
 using System.Web.UI.WebControls;
 using IncidentManagementSystem.Common;
+using System.Web.Security;
 
 namespace IncidentManagementSystem.DataAccess
 {
@@ -60,8 +61,8 @@ namespace IncidentManagementSystem.DataAccess
             }
             return _sQLStatus;
         }
-        public SearchDto TicketInfo(string search = "",string InstId="",string status="", int page = 1, int offset = 10,string userId = "")
-        {            
+        public SearchDto TicketInfo(string search = "", string InstId = "", string status = "", int page = 1, int offset = 10, string userId = "")
+        {
             SearchDto data = new SearchDto();
             try
             {
@@ -97,14 +98,16 @@ namespace IncidentManagementSystem.DataAccess
                             dto.IssueId = row["Issue"].ToString();
                             dto.CellNumber = row["CellNumber"].ToString();
                             dto.Email = row["Email"].ToString();
+                            dto.UserName = row["UserName"].ToString();
+
                             data.ticketDtos.Add(dto);
                         }
                         return data;
                     }
                 }
             }
-            catch (Exception ex) 
-            { 
+            catch (Exception ex)
+            {
                 Console.WriteLine(ex.ToString());
             }
             return new SearchDto();
@@ -201,7 +204,7 @@ namespace IncidentManagementSystem.DataAccess
 
                         using (var sqlDataReader = cmd.ExecuteReader())
                         {
-                            while(sqlDataReader.Read())
+                            while (sqlDataReader.Read())
                             {
                                 Issuelist.Add(new IssueDto()
                                 {
@@ -238,7 +241,7 @@ namespace IncidentManagementSystem.DataAccess
         {
             TicketAssignDto ticketAssignDto = new TicketAssignDto();
             try
-         {
+            {
                 using (SqlConnection conn = new SqlConnection(conStr))
                 {
                     using (SqlCommand cmd = new SqlCommand(conStr, conn))
@@ -279,7 +282,7 @@ namespace IncidentManagementSystem.DataAccess
                 {
                     ExceptionMessage = ex.Message,
                     StackTrace = ex.StackTrace,
-                    ControllerName = "Ticket" ,
+                    ControllerName = "Ticket",
                     ActionName = "Unknown",
                     userId = null
                 };
@@ -409,7 +412,7 @@ namespace IncidentManagementSystem.DataAccess
                         cmd.Parameters.AddWithValue("@AssignTo", AssignDto.AssignTo);
 
 
-                        conn.Open();                        
+                        conn.Open();
                         using (var rdr = cmd.ExecuteReader())
                         {
                             rdr.Read();
@@ -451,8 +454,8 @@ namespace IncidentManagementSystem.DataAccess
                         cmd.CommandText = "InstitutionTicketRejectUpdate";
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Connection = conn;
-                        cmd.Parameters.AddWithValue("@TicketId",TicketId);
-                       
+                        cmd.Parameters.AddWithValue("@TicketId", TicketId);
+
                         conn.Open();
                         using (var rdr = cmd.ExecuteReader())
                         {
@@ -506,9 +509,9 @@ namespace IncidentManagementSystem.DataAccess
                                 {
                                     TranDateTime = Convert.ToDateTime(sqlDataReader["Date"].ToString()),
                                     Username = sqlDataReader["UserName"].ToString(),
-                                    TicketId = sqlDataReader["TicketId"].ToString(),                                   
-                                    InstId = sqlDataReader["InstitutionName"].ToString(),                                    
-                                    IssueId = sqlDataReader["Issue"].ToString()                                   
+                                    TicketId = sqlDataReader["TicketId"].ToString(),
+                                    InstId = sqlDataReader["InstitutionName"].ToString(),
+                                    IssueId = sqlDataReader["Issue"].ToString()
                                 };
 
                             }
@@ -526,7 +529,7 @@ namespace IncidentManagementSystem.DataAccess
                 {
                     ExceptionMessage = ex.Message,
                     StackTrace = ex.StackTrace,
-                    ControllerName = "Ticket" ,
+                    ControllerName = "Ticket",
                     ActionName = "Unknown",
                     userId = null
                 };
@@ -583,13 +586,81 @@ namespace IncidentManagementSystem.DataAccess
             return _sQLStatus;
         }
 
-                
+        //public List<TicketDto> TicketAssinedToRole(string userId)
+        //{
+        //    List<TicketDto> AssinedToRole = new List<TicketDto>();
+        //    try
+        //    {
+        //        using (SqlConnection conn = new SqlConnection(conStr))
+        //        {
+        //            using (SqlCommand cmd = new SqlCommand(conStr, conn))
+        //            {
+
+        //                cmd.CommandText = "GetTicketInfo";
+        //                cmd.CommandType = CommandType.StoredProcedure;
+        //                cmd.Parameters.Add(new SqlParameter("@UserId", userId));
+        //                cmd.Connection = conn;
+
+        //                conn.Open();
+
+        //                using (var sqlDataReader = cmd.ExecuteReader())
+        //                {
+        //                    // Retrieve schema table to check columns
+        //                    var schemaTable = sqlDataReader.GetSchemaTable();
+        //                    bool hasAssignedUsername = false;
+        //                    bool hasUsername = false;
+
+        //                    if (schemaTable != null)
+        //                    {
+        //                        foreach (DataRow row in schemaTable.Rows)
+        //                        {
+        //                            string columnName = row["ColumnName"].ToString();
+        //                            if (columnName == "AssignedUsername")
+        //                            {
+        //                                hasAssignedUsername = true;
+        //                            }
+        //                            if (columnName == "Username")
+        //                            {
+        //                                hasUsername = true;
+        //                            }
+        //                        }
+        //                    }
+        //                    while (sqlDataReader.Read())
+        //                    {
+        //                        AssinedToRole.Add(new TicketDto()
+        //                        {
+        //                            TicketId = sqlDataReader["TicketId"].ToString(),
+        //                            AssignedUsername = hasAssignedUsername ? sqlDataReader["AssignedUsername"].ToString() : null,
+        //                            UserName = hasUsername ? sqlDataReader["Username"].ToString() : null,
+
+
+
+        //                            //RoleId = sqlDataReader["RoleId"].ToString()
+        //                        });
+        //                    }
+        //                }
+
+        //                conn.Close();
+
+        //            }
+        //        }
+
+        //        return AssinedToRole;
+
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Console.WriteLine(ex.Message);
+        //    }
+        //    return new List<TicketDto>();
+        //}
+
     }
 }
 public interface ITicketDataAccess
 {
     SQLStatusDto TicketCreate(TicketDto ticketDto);
-    SearchDto TicketInfo(string search = "", string InstId = "", string status="", int page = 1, int offset = 10, string userId = "");
+    SearchDto TicketInfo(string search = "", string InstId = "", string status = "", int page = 1, int offset = 10, string userId = "");
 
     TicketDto GetTicketDetails(string TicketId);
 
@@ -606,5 +677,6 @@ public interface ITicketDataAccess
     ResolvedByDto GetResolveDetails(string TicketId);
 
     SQLStatusDto TicketResolveBy(ResolvedByDto resolvedByDto);
+    //List<TicketDto> TicketAssinedToRole(string userId);
 
 }

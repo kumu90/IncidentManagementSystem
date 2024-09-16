@@ -65,7 +65,7 @@ namespace IncidentManagementSystem.Controllers
         {
             //Init();
             string userId = User.Identity.GetUserId();
-            if (User.IsInRole("SuperAdmin"))
+            if (User.IsInRole("SuperAdmin") || User.IsInRole("Admin") || User.IsInRole("Developer"))
             {
                 return RedirectToAction("Dashboard");
             }
@@ -176,6 +176,8 @@ namespace IncidentManagementSystem.Controllers
 
                
         }
+
+      
         public ActionResult Contact()
         {
             return View();

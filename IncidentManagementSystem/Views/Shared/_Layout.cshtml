@@ -8,18 +8,25 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
+    <!--==== Select2 And Semantic CSS ====-->
+    <link href="~/CustomContent/Select2/css/select2.min.css" rel="stylesheet" />
+    <link href="~/CustomContent/semantic/semantic.min.css" rel="stylesheet" />
+  
+    <!--==== Boxicons CSS ====-->
 
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
-
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" rel="stylesheet" />
+    <link href="~/CustomContent/boxicon/css/boxicons.min.css" rel="stylesheet" />
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <link href="~/CustomContent/Bootstrap/css/bootstrap.min.css" rel="stylesheet" />
     <link href="~/Content/login-style.css" rel="stylesheet" />
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
+    <!--==== Awesome fomt ====-->
+
+    <link href="~/CustomContent/AwesomFont/css/all.min.css" rel="stylesheet" />
+
     <!--==== Boxicons CSS ====-->
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    @*<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>*@
 
 
 
@@ -103,16 +110,19 @@
                         </a>
                         <div id="multi" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                             <ul>
-                                <li class="item">
-                                    @Html.Raw(Html.ActionLink("TicketLink", "Create", "Ticket"@*, new { UserName = User.Identity.Name }*@, new { area = "" }, new { @class = "nav-link" }).ToString().Replace("TicketLink", "<span class='bx bxs-plus-circle icon'></span> Create"))
-                                </li>
-                                @*@if (User.IsInRole("SuperAdmin") || User.IsInRole("Admin") || User.IsInRole("Developer"))
-                                {*@
+                                @if (User.IsInRole("SuperAdmin") || User.IsInRole("User"))
+                                {
                                     <li class="item">
-                                        @Html.Raw(Html.ActionLink("TicketIndexLink", "Index", "Ticket", @*new { UserName = User.Identity.Name },*@  new { area = "" }, new { @class = "nav-link" }).ToString().Replace("TicketIndexLink", "<span class='bx bx-search icon'></span> Search"))
+                                        @Html.Raw(Html.ActionLink("TicketLink", "Create", "Ticket", new { area = "" }, new { @class = "nav-link" }).ToString().Replace("TicketLink", "<span class='bx bxs-plus-circle icon'></span> Create"))
                                     </li>
-                                @*}*@
-                            </ul>
+                                }
+                                    @*@if (User.IsInRole("SuperAdmin") || User.IsInRole("Admin") || User.IsInRole("Developer"))
+            {*@
+                                    <li class="item">
+                                        @Html.Raw(Html.ActionLink("TicketIndexLink", "Index", "Ticket",@*new { UserName = User.Identity.Name },*@new { area = "" }, new { @class = "nav-link" }).ToString().Replace("TicketIndexLink", "<span class='bx bx-search icon'></span> Search"))
+                                    </li>
+                                    @*}*@
+                                </ul>
                         </div>
                     </div>
 
@@ -142,9 +152,16 @@
         <i class="fa-solid fa-bars" id="sidebar-close"></i>
         @if (Request.IsAuthenticated)
         {
-            <label style="margin-bottom:0px;">@User.Identity.GetUserName()</label>
-            @*@Html.ActionLink(User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", @class = "nav-link" })*@
+            @*<div>
+
+                <label style="margin-bottom:0px;">@User.Identity.GetUserName()</label>
+            </div>*@
+
+            <div>
+                @Html.ActionLink(User.Identity.GetUserName() , "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", @class = "nav-link" })
+            </div>
         }
+
     </nav>
     <div class="main" style="padding-bottom:60px">
 

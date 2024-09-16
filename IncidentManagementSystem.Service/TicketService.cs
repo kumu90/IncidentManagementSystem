@@ -66,7 +66,10 @@ namespace IncidentManagementSystem.Service
         {
             return _iTicketDataAccess.TicketResolveBy(resolvedByDto);
         }
-
+        //public List<TicketDto> TicketAssinedToRole(string userId)
+        //{
+        //    return _iTicketDataAccess.TicketAssinedToRole(userId);
+        //}
     }
 }
 public interface ITicketService
@@ -83,6 +86,9 @@ public interface ITicketService
     TicketDto GetInstDetail(string UserName = "");
     TicketDto GetInstDetailSearch(string userId = "");
     ResolvedByDto GetResolveDetails(string TicketId);
+
     SQLStatusDto TicketResolveBy(ResolvedByDto resolvedByDto);
-   
+    //List<TicketDto> TicketAssinedToRole(string userId);
+
+
 }

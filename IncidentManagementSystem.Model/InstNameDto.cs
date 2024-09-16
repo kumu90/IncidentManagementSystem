@@ -35,6 +35,7 @@ namespace IncidentManagementSystem.Model
 
         [DisplayName("ZipCode")]
         [Required]
+        [RegularExpression(@"^\d{5}(-\d{4})?$", ErrorMessage = "Invalid ZIP Code format.")]
         public string ZipCode { get; set; }
 
         [DisplayName("Contact Admin")]
@@ -63,6 +64,7 @@ namespace IncidentManagementSystem.Model
         public string CreatedDate { get; set; }
         public string UpdatedBy { get; set; }
         public string Flag { get; set; }
+        [Required(ErrorMessage = "Please select at least one service.")]
         public List<string> ServiceIdList { get; set; }
 
         public int TotalCount { get; set; }

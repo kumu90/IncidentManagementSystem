@@ -51,7 +51,7 @@ namespace IncidentManagementSystem.DataAccess
                         using (var rdr = cmd.ExecuteReader())
                         {
                             rdr.Read();
-                            {                                
+                            {
                                 _SQLStatus.Status = rdr["Status"].ToString();
                                 _SQLStatus.Message = rdr["Message"].ToString();
                             }
@@ -70,12 +70,12 @@ namespace IncidentManagementSystem.DataAccess
                     ExceptionMessage = ex.Message,
                     StackTrace = ex.StackTrace,
                     ControllerName = "Unknown" + "Institution",
-                    ActionName = "Unknown",    
-                    userId = null              
+                    ActionName = "Unknown",
+                    userId = null
                 };
                 ex.LogError(exceptionLog);
             }
-        
+
             return _SQLStatus;
         }
 
@@ -169,14 +169,14 @@ namespace IncidentManagementSystem.DataAccess
                             dto.Flag = row["Flag"].ToString();
                             dto.ContactPersonAdmin = row["ContactPersonAdmin"].ToString();
                             dto.CreatedDate = row["CreatedDate"].ToString();
-                            
+
                             data.InstList.Add(dto);
                         }
                         return data;
                     }
                 }
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
@@ -271,6 +271,89 @@ namespace IncidentManagementSystem.DataAccess
             return new List<Roles>();
         }
 
+        public List<UserList> UserNameList()
+        {
+            List<UserList> UserNamelist = new List<UserList>();
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(conStr))
+                {
+                    using (SqlCommand cmd = new SqlCommand(conStr, conn))
+                    {
+
+                        cmd.CommandText = "GetUserNameList";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = conn;
+
+                        conn.Open();
+
+                        using (var sqlDataReader = cmd.ExecuteReader())
+                        {
+                            while (sqlDataReader.Read())
+                            {
+                                UserNamelist.Add(new UserList()
+                                {
+                                    Id = sqlDataReader["Id"].ToString(),
+                                    UserName = sqlDataReader["UserName"].ToString()
+                                });
+                            }
+                        }
+
+                        conn.Close();
+
+                    }
+                }
+
+                return UserNamelist;
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return new List<UserList>();
+        }
+
+        public Roles Rolename(string userId)
+        {
+            Roles _SQLStatus = new Roles();
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(conStr))
+                {
+                    using (SqlCommand cmd = new SqlCommand(conStr, conn))
+                    {
+
+                        cmd.CommandText = "GetRole";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = conn;
+                        cmd.Parameters.AddWithValue("@UserId", userId);
+                        conn.Open();
+                        using (var sqlDataReader = cmd.ExecuteReader())
+                        {
+                            if (sqlDataReader.Read())
+                            {
+                                _SQLStatus.Name = sqlDataReader["RoleName"].ToString();
+                            }
+                        }
+
+                        conn.Close();
+
+                    }
+                }
+
+                
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return _SQLStatus;
+        }
+
+
+
     }
     public interface IInstitutionDataAccess
     {
@@ -278,6 +361,9 @@ namespace IncidentManagementSystem.DataAccess
         InstListDto InstitutionList(string search, int page = 1, int offset = 10);
         List<InstNameDto> GetInstName(string userId);
         List<Roles> RoleList();
+        List<UserList> UserNameList();
+        Roles Rolename(string userId);
+
     }
     
 }

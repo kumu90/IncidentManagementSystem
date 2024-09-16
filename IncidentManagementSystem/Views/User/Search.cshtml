@@ -1,5 +1,5 @@
 ﻿@model IEnumerable<IncidentManagementSystem.Model.UserInfo>
-
+@using Microsoft.AspNet.Identity;
 @{
     //int sno = 0; // Initialize serial number
     int sno = (ViewBag.CurrentPage - 1) * ViewBag.Offset;
@@ -62,6 +62,7 @@
                     <th>InstId</th>
                     <th>Roles</th>
                     <th>Email</th>
+                    <th>Edit</th>
                 </tr>
             </thead>
             <tbody class="whitespace-nowrap">
@@ -74,11 +75,16 @@
                         <td>@item.InstId</td>
                         <td>@item.Roles</td>
                         <td>@item.Email</td>
+                        <td>@Html.ActionLink("Edit Profile", "ProfileEdit", "Manage", new RouteValueDictionary { { "userId", item.Id } }, null)</td>
+                        <td hidden>@item.Id</td>
+                        @*<td>@Html.ActionLink("Edit Profile", "ProfileEdit", "Manage", new { id = item.Id })</td>*@
+
+
                     </tr>
                 }
             </tbody>
 
-        </table>       
+        </table>
     </div>
 
 }

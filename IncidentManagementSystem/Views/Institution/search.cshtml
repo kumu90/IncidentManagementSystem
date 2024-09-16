@@ -73,7 +73,7 @@
                     @*<th>Created By</th>*@
                     <th>Created Date</th>
                     @*<th>Flag</th>*@
-                    <th>Add</th>
+                    @*<th>Add</th>*@
                 </tr>
             </thead>
             <tbody class="whitespace-nowrap">
@@ -95,9 +95,9 @@
                         @*<td>@item.CreatedBy</td>*@
                         <td>@item.CreatedDate</td>
                         @*<td>@item.Flag</td>*@
-                        <td>
+                        @*<td>
                             @Html.ActionLink("Add", "Create", "Product", new { id = item.Id }, null)
-                        </td>
+                        </td>*@
                     </tr>
                 }
             </tbody>

@@ -49,13 +49,23 @@ namespace IncidentManagementSystem.Controllers
 
 
 
-        [Authorize(Roles = "SuperAdmin, Admin, Developer")]
+        [Authorize(Roles = "SuperAdmin, Admin, Developer, User")]
         public ActionResult Index(/*string search*/)
         {
             Init();
-            //var clients = _userService.UserDetail(search);
-            //return View(clients);
-            return View();
+            string userId = User.Identity.GetUserId();
+            if (User.IsInRole("SuperAdmin") || User.IsInRole("Admin") || User.IsInRole("Developer"))
+            {
+                return View();
+            }
+            else if (User.IsInRole("User"))
+            {
+                return RedirectToAction("Dashboard", "Home");
+            }
+            else
+            {
+                return RedirectToAction("AccessDenied");
+            }
         }
 
         [Authorize(Roles = "SuperAdmin, Admin, Developer")]

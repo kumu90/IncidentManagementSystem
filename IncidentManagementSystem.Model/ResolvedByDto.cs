@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -31,8 +32,9 @@ namespace IncidentManagementSystem.Model
         public string AssignTo { get; set; }
 
         [DisplayName("Resolve")]
+        [Required(ErrorMessage = "Resolve is required")]
         public string Resolve { get; set; }
-
+        [Required(ErrorMessage = "Description  is required")]
         public string Description {  get; set; }
 
 

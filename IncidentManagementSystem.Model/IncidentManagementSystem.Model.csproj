@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="AdminDashboardDto.cs" />
     <Compile Include="Annotation\ImageAttribute.cs" />
+    <Compile Include="AssignList.cs" />
     <Compile Include="DataPoint.cs" />
     <Compile Include="DataPointInstitutionBase.cs" />
     <Compile Include="DataPointServicesBase.cs" />
@@ -54,6 +55,7 @@
     <Compile Include="ErrorLogDto.cs" />
     <Compile Include="InstNameDto.cs" />
     <Compile Include="IssueDto.cs" />
+    <Compile Include="NotificationDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegisterServiceDto.cs" />
     <Compile Include="ResolvedByDto.cs" />
@@ -64,6 +66,7 @@
     <Compile Include="TicketDetailByMonthDto.cs" />
     <Compile Include="TicketDto.cs" />
     <Compile Include="UserDto.cs" />
+    <Compile Include="UserList.cs" />
     <Compile Include="UserRole.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

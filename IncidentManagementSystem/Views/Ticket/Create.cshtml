@@ -3,119 +3,121 @@
     <div class="col-lg-12 header ">
         <div class="col-md-12 text">
             <span class="page input-icon">
-                <span class="page input-icon">Ticket</span>
+                Ticket
             </span>
             <span class="detail">Create</span>
         </div>
-       
+
     </div>
 
 
     @using (Html.BeginForm("Create", "Ticket", FormMethod.Post, new { role = "form", enctype = "multipart/form-data" }))
-    {
-        @Html.HiddenFor(m => m.InstId)
-        @Html.AntiForgeryToken()
-        <div class="row">
-            <div class="col-md-4">
-                <div class="col-md-12 inst-row-form">
-                    @Html.LabelFor(m => m.InstId, new { @class = "col-md-4 col-form-label l_ticket" })
-                    <div class="col">
+    {@Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.InstId)
 
-                        @if (ViewBag.IsSuperAdmin)
-                        {
-                            @Html.DropDownListFor(m => m.InstId, ViewBag.Institution as SelectList, "-Select Institution-", new { @class = "form-select u-box" })
-                        }
-                        else
-                        {
-                            @*@Html.DropDownListFor(m => m.InstId, ViewBag.Institution as SelectList, "-Select Institution-", new { @class = "form-control u-box", @disabled = "disabled" })*@
-                            @Html.TextBoxFor(m => m.InstitutionName, new { @class = "form-control b-inst", @disabled = "disabled" })
-                        }
-                        @Html.ValidationMessageFor(m => m.InstId, "", new { @class = "text-danger" })
-                    </div>
+    <div class="row" style="background: #fff; border-radius:8px;">
+
+        <div class="col-md-4 mt-2">
+            <div class="col-md-12 inst-row-form">
+                @Html.LabelFor(m => m.InstId, new { @class = "col-md-4 col-form-label l_ticket" })
+                <div class="col">
+
+                    @if (ViewBag.IsSuperAdmin)
+                    {
+                        @Html.DropDownListFor(m => m.InstId, ViewBag.Institution as SelectList, "-Select Institution-", new { @class = "form-select u-box" })
+                    }
+                    else
+                    {
+                        @*@Html.DropDownListFor(m => m.InstId, ViewBag.Institution as SelectList, "-Select Institution-", new { @class = "form-control u-box", @disabled = "disabled" })*@
+                        @Html.TextBoxFor(m => m.InstitutionName, new { @class = "form-control b-inst", @disabled = "disabled" })
+                    }
+                    @Html.ValidationMessageFor(m => m.InstId, "", new { @class = "text-danger" })
                 </div>
-                <div class="col-md-12 inst-row-form">
-                    @Html.LabelFor(m => m.ServiceId, new { @class = "col-md-4 col-form-label l_ticket" })
-                    <div class="col-lg-12">
-                        @* @Html.DropDownList("ServiceId", new SelectList(Enumerable.Empty<SelectListItem>(), "Value", "Text"), "-Select Service-", new { @class = "form-select u-box", id = "servicesDropdown" })*@
-                        @Html.DropDownListFor(m => m.ServiceId, ViewBag.services as SelectList, "-Select Service-", new { @class = "form-select  u-box" })
-                        @Html.ValidationMessageFor(m => m.ServiceId, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="col-md-12 inst-row-form">
-                    @Html.LabelFor(m => m.IssueId, new { @class = "col-md-4 col-form-label l_ticket" })
-                    <div class="col-lg-12">
-                        @Html.DropDownListFor(m => m.IssueId, ViewBag.Issues as SelectList, "-Select Issue-", new { @class = "form-select u-box" })
-                        @Html.ValidationMessageFor(m => m.IssueId, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-
             </div>
-            <div class="col-md-4">
-                <div class="col-md-12 inst-row-form">
-                    @Html.LabelFor(m => m.Email, new { @class = "col-md-4 col-form-label l_ticket" })
-                    <div class="col-lg-12">
-                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control b-inst" })
-                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="col-md-12 inst-row-form">
-                    @Html.LabelFor(m => m.CellNumber, new { @class = "col-md-4 col-form-label l_ticket" })
-                    <div class="col-lg-12">
-                        @Html.TextBoxFor(m => m.CellNumber, new { @class = "form-control b-inst", type = "text", maxlength = "10", pattern = @"\d*" })
-                        @Html.ValidationMessageFor(m => m.CellNumber, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="col-lg-12 inst-row-form">
-                    @Html.LabelFor(m => m.Description, new { @class = "col-md-4 col-form-label l_ticket" })
-                    <div class="col-lg-12">
-                        @Html.TextAreaFor(m => m.Description, new { @class = "form-control b-inst" })
-                        @Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger" })
-                    </div>
+            <div class="col-md-12 inst-row-form">
+                @Html.LabelFor(m => m.ServiceId, new { @class = "col-md-4 col-form-label l_ticket" })
+                <div class="col-lg-12">
+                    @* @Html.DropDownList("ServiceId", new SelectList(Enumerable.Empty<SelectListItem>(), "Value", "Text"), "-Select Service-", new { @class = "form-select u-box", id = "servicesDropdown" })*@
+                    @Html.DropDownListFor(m => m.ServiceId, ViewBag.services as SelectList, "-Select Service-", new { @class = "form-select  u-box" })
+                    @Html.ValidationMessageFor(m => m.ServiceId, "", new { @class = "text-danger" })
                 </div>
             </div>
 
-            <div class="col-md-4">
-
-
-                <div class="col-md-12 inst-row-form img-upload">
-                    <div>
-                        <label for="file">Upload Image:</label>
-
-                        <div class="tik-img " style="background-color:lightgray;">
-                            <a href="#" id="imageAnchor">
-                                <img id="preview" src="~/Image/photo-album-regular-24.png" class="card-img-top" alt="Preview" style=" width: 280px; height:180px " />
-                            </a>
-                        </div>
-
-                        <input type="file" name="file" id="file" accept="image/*" onchange="previewImage(event)" class="form-control" style="width: 280px; margin-top: 5px;" />
-
-                    </div>
+            <div class="col-md-12 inst-row-form">
+                @Html.LabelFor(m => m.IssueId, new { @class = "col-md-4 col-form-label l_ticket" })
+                <div class="col-lg-12">
+                    @Html.DropDownListFor(m => m.IssueId, ViewBag.Issues as SelectList, "-Select Issue-", new { @class = "form-select u-box" })
+                    @Html.ValidationMessageFor(m => m.IssueId, "", new { @class = "text-danger" })
                 </div>
-
-            </div>
-
-
-            <div class="col-md-4">
-                <div class="col-md-12" style="margin-left:16px;">
-                    <input type="submit" value="Submit" class="btn btn-primary btn-lg" id="submit" />
-                    <input type="button" value="Back" class="btn btn-secondary btn-lg" onclick="goBack()" />
-                </div>               
             </div>
 
 
         </div>
-    }
+        <div class="col-md-4 mt-2">
+            <div class="col-md-12 inst-row-form">
+                @Html.LabelFor(m => m.Email, new { @class = "col-md-4 col-form-label l_ticket" })
+                <div class="col-lg-12">
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control b-inst" })
+                    @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="col-md-12 inst-row-form">
+                @Html.LabelFor(m => m.CellNumber, new { @class = "col-md-4 col-form-label l_ticket" })
+                <div class="col-lg-12">
+                    @Html.TextBoxFor(m => m.CellNumber, new { @class = "form-control b-inst", type = "text", maxlength = "10", pattern = @"\d*" })
+                    @Html.ValidationMessageFor(m => m.CellNumber, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-lg-12 inst-row-form mb-3">
+                @Html.LabelFor(m => m.Description, new { @class = "col-md-4 col-form-label l_ticket" })
+                <div class="col-lg-12">
+                    @Html.TextAreaFor(m => m.Description, new { @class = "form-control b-inst" })
+                    @Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mt-2">
+
+
+            <div class="col-md-12 inst-row-form img-upload">
+                <div>
+                    <label for="file">Upload Image:</label>
+
+                    <div class="tik-img " style="background-color:lightgray;">
+                        <a href="#" id="imageAnchor">
+                            <img id="preview" src="~/Image/photo-album-regular-24.png" class="card-img-top" alt="Preview" style=" width: 280px; height:180px " />
+                        </a>
+                    </div>
+
+                    <input type="file" name="file" id="file" accept="image/*" onchange="previewImage(event)" class="form-control" style="width: 280px; margin-top: 5px;" />
+
+                </div>
+            </div>
+
+        </div>
+
+
+
+
+
+    </div>
+    <div class="col-md-4 mt-3">
+        <div class="col-md-12">
+            <input type="submit" value="Submit" class="btn btn-primary btn-lg" id="submit" />
+            <input type="button" value="Back" class="btn btn-secondary btn-lg" onclick="goBack()" />
+        </div>
+    </div>
+}
 
 
 
 </div>
 
-<div class="modal" tabindex="-1" role="dialog" id="modalTaskComplete" aria-labelledby="modalTaskCompleteLabel" aria-hidden="true" style="margin-top:12rem; margin-left:40rem;">
+<div class="modal" tabindex="-1" role="dialog" id="modalTaskComplete" aria-labelledby="modalTaskCompleteLabel" aria-hidden="true" style="margin-top:12rem; ">
     <div class="modal-dialog" role="document">
-        <div class="modal-content col-md-4">
+        <div class="modal-content col-md-9">
             <div class="modal-header text-center">
                 <h4 class="modal-title" id="modalTaskCompleteLabel">Status</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -161,7 +163,7 @@
                 url: '@Url.Action("InstService")',
                 data: { InstId: instId },
                 success: function (result) {
-                    debugger;
+
                     //// Append the retrieved service to the dropdown
                     $.each(result, function (i, service) {
                         $('#ServiceId').append($('<option>', {
@@ -189,7 +191,7 @@
 
         $(document).ready(function () {
             $("#ServiceId").on("change", function () {
-            debugger;
+
                 const ServiceId = $('#ServiceId').val();
                 $('#IssueId').html("");
                 $('#IssueId').append($('<option disabled selected value>-Select Issue-</option>'));
@@ -198,7 +200,7 @@
                     url: '@Url.Action("ServiceIssue")',
                     data: { ServiceId: ServiceId },
                     success: function (result) {
-                        debugger;
+
                         //// Append the retrieved Issues to the dropdown
                         $.each(result, function (i, Issues) {
                             $('#IssueId').append($('<option>', {
@@ -251,3 +253,6 @@
 
 
 }
+<script src="~/Scripts/jquery-3.7.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

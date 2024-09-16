@@ -14,6 +14,7 @@ using System.Web;
 using System.Web.Mvc;
 using static System.Net.Mime.MediaTypeNames;
 using IncidentManagementSystem.Common;
+using IncidentManagementSystem.DataAccess;
 
 namespace IncidentManagementSystem.Controllers
 {
@@ -46,11 +47,17 @@ namespace IncidentManagementSystem.Controllers
             List<Roles> role = _iInstitutionService.RoleList();
             ViewBag.UserRole = new SelectList(role, "Id", "Name");
 
+            List<UserList> users = _iInstitutionService.UserNameList();
+            ViewBag.UserName = new SelectList(users, "Id", "UserName");
+
             var services = _iproductService.GetServices();
             ViewBag.services = new SelectList(services, "ServiceId", "serviceName");
 
             var Issues = _iTicketService.GetIssueList();
             ViewBag.Issues = new SelectList(Issues, "IssueId", "IssueName");
+
+            //var AssineList = _iTicketService.TicketAssinedToRole(userId);
+            //ViewBag.AssignRole = new SelectList(AssineList, "TicketId", "UserName");
 
             // Check if the current user is a SuperAdmin
             bool isSuperAdmin = User.IsInRole("SuperAdmin");
@@ -79,26 +86,31 @@ namespace IncidentManagementSystem.Controllers
         {
             Init();
             ViewBag.Status = status;
+            //ViewBag.AssignRole = AssineList;
             return View();
         }
 
 
         [Authorize(Roles = "SuperAdmin, Admin, Developer, User")]
         public ActionResult Search(string search, string InstId, string status, int page = 1, int offset = 10, string userId = "")
-         {
+        {
             Init();
-             userId = User.Identity.GetUserId();
+            userId = User.Identity.GetUserId();
             var Institution = _iInstitutionService.GetInstName(userId);
+            //var assineList = _iTicketService.TicketAssinedToRole(userId);
             //List<InstNameDto> institution = _iInstitutionService.GetInstName(userId);
 
 
-            bool isSuperAdmin = User.IsInRole("SuperAdmin");
+            bool isSuperAdmin = (User.IsInRole("SuperAdmin") || User.IsInRole("Admin") || User.IsInRole("Developer"));
+            //bool isDeveloperOrAdmin= (User.IsInRole("Admin") || User.IsInRole("Developer"));
 
             // Populate institution dropdown based on role
             if (isSuperAdmin)
             {
                 ViewBag.Institution = Institution;
                 ViewBag.SelectedInstId = "";
+              
+          
 
             }
             else
@@ -119,11 +131,18 @@ namespace IncidentManagementSystem.Controllers
             if (page < 1) page = 1;
             var selectedInstId = string.IsNullOrEmpty(InstId) ? ViewBag.SelectedInstId : InstId;
             SearchDto results = _iTicketService.TicketInfo(search, selectedInstId, status, page, offset, userId);
-          
+            
+
             int totalPages = (int)Math.Ceiling((double)results.TotalCount / offset);
 
-           
+            
+            ////var ticketid = AssineList.Select(t => t.TicketId).ToList();
+            //var ticket = assineList.FirstOrDefault(t => t.TicketId == t.TicketId);
+            //ViewBag.TicketId = ticket.TicketId;
+            //string userName = ticket != null ? ticket.UserName : "User not found";
+            //ViewBag.UserName = userName;
 
+           
             ViewBag.TotalPages = totalPages;
             ViewBag.CurrentPage = page;
             ViewBag.offset = offset;

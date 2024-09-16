@@ -27,8 +27,9 @@ namespace IncidentManagementSystem.Model
         public string InstId { get; set; }
         public string InstitutionName {  get; set; }
 
-        [Required]
+       
         [DisplayName("Service")]
+        [Required(ErrorMessage = "Please select service.")]
         public string ServiceId { get; set; }
         public string ServiceName { get; set; }
 
@@ -36,8 +37,9 @@ namespace IncidentManagementSystem.Model
         [DisplayName("Issue")]
         public string IssueId { get; set; }
 
-        [Required]
+     
         [DisplayName("Description")]
+        [Required(ErrorMessage = "Description is required")]
         public string Description { get; set; }
 
         [Required(ErrorMessage = "Contact number is required.")]
@@ -57,8 +59,11 @@ namespace IncidentManagementSystem.Model
 
         public byte[] ImageData { get; set; }
         public string contentType { get; set; }
-
-       
+        public string userId { get; set; }
+        public string UserName { get; set; }
+        public string AssignedUsername { get; set; }
+        public string RoleId { get; set; }
+        public string AssineList {  get; set; }
 
     }
 

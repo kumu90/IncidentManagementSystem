@@ -68,7 +68,8 @@
                                     <div class="col-md-12 ">
 
                                         @Html.DropDownListFor(m => m.ServiceIdList, ViewBag.services as SelectList, "Select Services", new { @class = " form-select ui  multiple search selection dropdown selectService u-box", @multiple = "", id = "ServiceId" })
-
+                                        <br/><br/>
+                                        @Html.ValidationMessageFor(m => m.ServiceIdList, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
                                 <div class="col-md-12  col-sm-12 col-sx-12  inst-row-form">
@@ -147,57 +148,58 @@
                             </div>
                         </div>
                         <div class="d-flex align-items-center">
-                            <input type="file" name="file" id="file" accept="image/*" onchange="previewImage(event)" class="form-control" style="width: 94px; margin-top:5px; margin-left:35px" />
+                            <input type="file" name="file" id="file" accept="image/*" onchange="previewImage(event)" class="form-control" style="width: 94px; margin-top:5px; margin-left:35px" required/>
 
-                           
+
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="row" style="margin-top:10px">
-            <div class="col-md-12 col-sm-12 col-sx-12" style="margin-left:31px; margin-bottom:20px;">
+        @*<div class="row" style="margin-top:10px">*@
+        <div class="col-md-12 mt-3">
+            <div class="col-md-12 col-sm-12 col-sx-12" @*style="margin-left:31px; margin-bottom:20px;"*@>
                 <input type="submit" value="Register" class="btn btn-success btn-lg" id="submit" />
                 @*<input type="reset" value="Clear" class="btn btn-secondary btn-lg " style="margin-left:20px;" onclick="clearForm();" />*@
                 <input type="button" value="Back" class="btn btn-secondary btn-lg" onclick="goBack()" />
-                <input type="reset" value="Clear" class="btn btn-secondary btn-lg offset-10"  onclick="clearForm();" />
+                <input type="reset" value="Clear" class="btn btn-secondary btn-lg position-absolute bottom-0 end-0" onclick="clearForm();" />
             </div>
         </div>
-    }
+     }
 
 
 
-</div>
-<div class="modal" tabindex="-1" role="dialog" id="modalTaskComplete" style="margin-top:12rem; margin-left:40rem;">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content col-md-4">
-            <div class="modal-header text-center">
-                <h4 class="modal-title">Status</h4>
-            </div>
-            <div class="modal-body text-center">
-                <h4 class="@(@ViewBag.TaskStatus=="00"?"text-success":"text-danger")">@ViewBag.TaskMessage</h4>
-            </div>
-            <div class="modal-footer" style="padding:8px 8px 16px 8px;margin-top:0px">
-                @if (@ViewBag.TaskStatus == "00")
-                {
-                    <button type="button" class="btn btn-success btn-sm" data-dismiss="modal" data-target="#modalTaskComplete" onclick="location.href='@Url.Action("Register","Account")'">Okay</button>
-                }
-                else
-                {
-                    <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal" data-target="#modalTaskComplete" onclick="location.href = '@Url.Action("InstitutionRegister","Institution")'">Okay</button>
-                }
+        </div>
+        <div class="modal" tabindex="-1" role="dialog" id="modalTaskComplete" style="margin-top:12rem;">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content col-md-9">
+                    <div class="modal-header text-center">
+                        <h4 class="modal-title">Status</h4>
+                    </div>
+                    <div class="modal-body text-center">
+                        <h4 class="@(@ViewBag.TaskStatus=="00"?"text-success":"text-danger")">@ViewBag.TaskMessage</h4>
+                    </div>
+                    <div class="modal-footer" style="padding:8px 8px 16px 8px;margin-top:0px">
+                        @if (@ViewBag.TaskStatus == "00")
+                        {
+                            <button type="button" class="btn btn-success btn-sm" data-dismiss="modal" data-target="#modalTaskComplete" onclick="location.href='@Url.Action("Register","Account")'">Okay</button>
+                        }
+                        else
+                        {
+                            <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal" data-target="#modalTaskComplete" onclick="location.href = '@Url.Action("InstitutionRegister","Institution")'">Okay</button>
+                        }
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
 
-<script>
-    $('.ui.dropdown').dropdown();
-</script>
+        <script>
+            $('.ui.dropdown').dropdown();
+        </script>
 
-@section scripts{
+        @section scripts{
 
-    <script>
+            <script>
        /* let serviceList = [];*/
         //$(document).ready(function () {
         //    $('.selectService').click(function (e) {
@@ -278,9 +280,10 @@
         }
 
         function clearForm() {
+            debugger;
             // Reset the form
-            document.getElementById("ins-form").reset();
-
+            document.getElementById("ins_form").reset();
+            debugger;
             // Reset the file input
             document.getElementById("file").value = "";
 
@@ -304,6 +307,6 @@
             window.history.back();
         }
 
-    </script>
-}
+            </script>
+        }
 

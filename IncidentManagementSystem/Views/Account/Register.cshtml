@@ -23,68 +23,70 @@
         </div>
     </div>
 
+    @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { role = "form", id = "Reg_form" }))
+    {
+        <div class="row">
+            <div class="col-md-12 col-lg-12" style="padding:8px; border-radius:8px; background:white;">
 
-    <div class="row justify-content-center">
-        <div class="col-md-8 col-lg-6">
-            @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { role = "form" }))
-            {
                 @Html.AntiForgeryToken()
-                <div class="card p-4" style="border-radius: 8px;">
-                    <div class="form-group row mb-3">
-                        @Html.LabelFor(m => m.UserName, new { @class = "col-md-4 col-form-label l-user" })
-                        <div class="col-md-8">
+               
+                    <div class="form-group row mb-3 mt-2">
+                        @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 col-form-label l-user" })
+                        <div class="col-md-4">
                             @Html.TextBoxFor(m => m.UserName, new { @class = "form-control u-box" })
                             @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
                         </div>
                     </div>
 
                     <div class="form-group row mb-3">
-                        @Html.LabelFor(m => m.InsId, new { @class = "col-md-4 col-form-label l-user" })
-                        <div class="col-md-8">
+                        @Html.LabelFor(m => m.InsId, new { @class = "col-md-2 col-form-label l-user" })
+                        <div class="col-md-4">
                             @Html.DropDownListFor(m => m.InsId, ViewBag.Institution as SelectList, "-Select Institution-", new { @class = "form-select u-box" })
                             @Html.ValidationMessageFor(m => m.InsId, "", new { @class = "text-danger" })
                         </div>
                     </div>
 
                     <div class="form-group row mb-3">
-                        @Html.LabelFor(m => m.UserRole_Id, new { @class = "col-md-4 col-form-label l-user" })
-                        <div class="col-md-8">
+                        @Html.LabelFor(m => m.UserRole_Id, new { @class = "col-md-2 col-form-label l-user" })
+                        <div class="col-md-4">
                             @Html.DropDownListFor(m => m.UserRole_Id, ViewBag.UserRole as SelectList, "-Select Role-", new { @class = "form-select u-box" })
                             @Html.ValidationMessageFor(m => m.UserRole_Id, "", new { @class = "text-danger" })
                         </div>
                     </div>
 
                     <div class="form-group row mb-3">
-                        @Html.LabelFor(m => m.Password, new { @class = "col-md-4 col-form-label l-user" })
-                        <div class="col-md-8">
+                        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 col-form-label l-user" })
+                        <div class="col-md-4">
                             @Html.PasswordFor(m => m.Password, new { @class = "form-control u-box" })
                             @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
                         </div>
                     </div>
 
-                    <div class="form-group row mb-3">
-                        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-4 col-form-label l-user" })
-                        <div class="col-md-8">
+                    <div class="form-group row mb-2">
+                        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 col-form-label l-user" })
+                        <div class="col-md-4">
                             @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control u-box" })
                             @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
                         </div>
                     </div>
 
-                    <div class="form-group row mb-3">
-                        <div class="col-md-12 text-center">
-                            <input type="submit" value="Register" class="btn btn-success gap" />
-                            <input type="reset" value="Cancel" class="btn btn-danger gap-c" onclick="goBack()" />
-                        </div>
-                    </div>
-                </div>
-            }
+
+            
+
+            </div>
         </div>
-    </div>
+        <div class="form-group row mb-2 mt-3">
+            <div class="col-md-12 mt-2" >
+                <input type="submit" value="Register" class="btn btn-success btn-lg " />
+                <input type="reset" value="Cancel" class="btn btn-danger btn-lg" onclick="clearForm();" />
+            </div>
+        </div>
+    }
 </div>
 
-<div class="modal" tabindex="-1" role="dialog" id="modalTaskComplete" aria-labelledby="modalTaskCompleteLabel" aria-hidden="true" style="margin-top:12rem; margin-left:40rem;">
+<div class="modal" tabindex="-1" role="dialog" id="modalTaskComplete" aria-labelledby="modalTaskCompleteLabel" aria-hidden="true" style="margin-top:12rem; ">
     <div class="modal-dialog" role="document">
-        <div class="modal-content col-md-4">
+        <div class="modal-content col-md-9">
             <div class="modal-header text-center">
                 <h4 class="modal-title" id="modalTaskCompleteLabel">Status</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -124,10 +126,16 @@
             }
         });
 
-
-        function goBack() {
-            window.history.back();
+        function clearForm() {
+            debugger;
+            // Reset the form
+            document.getElementById("Reg_form").reset();
+            debugger;
+           
         }
+        //function goBack() {
+        //    window.history.back();
+        //}
 
     </script>
 }

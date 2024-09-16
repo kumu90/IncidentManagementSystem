@@ -40,10 +40,12 @@ namespace IncidentManagementSystem.DataAccess
                         foreach (DataRow row in ds.Tables[1].Rows)
                         {
                             UserInfo dto = new UserInfo();
+                            dto.Id = row["Id"].ToString();
                             dto.InstId = row["InstitutionName"].ToString();
                             dto.Username = row["Username"].ToString();
                             dto.Email = row["Email"].ToString();
                             dto.Roles = row["RoleName"].ToString();
+                           
 
                             data.UserList.Add(dto);
                         }
@@ -58,7 +60,7 @@ namespace IncidentManagementSystem.DataAccess
                     StackTrace = ex.StackTrace,
                     ControllerName = "User",
                     ActionName = "Unknown",
-                    userId = null
+                    //userId = null
                 };
                 ex.LogError(exceptionLog);
             }
@@ -115,11 +117,63 @@ namespace IncidentManagementSystem.DataAccess
             }
             return new List<UserInfo>();
         }
+
+        public UserInfo EditUserProfile(string userId)
+        {
+            UserInfo UserDetail = new UserInfo();
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(conStr))
+                {
+                    using (SqlCommand cmd = new SqlCommand(conStr, conn))
+                    {
+
+                        cmd.CommandText = "UpdateUser";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@UserId", userId));
+                        cmd.Connection = conn;
+
+                        conn.Open();
+
+                        using (var sqlDataReader = cmd.ExecuteReader())
+                        {
+                            if (sqlDataReader.Read())
+                            {
+                                UserDetail = new UserInfo()
+                                {
+                                    Username = sqlDataReader["Username"].ToString(),
+                                  
+                                };
+
+
+                            }
+                        }
+                    }
+
+                }
+                return UserDetail;
+            }
+            catch (Exception ex)
+            {
+                //var exceptionLog = new ErrorLogDto
+                //{
+                //    ExceptionMessage = ex.Message,
+                //    StackTrace = ex.StackTrace,
+                //    ControllerName = "Ticket",
+                //    ActionName = "Unknown",
+                //    userId = null
+                //};
+                //ex.LogError(exceptionLog);
+            }
+            return UserDetail;
+        }
+
     }
 
     public interface IUserDataAccess
     {
         UserListDto UserDetail(string search, int page = 1, int offset = 10, string userId = "");
         List<UserInfo> UserList(string userId);
+        UserInfo EditUserProfile(string userId);
     }
 }

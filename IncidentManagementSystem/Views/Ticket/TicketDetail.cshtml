@@ -165,20 +165,34 @@
     @if (User.IsInRole("SuperAdmin"))
     {
 
-        <div class="col-lg-1 col-md-2">
-            <input type="button" value="Assign" class="btn btn-success btn-width" onclick="assignTicket('@Model.TicketId')" />
-        </div>
-    }
-        <div class="col-lg-1 col-md-2">
-            <a href="@Url.Action("TicketReject", "Ticket", new { TicketId = Model.TicketId })" class="btn btn-danger btn-width">Reject</a>
-        </div>
-        @*<div class="col-md-2">
-                <a href="@Url.Action("DownloadTicketPdf", "Ticket", new { ticketId = Model.TicketId })" class="btn btn-info btn-width" style="margin-left:20.5rem;">Download</a>
+        @*<div class="col-md-12">
+                <input type="button" value="Assign" class="btn btn-success btn-lg" onclick="assignTicket('@Model.TicketId')" />
+                <a href="@Url.Action("TicketReject", "Ticket", new { TicketId = Model.TicketId })" class="btn btn-danger btn-lg ">Reject</a>
             </div>*@
-    </div>
-@*</div>*@
+        <div class="col-md-12">
+            @if (status == "LO") // Show buttons only if status is not "98"
+            {
+                <input type="button" value="Assign" class="btn btn-success btn-lg" onclick="assignTicket('@Model.TicketId')" />
+                <a href="@Url.Action("TicketReject", "Ticket", new { TicketId = Model.TicketId })" class="btn btn-danger btn-lg ">Reject</a>
+            }
+            else 
+            {
+                <input type="button" value="Assign" class="btn btn-success btn-lg" hidden onclick="assignTicket('@Model.TicketId')" />
+                <a href="@Url.Action("TicketReject", "Ticket", new { TicketId = Model.TicketId })" class="btn btn-danger btn-lg" hidden>Reject</a>
+            }
+        </div>
 
-<script>
+     }
+
+
+
+            @*<div class="col-md-2">
+                    <a href="@Url.Action("DownloadTicketPdf", "Ticket", new { ticketId = Model.TicketId })" class="btn btn-info btn-width" style="margin-left:20.5rem;">Download</a>
+                </div>*@
+        </div>
+        @*</div>*@
+
+        <script>
     function assignTicket(ticketId) {
         var url = '@Url.Action("Assign", "Ticket")?TicketId=' + ticketId;
         window.location.href = url;
@@ -188,5 +202,5 @@
     function goBack() {
         window.history.back();
     }
-</script>
-@Scripts.Render("~/bundles/bootstrap")
+        </script>
+        @Scripts.Render("~/bundles/bootstrap")

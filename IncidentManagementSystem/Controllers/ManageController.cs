@@ -7,6 +7,11 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using IncidentManagementSystem.Models;
+using Microsoft.ReportingServices.ReportProcessing.ReportObjectModel;
+using System.Collections.Generic;
+using IncidentManagementSystem.Model;
+using IncidentManagementSystem.Service;
+using System.Web.Security;
 
 namespace IncidentManagementSystem.Controllers
 {
@@ -15,15 +20,25 @@ namespace IncidentManagementSystem.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private readonly IInstitutionService _iInstitutionService;
+        private readonly IUserService _iUserService;
 
+        public ManageController(IInstitutionService iInstitutionService, IUserService iUserService)
+        {
+            _iInstitutionService = iInstitutionService;
+            _iUserService = iUserService;
+
+        }
         public ManageController()
         {
         }
 
-        public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
+        public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, IInstitutionService instNameService, IUserService iUserService)
         {
             UserManager = userManager;
             SignInManager = signInManager;
+            _iInstitutionService = instNameService;
+            _iUserService = iUserService;
         }
 
         public ApplicationSignInManager SignInManager
@@ -74,6 +89,112 @@ namespace IncidentManagementSystem.Controllers
             };
             return View(model);
         }
+
+        public void Initialize()
+        {
+            string userId = User.Identity.GetUserId();
+            //var InsId = _iInstitutionService.GetInstName(userId);
+            //ViewBag.Institution = new SelectList(InsId, "InstId", "InstitutionName");
+
+            List<IncidentManagementSystem.Model.Roles> role = _iInstitutionService.RoleList();
+            ViewBag.UserRole = new SelectList(role, "Id", "Name");
+
+        }
+
+        //Custom Profile Edit //
+        // GET: /Manage/Index
+        [HttpGet]
+        public async Task<ActionResult> ProfileEdit(/*string userId*/)
+        {
+            Initialize();
+            var userId = User.Identity.GetUserId(); // use the user.identity.getuserid() to get the current user id
+            //var user = _userManager.FindById(userId);
+            var user = await UserManager.FindByIdAsync(userId);
+            List<IncidentManagementSystem.Model.Roles> role = _iInstitutionService.RoleList();
+            ViewBag.UserRole = new SelectList(role, "Name", "Name");
+            //var user = _iUserService.EditUserProfile(userId);
+            var model = new EditProfileViewModel
+            {
+                UserName = user.UserName,
+                //UserRole_Id = ,
+            };
+            return View(model);
+        }
+
+        // POST: /Manage/Index
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> ProfileEdit(EditProfileViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var userId = User.Identity.GetUserId();
+            var user = _userManager.FindById(userId);
+            user.UserName = model.UserName;
+           
+
+            var result = await _userManager.UpdateAsync(user);
+            if (result.Succeeded)
+            {
+              
+                return RedirectToAction(nameof(Index));
+            }
+
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError("", error);
+            }
+            Initialize();
+            return View(model);
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> EditUser(string userId)
+        {
+            //var userId = User.Identity.GetUserId(); // use the user.identity.getuserid() to get the current user id
+            ////var user = _userManager.FindById(userId);
+            var user = await UserManager.FindByIdAsync(userId);
+            //EditProfileViewModel model = _iUserService.EditUserProfile(userId);
+            //var UserDtl = _iUserService.EditUserProfile(userId);
+           
+            var model = new EditProfileViewModel
+            {
+                UserName = user.UserName,
+                //NewPassword = user.NewPassword,
+
+            };
+            return PartialView("EditUser", model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> EditUser(UserInfo model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model); // Return the view with validation errors
+            }
+
+            var userId = User.Identity.GetUserId(); // Retrieve the current user id
+            var user = await UserManager.FindByIdAsync(userId);
+         
+
+            // Change the user's password
+            var result = await UserManager.ChangePasswordAsync(userId, model.Password, model.ConfirmPassword);
+            if (result.Succeeded)
+            {
+                // Handle successful password change
+                return RedirectToAction("Index", "Home"); // Redirect to a different action or view
+            }
+
+            
+
+            return View(model); // Return the view with error messages
+        }
+
 
         //
         // POST: /Manage/RemoveLogin
