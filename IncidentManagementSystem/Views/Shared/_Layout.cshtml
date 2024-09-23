@@ -110,7 +110,7 @@
                         </a>
                         <div id="multi" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                             <ul>
-                                @if (User.IsInRole("SuperAdmin") || User.IsInRole("User"))
+                                @if (@*User.IsInRole("SuperAdmin") ||*@ User.IsInRole("User"))
                                 {
                                     <li class="item">
                                         @Html.Raw(Html.ActionLink("TicketLink", "Create", "Ticket", new { area = "" }, new { @class = "nav-link" }).ToString().Replace("TicketLink", "<span class='bx bxs-plus-circle icon'></span> Create"))

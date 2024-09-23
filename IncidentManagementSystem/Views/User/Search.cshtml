@@ -53,7 +53,9 @@
 </style>
 @if (Model != null && Model.Any())
 {
-    <div class="panel panel-default overflow-auto" style="max-height: 490px; height: 490px; font-family: outfit-black;">
+
+
+<div class="panel panel-default overflow-auto" style="max-height: 490px; height: 490px; font-family: outfit-black;">
         <table class="table table-striped">
             <thead class="whitespace-nowrap">
                 <tr>
@@ -62,7 +64,11 @@
                     <th>InstId</th>
                     <th>Roles</th>
                     <th>Email</th>
-                    <th>Edit</th>
+                    @if (User.IsInRole("SuperAdmin"))
+                    {
+                        <th>Edit</th>
+                    }
+
                 </tr>
             </thead>
             <tbody class="whitespace-nowrap">
@@ -75,8 +81,12 @@
                         <td>@item.InstId</td>
                         <td>@item.Roles</td>
                         <td>@item.Email</td>
-                        <td>@Html.ActionLink("Edit Profile", "ProfileEdit", "Manage", new RouteValueDictionary { { "userId", item.Id } }, null)</td>
-                        <td hidden>@item.Id</td>
+                        @if (User.IsInRole("SuperAdmin"))
+                        {
+                            <td>@Html.ActionLink("Edit Profile", "ProfileEdit", "Manage", new RouteValueDictionary { { "userId", item.Id } }, null)</td>
+                            <td hidden>@item.Id</td>
+                        }
+
                         @*<td>@Html.ActionLink("Edit Profile", "ProfileEdit", "Manage", new { id = item.Id })</td>*@
 
 

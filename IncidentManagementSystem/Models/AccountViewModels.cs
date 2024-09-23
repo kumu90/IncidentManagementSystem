@@ -98,8 +98,8 @@ namespace IncidentManagementSystem.Models
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
         
-        [Required]
-        public string Name { get; set; }
+        //[Required]
+        //public string Name { get; set; }
     }
 
     public class ResetPasswordViewModel
@@ -134,29 +134,35 @@ namespace IncidentManagementSystem.Models
     /// custom model
     public class EditProfileViewModel
     {
+        public string Id { get; set; }
         public string UserName { get; set; }
 
         [Display(Name = "Roles")]
-        [Required]
         public string UserRole_Id { get; set; }
 
-        [Required]
         [StringLength(100, MinimumLength = 6, ErrorMessage = "Password must be between 6 and 100 characters.")]
         [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$",
         ErrorMessage = "Password must be at least 6 characters long and include one uppercase letter, one lowercase letter, one number, and one special character.")]
         [Display(Name = "New Password")]
         public string Password { get; set; }
-
         [DataType(DataType.Password)]
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
-        public string InstitutionName { get; set; }
-        public string Email { get; set; }
-        public string Country { get; set; } 
-        public string State { get; set; }
-        public string ZipCode { get; set; }
-        public string ContactNumber { get; set; }
+        public bool ShowPartialView { get; set; }
+        public bool UpdateUserName { get; set; }
+        [Display(Name = "New UserName")]
+        public string NewUserName {  get; set; }
+        [Display(Name = "New Role")]
+        public string UserRoleId {  get; set; }
+
+        
+        //public string InstitutionName { get; set; }
+        //public string Email { get; set; }
+        //public string Country { get; set; } 
+        //public string State { get; set; }
+        //public string ZipCode { get; set; }
+        //public string ContactNumber { get; set; }
 
     }
 }

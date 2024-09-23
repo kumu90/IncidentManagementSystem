@@ -174,7 +174,7 @@ namespace IncidentManagementSystem.Controllers
         //}
         //
         // GET: /Account/Register
-        [AllowAnonymous]
+        [Authorize(Roles = "SuperAdmin")]
         public ActionResult Register()
         {
             Initialize();
@@ -186,7 +186,7 @@ namespace IncidentManagementSystem.Controllers
         //
         // POST: /Account/Register
         [HttpPost]
-        [AllowAnonymous]
+        //[AllowAnonymous]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "SuperAdmin")]
         public async Task<ActionResult> Register(RegisterViewModel model)
@@ -197,7 +197,7 @@ namespace IncidentManagementSystem.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await this.UserManager.AddToRoleAsync(user.Id, model.UserName);
+                    await this.UserManager.AddToRoleAsync(user.Id,model.UserRole_Id);
                     //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771

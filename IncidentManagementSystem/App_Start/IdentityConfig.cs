@@ -86,6 +86,31 @@ namespace IncidentManagementSystem
             }
             return manager;
         }
+
+        internal async Task AddToRoleAsync(ApplicationUser user, string userRoleId)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal async Task AddToRoleAsync(ApplicationUser user, object value)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal async Task<string[]> GetRolesAsync(ApplicationUser user)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal async Task RemoveFromRolesAsync(ApplicationUser user, string[] currentRoles)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal async Task RemoveFromRolesAsync(string id, IList<string> currentRoles)
+        {
+            throw new NotImplementedException();
+        }
     }
 
     // Configure the application sign-in manager which is used in this application.

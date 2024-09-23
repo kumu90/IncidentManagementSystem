@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using IncidentManagementSystem.Model;
 using IncidentManagementSystem.Service;
 using System.Web.Security;
+using System.Security.Claims;
 
 namespace IncidentManagementSystem.Controllers
 {
@@ -47,9 +48,9 @@ namespace IncidentManagementSystem.Controllers
             {
                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
-            private set 
-            { 
-                _signInManager = value; 
+            private set
+            {
+                _signInManager = value;
             }
         }
 
@@ -96,105 +97,182 @@ namespace IncidentManagementSystem.Controllers
             //var InsId = _iInstitutionService.GetInstName(userId);
             //ViewBag.Institution = new SelectList(InsId, "InstId", "InstitutionName");
 
+            //List<IncidentManagementSystem.Model.Roles> role = _iInstitutionService.RoleList();
+            //ViewBag.UserRole = new SelectList(role, "Id", "Name");
             List<IncidentManagementSystem.Model.Roles> role = _iInstitutionService.RoleList();
-            ViewBag.UserRole = new SelectList(role, "Id", "Name");
+            ViewBag.UserRole = new SelectList(role, "Name", "Name");
 
         }
 
         //Custom Profile Edit //
         // GET: /Manage/Index
         [HttpGet]
-        public async Task<ActionResult> ProfileEdit(/*string userId*/)
+        public async Task<ActionResult> ProfileEdit(string userId)
         {
             Initialize();
-            var userId = User.Identity.GetUserId(); // use the user.identity.getuserid() to get the current user id
-            //var user = _userManager.FindById(userId);
             var user = await UserManager.FindByIdAsync(userId);
-            List<IncidentManagementSystem.Model.Roles> role = _iInstitutionService.RoleList();
-            ViewBag.UserRole = new SelectList(role, "Name", "Name");
-            //var user = _iUserService.EditUserProfile(userId);
+
+
+            var currentRoles = await UserManager.GetRolesAsync(user.Id);
+
             var model = new EditProfileViewModel
             {
                 UserName = user.UserName,
-                //UserRole_Id = ,
+                Id = user.Id,
+                UserRole_Id = currentRoles.FirstOrDefault(),
             };
             return View(model);
         }
 
-        // POST: /Manage/Index
+        //POST: /Manage/Index
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ProfileEdit(EditProfileViewModel model)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                return View(model);
-            }
+                var user = await UserManager.FindByIdAsync(model.Id);
+                if (user != null)
+                {
+                    //update username
+                    if ((!string.IsNullOrEmpty(model.NewUserName)) && model.NewUserName != user.UserName)
+                    {
+                        user.UserName = model.NewUserName;
+                        var userUpdateResult = await UserManager.UpdateAsync(user);
+                        if (!userUpdateResult.Succeeded)
+                        {
+                            // Handle errors if user update failed
+                            foreach (var error in userUpdateResult.Errors)
+                            {
+                                ModelState.AddModelError("", error);
+                            }
+                            ViewBag.TaskStatus = "99"; // Indicating failure
+                            ViewBag.TaskMessage = "Failed to update username.";
+                            return View(model); // Return the view with the model containing the errors
+                        }
+                        else
+                        {
+                            ViewBag.TaskStatus = "00"; // Indicating success
+                            ViewBag.TaskMessage = "Username updated successfully!";
+                        }
+                    }
+                    //update password
+                    if (model.ShowPartialView && !string.IsNullOrEmpty(model.Password))
+                    {
+                        UserManager.RemovePassword(model.Id);
+                        var result = await UserManager.AddPasswordAsync(user.Id, model.Password);
+                        if (result.Succeeded)
+                        {
+                            ViewBag.TaskStatus = "00"; // Indicating success
+                            ViewBag.TaskMessage = "Password updated successfully!";
+                            //return RedirectToAction(nameof(Index));
+                        }
+                        else
+                        {
+                            ViewBag.TaskStatus = "99"; // Indicating failure
+                            ViewBag.TaskMessage = "Failed to update password.";
+                            return View(model);
+                        }
+                    }
+                    //Update Role
+                    if (!string.IsNullOrEmpty(model.UserRoleId))
+                    {
+                        var removeResult = await UserManager.RemoveFromRolesAsync(user.Id, model.UserRole_Id);
 
-            var userId = User.Identity.GetUserId();
-            var user = _userManager.FindById(userId);
-            user.UserName = model.UserName;
-           
+                        var Result = await UserManager.AddToRoleAsync(user.Id, model.UserRoleId);
+                        if (!Result.Succeeded)
+                        {
+                            foreach (var error in Result.Errors)
+                            {
+                                ModelState.AddModelError("", error);
+                            }
+                            ViewBag.TaskStatus = "99";
+                            ViewBag.TaskMessage = "Failed to add new role.";
+                            return View(model);
+                        }
+                        else
+                        {
+                            ViewBag.TaskStatus = "00";
+                            ViewBag.TaskMessage = "Role updated successfully!";
+                        }
+                    }
+                  
+                }
+                else
+                {
+                    ModelState.AddModelError("", "User not found.");
+                }
 
-            var result = await _userManager.UpdateAsync(user);
-            if (result.Succeeded)
-            {
-              
-                return RedirectToAction(nameof(Index));
-            }
-
-            foreach (var error in result.Errors)
-            {
-                ModelState.AddModelError("", error);
             }
             Initialize();
+            ViewBag.TaskStatus = "00";
+            ViewBag.TaskMessage = "Profile updated successfully!";
+            //await _userManager.UpdateAsync(user);
             return View(model);
         }
 
-        [HttpGet]
-        public async Task<ActionResult> EditUser(string userId)
-        {
-            //var userId = User.Identity.GetUserId(); // use the user.identity.getuserid() to get the current user id
-            ////var user = _userManager.FindById(userId);
-            var user = await UserManager.FindByIdAsync(userId);
-            //EditProfileViewModel model = _iUserService.EditUserProfile(userId);
-            //var UserDtl = _iUserService.EditUserProfile(userId);
-           
-            var model = new EditProfileViewModel
-            {
-                UserName = user.UserName,
-                //NewPassword = user.NewPassword,
+        //[HttpGet]
+        //public async Task<ActionResult> EditUser(string userId)
+        //{
+        //    Initialize();
+        //    var user = await UserManager.FindByIdAsync(userId);
 
-            };
-            return PartialView("EditUser", model);
-        }
+        //    var model = new EditProfileViewModel
+        //    {
+        //        UserName = user.UserName,
+        //        //Id = userId,
+        //        Id = user.Id,
+        //    };
+        //    //ViewBag.userId = userId;
+        //    return PartialView("EditUser", model);
+        //}
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> EditUser(UserInfo model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(model); // Return the view with validation errors
-            }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<ActionResult> EditUser(EditProfileViewModel model)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return PartialView("EditUser", model); // Return the view with validation errors
+        //    }
 
-            var userId = User.Identity.GetUserId(); // Retrieve the current user id
-            var user = await UserManager.FindByIdAsync(userId);
-         
+        //    var user = await _userManager.FindByIdAsync(model.Id);
+        //    user.UserName = model.UserName;
+        //    // If a password is provided, update it
+        //    if (!string.IsNullOrEmpty(model.Password))
+        //    {
+        //        var passwordUpdateResult = await UpdatePasswordBySuperAdmin(UserManager, user, model.Password, User as ClaimsPrincipal);
+        //        if (!passwordUpdateResult.Succeeded)
+        //        {
+        //            foreach (var error in passwordUpdateResult.Errors)
+        //            {
+        //                ModelState.AddModelError(string.Empty, error);
+        //            }
+        //            return PartialView("EditUser", model); // Return with errors
+        //        }
+        //    }
 
-            // Change the user's password
-            var result = await UserManager.ChangePasswordAsync(userId, model.Password, model.ConfirmPassword);
-            if (result.Succeeded)
-            {
-                // Handle successful password change
-                return RedirectToAction("Index", "Home"); // Redirect to a different action or view
-            }
+        //    // Update the user in the database
+        //    var updateResult = await _userManager.UpdateAsync(user);
+        //    if (!updateResult.Succeeded)
+        //    {
+        //        foreach (var error in updateResult.Errors)
+        //        {
+        //            ModelState.AddModelError(string.Empty, error);
+        //        }
+        //        return PartialView("EditUser", model); // Return with errors
+        //    }
 
-            
+        //    TempData["SuccessMessage"] = "User updated successfully.";
+        //    return RedirectToAction("Index"); // Redirect to an appropriate page
+        //}
 
-            return View(model); // Return the view with error messages
-        }
-
+        //private async Task<IdentityResult> UpdatePasswordBySuperAdmin(UserManager<ApplicationUser> userManager, ApplicationUser user, string newPassword, ClaimsPrincipal currentUser)
+        //{
+        //    // Remove the existing password
+        //    var token = await userManager.GeneratePasswordResetTokenAsync(user.Id);
+        //    return await userManager.ResetPasswordAsync(user.Id, token, newPassword);
+        //}
 
         //
         // POST: /Manage/RemoveLogin
@@ -454,7 +532,7 @@ namespace IncidentManagementSystem.Controllers
             base.Dispose(disposing);
         }
 
-#region Helpers
+        #region Helpers
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
 
@@ -505,6 +583,6 @@ namespace IncidentManagementSystem.Controllers
             Error
         }
 
-#endregion
+        #endregion
     }
 }

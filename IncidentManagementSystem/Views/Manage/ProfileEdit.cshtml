@@ -3,17 +3,18 @@
     ViewBag.Title = "ProfileEdit";
 }
 
-<div class="container reg">
+<div class="container-fluid reg">
     <div class="row ">
         <div class="col-md-6 text">
             <span class="page input-icon">Profile</span>
             <span class="detail">Edit Profile</span>
         </div>
     </div>
-    @using (Html.BeginForm("EditUser", "Manage", FormMethod.Post, new { id = "loadupdate", enctype = "multipart/form-data" }))
+    @using (Html.BeginForm("ProfileEdit", "Manage", FormMethod.Post, new { id = "loadupdate", enctype = "multipart/form-data" }))
     {
-        @*@Html.AntiForgeryToken()
-            @Html.ValidationSummary("", new { @class = "text-danger" })*@
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary("", new { @class = "text-danger" })
+        @Html.HiddenFor(m => m.Id);
 
         <div class="row">
             <div class="col-md-12 col-lg-12" style="padding:8px; border-radius:8px; background:white;">
@@ -21,28 +22,77 @@
                 <div class="form-group row mb-3 mt-2">
                     @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 col-form-label l-user" })
                     <div class="col-md-4">
-                        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control u-box" })
+                        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control u-box" ,@readonly = "readonly" })
                     </div>
                 </div>
+
                 <div class="form-group row mb-3">
                     @Html.LabelFor(m => m.UserRole_Id, new { @class = "col-md-2 col-form-label l-user" })
                     <div class="col-md-4">
-                        @*@Html.TextBoxFor(m => m.UserRole_Id, new { @class = "form-control u-box" })*@
-                        @Html.DropDownListFor(m => m.UserRole_Id, ViewBag.UserRole as SelectList, "-Select Role-", new { @class = "form-select u-box" })
-                        @*<input type="text" name="UserName" value="@ViewBag.SelectedRoleId" class="form-control u-box" />*@
+                        @Html.TextBoxFor(m => m.UserRole_Id, new {@class= "form-control", @readonly="readonly"})
+                        @*@Html.DropDownListFor(m => m.UserRole_Id, ViewBag.UserRole as SelectList, "-Select Role-", new { @class = "form-select u-box" })*@
+
                     </div>
                 </div>
+
+                @*<div class="form-group row mb-3">
+                        <div class="col-md-2">
+                            @Html.CheckBoxFor(m => m.UpdateUserName)
+                            <label for="UpdateUserName">Update Username</label>
+                        </div>
+                    </div>
+
+                    <div id="usernameUpdateContainer" style="display: @(Model.UpdateUserName ? "block" : "none")">
+                        <div class="form-group row mb-3 mt-2">
+                            @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 col-form-label l-user" })
+                            <div class="col-md-4">
+                                @Html.TextBoxFor(m => m.UserName, new { @class = "form-control u-box" })
+                            </div>
+                        </div>
+                    </div>*@
+
                 <div class="form-group row mb-3">
                     <div class="col-md-2">
-                        <input type="checkbox" id="showPartialView" />
-                        <label for="showPartialView">Update User Password</label>
+                        @Html.CheckBoxFor(m => m.ShowPartialView)
+                        <label for="ShowPartialView">Update User Profile</label>
                     </div>
                 </div>
-                <div id="partialupdateContainer" style="display: none;">
-                    @*@Html.Action("EditUser", "Manage")*@
-                    @Html.Partial("EditUser")
-                    @*EditUser*@
+
+                <div id="partialupdateContainer" style="display: @(Model.ShowPartialView ? "block" : "none")">
+                    <div class="form-group row mb-3 mt-2">
+                        @Html.LabelFor(m => m.NewUserName, new { @class = "col-md-2 col-form-label l-user" })
+                        <div class="col-md-4">
+                            @Html.TextBoxFor(m => m.NewUserName, new { @class = "form-control u-box" })
+                        </div>
+                    </div>
+                    <div class="form-group row mb-3 mt-2">
+                        @Html.LabelFor(m => m.UserRoleId, new { @class = "col-md-2 col-form-label l-user" })
+                        <div class="col-md-4">
+
+                            @Html.DropDownListFor(m => m.UserRoleId, ViewBag.UserRole as SelectList, "-Select Role-", new { @class = "form-select u-box" })
+
+                        </div>
+                    </div>
+
+
+                    <div class="form-group row mb-3 mt-2">
+                        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 col-form-label l-user" })
+                        <div class="col-md-4">
+                            @Html.PasswordFor(m => m.Password, new { @class = "form-control u-box" })
+                        </div>
+                    </div>
+                    <div class="form-group row mb-3 mt-2">
+                        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 col-form-label l-user" })
+                        <div class="col-md-4">
+                            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control u-box" })
+                        </div>
+                    </div>
                 </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Update Profile</button>
+                 
+                </div>
+              
             </div>
 
         </div>
@@ -50,20 +100,85 @@
     }
 </div>
 
+<div class="modal" tabindex="-1" role="dialog" id="modalTaskComplete" aria-labelledby="modalTaskCompleteLabel" aria-hidden="true" style="margin-top:12rem;">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content  col-md-9">
+            <div class="modal-header text-center">
+                <h4 class="modal-title" id="modalTaskCompleteLabel">Status</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body text-center">
+                <h4 class="@(@ViewBag.TaskStatus == "00" ? "text-success" : "text-danger")">@ViewBag.TaskMessage</h4>
+            </div>
+            <div class="modal-footer" style="padding:8px 8px 16px 8px;margin-top:0px">
+                @if (@ViewBag.TaskStatus == "00")
+                {
+                    <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal" onclick="location.href='@Url.Action("Index", "User")'">Okay</button>
+                }
+                else
+                {
+                    <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal" onclick="location.href='@Url.Action("ProfileEdit", "Manage")'">Okay</button>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
+    //$(document).ready(function () {
+    //    $('#ShowPartialView').change(function () {
+    //        if (this.checked) {
+    //            // Show the container
+    //            $('#partialupdateContainer').show();
+    //        } else {
+    //            // Hide the container
+    //            $('#partialupdateContainer').hide();
+    //        }
+    //    });
+
+    //    // Optional: Trigger the change event on page load to set the initial state
+    //    $('#showPartialView').trigger('change');
+    //});
+
     $(document).ready(function () {
-        $('#showPartialView').change(function () {
-            if (this.checked) {
-                // Show the container
-                $('#partialupdateContainer').show();
+        // Function to toggle the password fields
+        function togglePasswordFields() {
+            if ($('#ShowPartialView').is(':checked')) {
+                $('#partialupdateContainer').show(true);
             } else {
-                // Hide the container
                 $('#partialupdateContainer').hide();
+            }
+        }
+        //// Function to toggle the username fields
+        //function toggleUsernameFields() {
+        //    $('#usernameUpdateContainer').toggle($('#UpdateUserName').is(':checked'));
+        //}
+        // Attach change event to the checkbox
+        $('#ShowPartialView').change(togglePasswordFields);
+        /* $('#UpdateUserName').change(toggleUsernameFields);*/
+
+        // Trigger the function on page load to set initial visibility
+        togglePasswordFields();
+        /* toggleUsernameFields();*/
+    });
+</script>
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            debugger;
+            var status= '@ViewBag.TaskStatus';
+            if (status !== null && status !== '')
+            {
+                $("#modalTaskComplete").show();
             }
         });
 
-        // Optional: Trigger the change event on page load to set the initial state
-        $('#showPartialView').trigger('change');
-    });
-</script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+}
